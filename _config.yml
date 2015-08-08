@@ -1,0 +1,39 @@
+# Permalinks
+#
+# Use of `relative_permalinks` ensures post links from the index work properly.
+permalink: pretty
+relative_permalinks: true
+
+# Setup
+title:               Joseph Fusco
+tagline:             Front End Web Developer, SASStronaught, Dad.
+url:                 http://josephfus.co
+paginate:            1
+baseurl:             ""
+
+markdown: redcarpet
+redcarpet:
+  extensions: ["tables", "fenced_code_blocks"]
+
+# Assets
+#
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  sass_dir:          _sass
+  style:            :compressed
+
+pages_list:
+  About: '/about'
+  Archive: '/archive'
+  Feed: '/atom.xml'
+
+# About/contact
+author:
+  name:              Joseph Fusco
+  url:               https://twitter.com/heyfusco
+  email:             hello@josephfus.co
+
+# Custom vars
+version:             1.0.0
+github:
+  repo:              https://github.com/josephfusco/josephfusco.github.io
