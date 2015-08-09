@@ -47,7 +47,7 @@ So back to that checkbox…
 
 We will be using the checked pseudo-class selector. Our label is directly underneath the input, which will allow us to use an adjacent sibling selector, because sometimes it’s nice to have less HTML markup, and those things are super duper cool.
 
-```css
+```scss
 #menu-trigger {
   display: none;
 }
@@ -78,7 +78,7 @@ Occasionally the MENU text will become selected from a double click. We can prev
 
 Our menu will be wrapped in a header which will be fixed, and moved off canvas to the left, negating the width. You’re going to want overflow on auto to prevent smaller screens from being handicapped with navigating your website.
 
-```css
+```scss
 header {
 	background-color: #333;
 	height: 100%;
@@ -111,7 +111,7 @@ ul.menu > li > a:hover {
 
 Creating a content wrapper is not necessary, but it does add to the overall effect, allowing the page to be pushed off to the right while the menu is coming into view.
 
-```css
+```scss
 body {
 	overflow-x: hidden; // prevent a horizontal scrollbar from pushing the content right
 }
@@ -126,7 +126,7 @@ body {
 
 Use the checked selector to move all 3 parts accordingly. Remember that the initial state should have a transition applied to create the sliding effect.
 
-```css
+```scss
 #menu-trigger:checked + label {
 	-webkit-transform: translateX(250px);
 	-ms-transform: translateX(250px);

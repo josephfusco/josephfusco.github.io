@@ -19,6 +19,17 @@
   margin-top: 0;
 }
 
+.content-wrap {
+  a {
+    border-bottom: 2px solid #eee;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    &:hover, &:focus {
+      border-color: #555;
+    }
+  }
+}
+
 // Meta data line below post title
 .post-date {
   display: block;
@@ -58,4 +69,9 @@
       }
     }
   }
+}
+
+// archive
+.post-title {
+  display: block;
 }
