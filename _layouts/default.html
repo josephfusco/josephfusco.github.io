@@ -62,6 +62,11 @@
       <header>
         <div class="h-wrap">
           <h1 class="title"><a href="{{ site.baseurl | split:'/' | join:'/' | append:'/'  }}" title="Back to Homepage">{{ site.name }}<span class="cursor blinking">_</span></a></h1>
+          <ul>
+          {% for page in site.pages_list %}
+            <li><a href="{{ page[1]  }}">{{ page[0] }}</a></li>
+          {% endfor %}
+          </ul>
           <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
         </div>
       </header>
@@ -87,10 +92,8 @@
           {% if site.linkedin %}
           <li><a target="_blank" href="https://linkedin.com/in/{{ site.linkedin }}" title="LinkedIn"><i class="icon-linkedin"></i></a></li>
           {% endif %}
-          {% comment %} Always Show Feed {% endcomment %}
-          <li><a target="_blank" href="/atom.xml" title="feed"><i class="icon-feed"></i></a></li>
         </ul>
-        <small><a href="http://github.com/josephfusco/josephfusco.github.io">View Source</a> - &copy; {{ site.author }}</small>
+        <small><a href="/atom.xml">Feed</a> - <a href="http://github.com/josephfusco/josephfusco.github.io">View Source</a> - &copy; {{ site.author }}</small>
       </footer>
 
     </div>
