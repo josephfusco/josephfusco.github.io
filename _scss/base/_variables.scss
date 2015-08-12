@@ -1,6 +1,6 @@
 // Colors
-
-$main-color:        #5AD07D;
+//
+$main-color:       	#4D11FF;
 
 $bg-color:          white;
 
@@ -11,7 +11,7 @@ $smoke-color:       #fafafa;
 
 
 // Typography
-
+//
 $font-family:       'Open Sans', sans-serif;
 $variant-family:    'Lora', Georgia, serif;
 $font-size-l:       1.25em; // font-size on desktop type screens
@@ -20,7 +20,7 @@ $font-size-s:       $font-size-l * 0.7; // font-size under 642px wide screens
 
 
 // Spacings
-
+//
 $spacing-xs:        .5em;
 $spacing-s:         $spacing-xs * 2;
 $spacing-sm:        $spacing-s + $spacing-xs;
