@@ -30,7 +30,7 @@ Here are a few websites I have either created or helped build.
 
 Working with [WordPress](http://wordpress.org) daily, I have dabbled in plugin development in addition to building themes from the ground up.
 
-+ **[Advanced Custom Fields Viewer](https://wordpress.org/support/plugin/advanced-custom-fields-viewer)**
++ **[Advanced Custom Fields Viewer](https://wordpress.org/plugins/advanced-custom-fields-viewer/)**
 
 -----
 
