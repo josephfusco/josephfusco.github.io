@@ -24,7 +24,7 @@ sass:
 
 pages_list:
   About: '/about'
-  Archive: '/archive'
+  Archive: '/blog'
   Feed: '/atom.xml'
 
 # About/contact
