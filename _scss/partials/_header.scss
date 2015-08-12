@@ -18,6 +18,7 @@ header {
     padding: 0;
     font-weight: normal;
     a {
+      @extend %transition;
       color: $text-color;
       text-decoration: none;
       &:hover {
@@ -25,6 +26,34 @@ header {
       }
     }
   } // end h1.title
+
+  ul {
+    list-style-type: none;
+    display: inline-block;
+    margin-left: 30px;
+    li {
+      list-style: none;
+      display: inline-block;
+
+      + li {
+        margin-left: 20px;
+      }
+
+      a {
+        @extend %transition;
+        color: #999;
+        text-decoration: none;
+        &:hover, &:focus {
+          color: $link-color;
+        }
+      }
+
+    }
+
+    @media (max-width: 800px){
+      display: none;
+    }
+  }
 
   .close {
     .lines {
@@ -68,6 +97,9 @@ header {
   right: 0;
   cursor: pointer;
   z-index: 200;
+  @media (min-width: 801px){
+    display: none;
+  }
   &:hover {
     @include opacity(1);
   }
