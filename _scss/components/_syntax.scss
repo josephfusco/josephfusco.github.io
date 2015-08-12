@@ -4,16 +4,19 @@
 .highlight {
   border: 1px solid $border-color;
   border-radius: 3px;
-  padding: $spacing-s $spacing-s;
+  padding: 0;
   background-color: $smoke-color;
   font-size: 80%;
   margin: $spacing-m auto;
-  overflow: scroll;
   color: lighten($text-color, 30%);
-  overflow: auto;
-  overflow-y: hidden;
   -ms-overflow-y: hidden;
+  overflow-y: hidden;
+  overflow-x: auto;
   white-space: nowrap;
+
+  pre {
+      padding: $spacing-s $spacing-s;
+  }
 }
 
 code {
