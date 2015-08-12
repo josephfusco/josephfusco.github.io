@@ -62,6 +62,7 @@ header {
 
 .menu-icon {
   @extend %padding-large;
+  @include no-select();
   position: absolute;
   top: 0;
   right: 0;
