@@ -43,14 +43,16 @@ header {
       }
 
       &::before {
-        transform:         rotate(45deg);
         -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
         margin: 0;
       }
 
       &::after {
-        transform:         rotate(-45deg);
         -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
         margin: 0;
       }
 
@@ -87,9 +89,10 @@ header {
       height: 2px;
       background: $text-color;
       border-radius: 20px;
-
-      transition: all .3s ease;
+      
       -webkit-transition: all .3s ease;
+      transition: all .3s ease;
+
     }
 
     &::before { top: 8px; }
@@ -99,13 +102,15 @@ header {
       background: transparent;
       &::before {
         top: 0;
-        transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
       }
       &::after {
         top: 0;
-        transform: rotate(-45deg);
         -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
       }
     }
   } // .lines
@@ -140,7 +145,6 @@ header {
   background: $smoke-color;
   z-index: 100;
   overflow: scroll;
-  will-change: right;
 
   // insuring that off-canvas doesn't take more than the average iPhone portrait width under 400px
   @media (max-width: 399px) {
@@ -148,7 +152,9 @@ header {
   }
 
   &.toggled {
-    right: 0;
+    -webkit-transform: translateX(-25em);
+    -ms-transform: translateX(-25em);
+    transform: translateX(-25em);
     border-left: 1px solid $border-color;
   }
 
