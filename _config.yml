@@ -21,6 +21,11 @@ codepen: fusco
 wordpress: joefusco
 linkedin: josephfusco3
 
+#gems
+
+gems:
+  - jekyll-redirect-from
+
 # Google Analytics (you may want to changes these with yours or even delete :)
 
 ga_domain: josephfus.co
