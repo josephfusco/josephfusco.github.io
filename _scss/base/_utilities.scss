@@ -1,8 +1,10 @@
 %transition {
+	-webkit-transition: all .3s ease;
 	transition: all .3s ease;
 }
 
 %transition-quick {
+	-webkit-transition: all .3s cubic-bezier(0.165, 0.775, 0.145, 1.020);
 	transition: all .3s cubic-bezier(0.165, 0.775, 0.145, 1.020);
 }
 
