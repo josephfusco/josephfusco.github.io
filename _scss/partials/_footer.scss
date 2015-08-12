@@ -9,14 +9,18 @@ footer {
 
 .social-links {
 	margin: 1em 0;
+	cursor: default;
 	li {
 		display: inline-block;
 		+ li {
 			margin-left: 10px;
 		}
 		a {
-			color: $text-color;
+			@extend %transition;
+			cursor: pointer;
 			border-bottom: none;
+			font-size: 28px;
+			color: #999;
 			&:hover, &:focus {
 				color: $link-color;
 			}
