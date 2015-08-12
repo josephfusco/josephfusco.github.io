@@ -3,12 +3,27 @@ window.onload = function() {
     var $menuIcon = document.getElementsByClassName('menu-icon')[0],
         $offCanva = document.getElementsByClassName('off-canvas')[0];
         $siteWrap = document.getElementsByClassName('site-wrapper')[0];
+        $clickTra = document.getElementsByClassName('click-trap')[0];
 
     $menuIcon.addEventListener('click', function() {
         toggleClass($menuIcon, 'close');
         toggleClass($offCanva, 'toggled');
         toggleClass($siteWrap, 'open');
 
+        if (hasClass($clickTra, "active")) {
+            removeClass($clickTra, 'active');
+        } else {
+            addClass($clickTra, 'active');
+        }
+
+
+    }, false);
+
+    $clickTra.addEventListener('click', function() {
+        removeClass($menuIcon, 'close');
+        removeClass($offCanva, 'toggled');
+        removeClass($siteWrap, 'open');
+        removeClass($clickTra, 'active');
     }, false);
 
     $menuIcon.addEventListener('mouseenter', function() {
@@ -28,6 +43,10 @@ window.onload = function() {
         // additions and removals from leaving lots of spaces.
         var classNameRegEx = new RegExp("\\s*" + className + "\\s*");
         element.className = element.className.replace(classNameRegEx, " ");
+    }
+
+    function hasClass(el, cls) {
+        return el.className && new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className);
     }
 
     function toggleClass(element, className) {
