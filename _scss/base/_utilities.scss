@@ -1,0 +1,15 @@
+%transition {
+	transition: all .3s ease;
+}
+
+%transition-quick {
+	transition: all .3s cubic-bezier(0.165, 0.775, 0.145, 1.020);
+}
+
+%padding-regular {
+	padding: $spacing-s;
+}
+
+%padding-large {
+	padding: $spacing-m;
+}

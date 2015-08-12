@@ -2,10 +2,11 @@
 layout: default
 ---
 
-<header class="col-2">
-	<h1 class="page-title">{{ page.title }}</h1>
-</header>
-
-<article class="col-4 page">
-	{{ content }}
-</article>
+<section class="single-wrap">
+  <article class="single-content">
+    <h1 class="page-title" itemprop="name headline">{{ page.title }}</h1>
+    <div itemprop="articleBody">
+      {{ content }}
+    </div>
+  </article>
+</section>

@@ -1,0 +1,17 @@
+@-webkit-keyframes blinking {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@keyframes blinking {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}

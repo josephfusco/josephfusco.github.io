@@ -1,39 +1,52 @@
-# Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
-permalink: pretty
-relative_permalinks: true
+# Title of your blog; shows in the header
+name: "Joseph Fusco"
 
-# Setup
-title:               Joseph Fusco
-tagline:             Front End Web Developer, SASStronaught, Dad.
-url:                 http://josephfus.co
-paginate:            1
-baseurl:             ""
+# Description of your content (will only be used on Google Search)
+description: "Front-End Developer"
+
+# Your name. Will show in your footer + sidebar
+author: "Joseph Fusco"
+
+url: "http://m3xm.github.io"
+baseurl: ""
+
+# A short presentation of yourself. Will show in the sidebar, under your name. Best usage would be between 30 to 50 words.
+author-bio: "Front End Developer"
+
+# Social Accounts (mine, as placeholders)
+
+twitter: heyfusco
+github: josephfusco
+codepen: fusco
+wordpress: joefusco
+linkedin: josephfusco3
+
+# Google Analytics (you may want to changes these with yours or even delete :)
+
+ga_domain: josephfus.co
+ga_tracking_id: UA-57969250-1
+
+#pages
+
+pages_list:
+  About: '/about/'
+  Archive: '/'
+  Feed: '/atom.xml'
+
+# Other (refer to http://jekyllrb.com/docs/home/ for further details on the below)
 
 markdown: redcarpet
 redcarpet:
   extensions: ["tables", "fenced_code_blocks"]
 
-# Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
+permalink: pretty
+highlighter: pygments
+
+paginate: 10
+paginate_path: "/page/:num"
+
+# SCSS
+
 sass:
-  sass_dir:          _sass
-  style:            :compressed
-
-pages_list:
-  About: '/about'
-  Archive: '/blog'
-  Feed: '/atom.xml'
-
-# About/contact
-author:
-  name:              Joseph Fusco
-  url:               https://twitter.com/heyfusco
-  email:             hello@josephfus.co
-
-# Custom vars
-version:             1.0.0
-github:
-  repo:              https://github.com/josephfusco/josephfusco.github.io
+  sass_dir: _scss
+  style: :compressed

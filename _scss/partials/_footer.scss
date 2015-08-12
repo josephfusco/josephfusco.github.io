@@ -1,0 +1,25 @@
+footer {
+	@extend %padding-large;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+	small { text-transform: uppercase; }
+}
+
+.social-links {
+	margin: 1em 0;
+	li {
+		display: inline-block;
+		+ li {
+			margin-left: 10px;
+		}
+		a {
+			color: $text-color;
+			border-bottom: none;
+			&:hover, &:focus {
+				color: $link-color;
+			}
+		}
+	}
+}
