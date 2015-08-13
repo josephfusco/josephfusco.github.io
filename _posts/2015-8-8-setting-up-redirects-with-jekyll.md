@@ -2,7 +2,7 @@
 layout: post
 title: Setting Up Redirects With Jekyll
 permalink: setting-up-redirects-with-jekyll
-comments: true
+comments: false
 ---
 
 If you are hosting your Jekyll site on GitHub like myself, there are some sacrifcies that have to be made. Unfortunately GitHub Pages does not support `.htaccess`. This leaves you with very few options for redirects. I came across this awesome plugin [Jekyll Redirect From](https://github.com/jekyll/jekyll-redirect-from) which allows you to setup redirections quite easily.
