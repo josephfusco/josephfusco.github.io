@@ -2,7 +2,7 @@
 layout: post
 title: Converting .psd to .png the Fast Way
 permalink: coverting-psd-to-png-the-fast-way
-comments: true
+comments: false
 ---
 
 As a front end developer, there are times where you need to quickly reference a design. At the time of writing this, I had a folder of about 25 .psd files I was sent that I needed smaller more manageable 'previews' of. I didn't want to go through each file and export as a png, or even open up Photoshop at all! So here is what I came up with.
