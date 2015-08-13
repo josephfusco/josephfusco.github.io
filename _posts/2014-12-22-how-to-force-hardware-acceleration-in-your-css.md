@@ -2,7 +2,7 @@
 layout: post
 title: How To Force Hardware Acceleration In Your CSS
 permalink: how-to-force-hardware-acceleration-in-your-css
-comments: true
+comments: false
 ---
 
 Looking to make your CSS animations buttery smooth?  Maybe you should push off that task to the GPU (Graphics Processing Unit).  This offloading is known as hardware acceleration.  Certain properties such as 3d transformations are already handled by the GPU, but we can also trick browsers into it as well.
