@@ -50,9 +50,6 @@ header {
 
     }
 
-    @media (max-width: 800px){
-      display: none;
-    }
   }
 
   .close {
@@ -97,9 +94,7 @@ header {
   right: 0;
   cursor: pointer;
   z-index: 200;
-  @media (min-width: 801px){
-    display: none;
-  }
+
   &:hover {
     @include opacity(1);
   }
