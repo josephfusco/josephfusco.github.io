@@ -63,11 +63,6 @@
       <header>
         <div class="h-wrap">
           <h1 class="title"><a href="{{ site.baseurl | split:'/' | join:'/' | append:'/'  }}" title="Back to Homepage">{{ site.name }}<span class="cursor blinking">_</span></a></h1>
-          <ul>
-          {% for page in site.pages_list %}
-            <li><a href="{{ page[1]  }}">{{ page[0] }}</a></li>
-          {% endfor %}
-          </ul>
           <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
         </div>
       </header>
