@@ -15,9 +15,18 @@ I also have my own company, [Whitetail Development Inc](http://whitetail.io) in 
 
 ## Projects
 
-### Tools
+### Featured Work On Codepen
 
-Development tools I've created to help speed up workflows.
++ **[CSS Tabs - Transitioning Between Variable Heights](http://codepen.io/fusco/pen/Wvzjrm)**
++ **[SASS Candle Flicker](http://codepen.io/fusco/pen/NPxzPV)**
++ **[CSS Unicode Star Rating](http://codepen.io/fusco/pen/MwawEL)**
++ **[Halt & Catch Fire Intro](http://codepen.io/fusco/pen/BNEmRB)**
++ **[Pulsing Donut](http://codepen.io/fusco/pen/yYBqvr)**
++ **[Neon Sign](http://codepen.io/fusco/pen/kdyut)**
++ **[iMessage Typing Indicator](http://codepen.io/fusco/pen/XbpaYv)**
++ **[Menu to Close Arrow](http://codepen.io/fusco/pen/vigaB)**
+
+### Development Tools
 
 + **[select64](http://select64.josephfus.co)**
 
