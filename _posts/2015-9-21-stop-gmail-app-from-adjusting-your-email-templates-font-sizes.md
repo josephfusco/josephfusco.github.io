@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Stop Gmail App From Adjusting Your Template's Font Sizes
-permalink: stop-gmail-app-from-adjusting-your-templates-font-sizes
+title: Stop Gmail App From Adjusting Your Email Template's Font Sizes
+permalink: stop-gmail-app-from-adjusting-your-email-templates-font-sizes
 comments: false
 ---
 
