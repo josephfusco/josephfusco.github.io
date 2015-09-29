@@ -44,9 +44,9 @@ Here are a few other sites I have either created or helped build.
 + **[upstatesportsandspine](http://upstatesportsandspine.com)** - Phu Concepts Inc
 + **[bio-optronics](http://bio-optronics.com)** - Phu Concepts Inc
 + **[l-trondirect](http://l-trondirect.com)** - Phu Concepts Inc
-+ **[expatriatetaxonline](http://expatriatetaxonline.com)** - Whitetail Development Inc
-+ **[justgivemethedamnmanual](http://justgivemethedamnmanual.com)**
++ **[expat-experts](http://expat-experts.com)** - Whitetail Development Inc
 + **[snowyescape](http://snowyescape.com)**
++ **[justgivemethedamnmanual](http://justgivemethedamnmanual.com)**
 + **[dogedir](http://dogedir.com)**
 
 -----
