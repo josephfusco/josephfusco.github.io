@@ -1,14 +1,13 @@
 ---
 layout: default
-title: Homepage
+title: Archive
 redirect_from:
-  - /archive/
   - /blog/
 ---
 
 <div id="home">
   <ul class="posts">
-    {% for post in paginator.posts %}
+    {% for post in site.posts %}
     <li itemscope itemtype="http://schema.org/BlogPosting">
       <a href="{{ site.baseurl }}{{ post.url }}" itemprop="url">
         <div class="p-wrap">
@@ -26,7 +25,7 @@ redirect_from:
   </ul>
 </div>
 
-{% if paginator.total_pages > 1 %}
+{% if site.total_pages > 1 %}
 <div class="pagination">
   {% if paginator.next_page %}
   <a href="/page/{{paginator.next_page}}" class="older">Older</a>
