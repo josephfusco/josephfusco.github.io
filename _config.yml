@@ -34,8 +34,8 @@ ga_tracking_id: UA-57969250-1
 #pages
 
 pages_list:
-  About: '/about/'
-  Archive: '/'
+  About: '/'
+  Archive: '/archive'
 
 # Other (refer to http://jekyllrb.com/docs/home/ for further details on the below)
 
