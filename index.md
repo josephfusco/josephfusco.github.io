@@ -1,6 +1,8 @@
 ---
 layout: page
 title: About
+redirect_from:
+  - /about/
 ---
 
 <img src="{{ site.baseurl }}/assets/img/megan-joseph-2.jpg">
