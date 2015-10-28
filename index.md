@@ -9,9 +9,9 @@ redirect_from:
 
 I am a front-end developer from upstate New York, where I live with my beautiful fiance Megan, and our daughter Delaney.
 
-I am currently employed by [Incsub](http://incsub.com), the company behind the WordPress projects [WPMU DEV](http://premium.wpmudev.org) and [Edublogs](http://edublogs.org).
+Currently, I am employed by [Incsub](http://incsub.com), the company behind the WordPress projects [WPMU DEV](http://premium.wpmudev.org) and [Edublogs](http://edublogs.org).
 
-I also have my own company, [Whitetail Development Inc](http://whitetail.io) in which I help to provide web design & development services to companies and organizations across the globe.
+I also run my own company, [Whitetail Development Inc](http://whitetail.io) in which I help to provide web design & development services to companies and organizations across the globe.
 
 -----
 
