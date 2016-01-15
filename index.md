@@ -51,7 +51,7 @@ Here are a few other sites I have either created or helped build.
 
 ## News
 
-I credit a lot of my development knowledge to [teamtreehouse.com](teamtreehouse.com/), and have had a couple write-ups as a result of them. Check them out!
+I credit a lot of my development knowledge to [teamtreehouse.com](https://teamtreehouse.com/), and have had a couple write-ups as a result of them. Check them out!
 
 + **[Mashable](http://mashable.com/2015/01/11/teach-yourself-programming/?ref=josephfus.co)**
 + **[Treehouse](https://teamtreehouse.com/stories/joe-fusco?ref=josephfus.co)**
