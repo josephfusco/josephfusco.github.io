@@ -5,7 +5,7 @@ redirect_from:
   - /about/
 ---
 
-<img src="{{ site.baseurl }}/assets/img/megan-joseph-2.jpg">
+<img src="{{ site.baseurl }}/assets/img/real-money-bw.jpg">
 
 I am a front-end developer from upstate New York, where I live with my beautiful fiance Megan, and our daughter Delaney.
 
@@ -55,7 +55,5 @@ I credit a lot of my development knowledge to [teamtreehouse.com](https://teamtr
 
 + **[Mashable](http://mashable.com/2015/01/11/teach-yourself-programming/?ref=josephfus.co)**
 + **[Treehouse](https://teamtreehouse.com/stories/joe-fusco?ref=josephfus.co)**
-
-<img src="{{ site.baseurl }}/assets/img/real-money-bw.jpg">
 
 -----
