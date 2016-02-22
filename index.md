@@ -34,6 +34,10 @@ I also run my own company, [Whitetail Development Inc](http://whitetail.io), in 
 + **[WP Git Status](https://github.com/josephfusco/wp-git-status)**
 + **[Advanced Custom Fields Viewer](https://github.com/josephfusco/advanced-custom-fields-viewer)**
 
+### Other Projects
+
++ **[IG Follow Count](https://github.com/josephfusco/ig-follow-count)**
+
 ### Websites
 
 Here are a few other sites I have either created or helped build.
