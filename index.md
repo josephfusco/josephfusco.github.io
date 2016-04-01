@@ -48,7 +48,6 @@ Here are a few other sites I have either created or helped build.
 + **[l-trondirect](http://l-trondirect.com)** - Phu Concepts Inc
 + **[expat-experts](http://expat-experts.com?ref=josephfus.co)** - Whitetail Development Inc
 + **[snowyescape](http://snowyescape.com?ref=josephfus.co)**
-+ **[justgivemethedamnmanual](http://justgivemethedamnmanual.com?ref=josephfus.co)**
 + **[dogedir](http://dogedir.com?ref=josephfus.co)**
 
 -----
