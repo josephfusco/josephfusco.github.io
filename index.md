@@ -31,7 +31,7 @@ I also run my own company, [Whitetail Development Inc](http://whitetail.io), in 
 ### Development Tools
 
 + **[select64](http://select64.josephfus.co/?ref=josephfus.co)**
-+ **[WP Git Status](https://github.com/josephfusco/wp-git-status)**
++ **[WP Git Branch](https://github.com/josephfusco/wp-git-status)**
 + **[Advanced Custom Fields Viewer](https://github.com/josephfusco/advanced-custom-fields-viewer)**
 
 ### Other Projects
