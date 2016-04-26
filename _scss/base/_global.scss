@@ -109,11 +109,11 @@ a {
 }
 
 ::-moz-selection {
-    color: lighten(#6d6be0, 12%);
+    color: #FFF;
     background: #6d6be0;
 }
 
 ::selection {
-    color: lighten(#6d6be0, 12%);
+    color: #FFF;
     background: #6d6be0;
 }
