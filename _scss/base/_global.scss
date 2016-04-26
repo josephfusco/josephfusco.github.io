@@ -107,3 +107,13 @@ a {
     border-bottom: 1px solid #3d464d;
   }
 }
+
+::-moz-selection {
+    color: lighten(#6d6be0, 12%);
+    background: #6d6be0;
+}
+
+::selection {
+    color: lighten(#6d6be0, 12%);
+    background: #6d6be0;
+}
