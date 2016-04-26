@@ -39,9 +39,7 @@ pages_list:
 
 # Other (refer to http://jekyllrb.com/docs/home/ for further details on the below)
 
-markdown: redcarpet
-redcarpet:
-  extensions: ["tables", "fenced_code_blocks"]
+markdown: kramdown
 
 permalink: pretty
 highlighter: pygments
