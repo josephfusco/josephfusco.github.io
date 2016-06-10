@@ -7,11 +7,11 @@ redirect_from:
 
 <img src="{{ site.baseurl }}/assets/img/real-money-bw.jpg">
 
-I am a front-end developer from upstate New York, where I live with my beautiful fiance Megan, and our daughter Delaney.
+I am a front-end developer from upstate New York, where I live with my beautiful wife Megan, and our daughter Delaney.
 
 Currently, I am employed by [Incsub](http://incsub.com), the company behind the WordPress projects [WPMU DEV](http://premium.wpmudev.org) and [Edublogs](http://edublogs.org).
 
-I also run my own company, [Whitetail Development Inc](http://whitetail.io), in which I help to provide web design & development services to companies and organizations across the globe.
+I also have my own company, [Whitetail Development Inc](http://whitetail.io), in which I help to provide web design & development services to companies and organizations across the globe.
 
 -----
 
