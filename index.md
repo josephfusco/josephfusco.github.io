@@ -12,4 +12,5 @@ Hello, my name is Joe. I am a front-end web developer born and raised in Buffalo
 I am passionate about learning. Mashable even wrote an [article](http://mashable.com/2015/01/11/teach-yourself-programming/) about it!
 
 Need web help? [Get in touch](mailto:hello@josephfus.co)!
+
 -----
