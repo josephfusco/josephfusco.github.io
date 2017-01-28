@@ -88,9 +88,6 @@ time {
 	border-radius: 50%;
 	max-width: $gravatar_size;
 }
-.nanobar {
-	-webkit-backface-visibility: hidden;
-}
 .btn {
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -219,7 +216,7 @@ time {
 	// stagger fade in for items
 	@for $i from 1 through 12 {
 		[class*="c-sm"]:nth-child(#{$i}) .portfolio__item {
-			$delay: (($i * .1s) + .4s);
+			$delay: (($i * .1s) + .6s);
 			animation-delay: $delay;
 		}
 	}
