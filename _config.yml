@@ -55,10 +55,10 @@ portfolio:
     url: http://select64.josephfus.co/
     imageFileName: select64.jpg
 
-  - title: CSS iMessage Typing Indicator
-    subtitle: Codepen
-    url: https://codepen.io/fusco/pen/XbpaYv
-    imageFileName: css-imessage.gif
+  - title: WP Self Destruct
+    subtitle: WordPress plugin
+    url: https://github.com/josephfusco/wp-self-destruct/
+    imageFileName: wp-self-destruct.svg
 
   - title: CSS Tabs
     subtitle: Codepen
@@ -75,10 +75,10 @@ portfolio:
     url: https://github.com/josephfusco/ig-follow-count/
     imageFileName: ig-follow-count.jpg
 
-  - title: WP Self Destruct
-    subtitle: WordPress plugin
-    url: https://github.com/josephfusco/wp-self-destruct/
-    imageFileName: wp-self-destruct.svg
+  - title: CSS iMessage Typing Indicator
+    subtitle: Codepen
+    url: https://codepen.io/fusco/pen/XbpaYv
+    imageFileName: css-imessage.gif
 
   - title: Disable Responsive Images
     subtitle: WordPress plugin
