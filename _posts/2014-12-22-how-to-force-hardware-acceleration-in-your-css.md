@@ -2,20 +2,18 @@
 layout: post
 title: How To Force Hardware Acceleration In Your CSS
 permalink: how-to-force-hardware-acceleration-in-your-css
-comments: false
 ---
 
 Looking to make your CSS animations buttery smooth?  Maybe you should push off that task to the GPU (Graphics Processing Unit).  This offloading is known as hardware acceleration.  Certain properties such as 3d transformations are already handled by the GPU, but we can also trick browsers into it as well.
 
-```scss
-.box{
-    transform: translateZ(0);
+```css
+.box {
+	transform: translateZ(0);
 }
 
 // or
-
-.box{
-    transform: translate3d(0, 0, 0);
+.box {
+	transform: translate3d(0, 0, 0);
 }
 ```
 
@@ -23,11 +21,11 @@ Adding either one of these won’t visibly do anything, but it does tell the bro
 
 Anytime we work with 3d transformations you may also see a performance increase by adding perspective and backface-visibility to the mix.
 
-```scss
-.box{
-     transform: translate3d(0, 0, 0);
-     backface-visibility: hidden;
-     perspective: 1000;
+```css
+.box {
+	transform: translate3d(0, 0, 0);
+	backface-visibility: hidden;
+	perspective: 1000;
 }
 ```
 

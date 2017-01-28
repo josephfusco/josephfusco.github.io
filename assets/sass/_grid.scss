@@ -1,0 +1,72 @@
+%gutter {
+	padding-right: $gutter;
+	padding-left: $gutter;
+}
+
+.clearfix {
+	&:before, &:after {
+		display: table;
+		content: '';
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+.container, .container-fluid {
+	margin-right: auto;
+	margin-left: auto;
+	@extend .clearfix;
+	@extend %gutter;
+	@media (max-width: 790px) {
+		padding-left: ($gutter * 2);
+		padding-right: ($gutter * 2);
+	}
+}
+
+.row {
+	margin-left: ($gutter * -1);
+	margin-right: ($gutter * -1);
+	@extend .clearfix;
+}
+
+[class*="c-"] {
+	box-sizing: border-box;
+	position: relative;
+	min-height: 1px;
+	@extend %gutter;
+}
+
+@mixin device-size($size) {
+	@for $i from $total-grid-cols through 1 {
+		$width: percentage($i / $total-grid-cols);
+		.c-#{$size}-#{$i} {
+			float: left;
+			width: $width;
+		}
+		.c-#{$size}-pull-#{$i} {
+			right: $width;
+		}
+		.c-#{$size}-push-#{$i} {
+			left: $width;
+		}
+		.c-#{$size}-offset-#{$i} {
+			margin-left: $width;
+		}
+	}
+}
+
+@each $size, $width in $breakpoints {
+	$min-screen-width: nth($width, 1);
+	$container-width: nth($width, 2);
+	@if $min-screen-width == 0px {
+		@include device-size($size);
+	} @else {
+		@media (min-width: $min-screen-width) {
+			.container {
+				width: $container-width;
+			}
+			@include device-size($size);
+		}
+	}
+}

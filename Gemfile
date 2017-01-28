@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '~> 2.1'
+gem 'jekyll'
+gem 'jekyll-feed'
+gem 'jekyll-sitemap'
 gem 'jekyll-redirect-from'
+gem 'octopress-autoprefixer'

@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<div class="heading">
+	<div class="container">
+		<h1>{{ site.intro-line-1 }}<br> {{ site.intro-line-2 }}</h1>
+	</div>
+</div>
+<div class="portfolio">
+	<div class="container">
+		<div class="row">
+			{% for item in site.portfolio %}
+			<div class="c-lg-4 c-sm-6">
+				<div class="portfolio__item-container">
+					<div class="portfolio__preloader">
+						<span></span>
+						<span></span>
+					</div>
+					<a href="{{ item.url }}" class="portfolio__item" target="_blank">
+						<div class="portfolio__text">
+							<div class="portfolio__text-inner">
+								<h2>{{ item.title }}</h2>
+								<p>{{ item.subtitle }}</p>
+							</div>
+						</div>
+						<div class="portfolio__graphics">
+							<div class="portfolio__bg" style="background-image: url({{site.url}}/assets/images/{{ item.imageFileName }});"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

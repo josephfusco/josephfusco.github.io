@@ -1,54 +1,117 @@
-# Title of your blog; shows in the header
-name: "Joseph Fusco"
+# Site settings
 
-# Description of your content (will only be used on Google Search)
-description: "Joseph Fusco | Front End Developer"
-
-# Your name. Will show in your footer + sidebar
-author: "Joseph Fusco"
-
-url: "http://josephfusco.github.io"
-baseurl: ""
-
-# A short presentation of yourself. Will show in the sidebar, under your name. Best usage would be between 30 to 50 words.
-author-bio: "Front End Developer"
-
-# Social Accounts (mine, as placeholders)
-
-twitter: heyfusco
-github: josephfusco
-codepen: fusco
-wordpress: joefusco
-linkedin: josephfusco3
-
-#gems
-
-gems:
-  - jekyll-redirect-from
+name: Joseph Fusco
+role: Front End Developer. WordPress Core Contributor.
+intro-line-1: Hello, I'm Joe,
+intro-line-2: and I build things for the web.
+description: Rochester, NY Web Developer. WordPress Core Contributor.
+url: "https://josephfus.co"
+email: hello@josephfus.co
 
 # Google Analytics (you may want to changes these with yours or even delete :)
 
 ga_domain: josephfus.co
 ga_tracking_id: UA-57969250-1
 
-#pages
+# Accounts
 
-pages_list:
-  About: '/'
-  Archive: '/archive'
+accounts:
 
-# Other (refer to http://jekyllrb.com/docs/home/ for further details on the below)
+  - name: CodePen
+    url: https://codepen.io/fusco
+
+  - name: GitHub
+    url:  https://github.com/josephfusco
+
+  - name: WordPress
+    url: https://profiles.wordpress.org/joefusco
+
+# Portfolio Page (Index)
+
+portfolio:
+
+  - title: Snowy Escape
+    subtitle: Website
+    url: http://snowyescape.com/
+    imageFileName: snowyescape.jpg
+
+  - title: Angled Edges
+    subtitle: Sass utility
+    url: https://angled-edges.josephfus.co/
+    imageFileName: angled-edges.svg
+
+  - title: WP Git Branch
+    subtitle: WordPress plugin
+    url: https://github.com/josephfusco/wp-git-branch
+    imageFileName: git-branch.svg
+
+  - title: Advanced Custom Fields Viewer
+    subtitle: WordPress plugin
+    url: https://wordpress.org/plugins/advanced-custom-fields-viewer/
+    imageFileName: acfv.jpg
+
+  - title: Select64
+    subtitle: Web development tool
+    url: http://select64.josephfus.co/
+    imageFileName: select64.jpg
+
+  - title: CSS iMessage Typing Indicator
+    subtitle: Codepen
+    url: https://codepen.io/fusco/pen/XbpaYv
+    imageFileName: css-imessage.gif
+
+  - title: CSS Tabs
+    subtitle: Codepen
+    url: https://codepen.io/fusco/pen/Wvzjrm
+    imageFileName: css-tabs.gif
+
+  - title: Sass Candle Flicker
+    subtitle: Codepen
+    url: http://codepen.io/fusco/pen/NPxzPV
+    imageFileName: sass-candle-flicker.gif
+
+  - title: IG Follow Count
+    subtitle: Instagram analytics tool
+    url: https://github.com/josephfusco/ig-follow-count/
+    imageFileName: ig-follow-count.jpg
+
+  - title: WP Self Destruct
+    subtitle: WordPress plugin
+    url: https://github.com/josephfusco/wp-self-destruct/
+    imageFileName: wp-self-destruct.svg
+
+  - title: Disable Responsive Images
+    subtitle: WordPress plugin
+    url: https://wordpress.org/plugins/disable-responsive-images/
+    imageFileName: disable-responsive-images.svg
+
+  - title: Condensed Bootstrap Grid
+    subtitle: Sass grid system
+    url: https://github.com/josephfusco/condensed-bootstrap-grid/
+    imageFileName: condensed-bootstrap-grid.svg
+
+# Markdown settings
 
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
-permalink: pretty
-highlighter: rouge
+# Build settings
 
-paginate: 10
-paginate_path: "/page/:num"
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - gulpfile.js
+  - package.json
+  - README.md
+  - CNAME
+  - node_modules
+  - assets/sass/
 
-# SCSS
+# Plugin settings
 
-sass:
-  sass_dir: _scss
-  style: :compressed
+gems:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-redirect-from
