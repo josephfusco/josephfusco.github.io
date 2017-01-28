@@ -2,7 +2,6 @@
 layout: post
 title: Creating An Off Canvas Menu With Just CSS
 permalink: creating-an-off-canvas-menu-with-just-css
-comments: false
 ---
 
 Off canvas menus have been popping up everywhere, and there’s a reason for it. They allow for more focus on content, are great for touch enabled devices, and work well responsively.
@@ -11,8 +10,8 @@ This is a CSS only approach to an off canvas slide out menu, so we will be needi
 
 ```html
 <body>
-    <input id="menu-trigger" type="checkbox" />
-    <label for="menu-trigger">MENU</label>
+	<input id="menu-trigger" type="checkbox" />
+	<label for="menu-trigger">MENU</label>
 </body>
 ```
 
@@ -20,22 +19,22 @@ Next step is adding our menu right underneath and a wrapper for the page content
 
 ```html
 <body>
-    <input id="menu-trigger" type="checkbox" />
-    <label for="menu-trigger">MENU</label>
+	<input id="menu-trigger" type="checkbox" />
+	<label for="menu-trigger">MENU</label>
 
-    <header>
-        <ul class="menu">
-		    <li><a href="#">link</a></li>
-		    <li><a href="#">link</a></li>
-		    <li><a href="#">link</a></li>
-		    <li><a href="#">link</a></li>
-		    <li><a href="#">link</a></li>
-        </ul>
-    </header>
+	<header>
+		<ul class="menu">
+			<li><a href="#">link</a></li>
+			<li><a href="#">link</a></li>
+			<li><a href="#">link</a></li>
+			<li><a href="#">link</a></li>
+			<li><a href="#">link</a></li>
+		</ul>
+	</header>
 
-    <div id="content">
+	<div id="content">
 
-    </div>
+	</div>
 </body>
 ```
 
@@ -47,10 +46,11 @@ So back to that checkbox…
 
 We will be using the checked pseudo-class selector. Our label is directly underneath the input, which will allow us to use an adjacent sibling selector, because sometimes it’s nice to have less HTML markup, and those things are super duper cool.
 
-```scss
+```css
 #menu-trigger {
-  display: none;
+	display: none;
 }
+
 #menu-trigger + label {
 	background-color: #333;
 	color: #FFF;
@@ -60,15 +60,15 @@ We will be using the checked pseudo-class selector. Our label is directly undern
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 1; // since the trigger comes first in our markup
+	z-index: 1; /* since the trigger comes first in our markup */
 	border-radius: 8px;
 	-webkit-transition: -webkit-transform .3s ease;
-    transition: transform .3s ease;
+	transition: transform .3s ease;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
-	-ms-user-select: none; // future proofing
-	user-select: none; // future proofing
+	-ms-user-select: none;
+	user-select: none;
 }
 ```
 
@@ -78,7 +78,7 @@ Occasionally the MENU text will become selected from a double click. We can prev
 
 Our menu will be wrapped in a header which will be fixed, and moved off canvas to the left, negating the width. You’re going to want overflow on auto to prevent smaller screens from being handicapped with navigating your website.
 
-```scss
+```css
 header {
 	background-color: #333;
 	height: 100%;
@@ -111,9 +111,9 @@ ul.menu > li > a:hover {
 
 Creating a content wrapper is not necessary, but it does add to the overall effect, allowing the page to be pushed off to the right while the menu is coming into view.
 
-```scss
+```css
 body {
-	overflow-x: hidden; // prevent a horizontal scrollbar from pushing the content right
+	overflow-x: hidden; /* prevent a horizontal scrollbar from pushing the content right */
 }
 
 #content {
@@ -126,7 +126,7 @@ body {
 
 Use the checked selector to move all 3 parts accordingly. Remember that the initial state should have a transition applied to create the sliding effect.
 
-```scss
+```css
 #menu-trigger:checked + label {
 	-webkit-transform: translateX(250px);
 	-ms-transform: translateX(250px);

@@ -2,7 +2,6 @@
 layout: post
 title: Ignoring Folders In A Sublime Search
 permalink: ignoring-folders-in-a-sublime-search
-comments: false
 ---
 
 I've been utilizing Sublime's *Find in Folder* feature lately, and can't believe I didn't know about this earlier. You can get to it by either right clicking a folder in the file tree, or with the shortcut `cmd` + `shift` + `f`.
@@ -13,16 +12,16 @@ This was sometimes taking forever though as I would search from a project root. 
 
 This can be placed in your `Packages/User/Preferences.sublime-settings`
 
-```
+```json
 {
- 	"folder_exclude_patterns": [
-  		".svn",
-  		".git",
-  		".hg",
-  		"CVS",
-  		"node_modules",
-  		".sass-cache"
-  	]
+	"folder_exclude_patterns": [
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"node_modules",
+		".sass-cache"
+	]
 }
 ```
 

@@ -1,0 +1,27 @@
+// Colors
+
+$black                  : #0b0b0b;
+$white                  : #fff;
+$color__text            : #393939;
+$color__subtitle        : #666;
+$color__background      : $white;
+$color__nav-link        : rgba(0,0,0,.44);
+$color__nav-link--hover : rgba(0,0,0,.6);
+$color__border          : #e1e1e1;
+
+// Fonts
+
+$font__sans-serif       : -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font__mono             : "Liberation Mono",Menlo,Courier,monospace;
+
+// Layout
+
+$gravatar_size          : 120px;
+$total-grid-cols        : 12;
+$gutter                 : 12px;
+$breakpoints: (
+	xs: (0px, 100%),
+	sm: (768px, 750px),
+	md: (992px, 970px),
+	lg: (1200px, 1170px)
+);
