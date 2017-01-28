@@ -189,10 +189,6 @@ time {
 		span {
 			display: block;
 			background-color: $color__border;
-			background-image: linear-gradient(to right, $color__border, $color__border, lighten($color__border, 3%), lighten($color__border,1%), $color__border);
-			background-repeat: no-repeat;
-			background-size: 200% auto;
-			animation: shimmer .4s linear 7;
 		}
 		span:nth-child(1) {
 			height: 20px;
@@ -220,7 +216,7 @@ time {
 	// stagger fade in for items
 	@for $i from 1 through 12 {
 		[class*="c-sm"]:nth-child(#{$i}) .portfolio__item {
-			$delay: (($i * .1s) + 1s);
+			$delay: (($i * .1s) + .4s);
 			animation-delay: $delay;
 		}
 	}
