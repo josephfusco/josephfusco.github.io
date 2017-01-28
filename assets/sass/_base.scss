@@ -79,6 +79,9 @@ time {
 		@media (max-width: 991px) {
 			margin-bottom: ($gutter * 4);
 		}
+		li:last-child {
+			margin-right: 0;
+		}
 	}
 }
 .gravatar {
