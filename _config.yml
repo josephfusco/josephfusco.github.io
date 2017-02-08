@@ -40,6 +40,11 @@ portfolio:
     url: https://angled-edges.josephfus.co/
     imageFileName: angled-edges.svg
 
+  - title: APFT Calculator
+    subtitle: Web Application
+    url: https://apft.metttc.com
+    imageFileName: apft.svg
+
   - title: WP Git Branch
     subtitle: WordPress plugin
     url: https://github.com/josephfusco/wp-git-branch
@@ -51,7 +56,7 @@ portfolio:
     imageFileName: acfv.jpg
 
   - title: Select64
-    subtitle: Web development tool
+    subtitle: Web Application
     url: http://select64.josephfus.co/
     imageFileName: select64.jpg
 
