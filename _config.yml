@@ -36,7 +36,7 @@ portfolio:
     imageFileName: snowyescape.jpg
 
   - title: Angled Edges
-    subtitle: Sass utility
+    subtitle: Sass Utility
     url: https://angled-edges.josephfus.co/
     imageFileName: angled-edges.svg
 
@@ -46,12 +46,12 @@ portfolio:
     imageFileName: apft.svg
 
   - title: WP Git Branch
-    subtitle: WordPress plugin
+    subtitle: WordPress Plugin
     url: https://github.com/josephfusco/wp-git-branch
     imageFileName: git-branch.svg
 
   - title: Advanced Custom Fields Viewer
-    subtitle: WordPress plugin
+    subtitle: WordPress Plugin
     url: https://wordpress.org/plugins/advanced-custom-fields-viewer/
     imageFileName: acfv.jpg
 
@@ -61,37 +61,37 @@ portfolio:
     imageFileName: select64.jpg
 
   - title: WP Self Destruct
-    subtitle: WordPress plugin
+    subtitle: WordPress Plugin
     url: https://github.com/josephfusco/wp-self-destruct/
     imageFileName: wp-self-destruct.svg
 
   - title: CSS Tabs
-    subtitle: Codepen
+    subtitle: CodePen
     url: https://codepen.io/fusco/pen/Wvzjrm
     imageFileName: css-tabs.gif
 
   - title: Sass Candle Flicker
-    subtitle: Codepen
+    subtitle: CodePen
     url: http://codepen.io/fusco/pen/NPxzPV
     imageFileName: sass-candle-flicker.gif
 
   - title: IG Follow Count
-    subtitle: Instagram analytics tool
+    subtitle: Instagram Analytics Tool
     url: https://github.com/josephfusco/ig-follow-count/
     imageFileName: ig-follow-count.jpg
 
   - title: CSS iMessage Typing Indicator
-    subtitle: Codepen
+    subtitle: CodePen
     url: https://codepen.io/fusco/pen/XbpaYv
     imageFileName: css-imessage.gif
 
   - title: Disable Responsive Images
-    subtitle: WordPress plugin
+    subtitle: WordPress Plugin
     url: https://wordpress.org/plugins/disable-responsive-images/
     imageFileName: disable-responsive-images.svg
 
   - title: Condensed Bootstrap Grid
-    subtitle: Sass grid system
+    subtitle: Sass Grid System
     url: https://github.com/josephfusco/condensed-bootstrap-grid/
     imageFileName: condensed-bootstrap-grid.svg
 
