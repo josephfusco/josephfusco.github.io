@@ -6,7 +6,7 @@ permalink: output-sass-variables-directly-to-page
 
 By interpolating the Sass variable into the `content` property on `html:before`, we are able to see the variable on the page, without the need for additional markup.
 
-We can also grab the variable type. By using the Sass function `type-of()`, we are able to check for the variable type, and then interpolate it into the pseudo element along side the variable.
+We can also grab the variable type. By using the Sass function `type-of()`, we are able to check for the variable type, and then interpolate it into the pseudo element along side the variable. For this example we have a string of SVG code.
 
 ![output Sass variable]({{ site.url }}/assets/images/output-sass-variable-0.png)
 
