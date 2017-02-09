@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Output Sass Variablse Directly To Page
+title: Output Sass Variables Directly To Page
 permalink: output-sass-variables-directly-to-page
 ---
 
