@@ -148,5 +148,5 @@ Use the checked selector to move all 3 parts accordingly. Remember that the init
 
 ## Demo
 
-<p data-height="268" data-theme-id="7049" data-slug-hash="bNwQGJ" data-default-tab="result" data-user="fusco" class='codepen'>See the Pen <a href='http://codepen.io/fusco/pen/bNwQGJ/'>CSS Triggered Side Menu</a> by Joseph Fusco (<a href='http://codepen.io/fusco'>@fusco</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
-<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+<p data-height="300" data-theme-id="27795" data-slug-hash="bNwQGJ" data-default-tab="result" data-user="fusco" data-embed-version="2" data-pen-title="CSS Triggered Side Menu" class="codepen">See the Pen <a href="http://codepen.io/fusco/pen/bNwQGJ/">CSS Triggered Side Menu</a> by Joseph Fusco (<a href="http://codepen.io/fusco">@fusco</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>

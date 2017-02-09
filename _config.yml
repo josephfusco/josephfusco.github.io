@@ -118,5 +118,6 @@ exclude:
 
 gems:
   - jekyll-feed
+  - jekyll-gist
   - jekyll-sitemap
   - jekyll-redirect-from
