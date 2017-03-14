@@ -23,3 +23,9 @@ server {
     charset utf-8;
     client_max_body_size 500M;
 ```
+
+Lastly, we need to restart valet.
+
+```
+valet restart
+```
