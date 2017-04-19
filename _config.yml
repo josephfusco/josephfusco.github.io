@@ -50,6 +50,11 @@ portfolio:
     url: https://github.com/josephfusco/wp-git-branch
     imageFileName: git-branch.svg
 
+  - title: Underscores Generator
+    subtitle: WordPress Plugin
+    url: https://github.com/josephfusco/_s-generator
+    imageFileName: underscores-generator.svg
+
   - title: Advanced Custom Fields Viewer
     subtitle: WordPress Plugin
     url: https://wordpress.org/plugins/advanced-custom-fields-viewer/
