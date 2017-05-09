@@ -3,6 +3,9 @@
   "description": "A simple jekyll portfolio theme.",
   "author": "Joseph Fusco",
   "license": "MIT",
+  "scripts": {
+    "dev": "bundle exec jekyll serve --watch"
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.1",

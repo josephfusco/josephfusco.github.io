@@ -4,7 +4,7 @@ A simple portfolio theme powered by [jekyll](https://jekyllrb.com/).
 
 # Development
 
-To start the server run `bundle exec jekyll serve --watch`.
+To start the server run `npm run dev`.
 
 JS and Sass is managed with Gulp. I find it a lot faster to compile using gulp rather than relying on jekyll to build.
 
