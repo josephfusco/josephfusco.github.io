@@ -30,11 +30,6 @@ accounts:
 
 portfolio:
 
-  - title: Snowy Escape
-    subtitle: Website
-    url: http://snowyescape.com/
-    imageFileName: snowyescape.jpg
-
   - title: Angled Edges
     subtitle: Sass Utility
     url: https://angled-edges.josephfus.co/
@@ -45,6 +40,16 @@ portfolio:
     url: https://apft.metttc.com
     imageFileName: apft.svg
 
+  - title: Snowy Escape
+    subtitle: Website
+    url: http://snowyescape.com/
+    imageFileName: snowyescape.jpg
+
+  - title: Advanced Custom Fields Viewer
+    subtitle: WordPress Plugin
+    url: https://wordpress.org/plugins/advanced-custom-fields-viewer/
+    imageFileName: acfv.jpg
+
   - title: WP Git Branch
     subtitle: WordPress Plugin
     url: https://github.com/josephfusco/wp-git-branch
@@ -54,11 +59,6 @@ portfolio:
     subtitle: WordPress Plugin
     url: https://github.com/josephfusco/_s-generator
     imageFileName: underscores-generator.svg
-
-  - title: Advanced Custom Fields Viewer
-    subtitle: WordPress Plugin
-    url: https://wordpress.org/plugins/advanced-custom-fields-viewer/
-    imageFileName: acfv.jpg
 
   - title: Select64
     subtitle: Web Application
