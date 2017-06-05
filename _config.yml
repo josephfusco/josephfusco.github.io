@@ -50,6 +50,11 @@ portfolio:
     url: https://wordpress.org/plugins/advanced-custom-fields-viewer/
     imageFileName: acfv.jpg
 
+  - title: Divi Accessibility
+    subtitle: WordPress Plugin
+    url: https://github.com/campuspress/divi-accessibility/
+    imageFileName: divi-accessibility.svg
+
   - title: WP Git Branch
     subtitle: WordPress Plugin
     url: https://github.com/josephfusco/wp-git-branch
