@@ -52,7 +52,7 @@ portfolio:
 
   - title: Divi Accessibility
     subtitle: WordPress Plugin
-    url: https://github.com/campuspress/divi-accessibility/
+    url: https://wordpress.org/plugins/accessible-divi/
     imageFileName: divi-accessibility.svg
 
   - title: WP Git Branch
