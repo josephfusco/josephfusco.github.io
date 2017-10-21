@@ -374,6 +374,27 @@ ul.posts {
 		margin-bottom: ($gutter * 2);
 		line-height: 32px;
 	}
+	ul {
+		font-family: $font__sans-serif;
+		font-size: 20px;
+		line-height: 32px;
+		list-style: none;
+    	list-style-image: none;
+	}
+	li {
+		position: relative;
+		&::before {
+			padding-top: 4px;
+    		padding-right: 15px;
+			content: '\2022';
+			position: absolute;
+			display: inline-block;
+			box-sizing: border-box;
+			width: 78px;
+			margin-left: -78px;
+			text-align: right;
+		}
+	}
 	em {
 		font-family: $font__sans-serif;
 		font-style: italic;
