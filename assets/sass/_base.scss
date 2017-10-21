@@ -23,9 +23,15 @@ a {
 	color: $color__text;
 }
 h1 {
-	font-size: 32px;
+	font-size: 42px;
 	margin: 0;
-	line-height: 42px;
+	line-height: 1.423;
+	font-family: $font__sans-serif-2;
+	//animation: shimmer 4s linear infinite;
+	// background-image: linear-gradient(to right, #77f, #33d0ff, #25ffbb, #33d0ff, #77f);
+	// background-size: 100% auto;
+	// -webkit-background-clip: text;
+	// -webkit-text-fill-color: transparent;
 }
 h2 {
 	margin: ($gutter * 4) 0 ($gutter);
@@ -58,7 +64,7 @@ time {
 }
 .header {
 	padding-top: ($gutter * 4);
-	padding-bottom: ($gutter * 4);
+	padding-bottom: ($gutter * 6);
 }
 .main {
 	animation: fadeIn 0.3s both;
@@ -69,7 +75,7 @@ time {
 }
 .footer {
 	min-height: $gravatar_size;
-	margin-top: ($gutter * 4);
+	margin-top: ($gutter * 6);
 	animation: fadeIn 0.3s both;
 	animation-delay: 0.3s;
 	.nav__menu li:last-child {
@@ -131,6 +137,7 @@ time {
 		display: block;
 		font-size: 26px;
 		font-weight: 700;
+		font-family: $font__sans-serif-2;
 		font-style: normal;
 		line-height: 30px;
 	}
@@ -168,7 +175,7 @@ time {
 	}
 }
 .heading {
-	margin-bottom: ($gutter * 4);
+	margin-bottom: ($gutter * 6);
 	.btn {
 		margin-top: ($gutter * 2)
 	}
@@ -216,7 +223,7 @@ time {
 	// stagger fade in for items
 	@for $i from 1 through 12 {
 		[class*="c-sm"]:nth-child(#{$i}) .portfolio__item {
-			$delay: (($i * .1s) + .6s);
+			$delay: (($i * .1s) + .9s);
 			animation-delay: $delay;
 		}
 	}
