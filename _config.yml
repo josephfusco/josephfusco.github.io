@@ -36,9 +36,14 @@ portfolio:
     imageFileName: angled-edges.svg
 
   - title: APFT Calculator
-    subtitle: Web Application
+    subtitle: PWA
     url: https://apft.metttc.com
     imageFileName: apft.png
+
+  - title: Divi Accessibility
+    subtitle: WordPress Plugin
+    url: https://wordpress.org/plugins/accessible-divi/
+    imageFileName: divi-accessibility.svg
 
   - title: Snowy Escape
     subtitle: Website
@@ -49,11 +54,6 @@ portfolio:
     subtitle: WordPress Plugin
     url: https://wordpress.org/plugins/advanced-custom-fields-viewer/
     imageFileName: acfv.jpg
-
-  - title: Divi Accessibility
-    subtitle: WordPress Plugin
-    url: https://wordpress.org/plugins/accessible-divi/
-    imageFileName: divi-accessibility.svg
 
   - title: WP Git Branch
     subtitle: WordPress Plugin
