@@ -23,6 +23,7 @@ This page serves as a living document of those items.
 + Password Manager is [1Password](https://1password.com/) and highly recommend it to anyone. LastPass is also a great alternative.
 + Git client is [Tower](https://www.git-tower.com/).
 + [Unclutter](https://unclutterapp.com/) is a really neat one I get a lot of use out of. Any quick notes I have I put there and sync with Dropbox.
++ I maintain backups utilizing time machine with a local HDD, along with [Backblaze](https://secure.backblaze.com/r/017m1y) for my entire hard drive.
 
 ## Desk Setup
 
@@ -33,4 +34,3 @@ This page serves as a living document of those items.
 
 + Hosting is primarily done with [DigitalOcean](https://m.do.co/c/c6fc6c159b4a). I use [ServerPilot](https://serverpilot.io/a/719ef210192e) to manage them.
 + I really enjoy using [Namecheap](https://affiliate.namecheap.com/?affId=120269) and can't recommend them enough, however, I still have a handful over at GoDaddy.
-
