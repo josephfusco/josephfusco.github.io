@@ -5,8 +5,6 @@ title: About
 
 Hello, my name is Joe. I am a Rochester based web developer who specializes in creating WordPress themes &amp; plugins.
 
-Currently I am working for [Incsub](https://incsub.com){:target="_blank"}, the company behind [WPMU DEV](https://wpmudev.org){:target="_blank"}, [Edublogs](https://edublogs.org){:target="_blank"}, &amp; [CampusPress](https://campuspress.com){:target="_blank"}.
-
 More of my work:
 + [CodePen](https://codepen.io/fusco)
 + [Github](https://github.com/josephfusco)
