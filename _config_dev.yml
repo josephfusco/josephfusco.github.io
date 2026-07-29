@@ -1,0 +1,5 @@
+# Local preview overrides — use with:
+#   jekyll serve --config _config.yml,_config_dev.yml
+# Disables plugins (not needed for visual preview) and points absolute URLs at localhost.
+url: "http://localhost:4000"
+plugins: []

@@ -1,0 +1,77 @@
+---
+layout: default
+title: Design
+permalink: /design
+---
+<div class="wrap">
+	<div class="prose">
+		<h1>Design</h1>
+		<p class="meta">The system this site is built from.</p>
+	</div>
+
+	<section class="block" aria-label="Palette">
+		<h2>Palette</h2>
+		<ul class="swatches">
+			<li><span class="swatch" style="background:#111113"></span>ink <code>#111113</code></li>
+			<li><span class="swatch" style="background:#ededed"></span>type <code>#ededed</code></li>
+			<li><span class="swatch" style="background:#ff6b3d"></span>accent <code>#ff6b3d</code></li>
+			<li><span class="swatch" style="background:#9a9a9a"></span>muted <code>#9a9a9a</code></li>
+			<li><span class="swatch" style="background:#2a2a2e"></span>border <code>#2a2a2e</code></li>
+			<li><span class="swatch" style="background:#1a1a1e"></span>card <code>#1a1a1e</code></li>
+		</ul>
+	</section>
+
+	<section class="block" aria-label="Type">
+		<h2>Type</h2>
+		<div class="specimen">
+			<p class="spec-note">Structure: Atkinson Hyperlegible, designed by the Braille Institute. Headings, nameplate, navigation, controls.</p>
+			<p class="spec-sans">Hamburgevons 0O 1lI 5S 8B</p>
+			<p class="spec-note">Words: Georgia. Body text, descriptions, this sentence's cousins.</p>
+			<p class="spec-serif">The five boxing wizards jump quickly, 1234567890.</p>
+			<p class="spec-note">Asides: Georgia italic. Dates, tags, whatever whispers.</p>
+			<p class="spec-italic">Rochester NY, March 2017, a ghost from 2am.</p>
+			<p class="spec-note">Code and the x-ray: monospace. Never decoration.</p>
+			<p class="spec-mono">--lh: 1.75rem; skewY(-1.1deg); presence.js</p>
+		</div>
+	</section>
+
+	<section class="block" aria-label="Rhythm">
+		<h2>Rhythm</h2>
+		<p>One unit governs the page: <code>1.75rem</code>, 28 pixels. Every line of text sits on it. Every margin and padding is a multiple of it, halves allowed. Where a rule crosses the flow, the border's own width is subtracted from the adjacent padding so the grid never drifts. Toggle <strong>⌗ blueprint</strong> in the footer and the rows you see are this unit, measured against the real text.</p>
+	</section>
+
+	<section class="block" aria-label="Pieces">
+		<h2>Pieces</h2>
+		<ul class="pieces">
+			<li>
+				<span class="demo-cursor" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg><span class="demo-label">Wren</span></span>
+				A live reader. Anonymous, bird-named, rate-limited, spring-eased. Long jumps teleport instead of streaking across your view.
+			</li>
+			<li>
+				<span class="demo-cursor demo-ghost" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg><span class="demo-label demo-label-italic">a ghost from 2am, 3d ago</span></span>
+				A past reader, replayed. Cursor path and timing only; never an identity.
+			</li>
+			<li>
+				<span class="demo-chip" aria-hidden="true"><span class="presence-dot"></span> just you here</span>
+				The occupancy chip. It only ever tells the truth.
+			</li>
+			<li>
+				The wordmark's eleven squares wave on hover, staggered by <code>sibling-index()</code>. The square that jumps the queue is a bug from the original CodePen, kept on purpose.
+			</li>
+			<li>
+				The camera beside Rochester, NY flashes when pressed. Kodak country.
+			</li>
+		</ul>
+	</section>
+
+	<section class="block" aria-label="Rules">
+		<h2>Rules</h2>
+		<ul>
+			<li>At rest, one thing moves at most.</li>
+			<li>Motion is discovered, not broadcast: hover the wordmark, press the camera, toggle the x-ray.</li>
+			<li>Accessibility is the default, never an option behind a toggle.</li>
+			<li>Everything decorative is recycled from the old CodePens. No ornament without provenance.</li>
+			<li>Reduced motion turns all of it off.</li>
+		</ul>
+	</section>
+</div>
