@@ -1,0 +1,11 @@
+{
+  "states": ["active", "idle", "away", "typing"],
+  "birds": ["Wren", "Heron", "Finch", "Kestrel", "Swift", "Starling", "Chickadee", "Nuthatch", "Loon", "Oriole"],
+  "colors": ["#e8541e", "#2fbf71", "#6d6be0", "#e8a33d", "#4dabf7", "#c678dd"],
+  "limits": {
+    "minPoints": 15,
+    "minDurationMs": 5000,
+    "maxPoints": 2400,
+    "maxGhosts": 200
+  }
+}
