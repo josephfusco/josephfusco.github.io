@@ -1,30 +1,26 @@
 # Site settings
 
-name: Joseph Fusco
-role: Front End Developer. WordPress Core Contributor.
-intro-line-1: Hello, I'm Joe,
-intro-line-2: and I build things for the web.
-description: Rochester, NY Web Developer. WordPress Core Contributor.
+name: Joe Fusco
+role: WordPress core contributor
+description: Joe Fusco maintains headless WordPress plugins at WP Engine and contributes to WordPress core.
 url: "https://josephfus.co"
 email: hello@josephfus.co
-
-# Google Analytics (you may want to changes these with yours or even delete :)
-
-ga_domain: josephfus.co
-ga_tracking_id: UA-57969250-1
 
 # Accounts
 
 accounts:
 
-  - name: CodePen
-    url: https://codepen.io/fusco
-
   - name: GitHub
     url:  https://github.com/josephfusco
 
-  - name: WordPress
+  - name: WordPress.org
     url: https://profiles.wordpress.org/joefusco
+
+  - name: LexGrade
+    url: https://lexgrade.org
+
+  - name: LinkedIn
+    url: https://www.linkedin.com/in/josephfusco3
 
 # Portfolio Page (Index)
 
@@ -126,7 +122,7 @@ exclude:
 
 # Plugin settings
 
-gems:
+plugins:
   - jekyll-feed
   - jekyll-gist
   - jekyll-sitemap

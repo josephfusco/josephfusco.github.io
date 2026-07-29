@@ -1,19 +1,25 @@
-<header class="header">
-	<div class="container">
-		<nav class="nav">
-			<a class="nav__head" href="{{ site.url }}">
-				<img class="gravatar" src="{{ site.url }}/assets/images/gravatar.jpg" alt="{{ site.name }}">
-				<div class="nav__head-text">
-					<span class="nav__title">{{ site.name }}<span>
-					<span class="nav__sub-title">{{ site.role }}</span>
-				</div>
-			</a>
-			<ul class="nav__menu">
-				<li><a href="{{ site.url }}">Home</a></li>
-				<li><a href="{{ site.url }}/about">About</a></li>
-				<li><a href="{{ site.url }}/blog">Blog</a></li>
-			</ul>
-			<a class="btn" href="mailto:{{ site.email }}">Contact Me</a>
+<header class="site-header">
+	<div class="site-header-bg" aria-hidden="true"></div>
+	<div class="wrap">
+		<a class="site-name" href="{{ '/' | relative_url }}">
+			<svg class="site-mark" viewBox="0 0 600 600" aria-hidden="true">
+				<rect x="350" y="250" />
+				<rect x="50" y="350" />
+				<rect x="50" y="450" />
+				<rect x="150" y="450" />
+				<rect x="250" y="450" />
+				<rect x="250" y="350" />
+				<rect x="250" y="250" />
+				<rect x="250" y="150" />
+				<rect x="250" y="50" />
+				<rect x="350" y="50" />
+				<rect x="450" y="50" />
+			</svg>
+			<span class="site-name-text">{{ site.name }}</span>
+		</a>
+		<nav class="site-nav" aria-label="Main">
+			<a href="{{ '/blog' | relative_url }}"{% if page.url contains '/blog' or page.layout == 'post' %} aria-current="page"{% endif %}>Writing</a>
+			<a href="{{ '/about' | relative_url }}"{% if page.url contains '/about' %} aria-current="page"{% endif %}>About</a>
 		</nav>
 	</div>
 </header>

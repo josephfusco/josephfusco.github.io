@@ -1,36 +1,50 @@
 ---
 layout: default
-title: Hello, I'm Joe.
 ---
-<div class="heading">
-	<div class="container">
-		<h1>{{ site.intro-line-1 }}<br> {{ site.intro-line-2 }}</h1>
-	</div>
-</div>
-<div class="portfolio">
-	<div class="container">
-		<div class="row">
-			{% for item in site.portfolio %}
-			<div class="c-lg-4 c-sm-6">
-				<div class="portfolio__item-container">
-					<div class="portfolio__preloader">
-						<span></span>
-						<span></span>
-					</div>
-					<a href="{{ item.url }}" class="portfolio__item" target="_blank">
-						<div class="portfolio__text">
-							<div class="portfolio__text-inner">
-								<h2>{{ item.title }}</h2>
-								<p>{{ item.subtitle }}</p>
-							</div>
-						</div>
-						<div class="portfolio__graphics">
-							<div class="portfolio__bg" style="background-image: url({{site.url}}/assets/images/{{ item.imageFileName }});"></div>
-						</div>
-					</a>
-				</div>
-			</div>
+<div class="wrap">
+	<section class="hero" data-spec="hero · measure 42rem · clamp(1.9rem–2.6rem)">
+		<p class="hero-kicker">
+			<img src="{{ '/assets/images/gravatar.jpg' | relative_url }}" alt="Joe Fusco">
+			<span class="status"><span class="presence-dot" aria-hidden="true"></span> <span data-presence-count>just you here</span></span>
+		</p>
+		<h1>Hello, I'm Joe<span class="flame">.</span></h1>
+		<p class="lede">I maintain headless WordPress plugins at <strong>WP&nbsp;Engine</strong> and contribute to <strong>WordPress core</strong>. I write about shipping WordPress plugins.</p>
+		<p class="proof" data-spec="proof · serif italic · baseline x1">WordPress core, Presence API, WPGraphQL IDE, WP&nbsp;Engine.</p>
+	</section>
+
+
+	<section class="block" aria-label="Current work" data-spec="now · 5 projects · border-b 1px">
+		<h2>Now</h2>
+		<ul class="work">
+			<li>
+				<h3><a href="https://github.com/WordPress/presence-api">Presence API</a> <span class="tag">WordPress core project</span></h3>
+				<p>System-wide presence and awareness for WordPress, and the foundation for real-time collaboration in the block editor.</p>
+			</li>
+			<li>
+				<h3><a href="https://github.com/WordPress/wordpress-develop">Real-time collaboration in core</a> <span class="tag">wordpress-develop</span></h3>
+				<p>Dedicated storage and infrastructure for collaborative editing in WordPress core.</p>
+			</li>
+			<li>
+				<h3><a href="https://github.com/wp-graphql/wpgraphql-ide">WPGraphQL IDE</a> <span class="tag">open source</span></h3>
+				<p>A query IDE rebuilt on CodeMirror 6 and WordPress components, with live Playground demos.</p>
+			</li>
+			<li>
+				<h3><a href="https://lexgrade.org">LexGrade</a> <span class="tag">access to justice</span></h3>
+				<p>An open standard for scoring the quality of legal drafting. Openly published, owned by no one.</p>
+			</li>
+		</ul>
+	</section>
+
+	<section class="block" aria-label="Recent writing" data-spec="writing · jekyll + kramdown · since 2014">
+		<h2>Writing</h2>
+		<ul class="posts">
+			{% for post in site.posts limit:3 %}
+			<li>
+				<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}">{{ post.title }}</a>
+				<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %Y' }}</time>
+			</li>
 			{% endfor %}
-		</div>
-	</div>
+		</ul>
+		<p><a href="{{ '/blog' | relative_url }}">All writing →</a></p>
+	</section>
 </div>
