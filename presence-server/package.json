@@ -1,0 +1,8 @@
+{
+  "name": "presence-relay-dev",
+  "private": true,
+  "description": "Local dev relay for the site's presence layer. Production runs on a WebSocket host (Cloudflare Durable Object / PartyKit).",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
