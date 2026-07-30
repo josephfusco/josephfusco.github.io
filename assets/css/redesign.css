@@ -1051,3 +1051,17 @@ main { flex: 1; }
   margin: var(--lh) 0 0;
   line-height: var(--lh);
 }
+
+/* Writing archive: years as landmarks, dates snug against titles */
+.year-label {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  line-height: var(--lh);
+  margin: 0.875rem 0 0;
+}
+.posts li { grid-template-columns: 4.25rem 1fr; column-gap: 1.25rem; }
+.posts time { text-align: right; }
