@@ -10,13 +10,17 @@ redirect_from:
 		<p class="meta">Notes on WordPress, front-end development, and tooling.</p>
 	</div>
 
+	{% assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+	{% for year in by_year %}
+	<h2 class="year-label">{{ year.name }}</h2>
 	<ul class="posts">
-		{% for post in site.posts %}
+		{% for post in year.items %}
 		<li>
+			<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d' }}</time>
 			<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}">{{ post.title }}</a>
-			<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %Y' }}</time>
 		</li>
 		{% endfor %}
 	</ul>
+	{% endfor %}
 
 </div>
