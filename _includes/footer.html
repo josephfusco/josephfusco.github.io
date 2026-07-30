@@ -10,11 +10,10 @@
 				<p>Other readers appear as anonymous birds, live. Each visit's cursor path is kept, positions and timing only, never IPs or identifiers, and replays later as a ghost. The 🕊 toggle turns all of it off for you. Global Privacy Control is honored automatically.</p>
 				<p>Source on <a href="https://github.com/josephfusco/josephfusco.github.io">GitHub</a>.</p>
 			</div>
-			<a href="{{ '/design' | relative_url }}">Design</a>
 			{% for account in site.accounts %}<a href="{{ account.url }}">{{ account.name }}</a>{% endfor %}
 		</div>
-		<div>
-			&copy; {{ site.time | date: '%Y' }} {{ site.name }}. Rochester, NY
+		<div class="fineprint">
+			&copy; {{ site.time | date: '%Y' }} {{ site.name }}. Rochester, NY.
 			<button class="camera" aria-label="Take a photo" title="Say cheese"><span class="camera-lens"></span></button><span class="cheese" aria-hidden="true">CHEESE!</span>
 			Animations recycled from <a href="https://codepen.io/fusco">my old CodePens</a>.
 		</div>
