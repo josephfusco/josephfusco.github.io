@@ -86,7 +86,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   margin-left: 1.25rem;
   font-size: 0.9375rem;
 }
-.site-nav a[aria-current="page"] { color: var(--fg); font-weight: 600; }
+.site-nav a[aria-current="page"] { color: var(--fg); }
 
 /* Hero */
 .hero { padding: 2.25rem 0 1rem; }
