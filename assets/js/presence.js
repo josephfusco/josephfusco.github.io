@@ -4,6 +4,18 @@
 (function () {
   'use strict';
 
+  /* The tab has presence too: the favicon dims when you step away */
+  var icon = document.querySelector('link[rel="icon"]');
+  if (icon) {
+    var iconHome = icon.href;
+    var iconAway = iconHome.replace('mark.svg', 'mark-away.svg');
+    if (iconAway !== iconHome) {
+      document.addEventListener('visibilitychange', function () {
+        icon.href = document.hidden ? iconAway : iconHome;
+      });
+    }
+  }
+
   /* Registry: every enhancement this site layers on, probed at runtime.
      Blueprint mode renders this registry as a live systems panel. */
   var FEATURES = [
