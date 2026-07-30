@@ -110,9 +110,24 @@
     if (!p.el) return;
     var base = 'peer-cursor' + (p.ghost ? ' ghost' : '');
     var s = STATE_META[p.state] ? p.state : 'active';
-    p.el.className = base + (s !== 'active' ? ' state-' + s : '');
+    p.el.className = base
+      + (s !== 'active' ? ' state-' + s : '')
+      + (p.labelShown ? ' show-label' : '');
     var label = p.el.querySelector('.peer-label');
     if (label) label.textContent = p.name + STATE_META[s].suffix;
+  }
+
+  /* Labels appear on arrival, on state changes, and when movement resumes
+     after a pause. Then they get out of the way of the words. */
+  function reveal(p, ms) {
+    if (!p.el) return;
+    p.labelShown = true;
+    p.el.classList.add('show-label');
+    clearTimeout(p.revealTimer);
+    p.revealTimer = setTimeout(function () {
+      p.labelShown = false;
+      if (p.el) p.el.classList.remove('show-label');
+    }, ms || 2500);
   }
 
   var JUMP_PX = 260; // beyond this, teleport — no swoosh across other people's screens
@@ -154,6 +169,7 @@
     var entry = { name: p.name, color: p.color, pos: p.pos || null, state: p.state || 'active', el: cursorEl(p) };
     peers.set(p.id, entry);
     applyState(entry);
+    reveal(entry, 3000);
   }
 
   /* Registry: every message the relay can send, and what it does */
@@ -162,11 +178,15 @@
     join: function (m) { addPeer(m.peer); },
     move: function (m) {
       var p = peers.get(m.id);
-      if (p) p.pos = m.pos;
+      if (!p) return;
+      var now = Date.now();
+      if (!p.lastMoveAt || now - p.lastMoveAt > 4000) reveal(p);
+      p.lastMoveAt = now;
+      p.pos = m.pos;
     },
     state: function (m) {
       var p = peers.get(m.id);
-      if (p) { p.state = m.s; applyState(p); }
+      if (p) { p.state = m.s; applyState(p); reveal(p); }
     },
     leave: function (m) {
       var p = peers.get(m.id);
@@ -340,6 +360,7 @@
       pos: null,
       el: cursorEl({ name: gname, color: '', ghost: true }),
     });
+    reveal(peers.get(GHOST_ID), 4000);
     var i = 0;
     var j = 0;
     var states = trace.states || [];

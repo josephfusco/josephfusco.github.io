@@ -12,7 +12,7 @@
 				<p class="meta">
 					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time>
 					{% assign words = content | number_of_words %}
-					· {% if words < 360 %}1{% else %}{{ words | divided_by:180 }}{% endif %} min read
+					, {% if words < 360 %}1{% else %}{{ words | divided_by:180 }}{% endif %} min read
 				</p>
 				{{ content }}
 			</article>
