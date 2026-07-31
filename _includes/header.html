@@ -1,7 +1,7 @@
 <header class="site-header">
 	<div class="site-header-bg" aria-hidden="true"></div>
 	<div class="wrap">
-		<a class="site-name" href="{{ '/' | relative_url }}">
+		<a class="site-name" href="{{ '/' | relative_url }}" aria-label="{{ site.nameplate | default: site.name }}, home">
 			<svg class="site-mark" viewBox="0 0 600 600" aria-hidden="true">
 				<rect x="350" y="250" />
 				<rect x="50" y="350" />
@@ -15,7 +15,6 @@
 				<rect x="350" y="50" />
 				<rect x="450" y="50" />
 			</svg>
-			<span class="site-name-text"><em class="desk-of">From the desk of</em>{{ site.nameplate | default: site.name }}</span>
 		</a>
 		<nav class="site-nav" aria-label="Main">
 			<a href="{{ '/blog' | relative_url }}"{% if page.url contains '/blog' or page.layout == 'post' %} aria-current="page"{% endif %}>Writing</a>
