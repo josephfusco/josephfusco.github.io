@@ -1295,13 +1295,6 @@ body, .site-footer {
 
 /* ---- Flight ---- */
 
-@keyframes bird-land {
-  from {
-    translate: 0 -20px;
-    opacity: 0;
-  }
-}
-.wire-bird.land { animation: bird-land 480ms cubic-bezier(0.22, 1, 0.36, 1); }
 
 /* Empty cursor labels take no space */
 .peer-label:empty { display: none; }

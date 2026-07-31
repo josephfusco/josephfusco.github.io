@@ -233,12 +233,10 @@
     el.style.left = pt.left + '%';
     el.style.top = (pt.top + (21 - Math.round(13 * scale))) + 'px';
     wire.appendChild(el);
-    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flown: false, returnTimer: null };
+    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flown: true, returnTimer: null };
     flock.set(key, bird);
-    el.classList.add('land');
-    el.addEventListener('animationend', function (e) {
-      if (e.animationName === 'bird-land') el.classList.remove('land');
-    });
+    el.style.visibility = 'hidden';
+    setTimeout(function () { arrive(bird, Math.random() < 0.5 ? -1 : 1); }, Math.random() * 700);
   }
 
   function removePigeon(key) {
@@ -268,6 +266,7 @@
     if (bird.flown || !bird.el) return;
     bird.flown = true;
     var el = bird.el;
+    bird.lastDir = dir;
     var flip = dir < 0 ? 'scaleX(-1)' : '';
     el.innerHTML = flightSVG();
     bird.svgEl = el.querySelector('svg');
@@ -291,17 +290,46 @@
     flight.finished.then(function () {
       flight.cancel();
       el.classList.remove('airborne');
-      el.innerHTML = bird.markup;
-      bird.svgEl = el.querySelector('svg');
-      if (Math.random() < 0.45) bird.svgEl.style.transform = 'scaleX(-1)';
       el.style.visibility = 'hidden';
       bird.returnTimer = setTimeout(function () {
-        el.style.visibility = '';
-        el.classList.add('land');
-        bird.flown = false;
-        bounceWire();
+        arrive(bird, bird.lastDir || 1);
       }, 9000 + Math.random() * 16000);
     }).catch(function () { /* removed mid-flight */ });
+  }
+
+  /* An arrival is a takeoff reversed: in from the side it left,
+     wings beating, decelerating into the perch. The wire takes the weight. */
+  function arrive(bird, side) {
+    if (!bird.el) return;
+    var el = bird.el;
+    var fx = side * (160 + Math.random() * 240);
+    var fy = -(90 + Math.random() * 120);
+    var fr = -side * (6 + Math.random() * 10);
+    var dur = 700 + Math.random() * 260;
+    el.innerHTML = flightSVG();
+    bird.svgEl = el.querySelector('svg');
+    var flip = side > 0 ? 'scaleX(-1)' : '';
+    bird.svgEl.style.transform = flip;
+    el.classList.add('airborne');
+    el.style.setProperty('--flapms', Math.round(70 + bird.scale * 30) + 'ms');
+    el.style.visibility = '';
+    var frames = FLIGHTS[Math.floor(Math.random() * FLIGHTS.length)].slice().reverse().map(function (f) {
+      return {
+        offset: Math.round((1 - f[0]) * 100) / 100,
+        transform: 'translate(' + fx * f[1] + 'px,' + fy * f[2] + 'px) rotate(' + fr * f[3] + 'deg) scale(' + f[5] + ')',
+        opacity: f[4],
+      };
+    });
+    var flight = el.animate(frames, { duration: dur, easing: 'cubic-bezier(0.3, 0.55, 0.3, 1)', fill: 'backwards' });
+    flight.finished.then(function () {
+      flight.cancel();
+      el.classList.remove('airborne');
+      el.innerHTML = bird.markup;
+      bird.svgEl = el.querySelector('svg');
+      bird.svgEl.style.transform = flip;
+      bird.flown = false;
+      bounceWire();
+    }).catch(function () { /* removed mid-arrival */ });
   }
 
   /* A cursor that comes too close disturbs the bird */
