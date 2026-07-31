@@ -329,8 +329,11 @@
     if (!hasBirds || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     e.preventDefault();
     navigatingAway = true;
+    var clickX = e.clientX || innerWidth / 2;
     flock.forEach(function (b) {
-      setTimeout(function () { flyAway(b, Math.random() < 0.5 ? -1 : 1); }, Math.random() * 130);
+      var r = b.el && b.el.getBoundingClientRect();
+      var dir = r && r.left + r.width / 2 > clickX ? 1 : -1;
+      setTimeout(function () { flyAway(b, dir); }, Math.random() * 130);
     });
     setTimeout(function () { location.href = a.href; }, 420);
   });
