@@ -1167,3 +1167,18 @@ main { flex: 1; }
   color: var(--fg);
   margin: calc(var(--lh) * 1.5) 0 0;
 }
+
+/* ---- The footer is cotton: the letter ends on paper ---- */
+.site-footer {
+  --bg: #f6f1e5;
+  --card: #efe8d6;
+  --fg: #23201a;
+  --muted: #6f6758;
+  --border: #ddd4bf;
+  --accent: #b8420f;
+  background: var(--bg);
+  color: var(--muted);
+  border-top: 0;
+  padding-top: var(--lh);
+}
+.site-footer .signature { color: #1a1712; }
