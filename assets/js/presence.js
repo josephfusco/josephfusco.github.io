@@ -158,6 +158,18 @@
     return '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="' + d + '"/></svg>';
   }
 
+  var BIRD_BASE = 1.6; /* display scale: 15x13 viewBox to ~24x21px */
+
+  /* In the air every bird is wings: two frames, alternated like a sprite */
+  var WING_UP = 'M0.8 4.9 C2.6 2.7 5 1.6 6.9 1.9 C7.3 1.2 8.2 1 8.9 1.4 L10.9 0.7 L9.9 2.2 C11.7 2.2 13.6 3 14.6 4.6 C12.8 4.4 11.2 4.5 10 5.1 C9.6 7.3 8.3 8.6 6.9 8.8 L7.3 10.6 L6.4 10.2 L5.8 10.7 L5.4 8.7 C4.2 8.3 3.3 7.2 3.1 5.8 C2.3 5.5 1.5 5.2 0.8 4.9 Z';
+  var WING_DOWN = 'M2.6 9.9 C3.4 8 4.6 6.9 6 6.5 C5.8 5 6.3 3.6 7.4 2.9 C7.9 2.2 8.8 2 9.5 2.4 L11.5 1.7 L10.4 3.2 C10.9 4.1 11 5.2 10.6 6.3 C11.9 6.9 12.9 8.2 13.4 10 C11.9 9.1 10.6 8.7 9.5 8.8 L9.8 10.9 L8.9 10.5 L8.3 11 L7.9 8.9 C6.9 8.9 5.9 9.2 2.6 9.9 Z';
+
+  function flightSVG() {
+    return '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true">'
+      + '<path class="w-up" d="' + WING_UP + '"/>'
+      + '<path class="w-down" d="' + WING_DOWN + '"/></svg>';
+  }
+
   /* The wire's geometry, defined once; the header path syncs from it */
   var WIRE_GEOM = { x0: 2.5, y0: 3.6, cx: 55, cy: 15, x1: 100, y1: 6.5, scale: 2.8 };
   (function () {
