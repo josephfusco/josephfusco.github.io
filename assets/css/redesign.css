@@ -1155,3 +1155,22 @@ main { flex: 1; }
 
 /* Popover links are prose; the footer's toolbar margins stop at its edge */
 #colophon a { margin-right: 0; }
+
+/* Letterhead nameplate: Georgia, with its eyebrow */
+.site-name-text {
+  display: flex;
+  flex-direction: column;
+  font-family: Georgia, "Iowan Old Style", serif;
+  font-size: 1.3125rem;
+  font-weight: 700;
+  line-height: var(--lh);
+  letter-spacing: 0;
+}
+.desk-of {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
