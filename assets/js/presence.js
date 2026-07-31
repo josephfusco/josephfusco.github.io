@@ -261,12 +261,10 @@
     wire.appendChild(el);
     var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, flown: false, returnTimer: null };
     flock.set(key, bird);
-    /* temporary A/B: add ?flyin to the URL to compare flying entrances */
-    if (/[?&]flyin/.test(location.search)) {
-      bird.flown = true;
-      el.style.visibility = 'hidden';
-      setTimeout(function () { arrive(bird, Math.random() < 0.5 ? -1 : 1); }, Math.random() * 700);
-    }
+    /* the regulars fly home when you arrive */
+    bird.flown = true;
+    el.style.visibility = 'hidden';
+    setTimeout(function () { arrive(bird, Math.random() < 0.5 ? -1 : 1); }, Math.random() * 700);
   }
 
   function removePigeon(key) {
