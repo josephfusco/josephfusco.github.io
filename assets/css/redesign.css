@@ -287,19 +287,6 @@ section.block > h2 {
 /* ---- Life layer: motifs recycled from codepen.io/fusco ---- */
 
 /* Hero kicker: face + presence (the iMessage typing pen, all grown up) */
-.footer-kicker {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.875rem;
-  margin: 0 0 0.875rem;
-}
-.footer-kicker img {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-}
 .site-footer .status {
   display: inline-flex;
   align-items: center;
@@ -861,7 +848,6 @@ body { line-height: var(--lh); }
 /* Hero */
 .hero { padding: var(--lh) 0 0; }
 
-.footer-kicker img { width: 42px; height: 42px; }
 .site-footer .status {
   font-family: inherit;
   font-style: italic;

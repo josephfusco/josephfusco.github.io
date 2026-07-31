@@ -1,8 +1,5 @@
 <footer class="site-footer">
 	<div class="wrap">
-		<p class="footer-kicker">
-			<img src="{{ '/assets/images/gravatar.jpg' | relative_url }}" alt="{{ site.name }}">
-		</p>
 		<p class="signature">{{ site.nameplate | default: site.name }}</p>
 		<p class="signature-contacts">
 			{% for account in site.accounts %}<a href="{{ account.url }}">{{ account.name }}</a>{% endfor %}
