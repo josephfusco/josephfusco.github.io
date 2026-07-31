@@ -125,7 +125,8 @@
     return Math.max(document.documentElement.scrollHeight, innerHeight);
   }
 
-  var rail = null;
+  var wire = document.querySelector('.powerline');
+  var PIGEON = '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="M1 10.5 L4.5 8.2 C4 5.8 5.6 3.6 8.2 3.4 C9 2.2 10.6 1.9 11.6 2.6 C12 2.9 12.3 3.4 12.4 3.9 L14.6 4.6 L12.5 5.3 C12.3 7.8 10.5 9.6 8 9.8 L8.6 12.6 L7.6 12.2 L7 12.7 L6.4 9.7 C5.7 9.5 5 9.1 4.6 8.6 Z"/></svg>';
   var minimap = document.querySelector('.stage-live');
   var selfDot = null;
   var selfPos = null;
@@ -136,10 +137,6 @@
     layer.className = 'presence-layer';
     layer.setAttribute('aria-hidden', 'true');
     document.body.appendChild(layer);
-    rail = document.createElement('div');
-    rail.className = 'presence-rail';
-    rail.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(rail);
   }
 
   function miniDot(cls, color) {
@@ -249,8 +246,14 @@
       var off = y < -40 || y > innerHeight + 40;
       p.el.style.visibility = off ? 'hidden' : 'visible';
       if (p.el.style.opacity === '0' && !off) p.el.style.opacity = '';
-      /* the perch: every reader marked at their depth in the page */
-      if (p.perch) p.perch.style.top = (p.pos.y * 100) + '%';
+      /* the wire: perched at their depth in the page, riding the true sag */
+      if (p.birdEl) {
+        var ws = 0.08 + p.pos.y * 0.88;
+        var wx = (1 - ws) * (1 - ws) * 2.5 + 2 * ws * (1 - ws) * 55 + ws * ws * 100;
+        var wy = (1 - ws) * (1 - ws) * 3.6 + 2 * ws * (1 - ws) * 15 + ws * ws * 6.5;
+        p.birdEl.style.left = wx + '%';
+        p.birdEl.style.top = (wy * 2.8 - 19.5) + 'px';
+      }
       /* the minimap: the Presence API card demos the live room */
       if (p.dot) {
         p.dot.style.left = (p.pos.x * 100) + '%';
@@ -295,10 +298,12 @@
     var entry = { name: p.name, color: p.color, pos: p.pos || null, state: p.state || 'active', el: cursorEl(p) };
     entry.svg = entry.el.querySelector('svg');
     entry.el.style.opacity = '0';
-    entry.perch = document.createElement('span');
-    entry.perch.className = 'perch' + (p.ghost ? ' perch-ghost' : '');
-    entry.perch.style.color = p.color || '';
-    rail.appendChild(entry.perch);
+    if (wire) {
+      entry.birdEl = document.createElement('span');
+      entry.birdEl.className = 'wire-bird' + (p.ghost ? ' wire-ghost' : '');
+      entry.birdEl.innerHTML = PIGEON;
+      wire.appendChild(entry.birdEl);
+    }
     entry.dot = miniDot(p.ghost ? 'mini-ghost' : '', p.color);
     peers.set(p.id, entry);
     applyState(entry);
@@ -310,7 +315,7 @@
     var p = peers.get(id);
     if (!p) return;
     peers.delete(id);
-    if (p.perch) p.perch.remove();
+    if (p.birdEl) p.birdEl.remove();
     if (p.dot) p.dot.remove();
     clearTimeout(p.revealTimer);
     clearTimeout(p.bankTimer);
