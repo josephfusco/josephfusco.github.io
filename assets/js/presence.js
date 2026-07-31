@@ -146,7 +146,7 @@
     function f(v) { return Math.round(v * 100) / 100; }
     var d = 'M' + f(tailX) + ' ' + f(tailY)
       + ' L4.5 ' + f(backY + 1.3)
-      + ' C5.1 ' + f(backY - 0.3) + ' 6.3 ' + f(backY - 1.2) + ' ' + f(headCx - headR - 0.7) + ' ' + f(headCy + 0.4)
+      + ' C5.2 ' + f(backY - 0.1) + ' 6.6 ' + f(backY - 0.5) + ' ' + f(headCx - headR - 0.7) + ' ' + f(headCy + 0.7)
       + ' C' + f(headCx - headR + 0.1) + ' ' + f(headCy - headR) + ' ' + f(headCx + headR * 0.9) + ' ' + f(headCy - headR)
       + ' ' + f(headCx + headR) + ' ' + f(headCy + 0.1)
       + ' L' + f(beakX) + ' ' + f(beakY)
@@ -249,15 +249,19 @@
     flock.delete(key);
   }
 
+  var WIRE_RECOIL = [
+    { transform: 'translateY(0)' }, { transform: 'translateY(2.5px)' },
+    { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0.8px)' },
+    { transform: 'translateY(0)' },
+  ];
+
   function bounceWire() {
     var w = document.querySelector('.wire-svg');
-    if (!w) return;
-    w.animate(
-      [{ transform: 'translateY(0)' }, { transform: 'translateY(2.5px)' },
-       { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0.8px)' },
-       { transform: 'translateY(0)' }],
-      { duration: 620, easing: 'ease-out' }
-    );
+    if (w) w.animate(WIRE_RECOIL, { duration: 620, easing: 'ease-out' });
+    /* everything perched rides the same oscillation */
+    flock.forEach(function (b) {
+      if (!b.flown && b.el) b.el.animate(WIRE_RECOIL, { duration: 620, easing: 'ease-out' });
+    });
   }
 
   function flyAway(bird, dir) {
