@@ -1245,7 +1245,6 @@ body, .site-footer {
   position: relative;
   height: 3.5rem;
   pointer-events: none;
-  overflow: hidden;
 }
 .wire-svg {
   position: absolute;
