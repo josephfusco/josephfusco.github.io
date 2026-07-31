@@ -1,13 +1,13 @@
 /* josephfus.co — minimal, fast, no build step */
 
 :root {
-  color-scheme: dark;
-  --bg: #141110;
-  --fg: #ebe5da;
-  --muted: #9c9285;
-  --accent: #ff6b3d;
-  --border: #2b2620;
-  --card: #1c1814;
+  color-scheme: light;
+  --bg: #f6f1e5;
+  --fg: #23201a;
+  --muted: #6f6758;
+  --accent: #b8420f;
+  --border: #ddd4bf;
+  --card: #efe8d6;
 }
 
 @font-face {
@@ -381,7 +381,7 @@ section.block > h2 {
 /* Button hover: the HACF glow */
 .signup button:hover {
   filter: brightness(1.08);
-  box-shadow: 0 0 14px rgba(255, 107, 61, 0.4);
+  box-shadow: 0 0 12px rgba(184, 66, 15, 0.3);
 }
 
   .proof::after { display: none; }
@@ -830,7 +830,7 @@ html[data-blueprint] .blueprint-systems {
   text-underline-offset: 2px;
   text-decoration-thickness: 1px;
 }
-.prose a:visited { color: #b39aba; }
+.prose a:visited { color: #7d5185; }
 
 /* Posts: dates hang in the left margin, archive-style */
 .posts li {
@@ -1168,19 +1168,13 @@ main { flex: 1; }
   margin: calc(var(--lh) * 1.5) 0 0;
 }
 
-/* ---- The footer is cotton: the letter ends on paper ---- */
+/* ---- The footer: one sheet deeper in the stack ---- */
 .site-footer {
-  --bg: #f6f1e5;
-  --card: #efe8d6;
-  --fg: #23201a;
-  --muted: #6f6758;
-  --border: #ddd4bf;
-  --accent: #b8420f;
-  background: var(--bg);
+  background: var(--card);
   color: var(--muted);
   border-top: 0;
   padding-top: var(--lh);
-  box-shadow: inset 0 16px 22px -18px rgba(18, 13, 7, 0.55);
+  box-shadow: inset 0 14px 18px -16px rgba(35, 28, 18, 0.18);
 }
 .site-footer .signature { color: #26418f; }
 
