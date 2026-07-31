@@ -2,12 +2,12 @@
 
 :root {
   color-scheme: dark;
-  --bg: #111113;
-  --fg: #ededed;
-  --muted: #9a9a9a;
+  --bg: #141110;
+  --fg: #ebe5da;
+  --muted: #9c9285;
   --accent: #ff6b3d;
-  --border: #2a2a2e;
-  --card: #1a1a1e;
+  --border: #2b2620;
+  --card: #1c1814;
 }
 
 @font-face {
@@ -1180,5 +1180,6 @@ main { flex: 1; }
   color: var(--muted);
   border-top: 0;
   padding-top: var(--lh);
+  box-shadow: inset 0 16px 22px -18px rgba(18, 13, 7, 0.55);
 }
 .site-footer .signature { color: #1a1712; }
