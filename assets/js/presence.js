@@ -128,11 +128,12 @@
   var wire = document.querySelector('.powerline');
     /* ---- The borb factory: every bird is a one-off permutation ----
      Dials: puff, neck, tail, beak. No two are drawn alike. */
-  function makeBorb() {
-    var p = Math.random();                  /* puff: 0 slim, 1 borb */
-    var n = Math.random() * (1 - p * 0.75); /* neck: borbs have none */
-    var t = 0.6 + Math.random() * 0.7;      /* tail */
-    var b = 0.8 + Math.random() * 0.4;      /* beak */
+  function makeBorb(rng) {
+    var r = rng || Math.random;
+    var p = r();                  /* puff: 0 slim, 1 borb */
+    var n = r() * (1 - p * 0.75); /* neck: borbs have none */
+    var t = 0.6 + r() * 0.7;      /* tail */
+    var b = 0.8 + r() * 0.4;      /* beak */
     var backY = 4.6 - n * 1.4 + p * 0.4;
     var headR = 1.5 - p * 0.25;
     var headCx = 8.7 + n * 0.3;
@@ -201,11 +202,33 @@
     el.innerHTML = makeBorb();
   });
 
+  /* Seeded randomness: each page keeps its own regulars */
+  function seedFrom(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return function () {
+      h = Math.imul(h ^ (h >>> 15), h | 1);
+      h ^= h + Math.imul(h ^ (h >>> 7), h | 61);
+      return ((h ^ (h >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
   /* The flock is not the cursors. Pigeons are the room's census:
      one per reader present, you included, perched where birds perch.
      Cursors stay human; pigeons stay birds. */
   var flock = new Map();
-  var SLOTS = [0.14, 0.21, 0.29, 0.44, 0.57, 0.69, 0.8, 0.88, 0.36, 0.63, 0.75, 0.25];
+  var SLOTS = (function () {
+    var base = [0.14, 0.21, 0.29, 0.44, 0.57, 0.69, 0.8, 0.88, 0.36, 0.63, 0.75, 0.25];
+    var r = seedFrom('slots:' + location.pathname);
+    for (var i = base.length - 1; i > 0; i--) {
+      var j = Math.floor(r() * (i + 1));
+      var tmp = base[i]; base[i] = base[j]; base[j] = tmp;
+    }
+    return base;
+  })();
   var slotCursor = 0;
   var navigatingAway = false;
 
@@ -219,24 +242,25 @@
 
   function addPigeon(key) {
     if (!wire || flock.has(key)) return;
-    var slot = SLOTS[slotCursor++ % SLOTS.length];
+    var idx = slotCursor++;
+    var slot = SLOTS[idx % SLOTS.length];
+    var rng = seedFrom(location.pathname + ':' + (idx % SLOTS.length));
     var el = document.createElement('span');
     el.className = 'wire-bird';
-    var markup = makeBorb();
+    var markup = makeBorb(rng);
     el.innerHTML = markup;
-    var scale = (0.85 + Math.random() * 0.3) * BIRD_BASE;
+    var scale = (0.85 + rng() * 0.3) * BIRD_BASE;
     el.style.width = Math.round(15 * scale) + 'px';
     el.style.height = Math.round(13 * scale) + 'px';
     var svgEl = el.querySelector('svg');
-    if (Math.random() < 0.45) svgEl.style.transform = 'scaleX(-1)';
+    var flip = rng() < 0.45;
+    if (flip) svgEl.style.transform = 'scaleX(-1)';
     var pt = curvePoint(slot);
     el.style.left = pt.left + '%';
     el.style.top = (pt.top + (21 - Math.round(13 * scale))) + 'px';
     wire.appendChild(el);
-    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flown: true, returnTimer: null };
+    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, flown: false, returnTimer: null };
     flock.set(key, bird);
-    el.style.visibility = 'hidden';
-    setTimeout(function () { arrive(bird, Math.random() < 0.5 ? -1 : 1); }, Math.random() * 700);
   }
 
   function removePigeon(key) {
