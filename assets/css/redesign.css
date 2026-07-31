@@ -1156,13 +1156,14 @@ main { flex: 1; }
 /* Popover links are prose; the footer's toolbar margins stop at its edge */
 #colophon a { margin-right: 0; }
 
-/* The letter signs at the bottom right */
+/* The letter signs at the bottom right of the footer */
 .signature {
+  flex-basis: 100%;
   text-align: right;
   font-family: Georgia, "Iowan Old Style", serif;
   font-style: italic;
   font-size: 1.125rem;
   line-height: var(--lh);
   color: var(--fg);
-  margin: var(--lh) 0 0;
+  margin: calc(var(--lh) * 1.5) 0 0;
 }
