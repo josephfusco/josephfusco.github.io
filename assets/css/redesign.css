@@ -1304,3 +1304,7 @@ body, .site-footer {
 .wire-bird.airborne .w-down { animation: wing-b var(--flapms, 90ms) steps(1) infinite; }
 @keyframes wing-a { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 @keyframes wing-b { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+/* Glide: wings held out, no beat */
+.wire-bird.glide .w-up { opacity: 1; animation: none; }
+.wire-bird.glide .w-down { opacity: 0; animation: none; }

@@ -281,6 +281,15 @@
     { transform: 'translateY(0)' },
   ];
 
+  /* Long flights hold a glide: flap-flap-flap, wings out, flap-flap */
+  function scheduleGlide(el, dur) {
+    if (dur < 680) return;
+    setTimeout(function () {
+      el.classList.add('glide');
+      setTimeout(function () { el.classList.remove('glide'); }, 180 + Math.random() * 140);
+    }, dur * (0.38 + Math.random() * 0.15));
+  }
+
   function bounceWire() {
     var w = document.querySelector('.wire-svg');
     if (w) w.animate(WIRE_RECOIL, { duration: 620, easing: 'ease-out' });
@@ -314,6 +323,7 @@
       };
     });
     bounceWire();
+    scheduleGlide(el, dur);
     var flight = el.animate(frames, { duration: dur, easing: 'cubic-bezier(0.18, 0.65, 0.45, 1)', fill: 'forwards' });
     flight.finished.then(function () {
       flight.cancel();
@@ -349,6 +359,16 @@
       };
     });
     var flight = el.animate(frames, { duration: dur, easing: 'cubic-bezier(0.3, 0.55, 0.3, 1)', fill: 'backwards' });
+    scheduleGlide(el, dur);
+    /* the flare: nose up just before the wire */
+    setTimeout(function () {
+      if (bird.svgEl) {
+        bird.svgEl.animate(
+          [{ transform: flip + ' rotate(0deg)' }, { transform: flip + ' rotate(' + (side * 14) + 'deg)' }, { transform: flip + ' rotate(0deg)' }],
+          { duration: dur * 0.3, easing: 'ease-out' }
+        );
+      }
+    }, dur * 0.68);
     flight.finished.then(function () {
       flight.cancel();
       el.classList.remove('airborne');
@@ -359,6 +379,40 @@
       bounceWire();
     }).catch(function () { /* removed mid-arrival */ });
   }
+
+  /* Perched birds live a little: a turn, a bob, a resettle. Rare and small. */
+  var MICRO = [
+    function turn(bird) {
+      bird.el.animate(
+        [{ translate: '0 0' }, { translate: '0 -3px' }, { translate: '0 0' }],
+        { duration: 200, easing: 'ease-out' }
+      );
+      setTimeout(function () {
+        bird.flip = !bird.flip;
+        if (bird.svgEl) bird.svgEl.style.transform = bird.flip ? 'scaleX(-1)' : '';
+      }, 100);
+    },
+    function bob(bird) {
+      bird.el.animate(
+        [{ translate: '0 0' }, { translate: '0 1.5px' }, { translate: '0 0' }],
+        { duration: 280, easing: 'ease-in-out' }
+      );
+    },
+    function resettle(bird) {
+      bird.el.animate(
+        [{ scale: '1 1' }, { scale: '1.05 0.93' }, { scale: '0.98 1.03' }, { scale: '1 1' }],
+        { duration: 340, easing: 'ease-in-out' }
+      );
+    },
+  ];
+
+  setInterval(function () {
+    if (document.hidden) return;
+    var perched = [];
+    flock.forEach(function (b) { if (!b.flown && b.el) perched.push(b); });
+    if (!perched.length || Math.random() < 0.5) return;
+    MICRO[Math.floor(Math.random() * MICRO.length)](perched[Math.floor(Math.random() * perched.length)]);
+  }, 7500);
 
   /* A cursor that comes too close disturbs the bird */
   function checkStartle(cx, cy) {
