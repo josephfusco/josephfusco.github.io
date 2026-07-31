@@ -1037,9 +1037,43 @@ h1, h2, h3, h4,
 .spec-serif { font-family: Georgia, serif; font-size: 1.125rem; }
 .spec-italic { font-family: Georgia, serif; font-style: italic; }
 .spec-mono { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 0.875rem; }
-.pieces { list-style: none; margin: 0; padding: 0; }
-.pieces li { padding: calc(0.875rem - 1px) 0 0.875rem; border-bottom: 1px solid var(--border); }
-.pieces li:last-child { border-bottom: 0; }
+.components { list-style: none; margin: 0; padding: 0; }
+.components li {
+  display: grid;
+  grid-template-columns: 10.5rem 1fr;
+  column-gap: 1.75rem;
+  align-items: center;
+  padding: calc(0.875rem - 1px) 0 0.875rem;
+  border-bottom: 1px solid var(--border);
+}
+.components li:last-child { border-bottom: 0; }
+.components .stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  min-height: calc(var(--lh) * 2);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+}
+.components h3 { font-size: 1.0625rem; line-height: var(--lh); margin: 0; }
+.components p { margin: 0; }
+.components .tag {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 0.5rem;
+}
+.stage .demo-cursor, .stage .demo-chip { margin: 0; }
+.stage .site-mark { width: 34px; height: 34px; }
+.stage img { display: inline-block; }
+@media (max-width: 540px) {
+  .components li { grid-template-columns: 1fr; row-gap: 0.875rem; }
+}
 .demo-cursor { display: inline-flex; align-items: center; gap: 6px; color: #4dabf7; margin-right: 0.5rem; vertical-align: middle; }
 .demo-ghost { color: var(--muted); opacity: 0.7; }
 .demo-label { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 0.6875rem; border: 1px solid currentColor; border-radius: 3px; padding: 0.05rem 0.4rem; }
