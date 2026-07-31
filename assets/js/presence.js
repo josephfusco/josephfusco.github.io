@@ -4,17 +4,39 @@
 (function () {
   'use strict';
 
-  /* The tab has presence too: the favicon dims when you step away */
+  /* The tab has presence too. Before a bird is assigned: static orange,
+     gray when hidden. After: the favicon wears this tab's own bird color,
+     dims when you step away, and flashes when someone new arrives. */
   var icon = document.querySelector('link[rel="icon"]');
-  if (icon) {
-    var iconHome = icon.href;
-    var iconAway = iconHome.replace('mark.svg', 'mark-away.svg');
-    if (iconAway !== iconHome) {
-      document.addEventListener('visibilitychange', function () {
-        icon.href = document.hidden ? iconAway : iconHome;
-      });
-    }
+  var iconStaticHome = icon ? icon.href : '';
+  var iconStaticAway = iconStaticHome.replace('mark.svg', 'mark-away.svg');
+  var selfColor = null;
+  var iconFlashTimer = null;
+  var MARK_RECTS = "<rect x='350' y='250' width='100' height='100'/><rect x='50' y='350' width='100' height='100'/><rect x='50' y='450' width='100' height='100'/><rect x='150' y='450' width='100' height='100'/><rect x='250' y='450' width='100' height='100'/><rect x='250' y='350' width='100' height='100'/><rect x='250' y='250' width='100' height='100'/><rect x='250' y='150' width='100' height='100'/><rect x='250' y='50' width='100' height='100'/><rect x='350' y='50' width='100' height='100'/><rect x='450' y='50' width='100' height='100'/>";
+
+  function markURI(color, dim) {
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'><g fill='" + color + "'"
+      + (dim ? " opacity='0.45'" : "") + ">" + MARK_RECTS + "</g></svg>";
+    return 'data:image/svg+xml,' + encodeURIComponent(svg);
   }
+
+  function refreshIcon(flash) {
+    if (!icon) return;
+    if (!selfColor) {
+      if (iconStaticAway !== iconStaticHome) icon.href = document.hidden ? iconStaticAway : iconStaticHome;
+      return;
+    }
+    icon.href = markURI(selfColor, document.hidden && !flash);
+  }
+
+  function flashIcon() {
+    if (!document.hidden) return;
+    refreshIcon(true);
+    clearTimeout(iconFlashTimer);
+    iconFlashTimer = setTimeout(function () { refreshIcon(false); }, 3000);
+  }
+
+  document.addEventListener('visibilitychange', function () { refreshIcon(false); });
 
   /* Registry: every enhancement this site layers on, probed at runtime.
      Blueprint mode renders this registry as a live systems panel. */
@@ -161,7 +183,7 @@
       + (s !== 'active' ? ' state-' + s : '')
       + (p.labelShown ? ' show-label' : '');
     var label = p.el.querySelector('.peer-label');
-    if (label) label.textContent = p.name + STATE_META[s].suffix;
+    if (label) label.textContent = p.name + (p.own ? ' (you)' : '') + STATE_META[s].suffix;
   }
 
   /* Labels appear on arrival, on state changes, and when movement resumes
@@ -246,15 +268,23 @@
 
   function updateCount() {
     var n = 0;
-    peers.forEach(function (p) { if (!p.ghost) n++; });
+    var ownHere = 0;
+    peers.forEach(function (p) {
+      if (p.ghost) return;
+      if (p.own) ownHere++; else n++;
+    });
     var haunted = peers.has(GHOST_ID);
+    var ownElsewhere = 0;
+    for (var k in ownTabs) if (!peers.has(isNaN(+k) ? k : +k)) ownElsewhere++;
+    var tabs = 1 + ownHere + ownElsewhere;
+    var elsewhere = Math.max(0, censusTotal - 1 - n - ownHere - ownElsewhere);
     var label = n
       ? n + ' other ' + (n > 1 ? 'birds' : 'bird') + ' here with you'
       : 'just you here';
-    var elsewhere = Math.max(0, censusTotal - 1 - n);
+    if (tabs > 1) label += ', in ' + tabs + ' tabs';
     if (elsewhere) label += ', ' + elsewhere + ' elsewhere on the site';
     if (haunted) label += ', plus a ghost';
-    if (!n && !haunted && !elsewhere) label = 'just you here (a second tab makes two)';
+    if (!n && !haunted && !elsewhere && tabs === 1) label = 'just you here (a second tab makes two)';
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
     });
@@ -295,6 +325,29 @@
   }
 
   var censusTotal = 0;
+  var selfId = null;
+
+  /* Your other tabs recognize each other; they are you, not strangers */
+  var ownTabs = {};
+  var bc = ('BroadcastChannel' in window) ? new BroadcastChannel('presence-tabs') : null;
+  if (bc) {
+    bc.onmessage = function (ev) {
+      var d = ev.data || {};
+      if (d.id == null || d.id === selfId) return;
+      ownTabs[d.id] = Date.now();
+      var p = peers.get(d.id);
+      if (p && !p.own) { p.own = true; applyState(p); }
+      updateCount();
+    };
+  }
+  function announceSelf() {
+    if (bc && selfId != null) bc.postMessage({ id: selfId });
+  }
+  setInterval(function () {
+    announceSelf();
+    var cutoff = Date.now() - 12000;
+    for (var k in ownTabs) if (ownTabs[k] < cutoff) delete ownTabs[k];
+  }, 5000);
 
   /* The seal stirs when someone walks in */
   function waveGlyph() {
@@ -306,8 +359,21 @@
 
   /* Registry: every message the relay can send, and what it does */
   var MESSAGES = {
-    welcome: function (m) { m.peers.forEach(addPeer); },
-    join: function (m) { addPeer(m.peer); waveGlyph(); },
+    welcome: function (m) {
+      selfId = m.self && m.self.id;
+      if (m.self && m.self.color) { selfColor = m.self.color; refreshIcon(false); }
+      announceSelf();
+      m.peers.forEach(addPeer);
+    },
+    join: function (m) {
+      addPeer(m.peer);
+      var id = m.peer.id;
+      setTimeout(function () {
+        var p = peers.get(id);
+        if (ownTabs[id]) { if (p && !p.own) { p.own = true; applyState(p); updateCount(); } }
+        else if (p) { waveGlyph(); flashIcon(); }
+      }, 350);
+    },
     census: function (m) { censusTotal = m.total || 0; },
     move: function (m) {
       var p = peers.get(m.id);
