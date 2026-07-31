@@ -156,7 +156,11 @@
       + ' L9.1 12.5 L8.1 12.1 L7.4 12.6 L6.9 ' + f(bellyY + 0.25)
       + ' C5.4 ' + f(bellyY + 0.3) + ' 4.5 ' + f(bellyY - 0.4) + ' 4.2 ' + f(backY + 3)
       + ' Z';
-    return '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="' + d + '"/></svg>';
+    return {
+      svg: '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="' + d + '"/></svg>',
+      puff: p,
+      neck: n,
+    };
   }
 
   var BIRD_BASE = 1.6; /* display scale: 15x13 viewBox to ~24x21px */
@@ -171,16 +175,25 @@
       + '<path class="w-down" d="' + WING_DOWN + '"/></svg>';
   }
 
-  /* The wire's geometry, defined once; the header path syncs from it */
-  var WIRE_GEOM = { x0: 2.5, y0: 3.6, cx: 55, cy: 15, x1: 100, y1: 6.5, scale: 2.8 };
-  (function () {
-    var path = document.querySelector('.wire-svg path');
-    if (path) {
-      path.setAttribute('d', 'M' + WIRE_GEOM.x0 + ' ' + WIRE_GEOM.y0
-        + ' Q ' + WIRE_GEOM.cx + ' ' + WIRE_GEOM.cy
-        + ' ' + WIRE_GEOM.x1 + ' ' + WIRE_GEOM.y1);
+  /* The wire: flat at rest, flexed by the weight of whoever perches */
+  var WIRE_GEOM = { y: 12, scale: 2.8, minSag: 0.6, perBird: 2.0, maxSag: 6.5 };
+  var wirePathEl = document.querySelector('.wire-svg path');
+  var currentSag = WIRE_GEOM.minSag;
+
+  function setSag() {
+    var n = 0;
+    flock.forEach(function (b) { if (!b.flown) n++; });
+    currentSag = Math.min(WIRE_GEOM.minSag + n * WIRE_GEOM.perBird, WIRE_GEOM.maxSag);
+    if (wirePathEl) {
+      wirePathEl.style.d = 'path("M0 ' + WIRE_GEOM.y + ' Q 50 ' + (WIRE_GEOM.y + currentSag) + ' 100 ' + WIRE_GEOM.y + '")';
     }
-  })();
+    flock.forEach(function (b) {
+      if (b.flown || !b.el || b.slot == null) return;
+      var pt = curvePoint(b.slot);
+      b.el.style.left = pt.left + '%';
+      b.el.style.top = (pt.top + b.topAdj) + 'px';
+    });
+  }
 
   /* Flight styles as data: [progress, fx, fy, rotate, opacity, scale].
      Every flight opens with the crouch: birds push off before they rise. */
@@ -199,7 +212,7 @@
 
   /* Static specimens anywhere in the page hydrate from the same registry */
   document.querySelectorAll('[data-species]').forEach(function (el) {
-    el.innerHTML = makeBorb();
+    el.innerHTML = makeBorb().svg;
   });
 
   /* Seeded randomness: each page keeps its own regulars */
@@ -233,11 +246,8 @@
   var navigatingAway = false;
 
   function curvePoint(t) {
-    var g = WIRE_GEOM;
-    var u = 1 - t;
-    var x = u * u * g.x0 + 2 * t * u * g.cx + t * t * g.x1;
-    var y = u * u * g.y0 + 2 * t * u * g.cy + t * t * g.y1;
-    return { left: x, top: y * g.scale - 19.5 };
+    var y = WIRE_GEOM.y + 2 * t * (1 - t) * currentSag;
+    return { left: t * 100, top: y * WIRE_GEOM.scale - 19.5 };
   }
 
   function addPigeon(key) {
@@ -247,7 +257,8 @@
     var rng = seedFrom(location.pathname + ':' + (idx % SLOTS.length));
     var el = document.createElement('span');
     el.className = 'wire-bird';
-    var markup = makeBorb(rng);
+    var born = makeBorb(rng);
+    var markup = born.svg;
     el.innerHTML = markup;
     var scale = (0.85 + rng() * 0.3) * BIRD_BASE;
     el.style.width = Math.round(15 * scale) + 'px';
@@ -259,7 +270,12 @@
     el.style.left = pt.left + '%';
     el.style.top = (pt.top + (21 - Math.round(13 * scale))) + 'px';
     wire.appendChild(el);
-    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, flown: false, returnTimer: null };
+    /* temperament follows the build: doves sit, flycatchers pump, sparrows hop */
+    var moves = born.puff > 0.62 ? [MICRO.resettle, MICRO.bob]
+      : born.neck > 0.4 ? [MICRO.tailPump, MICRO.turn, MICRO.tailPump]
+      : [MICRO.turn, MICRO.headBob, MICRO.bob, MICRO.resettle];
+    el.style.transformOrigin = '50% 100%';
+    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, slot: slot, topAdj: (21 - Math.round(13 * scale)), moves: moves, flown: false, returnTimer: null };
     flock.set(key, bird);
     /* the regulars fly home when you arrive */
     bird.flown = true;
@@ -273,6 +289,7 @@
     clearTimeout(b.returnTimer);
     if (b.el) b.el.remove();
     flock.delete(key);
+    setSag();
   }
 
   var WIRE_RECOIL = [
@@ -304,6 +321,7 @@
     bird.flown = true;
     var el = bird.el;
     bird.lastDir = dir;
+    setTimeout(setSag, 120);
     var flip = dir < 0 ? 'scaleX(-1)' : '';
     el.innerHTML = flightSVG();
     bird.svgEl = el.querySelector('svg');
@@ -377,12 +395,13 @@
       bird.svgEl.style.transform = flip;
       bird.flown = false;
       bounceWire();
+      setSag();
     }).catch(function () { /* removed mid-arrival */ });
   }
 
   /* Perched birds live a little: a turn, a bob, a resettle. Rare and small. */
-  var MICRO = [
-    function turn(bird) {
+  var MICRO = {
+    turn: function (bird) {
       bird.el.animate(
         [{ translate: '0 0' }, { translate: '0 -3px' }, { translate: '0 0' }],
         { duration: 200, easing: 'ease-out' }
@@ -392,26 +411,43 @@
         if (bird.svgEl) bird.svgEl.style.transform = bird.flip ? 'scaleX(-1)' : '';
       }, 100);
     },
-    function bob(bird) {
+    bob: function (bird) {
       bird.el.animate(
         [{ translate: '0 0' }, { translate: '0 1.5px' }, { translate: '0 0' }],
         { duration: 280, easing: 'ease-in-out' }
       );
     },
-    function resettle(bird) {
+    resettle: function (bird) {
       bird.el.animate(
         [{ scale: '1 1' }, { scale: '1.05 0.93' }, { scale: '0.98 1.03' }, { scale: '1 1' }],
         { duration: 340, easing: 'ease-in-out' }
       );
     },
-  ];
+    /* the flycatcher tell: quick tail pumps from the feet */
+    tailPump: function (bird) {
+      bird.el.animate(
+        [{ rotate: '0deg' }, { rotate: '-7deg' }, { rotate: '2deg' }, { rotate: '-4deg' }, { rotate: '0deg' }],
+        { duration: 420, easing: 'ease-in-out' }
+      );
+    },
+    /* the pigeon walk, in place */
+    headBob: function (bird) {
+      bird.el.animate(
+        [{ translate: '0 0' }, { translate: '1.5px 0.8px' }, { translate: '0 0' },
+         { translate: '1.5px 0.8px' }, { translate: '0 0' }],
+        { duration: 540, easing: 'ease-in-out' }
+      );
+    },
+  };
 
   setInterval(function () {
     if (document.hidden) return;
     var perched = [];
     flock.forEach(function (b) { if (!b.flown && b.el) perched.push(b); });
     if (!perched.length || Math.random() < 0.5) return;
-    MICRO[Math.floor(Math.random() * MICRO.length)](perched[Math.floor(Math.random() * perched.length)]);
+    var bird = perched[Math.floor(Math.random() * perched.length)];
+    var set = bird.moves || [MICRO.bob];
+    set[Math.floor(Math.random() * set.length)](bird);
   }, 7500);
 
   /* A cursor that comes too close disturbs the bird */

@@ -1035,10 +1035,6 @@ h1, h2, h3, h4,
   justify-content: center;
   gap: 0.5rem;
   height: calc(var(--lh) * 2.5);
-  overflow: hidden;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 7px;
 }
 .components h3 { font-size: 1.0625rem; line-height: var(--lh); margin: 0; }
 .components p { margin: 0; }
@@ -1108,10 +1104,6 @@ main { flex: 1; }
   align-items: center;
   justify-content: center;
   height: calc(var(--lh) * 2.5);
-  overflow: hidden;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 7px;
   color: var(--muted);
 }
 .work li:hover .stage { color: var(--accent); }
@@ -1203,7 +1195,11 @@ main { flex: 1; }
 }
 
 /* The Presence API card demos the live room */
-.stage-live { position: relative; }
+.stage-live {
+  position: relative;
+  overflow: hidden;
+  border: 1px dashed var(--border);
+}
 .stage-live > svg { opacity: 0.22; }
 .mini-dot {
   position: absolute;
@@ -1254,16 +1250,7 @@ body, .site-footer {
   color: var(--muted);
   opacity: 0.65;
 }
-.wire-pole {
-  position: absolute;
-  left: 2.5%;
-  top: 0;
-  width: 34px;
-  height: 100%;
-  transform: translateX(-50%);
-  color: var(--fg);
-  opacity: 0.55;
-}
+.wire-svg path { transition: d 650ms cubic-bezier(0.3, 0.9, 0.35, 1.12); }
 .wire-bird {
   position: absolute;
   width: 24px;
@@ -1308,3 +1295,17 @@ body, .site-footer {
 /* Glide: wings held out, no beat */
 .wire-bird.glide .w-up { opacity: 1; animation: none; }
 .wire-bird.glide .w-down { opacity: 0; animation: none; }
+
+/* Under the signature, how to reach the signer */
+.signature-contacts {
+  flex-basis: 100%;
+  text-align: right;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: var(--lh);
+}
+.signature-contacts a {
+  margin: 0 0 0 1.25rem;
+  color: var(--muted);
+}
+.signature-contacts a:hover { color: var(--accent); }
