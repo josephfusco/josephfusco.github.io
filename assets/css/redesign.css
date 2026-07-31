@@ -1293,3 +1293,29 @@ body, .site-footer {
   opacity: 0.7;
 }
 .demo-wire .wire-bird { top: -15px; }
+
+/* ---- Flight ---- */
+@keyframes bird-fly {
+  30% {
+    translate: calc(var(--fx, 200px) * 0.3) var(--fy, -90px);
+    rotate: var(--fr, 14deg);
+    opacity: 0.9;
+  }
+  100% {
+    translate: var(--fx, 200px) calc(var(--fy, -90px) * 0.4);
+    rotate: var(--fr, 14deg);
+    opacity: 0;
+  }
+}
+.wire-bird.fly { animation: bird-fly 620ms ease-in forwards; }
+
+@keyframes bird-land {
+  from {
+    translate: 0 -20px;
+    opacity: 0;
+  }
+}
+.wire-bird.land { animation: bird-land 480ms cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Empty cursor labels take no space */
+.peer-label:empty { display: none; }
