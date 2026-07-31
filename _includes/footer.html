@@ -10,7 +10,6 @@
 				<p>Other readers appear as anonymous birds, live. Each visit's cursor path is kept, positions and timing only, never IPs or identifiers, and replays later as a ghost. The 🕊 toggle turns all of it off for you. Global Privacy Control is honored automatically.</p>
 				<p>Source on <a href="https://github.com/josephfusco/josephfusco.github.io">GitHub</a>.</p>
 			</div>
-			{% for account in site.accounts %}<a href="{{ account.url }}">{{ account.name }}</a>{% endfor %}
 		</div>
 		<div class="fineprint">
 			&copy; {{ site.time | date: '%Y' }} {{ site.name }}. Rochester, NY.
@@ -18,6 +17,9 @@
 			Animations recycled from <a href="https://codepen.io/fusco">my CodePens</a>.
 		</div>
 		<p class="signature">{{ site.nameplate | default: site.name }}</p>
+		<p class="signature-contacts">
+			{% for account in site.accounts %}<a href="{{ account.url }}">{{ account.name }}</a>{% endfor %}
+		</p>
 	</div>
 </footer>
 <script src="{{ '/assets/js/presence.js' | relative_url }}" defer></script>
