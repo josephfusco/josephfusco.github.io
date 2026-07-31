@@ -8,7 +8,7 @@
 	<main id="main" aria-label="Content">
 		<div class="wrap">
 			<article class="prose">
-				<h1 style="view-transition-name: vt-{{ page.url | slugify }}">{{ page.title }}</h1>
+				<h1 style="view-transition-name: vt-{{ page.url | slugify }}; view-transition-class: post">{{ page.title }}</h1>
 				<p class="meta">
 					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time>
 					{% assign words = content | number_of_words %}
