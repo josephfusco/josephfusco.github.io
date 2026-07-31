@@ -387,44 +387,60 @@ section.block > h2 {
   .proof::after { display: none; }
 
 
-/* ---- Kodak moment: the camera-flash pen, modernized (Rochester, NY) ---- */
+/* ---- Kodak moment: a miniature of the SLR from the old camera-flash pen ---- */
 .camera {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  vertical-align: -3px;
-  width: 22px;
-  height: 16px;
+  position: relative;
+  vertical-align: -5px;
+  width: 28px;
+  height: 19px;
   padding: 0;
-  margin: 0 0.2rem;
-  background: transparent;
-  border: 1.5px solid var(--muted);
+  margin: 0 0.35rem;
+  background: #35353b;
+  border: 1px solid #56565e;
   border-radius: 3px;
   cursor: pointer;
-  position: relative;
   transition: border-color 0.15s;
 }
-/* viewfinder bump */
+/* the shutter button depresses, exactly like the pen's */
 .camera::before {
   content: "";
   position: absolute;
   top: -4px;
-  left: 3px;
+  left: 4px;
   width: 6px;
-  height: 3px;
-  border: 1.5px solid var(--muted);
-  border-bottom: 0;
+  height: 4px;
+  background: #56565e;
   border-radius: 2px 2px 0 0;
-  transition: border-color 0.15s;
+  transition: top 0.09s ease-in-out;
 }
+.camera:active::before { top: -1px; }
+/* the flash unit, top-right of the body */
+.camera::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  width: 6px;
+  height: 4px;
+  background: #d9d9d9;
+  border-radius: 1px;
+}
+.camera:active::after {
+  box-shadow: 0 0 10px 4px rgba(255, 255, 255, 0.8);
+}
+/* ringed lens with a glass glint */
 .camera-lens {
-  width: 7px;
-  height: 7px;
-  border: 1.5px solid var(--muted);
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
+  border: 2px solid #56565e;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55) 0 1.5px, rgba(255,255,255,0.12) 3.5px, #17171a 65%);
   transition: border-color 0.15s;
 }
-.camera:hover, .camera:hover::before,
+.camera:hover { border-color: var(--accent); }
 .camera:hover .camera-lens { border-color: var(--accent); }
 .camera:active { transform: translateY(1px); }
 
