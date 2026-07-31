@@ -18,6 +18,8 @@ const CORS = {
   "Content-Type": "application/json",
 };
 
+/* TODO: site-wide census ("N elsewhere on the site") needs a small lobby DO
+   that rooms report their counts to; the client already handles the message. */
 export class PresenceRoom extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env);

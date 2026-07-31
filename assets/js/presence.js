@@ -103,12 +103,30 @@
     return Math.max(document.documentElement.scrollHeight, innerHeight);
   }
 
+  var rail = null;
+  var minimap = document.querySelector('.stage-live');
+  var selfDot = null;
+  var selfPos = null;
+
   function ensureLayer() {
     if (layer) return;
     layer = document.createElement('div');
     layer.className = 'presence-layer';
     layer.setAttribute('aria-hidden', 'true');
     document.body.appendChild(layer);
+    rail = document.createElement('div');
+    rail.className = 'presence-rail';
+    rail.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(rail);
+  }
+
+  function miniDot(cls, color) {
+    if (!minimap) return null;
+    var d = document.createElement('span');
+    d.className = 'mini-dot' + (cls ? ' ' + cls : '');
+    if (color) d.style.color = color;
+    minimap.appendChild(d);
+    return d;
   }
 
   function cursorEl(peer) {
@@ -161,23 +179,69 @@
 
   var JUMP_PX = 260; // beyond this, teleport — no swoosh across other people's screens
 
+  function spawnTrail(x, y, color, ghost) {
+    if (!layer) return;
+    var t = document.createElement('span');
+    t.className = 'trail' + (ghost ? ' trail-ghost' : '');
+    if (color) t.style.color = color;
+    t.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    layer.appendChild(t);
+    t.addEventListener('animationend', function () { t.remove(); });
+  }
+
   function render() {
     var dh = docHeight();
     var instant = layer && layer.classList.contains('no-anim');
+    var now = Date.now();
     peers.forEach(function (p) {
       if (!p.pos || !p.el) return;
       var x = p.pos.x * innerWidth;
       var y = p.pos.y * dh - scrollY;
+      var moved = false;
       if (!instant && p.lastX != null) {
         var dx = x - p.lastX;
         var dy = y - p.lastY;
-        p.el.classList.toggle('jump', dx * dx + dy * dy > JUMP_PX * JUMP_PX);
+        moved = dx !== 0 || dy !== 0;
+        var jumped = dx * dx + dy * dy > JUMP_PX * JUMP_PX;
+        p.el.classList.toggle('jump', jumped);
+        if (moved && !jumped) {
+          /* banking: the bird tilts into its turn, settles when it rests */
+          if (p.svg) {
+            var bank = Math.max(-8, Math.min(8, dx * 0.12));
+            p.svg.style.rotate = bank + 'deg';
+            clearTimeout(p.bankTimer);
+            p.bankTimer = setTimeout(function () {
+              if (p.svg) p.svg.style.rotate = '0deg';
+            }, 260);
+          }
+          /* ink trail: a wake that evaporates */
+          if (!p.lastTrailAt || now - p.lastTrailAt > 50) {
+            p.lastTrailAt = now;
+            spawnTrail(p.lastX, p.lastY, p.ghost ? '' : p.color, p.ghost);
+          }
+        }
       }
       p.lastX = x;
       p.lastY = y;
       p.el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-      p.el.style.visibility = (y < -40 || y > innerHeight + 40) ? 'hidden' : 'visible';
+      var off = y < -40 || y > innerHeight + 40;
+      p.el.style.visibility = off ? 'hidden' : 'visible';
+      if (p.el.style.opacity === '0' && !off) p.el.style.opacity = '';
+      /* the perch: every reader marked at their depth in the page */
+      if (p.perch) p.perch.style.top = (p.pos.y * 100) + '%';
+      /* the minimap: the Presence API card demos the live room */
+      if (p.dot) {
+        p.dot.style.left = (p.pos.x * 100) + '%';
+        p.dot.style.top = (p.pos.y * 100) + '%';
+      }
     });
+    if (minimap && selfPos) {
+      if (!selfDot) selfDot = miniDot('mini-self', '');
+      if (selfDot) {
+        selfDot.style.left = (selfPos.x * 100) + '%';
+        selfDot.style.top = (selfPos.y * 100) + '%';
+      }
+    }
   }
 
   function updateCount() {
@@ -187,6 +251,8 @@
     var label = n
       ? n + ' other ' + (n > 1 ? 'birds' : 'bird') + ' here with you'
       : 'just you here';
+    var elsewhere = Math.max(0, censusTotal - 1 - n);
+    if (elsewhere) label += ', ' + elsewhere + ' elsewhere on the site';
     if (haunted) label += ', plus a ghost';
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
@@ -196,15 +262,52 @@
   function addPeer(p) {
     ensureLayer();
     var entry = { name: p.name, color: p.color, pos: p.pos || null, state: p.state || 'active', el: cursorEl(p) };
+    entry.svg = entry.el.querySelector('svg');
+    entry.el.style.opacity = '0';
+    entry.perch = document.createElement('span');
+    entry.perch.className = 'perch' + (p.ghost ? ' perch-ghost' : '');
+    entry.perch.style.color = p.color || '';
+    rail.appendChild(entry.perch);
+    entry.dot = miniDot(p.ghost ? 'mini-ghost' : '', p.color);
     peers.set(p.id, entry);
     applyState(entry);
     reveal(entry, 3000);
   }
 
+  /* Departures dissolve upward; everything a peer owns goes with them */
+  function removePeer(id, gently) {
+    var p = peers.get(id);
+    if (!p) return;
+    peers.delete(id);
+    if (p.perch) p.perch.remove();
+    if (p.dot) p.dot.remove();
+    clearTimeout(p.revealTimer);
+    clearTimeout(p.bankTimer);
+    if (!p.el) return;
+    if (gently) {
+      var el = p.el;
+      el.classList.add('depart');
+      setTimeout(function () { el.remove(); }, 520);
+    } else {
+      p.el.remove();
+    }
+  }
+
+  var censusTotal = 0;
+
+  /* The seal stirs when someone walks in */
+  function waveGlyph() {
+    var mark = document.querySelector('.site-header .site-mark');
+    if (!mark) return;
+    mark.classList.add('wave-once');
+    setTimeout(function () { mark.classList.remove('wave-once'); }, 1700);
+  }
+
   /* Registry: every message the relay can send, and what it does */
   var MESSAGES = {
     welcome: function (m) { m.peers.forEach(addPeer); },
-    join: function (m) { addPeer(m.peer); },
+    join: function (m) { addPeer(m.peer); waveGlyph(); },
+    census: function (m) { censusTotal = m.total || 0; },
     move: function (m) {
       var p = peers.get(m.id);
       if (!p) return;
@@ -217,11 +320,7 @@
       var p = peers.get(m.id);
       if (p) { p.state = m.s; applyState(p); reveal(p); }
     },
-    leave: function (m) {
-      var p = peers.get(m.id);
-      if (p && p.el) p.el.remove();
-      peers.delete(m.id);
-    },
+    leave: function (m) { removePeer(m.id, true); },
   };
 
   function connect() {
@@ -244,7 +343,8 @@
     };
 
     ws.onclose = function () {
-      peers.forEach(function (p, k) { if (!p.ghost && p.el) { p.el.remove(); peers.delete(k); } });
+      peers.forEach(function (p, k) { if (!p.ghost) removePeer(k, false); });
+      censusTotal = 0;
       updateCount();
       if (!invisible && retry < 5) setTimeout(connect, 1000 * Math.pow(2, retry++));
     };
@@ -296,10 +396,9 @@
     var now = Date.now();
     if (now - lastSent < 50) return;
     lastSent = now;
-    ws.send(JSON.stringify({
-      type: 'move',
-      pos: { x: e.clientX / innerWidth, y: (e.clientY + scrollY) / docHeight() },
-    }));
+    selfPos = { x: e.clientX / innerWidth, y: (e.clientY + scrollY) / docHeight() };
+    ws.send(JSON.stringify({ type: 'move', pos: selfPos }));
+    render();
   }, { passive: true });
 
   var scrollCalm;
@@ -372,9 +471,7 @@
   }
 
   function endGhost() {
-    var g = peers.get(GHOST_ID);
-    if (g && g.el) g.el.remove();
-    peers.delete(GHOST_ID);
+    removePeer(GHOST_ID, true);
     scheduleHaunt(15000 + Math.random() * 30000);
   }
 

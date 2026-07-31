@@ -112,6 +112,7 @@ wss.on('connection', (ws) => {
       .map((p) => ({ ...p.meta, pos: p.pos, state: p.state })),
   }));
   broadcast(ws, { type: 'join', peer: meta });
+  broadcast(null, { type: 'census', total: peers.size });
 
   ws.on('message', (buf) => {
     let m;
@@ -142,6 +143,7 @@ wss.on('connection', (ws) => {
     saveGhost(session);
     peers.delete(ws);
     broadcast(null, { type: 'leave', id });
+    broadcast(null, { type: 'census', total: peers.size });
   });
 });
 

@@ -1,6 +1,6 @@
 {
   "states": ["active", "idle", "away", "typing"],
-  "birds": ["Wren", "Heron", "Finch", "Kestrel", "Swift", "Starling", "Chickadee", "Nuthatch", "Loon", "Oriole"],
+  "birds": ["Homer", "Tumbler", "Fantail", "Jacobin", "Pouter", "Tippler", "Frillback", "Dragoon", "Wren", "Starling"],
   "colors": ["#e8541e", "#2fbf71", "#6d6be0", "#e8a33d", "#4dabf7", "#c678dd"],
   "limits": {
     "minPoints": 15,
