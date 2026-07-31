@@ -145,8 +145,8 @@
     var tailY = backY + 2.2 + t * 2.6;
     function f(v) { return Math.round(v * 100) / 100; }
     var d = 'M' + f(tailX) + ' ' + f(tailY)
-      + ' L4.6 ' + f(backY + 1.1)
-      + ' C4.1 ' + f(backY - 0.9) + ' 5.4 ' + f(backY - 1.7) + ' ' + f(headCx - headR - 0.7) + ' ' + f(headCy + 0.4)
+      + ' L4.5 ' + f(backY + 1.3)
+      + ' C5.1 ' + f(backY - 0.3) + ' 6.3 ' + f(backY - 1.2) + ' ' + f(headCx - headR - 0.7) + ' ' + f(headCy + 0.4)
       + ' C' + f(headCx - headR + 0.1) + ' ' + f(headCy - headR) + ' ' + f(headCx + headR * 0.9) + ' ' + f(headCy - headR)
       + ' ' + f(headCx + headR) + ' ' + f(headCy + 0.1)
       + ' L' + f(beakX) + ' ' + f(beakY)
