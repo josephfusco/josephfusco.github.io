@@ -1052,8 +1052,8 @@ h1, h2, h3, h4,
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  align-self: stretch;
-  min-height: calc(var(--lh) * 2);
+  height: calc(var(--lh) * 2.5);
+  overflow: hidden;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 7px;
