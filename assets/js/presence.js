@@ -254,6 +254,7 @@
     var elsewhere = Math.max(0, censusTotal - 1 - n);
     if (elsewhere) label += ', ' + elsewhere + ' elsewhere on the site';
     if (haunted) label += ', plus a ghost';
+    if (!n && !haunted && !elsewhere) label = 'just you here (a second tab makes two)';
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
     });
