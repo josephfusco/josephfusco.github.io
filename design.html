@@ -40,29 +40,66 @@ permalink: /design
 		<p>One unit governs the page: <code>1.75rem</code>, 28 pixels. Every line of text sits on it. Every margin and padding is a multiple of it, halves allowed. Where a rule crosses the flow, the border's own width is subtracted from the adjacent padding so the grid never drifts. Toggle <strong>⌗ blueprint</strong> in the footer and the rows you see are this unit, measured against the real text.</p>
 	</section>
 
-	<section class="block" aria-label="Pieces">
-		<h2>Pieces</h2>
-		<ul class="pieces">
+	<section class="block" aria-label="Components">
+		<h2>Components</h2>
+		<ul class="components">
 			<li>
-				<span class="demo-cursor" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg><span class="demo-label">Wren</span></span>
-				A live reader. Anonymous, bird-named, rate-limited, spring-eased. Long jumps teleport instead of streaking across your view.
+				<div class="stage" aria-hidden="true">
+					<span class="demo-cursor"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg><span class="demo-label">Wren</span></span>
+				</div>
+				<div>
+					<h3>Live cursor <span class="tag">presence</span></h3>
+					<p>Another reader, now. Anonymous, bird-named, rate-limited, spring-eased. Long jumps teleport instead of streaking across your view. The name introduces itself, then fades.</p>
+				</div>
 			</li>
 			<li>
-				<span class="demo-cursor demo-ghost" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg><span class="demo-label demo-label-italic">a ghost from 2am, 3d ago</span></span>
-				A past reader, replayed. Cursor path and timing only; never an identity.
+				<div class="stage" aria-hidden="true">
+					<span class="demo-cursor demo-ghost"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 2.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg><span class="demo-label demo-label-italic">a ghost from 2am, 3d ago</span></span>
+				</div>
+				<div>
+					<h3>Ghost cursor <span class="tag">memory</span></h3>
+					<p>A past reader, replayed. Cursor path and timing only; never an identity.</p>
+				</div>
 			</li>
 			<li>
-				<span class="demo-chip" aria-hidden="true"><span class="presence-dot"></span> just you here</span>
-				The occupancy chip. It only ever tells the truth.
+				<div class="stage" aria-hidden="true">
+					<span class="demo-chip"><span class="presence-dot"></span> just you here</span>
+				</div>
+				<div>
+					<h3>Occupancy chip <span class="tag">presence</span></h3>
+					<p>Who is here, counted honestly. It only ever tells the truth.</p>
+				</div>
 			</li>
 			<li>
-				The wordmark's eleven squares wave on hover, staggered by <code>sibling-index()</code>. The square that jumps the queue is a bug from the original CodePen, kept on purpose.
+				<div class="stage">
+					<a class="site-name" href="/" tabindex="-1" aria-label="Wordmark demo">
+						<svg class="site-mark" viewBox="0 0 600 600" aria-hidden="true">
+							<rect x="350" y="250" /><rect x="50" y="350" /><rect x="50" y="450" /><rect x="150" y="450" /><rect x="250" y="450" /><rect x="250" y="350" /><rect x="250" y="250" /><rect x="250" y="150" /><rect x="250" y="50" /><rect x="350" y="50" /><rect x="450" y="50" />
+						</svg>
+					</a>
+				</div>
+				<div>
+					<h3>Wordmark <span class="tag">identity</span></h3>
+					<p>Eleven squares wave on hover, staggered by <code>sibling-index()</code>. The square that jumps the queue is a bug from the original CodePen, kept on purpose. Try it: this one works.</p>
+				</div>
 			</li>
 			<li>
-				The camera beside Rochester, NY flashes when pressed. Kodak country.
+				<div class="stage">
+					<button class="camera" aria-label="Take a photo" title="Say cheese"><span class="camera-lens"></span></button><span class="cheese" aria-hidden="true">CHEESE!</span>
+				</div>
+				<div>
+					<h3>Camera <span class="tag">Rochester</span></h3>
+					<p>A miniature of the old camera-flash pen: the shutter depresses, the flash fires. Press and hold. Kodak country.</p>
+				</div>
 			</li>
 			<li>
-				The favicon dims when you leave the tab. Even the tab knows when you're away.
+				<div class="stage" aria-hidden="true">
+					<img src="/assets/images/mark.svg" width="20" height="20" alt=""> <img src="/assets/images/mark-away.svg" width="20" height="20" alt="">
+				</div>
+				<div>
+					<h3>Favicon <span class="tag">chrome</span></h3>
+					<p>Orange while you are here, gray when you leave the tab. Even the tab knows when you are away.</p>
+				</div>
 			</li>
 		</ul>
 	</section>
