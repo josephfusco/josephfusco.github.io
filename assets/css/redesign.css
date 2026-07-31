@@ -1115,3 +1115,34 @@ main { flex: 1; }
 }
 .posts li { grid-template-columns: 4.25rem 1fr; column-gap: 1.25rem; }
 .posts time { text-align: right; }
+
+/* Now list adopts the stage rail: one pattern shared with /design */
+.work li {
+  display: grid;
+  grid-template-columns: 10.5rem 1fr;
+  column-gap: 1.75rem;
+  align-items: start;
+}
+.work .stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(var(--lh) * 2.5);
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--muted);
+}
+.work li:hover .stage { color: var(--accent); }
+.work-mark-mono {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 1.125rem;
+}
+.work-mark-serif {
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+}
+@media (max-width: 540px) {
+  .work li { grid-template-columns: 1fr; row-gap: 0.875rem; }
+}
