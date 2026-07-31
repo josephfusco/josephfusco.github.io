@@ -127,6 +127,97 @@
 
   var wire = document.querySelector('.powerline');
   var PIGEON = '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="M1 10.5 L4.5 8.2 C4 5.8 5.6 3.6 8.2 3.4 C9 2.2 10.6 1.9 11.6 2.6 C12 2.9 12.3 3.4 12.4 3.9 L14.6 4.6 L12.5 5.3 C12.3 7.8 10.5 9.6 8 9.8 L8.6 12.6 L7.6 12.2 L7 12.7 L6.4 9.7 C5.7 9.5 5 9.1 4.6 8.6 Z"/></svg>';
+  /* The flock is not the cursors. Pigeons are the room's census:
+     one per reader present, you included, perched where birds perch.
+     Cursors stay human; pigeons stay birds. */
+  var flock = new Map();
+  var SLOTS = [0.14, 0.21, 0.29, 0.44, 0.57, 0.69, 0.8, 0.88, 0.36, 0.63, 0.75, 0.25];
+  var slotCursor = 0;
+  var navigatingAway = false;
+
+  function curvePoint(t) {
+    var x = (1 - t) * (1 - t) * 2.5 + 2 * t * (1 - t) * 55 + t * t * 100;
+    var y = (1 - t) * (1 - t) * 3.6 + 2 * t * (1 - t) * 15 + t * t * 6.5;
+    return { left: x, top: y * 2.8 - 19.5 };
+  }
+
+  function addPigeon(key) {
+    if (!wire || flock.has(key)) return;
+    var slot = SLOTS[slotCursor++ % SLOTS.length];
+    var el = document.createElement('span');
+    el.className = 'wire-bird';
+    el.innerHTML = PIGEON;
+    var pt = curvePoint(slot);
+    el.style.left = pt.left + '%';
+    el.style.top = pt.top + 'px';
+    wire.appendChild(el);
+    var bird = { el: el, flown: false, returnTimer: null };
+    flock.set(key, bird);
+    el.classList.add('land');
+    el.addEventListener('animationend', function (e) {
+      if (e.animationName === 'bird-land') el.classList.remove('land');
+    });
+  }
+
+  function removePigeon(key) {
+    var b = flock.get(key);
+    if (!b) return;
+    clearTimeout(b.returnTimer);
+    if (b.el) b.el.remove();
+    flock.delete(key);
+  }
+
+  function flyAway(bird, dir) {
+    if (bird.flown || !bird.el) return;
+    bird.flown = true;
+    var el = bird.el;
+    el.style.setProperty('--fx', (dir * (140 + Math.random() * 240)) + 'px');
+    el.style.setProperty('--fy', (-(70 + Math.random() * 110)) + 'px');
+    el.style.setProperty('--fr', (dir * (10 + Math.random() * 12)) + 'deg');
+    el.classList.add('fly');
+    var done = function (e) {
+      if (e.animationName !== 'bird-fly') return;
+      el.removeEventListener('animationend', done);
+      el.classList.remove('fly');
+      el.style.visibility = 'hidden';
+      bird.returnTimer = setTimeout(function () {
+        el.style.visibility = '';
+        el.classList.add('land');
+        bird.flown = false;
+      }, 9000 + Math.random() * 16000);
+    };
+    el.addEventListener('animationend', done);
+  }
+
+  /* A cursor that comes too close disturbs the bird */
+  function checkStartle(cx, cy) {
+    flock.forEach(function (bird) {
+      if (bird.flown || !bird.el) return;
+      var r = bird.el.getBoundingClientRect();
+      if (!r.width) return;
+      var bx = r.left + r.width / 2;
+      var by = r.top + r.height / 2;
+      var dx = cx - bx;
+      var dy = cy - by;
+      if (dx * dx + dy * dy < 2200) flyAway(bird, dx > 0 ? -1 : 1);
+    });
+  }
+
+  /* A click that leaves the page startles the whole flock */
+  document.addEventListener('click', function (e) {
+    if (navigatingAway || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a || a.target === '_blank' || a.origin !== location.origin) return;
+    if (a.pathname === location.pathname && a.hash) return;
+    var hasBirds = false;
+    flock.forEach(function (b) { if (!b.flown) hasBirds = true; });
+    if (!hasBirds || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    e.preventDefault();
+    navigatingAway = true;
+    flock.forEach(function (b) { flyAway(b, Math.random() < 0.5 ? -1 : 1); });
+    setTimeout(function () { location.href = a.href; }, 300);
+  });
+
   var minimap = document.querySelector('.stage-live');
   var selfDot = null;
   var selfPos = null;
@@ -180,7 +271,11 @@
       + (s !== 'active' ? ' state-' + s : '')
       + (p.labelShown ? ' show-label' : '');
     var label = p.el.querySelector('.peer-label');
-    if (label) label.textContent = p.name + (p.own ? ' (you)' : '') + STATE_META[s].suffix;
+    if (label) {
+      label.textContent = p.ghost
+        ? p.name + STATE_META[s].suffix
+        : (p.own ? 'you' : '') + STATE_META[s].suffix;
+    }
   }
 
   /* Labels appear on arrival, on state changes, and when movement resumes
@@ -246,14 +341,6 @@
       var off = y < -40 || y > innerHeight + 40;
       p.el.style.visibility = off ? 'hidden' : 'visible';
       if (p.el.style.opacity === '0' && !off) p.el.style.opacity = '';
-      /* the wire: perched at their depth in the page, riding the true sag */
-      if (p.birdEl) {
-        var ws = 0.08 + p.pos.y * 0.88;
-        var wx = (1 - ws) * (1 - ws) * 2.5 + 2 * ws * (1 - ws) * 55 + ws * ws * 100;
-        var wy = (1 - ws) * (1 - ws) * 3.6 + 2 * ws * (1 - ws) * 15 + ws * ws * 6.5;
-        p.birdEl.style.left = wx + '%';
-        p.birdEl.style.top = (wy * 2.8 - 19.5) + 'px';
-      }
       /* the minimap: the Presence API card demos the live room */
       if (p.dot) {
         p.dot.style.left = (p.pos.x * 100) + '%';
@@ -282,7 +369,7 @@
     var tabs = 1 + ownHere + ownElsewhere;
     var elsewhere = Math.max(0, censusTotal - 1 - n - ownHere - ownElsewhere);
     var label = n
-      ? n + ' other ' + (n > 1 ? 'birds' : 'bird') + ' here with you'
+      ? n + ' other' + (n > 1 ? 's' : '') + ' here with you'
       : 'just you here';
     if (tabs > 1) label += ', in ' + tabs + ' tabs';
     if (elsewhere) label += ', ' + elsewhere + ' elsewhere on the site';
@@ -298,12 +385,7 @@
     var entry = { name: p.name, color: p.color, pos: p.pos || null, state: p.state || 'active', el: cursorEl(p) };
     entry.svg = entry.el.querySelector('svg');
     entry.el.style.opacity = '0';
-    if (wire) {
-      entry.birdEl = document.createElement('span');
-      entry.birdEl.className = 'wire-bird' + (p.ghost ? ' wire-ghost' : '');
-      entry.birdEl.innerHTML = PIGEON;
-      wire.appendChild(entry.birdEl);
-    }
+    if (!p.ghost) addPigeon(p.id);
     entry.dot = miniDot(p.ghost ? 'mini-ghost' : '', p.color);
     peers.set(p.id, entry);
     applyState(entry);
@@ -315,7 +397,7 @@
     var p = peers.get(id);
     if (!p) return;
     peers.delete(id);
-    if (p.birdEl) p.birdEl.remove();
+    removePigeon(id);
     if (p.dot) p.dot.remove();
     clearTimeout(p.revealTimer);
     clearTimeout(p.bankTimer);
@@ -367,6 +449,7 @@
     welcome: function (m) {
       selfId = m.self && m.self.id;
       if (m.self && m.self.color) { selfColor = m.self.color; refreshIcon(false); }
+      addPigeon('self');
       announceSelf();
       m.peers.forEach(addPeer);
     },
@@ -468,6 +551,7 @@
     var now = Date.now();
     if (now - lastSent < 50) return;
     lastSent = now;
+    checkStartle(e.clientX, e.clientY);
     selfPos = { x: e.clientX / innerWidth, y: (e.clientY + scrollY) / docHeight() };
     ws.send(JSON.stringify({ type: 'move', pos: selfPos }));
     render();
