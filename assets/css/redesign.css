@@ -1295,19 +1295,6 @@ body, .site-footer {
 .demo-wire .wire-bird { top: -15px; }
 
 /* ---- Flight ---- */
-@keyframes bird-fly {
-  30% {
-    translate: calc(var(--fx, 200px) * 0.3) var(--fy, -90px);
-    rotate: var(--fr, 14deg);
-    opacity: 0.9;
-  }
-  100% {
-    translate: var(--fx, 200px) calc(var(--fy, -90px) * 0.4);
-    rotate: var(--fr, 14deg);
-    opacity: 0;
-  }
-}
-.wire-bird.fly { animation: bird-fly 620ms ease-in forwards; }
 
 @keyframes bird-land {
   from {
@@ -1319,3 +1306,9 @@ body, .site-footer {
 
 /* Empty cursor labels take no space */
 .peer-label:empty { display: none; }
+
+/* Airborne: two wing frames alternate like a sprite */
+.wire-bird.airborne .w-up { animation: wing-a var(--flapms, 90ms) steps(1) infinite; }
+.wire-bird.airborne .w-down { animation: wing-b var(--flapms, 90ms) steps(1) infinite; }
+@keyframes wing-a { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes wing-b { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }

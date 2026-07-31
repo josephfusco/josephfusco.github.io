@@ -126,7 +126,69 @@
   }
 
   var wire = document.querySelector('.powerline');
-  var PIGEON = '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="M1 10.5 L4.5 8.2 C4 5.8 5.6 3.6 8.2 3.4 C9 2.2 10.6 1.9 11.6 2.6 C12 2.9 12.3 3.4 12.4 3.9 L14.6 4.6 L12.5 5.3 C12.3 7.8 10.5 9.6 8 9.8 L8.6 12.6 L7.6 12.2 L7 12.7 L6.4 9.7 C5.7 9.5 5 9.1 4.6 8.6 Z"/></svg>';
+    /* ---- The borb factory: every bird is a one-off permutation ----
+     Dials: puff, neck, tail, beak. No two are drawn alike. */
+  function makeBorb() {
+    var p = Math.random();                  /* puff: 0 slim, 1 borb */
+    var n = Math.random() * (1 - p * 0.75); /* neck: borbs have none */
+    var t = 0.6 + Math.random() * 0.7;      /* tail */
+    var b = 0.8 + Math.random() * 0.4;      /* beak */
+    var backY = 4.6 - n * 1.4 + p * 0.4;
+    var headR = 1.5 - p * 0.25;
+    var headCx = 8.7 + n * 0.3;
+    var headCy = backY - 0.4 - n * 1.5;
+    var beakX = headCx + headR + 1.3 * b;
+    var beakY = headCy + 0.25;
+    var bellyY = 9.7 + p * 0.9;
+    var chestX = 10.3 + p * 0.6;
+    var tailX = 1.9 - t * 1.2;
+    var tailY = backY + 2.2 + t * 2.6;
+    function f(v) { return Math.round(v * 100) / 100; }
+    var d = 'M' + f(tailX) + ' ' + f(tailY)
+      + ' L4.6 ' + f(backY + 1.1)
+      + ' C4.1 ' + f(backY - 0.9) + ' 5.4 ' + f(backY - 1.7) + ' ' + f(headCx - headR - 0.7) + ' ' + f(headCy + 0.4)
+      + ' C' + f(headCx - headR + 0.1) + ' ' + f(headCy - headR) + ' ' + f(headCx + headR * 0.9) + ' ' + f(headCy - headR)
+      + ' ' + f(headCx + headR) + ' ' + f(headCy + 0.1)
+      + ' L' + f(beakX) + ' ' + f(beakY)
+      + ' L' + f(headCx + headR * 0.75) + ' ' + f(beakY + 0.75)
+      + ' C' + f(chestX) + ' ' + f(headCy + 2.6) + ' ' + f(chestX - 0.4) + ' ' + f(bellyY - 1.2) + ' 8.6 ' + f(bellyY)
+      + ' L9.1 12.5 L8.1 12.1 L7.4 12.6 L6.9 ' + f(bellyY + 0.25)
+      + ' C5.4 ' + f(bellyY + 0.3) + ' 4.5 ' + f(bellyY - 0.4) + ' 4.2 ' + f(backY + 3)
+      + ' Z';
+    return '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="' + d + '"/></svg>';
+  }
+
+  /* The wire's geometry, defined once; the header path syncs from it */
+  var WIRE_GEOM = { x0: 2.5, y0: 3.6, cx: 55, cy: 15, x1: 100, y1: 6.5, scale: 2.8 };
+  (function () {
+    var path = document.querySelector('.wire-svg path');
+    if (path) {
+      path.setAttribute('d', 'M' + WIRE_GEOM.x0 + ' ' + WIRE_GEOM.y0
+        + ' Q ' + WIRE_GEOM.cx + ' ' + WIRE_GEOM.cy
+        + ' ' + WIRE_GEOM.x1 + ' ' + WIRE_GEOM.y1);
+    }
+  })();
+
+  /* Flight styles as data: [progress, fx, fy, rotate, opacity, scale].
+     Every flight opens with the crouch: birds push off before they rise. */
+  var FLIGHTS = [
+    /* burst-climb, bobbing */
+    [[0, 0, 0, 0, 1, 1], [0.07, 0.01, -0.025, 0, 1, 1.05],
+     [0.2, 0.14, 0.5, 0.5, 1, 1], [0.38, 0.32, 0.68, 1, 1, 0.96],
+     [0.56, 0.52, 0.62, 1, 1, 0.9], [0.75, 0.74, 0.95, 1, 0.9, 0.82],
+     [1, 1, 1.15, 1, 0, 0.7]],
+    /* the pigeon move: crouch, drop off the wire, swoop away */
+    [[0, 0, 0, 0, 1, 1], [0.07, 0.01, -0.02, 0, 1, 1.05],
+     [0.2, 0.09, -0.17, -0.6, 1, 1], [0.4, 0.32, -0.04, 0, 1, 0.95],
+     [0.6, 0.58, 0.52, 1, 1, 0.86], [0.8, 0.8, 0.78, 1, 0.9, 0.78],
+     [1, 1, 1, 1, 0, 0.68]],
+  ];
+
+  /* Static specimens anywhere in the page hydrate from the same registry */
+  document.querySelectorAll('[data-species]').forEach(function (el) {
+    el.innerHTML = makeBorb();
+  });
+
   /* The flock is not the cursors. Pigeons are the room's census:
      one per reader present, you included, perched where birds perch.
      Cursors stay human; pigeons stay birds. */
@@ -136,9 +198,11 @@
   var navigatingAway = false;
 
   function curvePoint(t) {
-    var x = (1 - t) * (1 - t) * 2.5 + 2 * t * (1 - t) * 55 + t * t * 100;
-    var y = (1 - t) * (1 - t) * 3.6 + 2 * t * (1 - t) * 15 + t * t * 6.5;
-    return { left: x, top: y * 2.8 - 19.5 };
+    var g = WIRE_GEOM;
+    var u = 1 - t;
+    var x = u * u * g.x0 + 2 * t * u * g.cx + t * t * g.x1;
+    var y = u * u * g.y0 + 2 * t * u * g.cy + t * t * g.y1;
+    return { left: x, top: y * g.scale - 19.5 };
   }
 
   function addPigeon(key) {
@@ -146,12 +210,18 @@
     var slot = SLOTS[slotCursor++ % SLOTS.length];
     var el = document.createElement('span');
     el.className = 'wire-bird';
-    el.innerHTML = PIGEON;
+    var markup = makeBorb();
+    el.innerHTML = markup;
+    var scale = (0.85 + Math.random() * 0.3) * BIRD_BASE;
+    el.style.width = Math.round(15 * scale) + 'px';
+    el.style.height = Math.round(13 * scale) + 'px';
+    var svgEl = el.querySelector('svg');
+    if (Math.random() < 0.45) svgEl.style.transform = 'scaleX(-1)';
     var pt = curvePoint(slot);
     el.style.left = pt.left + '%';
-    el.style.top = pt.top + 'px';
+    el.style.top = (pt.top + (21 - Math.round(13 * scale))) + 'px';
     wire.appendChild(el);
-    var bird = { el: el, flown: false, returnTimer: null };
+    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flown: false, returnTimer: null };
     flock.set(key, bird);
     el.classList.add('land');
     el.addEventListener('animationend', function (e) {
@@ -167,26 +237,55 @@
     flock.delete(key);
   }
 
+  function bounceWire() {
+    var w = document.querySelector('.wire-svg');
+    if (!w) return;
+    w.animate(
+      [{ transform: 'translateY(0)' }, { transform: 'translateY(2.5px)' },
+       { transform: 'translateY(-1.5px)' }, { transform: 'translateY(0.8px)' },
+       { transform: 'translateY(0)' }],
+      { duration: 620, easing: 'ease-out' }
+    );
+  }
+
   function flyAway(bird, dir) {
     if (bird.flown || !bird.el) return;
     bird.flown = true;
     var el = bird.el;
-    el.style.setProperty('--fx', (dir * (140 + Math.random() * 240)) + 'px');
-    el.style.setProperty('--fy', (-(70 + Math.random() * 110)) + 'px');
-    el.style.setProperty('--fr', (dir * (10 + Math.random() * 12)) + 'deg');
-    el.classList.add('fly');
-    var done = function (e) {
-      if (e.animationName !== 'bird-fly') return;
-      el.removeEventListener('animationend', done);
-      el.classList.remove('fly');
+    var flip = dir < 0 ? 'scaleX(-1)' : '';
+    el.innerHTML = flightSVG();
+    bird.svgEl = el.querySelector('svg');
+    bird.svgEl.style.transform = flip;
+    el.classList.add('airborne');
+    /* smaller birds beat faster */
+    el.style.setProperty('--flapms', Math.round(70 + bird.scale * 30) + 'ms');
+    var fx = dir * (160 + Math.random() * 280);
+    var fy = -(90 + Math.random() * 130);
+    var fr = dir * (6 + Math.random() * 12);
+    var dur = 620 + Math.random() * 320;
+    var frames = FLIGHTS[Math.floor(Math.random() * FLIGHTS.length)].map(function (f) {
+      return {
+        offset: f[0],
+        transform: 'translate(' + fx * f[1] + 'px,' + fy * f[2] + 'px) rotate(' + fr * f[3] + 'deg) scale(' + f[5] + ')',
+        opacity: f[4],
+      };
+    });
+    bounceWire();
+    var flight = el.animate(frames, { duration: dur, easing: 'cubic-bezier(0.18, 0.65, 0.45, 1)', fill: 'forwards' });
+    flight.finished.then(function () {
+      flight.cancel();
+      el.classList.remove('airborne');
+      el.innerHTML = bird.markup;
+      bird.svgEl = el.querySelector('svg');
+      if (Math.random() < 0.45) bird.svgEl.style.transform = 'scaleX(-1)';
       el.style.visibility = 'hidden';
       bird.returnTimer = setTimeout(function () {
         el.style.visibility = '';
         el.classList.add('land');
         bird.flown = false;
+        bounceWire();
       }, 9000 + Math.random() * 16000);
-    };
-    el.addEventListener('animationend', done);
+    }).catch(function () { /* removed mid-flight */ });
   }
 
   /* A cursor that comes too close disturbs the bird */
@@ -214,8 +313,10 @@
     if (!hasBirds || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     e.preventDefault();
     navigatingAway = true;
-    flock.forEach(function (b) { flyAway(b, Math.random() < 0.5 ? -1 : 1); });
-    setTimeout(function () { location.href = a.href; }, 300);
+    flock.forEach(function (b) {
+      setTimeout(function () { flyAway(b, Math.random() < 0.5 ? -1 : 1); }, Math.random() * 130);
+    });
+    setTimeout(function () { location.href = a.href; }, 420);
   });
 
   var minimap = document.querySelector('.stage-live');
