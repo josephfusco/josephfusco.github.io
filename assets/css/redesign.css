@@ -43,7 +43,7 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
   color: var(--fg);
   font-family: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
   font-size: 1rem;
@@ -1170,7 +1170,7 @@ main { flex: 1; }
 
 /* ---- The footer: one sheet deeper in the stack ---- */
 .site-footer {
-  background: var(--card);
+  background-color: var(--card);
   color: var(--muted);
   border-top: 0;
   padding-top: var(--lh);
@@ -1289,4 +1289,16 @@ main { flex: 1; }
   top: 55%;
   background: transparent;
   border: 1px dashed var(--muted);
+}
+
+/* ---- The cotton has a tooth: wove grain, two frequencies of it ----
+   Fine turbulence for the surface tooth, a broad mottle for the pulp
+   formation. Inline SVG noise, seamlessly stitched; no image assets. */
+body, .site-footer {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='280'%20height='280'%3E%20%3Cfilter%20id='tooth'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='2'%20stitchTiles='stitch'%20seed='7'/%3E%3CfeColorMatrix%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.30%200.30%200.30%200%200'/%3E%3C/filter%3E%20%3Cfilter%20id='pulp'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.045'%20numOctaves='3'%20stitchTiles='stitch'%20seed='11'/%3E%3CfeColorMatrix%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.32%200.32%200.32%200%200'/%3E%3C/filter%3E%20%3Crect%20width='280'%20height='280'%20filter='url(%23tooth)'%20opacity='0.055'/%3E%20%3Crect%20width='280'%20height='280'%20filter='url(%23pulp)'%20opacity='0.05'/%3E%20%3C/svg%3E");
+  background-size: 280px 280px;
+}
+
+@media print {
+  body, .site-footer { background-image: none; }
 }
