@@ -17,7 +17,7 @@ redirect_from:
 		{% for post in year.items %}
 		<li>
 			<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d' }}</time>
-			<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}">{{ post.title }}</a>
+			<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}; view-transition-class: post">{{ post.title }}</a>
 		</li>
 		{% endfor %}
 	</ul>

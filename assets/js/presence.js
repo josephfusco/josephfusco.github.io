@@ -22,10 +22,12 @@
     { label: 'view transitions', on: function () { return 'startViewTransition' in document; } },
     { label: 'speculation rules', on: function () { return !!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')); } },
     { label: 'scroll timelines', on: function () { return CSS.supports('animation-timeline: scroll()'); } },
-    { label: 'scroll-state queries', on: function () { return CSS.supports('container-type: scroll-state'); } },
+    { label: 'view-transition classes', on: function () { return CSS.supports('view-transition-class', 'none'); } },
     { label: 'anchor positioning', on: function () { return CSS.supports('anchor-name: --a'); } },
     { label: 'sibling-index()', on: function () { return CSS.supports('animation-delay', 'calc(sibling-index() * 1ms)'); } },
-    { label: 'light-dark()', on: function () { return CSS.supports('color', 'light-dark(#fff, #000)'); } },
+    { label: '@starting-style', on: function () { return CSS.supports('transition-behavior', 'allow-discrete'); } },
+    { label: 'invoker commands', on: function () { return typeof CommandEvent !== 'undefined'; } },
+    { label: 'scheduler API', on: function () { return !!(window.scheduler && scheduler.postTask); } },
     { label: 'presence relay', on: function () { return !!(window.__presenceLive); } },
     { label: 'ghost archive', on: function () { return !!(window.__ghostSeen); } },
   ];
@@ -45,11 +47,26 @@
     }).join('');
   }
 
+  /* Invoker Commands where supported; plain clicks elsewhere */
+  var COMMANDS_OK = typeof CommandEvent !== 'undefined';
+  var commandBus = document.getElementById('main');
+
+  function onActivate(btn, name, fn) {
+    if (!btn) return;
+    btn.hidden = false;
+    if (COMMANDS_OK && commandBus && btn.hasAttribute('commandfor')) {
+      commandBus.addEventListener('command', function (e) {
+        if (e.command === name && e.source === btn) fn();
+      });
+    } else {
+      btn.addEventListener('click', fn);
+    }
+  }
+
   /* ---- Blueprint mode (x-rays in via a same-document view transition) ---- */
   var toggle = document.querySelector('.blueprint-toggle');
   if (toggle) {
-    toggle.hidden = false;
-    toggle.addEventListener('click', function () {
+    onActivate(toggle, '--blueprint', function () {
       var flip = function () {
         var on = document.documentElement.toggleAttribute('data-blueprint');
         toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -310,7 +327,7 @@
   }
   reflectToggle();
   if (pToggle) {
-    pToggle.addEventListener('click', function () {
+    onActivate(pToggle, '--presence', function () {
       invisible = !invisible;
       try { localStorage.setItem(OFF_KEY, invisible ? '1' : '0'); } catch (e) { /* fine */ }
       reflectToggle();
@@ -410,9 +427,18 @@
       .catch(function () { scheduleHaunt(120000); });
   }
 
+  var ghostTaskCtrl = null;
+
   function scheduleHaunt(ms) {
     clearTimeout(ghostTimer);
-    ghostTimer = setTimeout(haunt, ms);
+    if (ghostTaskCtrl) { ghostTaskCtrl.abort(); ghostTaskCtrl = null; }
+    if (window.TaskController && window.scheduler && scheduler.postTask) {
+      ghostTaskCtrl = new TaskController();
+      scheduler.postTask(haunt, { delay: ms, priority: 'background', signal: ghostTaskCtrl.signal })
+        .catch(function () { /* aborted */ });
+    } else {
+      ghostTimer = setTimeout(haunt, ms);
+    }
   }
 
 })();

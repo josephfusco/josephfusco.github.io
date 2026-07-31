@@ -60,7 +60,7 @@ layout: default
 		<ul class="posts">
 			{% for post in site.posts limit:3 %}
 			<li>
-				<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}">{{ post.title }}</a>
+				<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}; view-transition-class: post">{{ post.title }}</a>
 				<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %Y' }}</time>
 			</li>
 			{% endfor %}
@@ -68,5 +68,5 @@ layout: default
 		<p><a href="{{ '/blog' | relative_url }}">All writing →</a></p>
 	</section>
 
-	<p class="hello-line">Say hello: <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+	<p class="hello-line">Say hello: <a href="mailto:{{ site.email }}?subject=Hello%20Joe&body=Hi%20Joe%2C%0A%0A">{{ site.email }}</a></p>
 </div>
