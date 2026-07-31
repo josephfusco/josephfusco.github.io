@@ -116,10 +116,14 @@ exclude:
   - Gemfile.lock
   - gulpfile.js
   - package.json
+  - pnpm-lock.yaml
   - README.md
-  - CNAME
   - node_modules
   - assets/sass/
+  - vendor
+  - presence-server
+  - presence-worker
+  - _config_dev.yml
 
 # Plugin settings
 
