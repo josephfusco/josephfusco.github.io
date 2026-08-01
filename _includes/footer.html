@@ -4,22 +4,21 @@
 		<p class="signature-contacts">
 			{% for account in site.accounts %}<a href="{{ account.url }}">{{ account.name }}</a>{% endfor %}
 		</p>
-		<div>
-			<span class="status"><span class="presence-dot" aria-hidden="true"></span> <span data-presence-count>just you here</span></span>
+		<p class="footer-status"><span class="status"><span class="presence-dot" aria-hidden="true"></span> <span data-presence-count>just you here</span></span></p>
+		<p class="footer-tools">
 			<button class="presence-toggle" aria-pressed="false" commandfor="main" command="--presence" hidden>🕊 visible to others</button>
 			<button class="blueprint-toggle" aria-pressed="false" title="See the schematics" commandfor="main" command="--blueprint" hidden>⌗ blueprint</button>
 			<button class="colophon-toggle" popovertarget="colophon">✳ colophon</button>
-			<div id="colophon" popover>
-				<h2>Colophon</h2>
-				<p>Static site, built with Jekyll. The animations are recycled from <a href="https://codepen.io/fusco">my CodePens</a>.</p>
-				<p>Other readers appear as anonymous birds, live. Each visit's cursor path is kept, positions and timing only, never IPs or identifiers, and replays later as a line of fading ink. The 🕊 toggle turns all of it off for you. Global Privacy Control is honored automatically.</p>
-				<p>Source on <a href="https://github.com/josephfusco/josephfusco.github.io">GitHub</a>.</p>
-			</div>
+		</p>
+		<div id="colophon" popover>
+			<h2>Colophon</h2>
+			<p>Static site, built with Jekyll. The animations are recycled from <a href="https://codepen.io/fusco">my CodePens</a>.</p>
+			<p>Other readers appear as anonymous birds, live. Each visit's cursor path is kept, positions and timing only, never IPs or identifiers, and replays later as a line of fading ink. The 🕊 toggle turns all of it off for you. Global Privacy Control is honored automatically.</p>
+			<p>Source on <a href="https://github.com/josephfusco/josephfusco.github.io">GitHub</a>.</p>
+		</div>
 		<div class="fineprint">
 			&copy; {{ site.time | date: '%Y' }} {{ site.name }}. Rochester, NY.
 			<button class="camera" aria-label="Take a photo" title="Say cheese"><span class="camera-lens"></span></button><span class="cheese" aria-hidden="true">CHEESE!</span>
-			Animations recycled from <a href="https://codepen.io/fusco">my CodePens</a>.
-		</div>
 		</div>
 	</div>
 </footer>
