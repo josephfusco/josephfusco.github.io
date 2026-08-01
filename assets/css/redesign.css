@@ -102,19 +102,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .hero p.lede strong { color: var(--fg); font-weight: 600; }
 
-/* Proof bar */
-.proof {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  padding: 1.75rem 0;
-  margin: 1.5rem 0 0;
-  font-family: "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.8125rem;
-  color: var(--muted);
-  letter-spacing: 0.02em;
-}
-
 /* Email capture */
 .signup {
   background: var(--card);
@@ -367,7 +354,6 @@ section.block > h2 {
   box-shadow: 0 0 12px rgba(184, 66, 15, 0.3);
 }
 
-  .proof::after { display: none; }
 
 
 /* ---- Kodak moment: a miniature of the SLR from the old camera-flash pen ---- */
@@ -873,17 +859,6 @@ body { line-height: var(--lh); }
 }
 
 /* Proof: one serif italic line between hairlines, on the grid */
-.proof {
-  display: block;
-  font-family: inherit;
-  font-style: italic;
-  font-size: 1rem;
-  line-height: var(--lh);
-  letter-spacing: 0;
-  color: var(--muted);
-  padding: 0;
-  margin: 0.875rem 0 var(--lh);
-}
 
 /* Sections */
 section.block { padding: 0.875rem 0 0; }
