@@ -118,6 +118,7 @@
   var GHOST_URL = DEV ? 'http://' + location.hostname + ':4001/ghost' : 'https://presence.josephfus.co/ghost';
 
   var peers = new Map();
+  var lastCountLabel = null;
   var layer = null;
   var ws = null;
   var retry = 0;
@@ -666,6 +667,16 @@
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
     });
+    /* The dot rests still; it pulses only when the room changes */
+    if (label !== lastCountLabel) {
+      var first = lastCountLabel === null;
+      lastCountLabel = label;
+      if (!first) document.querySelectorAll('.presence-dot').forEach(function (d) {
+        d.classList.remove('tick');
+        void d.offsetWidth;
+        d.classList.add('tick');
+      });
+    }
   }
 
   function addPeer(p) {
@@ -863,7 +874,7 @@
     if (!pToggle) return;
     pToggle.hidden = false;
     pToggle.setAttribute('aria-pressed', invisible ? 'true' : 'false');
-    pToggle.textContent = invisible ? '⌖ invisible' : '⌖ visible to others';
+    pToggle.innerHTML = '<span class="tool-glyph">\u2316</span> ' + (invisible ? 'invisible' : 'visible to others');
     pToggle.title = invisible
       ? 'Nobody can see your cursor and nothing is recorded. Click to rejoin.'
       : 'Others can see your cursor as an anonymous bird. Click to go invisible.';

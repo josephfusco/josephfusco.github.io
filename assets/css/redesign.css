@@ -300,9 +300,11 @@ section.block > h2 {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #2fbf71;
-  animation: presence-pulse 2.6s ease-in-out infinite;
+  background: #6f8f52;
 }
+.presence-dot.tick { animation: presence-pulse 2.6s ease-in-out 1; }
+/* Icons are icons; the dotted underline belongs to the words alone */
+.tool-glyph { display: inline-block; }
 @keyframes presence-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(47,191,113,0.45); }
   55% { box-shadow: 0 0 0 7px rgba(47,191,113,0); }
@@ -1291,5 +1293,5 @@ body {
 .footer-tools { margin: 0; line-height: var(--lh); }
 
 /* Fineprint closes the page, small and quiet, under the signature block */
-.site-footer .fineprint { margin-top: 0.875rem; font-size: 0.875rem; }
+.site-footer .fineprint { margin-top: 0; font-size: 0.875rem; }
 .site-footer .fineprint a { margin-right: 0; }
