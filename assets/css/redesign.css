@@ -598,18 +598,37 @@ html[data-blueprint] [data-spec]::after {
   .peer-cursor { transition: none; }
 
 
-/* ---- Ghosts: past visitors, translucent and dashed ---- */
+/* ---- Ghosts return as a drift of white moths, gathered around
+   the remembered path the way moths crowd a paper lure. Nothing
+   pointer-shaped ever moves on its own. ---- */
 .peer-cursor.ghost {
   color: var(--muted);
-  opacity: 0.55;
+  opacity: 0.75;
 }
-.peer-cursor.ghost svg circle {
-  stroke-dasharray: 3 2.5;
-}
-.peer-cursor.ghost span {
+.peer-cursor.ghost .peer-label {
   font-style: italic;
   border-style: dashed;
 }
+.moth { position: absolute; left: 0; top: 0; width: 10px; height: 9px; }
+.moth svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.moth path { fill: #fffdf6; stroke: rgba(35, 32, 26, 0.4); stroke-width: 0.4; }
+.moth .mo { animation: wing-a var(--flut, 110ms) steps(1) infinite; }
+.moth .mc { animation: wing-b var(--flut, 110ms) steps(1) infinite; }
+/* Each moth loops its own wandering orbit; phases never sync */
+@keyframes moth-drift-a {
+  0% { translate: -14px -6px; } 25% { translate: 2px -18px; }
+  50% { translate: 12px -2px; } 75% { translate: -2px 8px; }
+  100% { translate: -14px -6px; }
+}
+@keyframes moth-drift-b {
+  0% { translate: 10px -14px; } 30% { translate: -10px -10px; }
+  55% { translate: -16px 4px; } 80% { translate: 6px 10px; }
+  100% { translate: 10px -14px; }
+}
+.moth:nth-of-type(1) { animation: moth-drift-a 3.4s ease-in-out infinite; --flut: 96ms; }
+.moth:nth-of-type(2) { animation: moth-drift-b 4.2s ease-in-out infinite; animation-delay: -1.3s; --flut: 120ms; scale: 0.8; }
+.moth:nth-of-type(3) { animation: moth-drift-a 5.1s ease-in-out infinite reverse; animation-delay: -2.2s; --flut: 104ms; scale: 0.7; }
+.moth:nth-of-type(4) { animation: moth-drift-b 3.7s ease-in-out infinite reverse; animation-delay: -0.7s; --flut: 130ms; scale: 0.9; }
 
 /* ---- Presence states: what the other side is doing ---- */
 .peer-cursor .typing { display: none; margin-left: 2px; }
@@ -756,6 +775,7 @@ html[data-blueprint] .blueprint-systems {
   .presence-dot, .typing span, .flame,
   .site-mark rect, .site-name-text,
   .posts li, .read-progress { animation: none !important; }
+  .moth, .moth path { animation: none !important; }
   .read-progress { display: none; }
   .cheese { display: none; }
   .peer-cursor { transition: none; }
@@ -1037,7 +1057,7 @@ h1, h2, h3, h4,
   .components li { grid-template-columns: 1fr; row-gap: 0.875rem; }
 }
 .demo-cursor { display: inline-flex; align-items: center; gap: 6px; color: #4dabf7; margin-right: 0.5rem; vertical-align: middle; }
-.demo-ghost { color: var(--muted); opacity: 0.7; }
+.demo-ghost { color: var(--muted); opacity: 0.85; position: relative; padding-left: 30px; }
 .demo-label { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 0.6875rem; border: 1px solid currentColor; border-radius: 3px; padding: 0.05rem 0.4rem; }
 .demo-label-italic { font-style: italic; border-style: dashed; }
 .demo-chip { display: inline-flex; align-items: center; gap: 0.5rem; font-family: Georgia, serif; font-style: italic; font-size: 0.9375rem; color: var(--muted); margin-right: 0.5rem; }
