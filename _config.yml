@@ -17,9 +17,6 @@ accounts:
   - name: WordPress.org
     url: https://profiles.wordpress.org/joefusco
 
-  - name: LexGrade
-    url: https://lexgrade.org
-
   - name: LinkedIn
     url: https://www.linkedin.com/in/josephfusco3
 
