@@ -1,4 +1,5 @@
-/* Presence: other readers of this page appear as bird-named crosshairs.
+/* Presence: other readers of this page appear as unnamed crosshairs;
+   past readers replay as lines of fading ink.
    Progressive enhancement — fails silently without the relay.
    Blueprint mode: the footer toggle x-rays the page. */
 (function () {
@@ -127,7 +128,7 @@
 
   var wire = document.querySelector('.powerline');
     /* ---- The bird factory ----
-     Five real wire birds of upstate New York. Each species pins the
+     Six real wire birds of upstate New York. Each species pins the
      dials (puff, neck, tail, beak) to its field silhouette; individuals
      vary only inside their species envelope. share = how often it turns
      up, size relative to a pigeon, weight = pull on the wire, moves =
@@ -523,26 +524,14 @@
     return d;
   }
 
-  /* A ghost is never a cursor. It returns as white moths around an
-     invisible lure that retraces the remembered path. */
-  var MOTH_SVG = '<svg viewBox="0 0 10 9" aria-hidden="true">'
-    + '<path class="mo" d="M5 3.8 C3.6 1.2 1 1.2 1.2 3.4 C1.4 5.2 3.4 5.6 5 4.6 C6.6 5.6 8.6 5.2 8.8 3.4 C9 1.2 6.4 1.2 5 3.8 Z"/>'
-    + '<path class="mc" d="M5 4.4 C4.4 1.2 2.9 0.8 2.6 2.6 C2.4 4.2 3.9 5.2 5 4.9 C6.1 5.2 7.6 4.2 7.4 2.6 C7.1 0.8 5.6 1.2 5 4.4 Z"/>'
-    + '<path class="mb" d="M4.7 3.6 L5 7.6 L5.3 3.6 Z"/>'
-    + '</svg>';
-
-  function mothCluster() {
-    var out = '';
-    for (var i = 0; i < 4; i++) out += '<span class="moth">' + MOTH_SVG + '</span>';
-    return out;
-  }
-
   function cursorEl(peer) {
     var d = document.createElement('div');
     d.className = 'peer-cursor' + (peer.ghost ? ' ghost' : '');
     d.style.setProperty('--peer-color', peer.color);
+    /* A ghost has no glyph at all. It is only the ink it draws,
+       plus a small time label when it first appears. */
     d.innerHTML =
-      (peer.ghost ? mothCluster() :
+      (peer.ghost ? '' :
         '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
         '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>' +
         '<path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/>' +
@@ -555,11 +544,6 @@
     layer.appendChild(d);
     return d;
   }
-
-  /* Static moth specimens, for the design page */
-  document.querySelectorAll('[data-moths]').forEach(function (el) {
-    el.innerHTML = mothCluster() + el.innerHTML;
-  });
 
   /* Registry: every state a peer can be in, and how it renders */
   var STATE_META = {
