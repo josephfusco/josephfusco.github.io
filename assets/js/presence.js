@@ -523,15 +523,31 @@
     return d;
   }
 
+  /* A ghost is never a cursor. It returns as white moths around an
+     invisible lure that retraces the remembered path. */
+  var MOTH_SVG = '<svg viewBox="0 0 10 9" aria-hidden="true">'
+    + '<path class="mo" d="M5 3.8 C3.6 1.2 1 1.2 1.2 3.4 C1.4 5.2 3.4 5.6 5 4.6 C6.6 5.6 8.6 5.2 8.8 3.4 C9 1.2 6.4 1.2 5 3.8 Z"/>'
+    + '<path class="mc" d="M5 4.4 C4.4 1.2 2.9 0.8 2.6 2.6 C2.4 4.2 3.9 5.2 5 4.9 C6.1 5.2 7.6 4.2 7.4 2.6 C7.1 0.8 5.6 1.2 5 4.4 Z"/>'
+    + '<path class="mb" d="M4.7 3.6 L5 7.6 L5.3 3.6 Z"/>'
+    + '</svg>';
+
+  function mothCluster() {
+    var out = '';
+    for (var i = 0; i < 4; i++) out += '<span class="moth">' + MOTH_SVG + '</span>';
+    return out;
+  }
+
   function cursorEl(peer) {
     var d = document.createElement('div');
     d.className = 'peer-cursor' + (peer.ghost ? ' ghost' : '');
     d.style.setProperty('--peer-color', peer.color);
     d.innerHTML =
-      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
-      '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>' +
-      '<path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/>' +
-      '</svg><span class="peer-label"></span>' +
+      (peer.ghost ? mothCluster() :
+        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
+        '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>' +
+        '<path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/>' +
+        '</svg>') +
+      '<span class="peer-label"></span>' +
       '<span class="typing" aria-hidden="true"><span></span><span></span><span></span></span>';
     /* Ghost labels are time phrases; live people stay unnamed, always */
     d.querySelector('.peer-label').textContent = peer.ghost ? peer.name : '';
@@ -539,6 +555,11 @@
     layer.appendChild(d);
     return d;
   }
+
+  /* Static moth specimens, for the design page */
+  document.querySelectorAll('[data-moths]').forEach(function (el) {
+    el.innerHTML = mothCluster() + el.innerHTML;
+  });
 
   /* Registry: every state a peer can be in, and how it renders */
   var STATE_META = {
