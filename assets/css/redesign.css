@@ -257,6 +257,10 @@ section.block > h2 {
 /* The close is a block anchored bottom right, read left to right
    inside, like the address block on a letter */
 .letter-close { width: fit-content; margin-left: auto; text-align: left; }
+.site-footer .wrap { max-width: none; padding: 0 2.5rem; }
+@media (max-width: 640px) {
+  .site-footer .wrap { padding: 0 1.25rem; }
+}
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--accent); }
 
@@ -294,7 +298,7 @@ section.block > h2 {
   align-items: center;
   gap: 0.5rem;
   color: var(--muted);
-  font-size: 0.9375rem;
+  font-size: 0.8125rem;
   font-family: Georgia, serif;
   font-style: italic;
 }
@@ -636,15 +640,15 @@ p, li { text-wrap: pretty; }
 /* Colophon: native popover, anchored to its button, @starting-style entry */
 
 #colophon {
-  max-width: 22rem;
+  max-width: 21rem;
   rotate: -1.1deg;
   background: var(--card);
   color: var(--fg);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.25rem 1.4rem;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 18px 40px -24px rgba(0,0,0,0.4);
-  font-size: 0.9063rem;
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 10px 24px -18px rgba(35, 28, 18, 0.5);
+  font-size: 0.8125rem;
   line-height: 1.55;
 }
 #colophon h2 { margin: 0 0 0.5rem; font-size: 1rem; letter-spacing: 0; }
@@ -655,8 +659,8 @@ p, li { text-wrap: pretty; }
   #colophon {
     position: fixed;
     position-anchor: --colophon-btn;
-    position-area: top span-right;
-    position-try-fallbacks: bottom span-right, top, bottom;
+    position-area: top span-left;
+    position-try-fallbacks: top span-right, bottom span-left, top, bottom;
     margin: 0.5rem 0;
   }
 }
@@ -959,7 +963,7 @@ section.block > h2 {
   font-size: 0.9375rem;
   line-height: var(--lh);
 }
-.presence-toggle, .blueprint-toggle, .colophon-toggle { font-size: 0.9375rem; line-height: var(--lh); }
+.presence-toggle, .blueprint-toggle, .colophon-toggle { font-size: 0.8125rem; line-height: var(--lh); }
 .colophon-toggle { margin-right: 0; }
 .signature-contacts a:last-child { margin-right: 0; }
 
@@ -1061,7 +1065,7 @@ h1, h2, h3, h4,
 /* Say hello */
 .signature-email {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   line-height: var(--lh);
 }
 
@@ -1282,7 +1286,7 @@ body {
 /* Under the signature, how to reach the signer */
 .signature-contacts {
   margin: 0 0 var(--lh);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   line-height: var(--lh);
 }
 .signature-contacts a {
@@ -1296,5 +1300,5 @@ body {
 .footer-tools { margin: 0; line-height: var(--lh); }
 
 /* Fineprint closes the page, small and quiet, under the signature block */
-.site-footer .fineprint { margin-top: 0; font-size: 0.875rem; }
+.site-footer .fineprint { margin-top: 0; font-size: 0.8125rem; }
 .site-footer .fineprint a { margin-right: 0; }
