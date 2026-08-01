@@ -1,5 +1,4 @@
-/* Presence: other readers of this page appear as unnamed crosshairs;
-   past readers replay as lines of fading ink.
+/* Presence: other readers of this page appear as unnamed crosshairs.
    Progressive enhancement — fails silently without the relay.
    Blueprint mode: the footer toggle x-rays the page. */
 (function () {
@@ -52,7 +51,6 @@
     { label: 'invoker commands', on: function () { return typeof CommandEvent !== 'undefined'; } },
     { label: 'scheduler API', on: function () { return !!(window.scheduler && scheduler.postTask); } },
     { label: 'presence relay', on: function () { return !!(window.__presenceLive); } },
-    { label: 'ghost archive', on: function () { return !!(window.__ghostSeen); } },
   ];
 
   function renderSystems() {
@@ -115,7 +113,6 @@
   var DEV = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
   var WS_URL = (DEV ? 'ws://' + location.hostname + ':4001' : 'wss://presence.josephfus.co/ws')
     + '?path=' + encodeURIComponent(location.pathname);
-  var GHOST_URL = DEV ? 'http://' + location.hostname + ':4001/ghost' : 'https://presence.josephfus.co/ghost';
 
   var peers = new Map();
   var lastCountLabel = null;
@@ -527,20 +524,14 @@
 
   function cursorEl(peer) {
     var d = document.createElement('div');
-    d.className = 'peer-cursor' + (peer.ghost ? ' ghost' : '');
+    d.className = 'peer-cursor';
     d.style.setProperty('--peer-color', peer.color);
-    /* A ghost has no glyph at all. It is only the ink it draws,
-       plus a small time label when it first appears. */
     d.innerHTML =
-      (peer.ghost ? '' :
-        '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
-        '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>' +
-        '<path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/>' +
-        '</svg>') +
-      '<span class="peer-label"></span>' +
+      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
+      '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>' +
+      '<path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/>' +
+      '</svg><span class="peer-label"></span>' +
       '<span class="typing" aria-hidden="true"><span></span><span></span><span></span></span>';
-    /* Ghost labels are time phrases; live people stay unnamed, always */
-    d.querySelector('.peer-label').textContent = peer.ghost ? peer.name : '';
     d.style.visibility = 'hidden';
     layer.appendChild(d);
     return d;
@@ -556,14 +547,14 @@
 
   function applyState(p) {
     if (!p.el) return;
-    var base = 'peer-cursor' + (p.ghost ? ' ghost' : '');
+    var base = 'peer-cursor';
     var s = STATE_META[p.state] ? p.state : 'active';
     p.el.className = base
       + (s !== 'active' ? ' state-' + s : '')
       + (p.labelShown ? ' show-label' : '');
     var label = p.el.querySelector('.peer-label');
     if (label) {
-      label.textContent = p.ghost ? '' : (p.own ? 'you' : '') + STATE_META[s].suffix;
+      label.textContent = (p.own ? 'you' : '') + STATE_META[s].suffix;
     }
   }
 
@@ -582,10 +573,10 @@
 
   var JUMP_PX = 260; // beyond this, teleport — no swoosh across other people's screens
 
-  function spawnTrail(x, y, color, ghost) {
+  function spawnTrail(x, y, color) {
     if (!layer) return;
     var t = document.createElement('span');
-    t.className = 'trail' + (ghost ? ' trail-ghost' : '');
+    t.className = 'trail';
     if (color) t.style.color = color;
     t.style.transform = 'translate(' + x + 'px,' + y + 'px)';
     layer.appendChild(t);
@@ -607,18 +598,7 @@
         moved = dx !== 0 || dy !== 0;
         var jumped = dx * dx + dy * dy > JUMP_PX * JUMP_PX;
         p.el.classList.toggle('jump', jumped);
-        if (p.ghost && moved) {
-          /* The ghost IS its ink: draw an unbroken line between recorded
-             points, however far apart the samples were. Only a true
-             teleport in the recording breaks the stroke. */
-          var dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 700) {
-            var steps = Math.min(80, Math.max(1, Math.round(dist / 6)));
-            for (var gi = 1; gi <= steps; gi++) {
-              spawnTrail(p.lastX + (dx * gi) / steps, p.lastY + (dy * gi) / steps, '', true);
-            }
-          }
-        } else if (moved && !jumped) {
+        if (moved && !jumped) {
           /* banking: the bird tilts into its turn, settles when it rests */
           if (p.svg) {
             var bank = Math.max(-8, Math.min(8, dx * 0.12));
@@ -631,7 +611,7 @@
           /* ink trail: a wake that evaporates */
           if (!p.lastTrailAt || now - p.lastTrailAt > 50) {
             p.lastTrailAt = now;
-            spawnTrail(p.lastX, p.lastY, p.ghost ? '' : p.color, p.ghost);
+            spawnTrail(p.lastX, p.lastY, p.color);
           }
         }
       }
@@ -660,10 +640,8 @@
     var n = 0;
     var ownHere = 0;
     peers.forEach(function (p) {
-      if (p.ghost) return;
       if (p.own) ownHere++; else n++;
     });
-    var haunted = peers.has(GHOST_ID);
     var ownElsewhere = 0;
     for (var k in ownTabs) if (!peers.has(isNaN(+k) ? k : +k)) ownElsewhere++;
     var tabs = 1 + ownHere + ownElsewhere;
@@ -673,8 +651,7 @@
       : 'just you here';
     if (tabs > 1) label += ', in ' + tabs + ' tabs';
     if (elsewhere) label += ', ' + elsewhere + ' elsewhere on the site';
-    if (haunted) label += ', ' + (hauntPhrase || 'plus a ghost');
-    if (!n && !haunted && !elsewhere && tabs === 1) label = 'just you here (a second tab makes two)';
+    if (!n && !elsewhere && tabs === 1) label = 'just you here (a second tab makes two)';
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
     });
@@ -695,8 +672,8 @@
     var entry = { name: p.name, color: p.color, pos: p.pos || null, state: p.state || 'active', el: cursorEl(p) };
     entry.svg = entry.el.querySelector('svg');
     entry.el.style.opacity = '0';
-    if (!p.ghost) addPigeon(p.id);
-    entry.dot = miniDot(p.ghost ? 'mini-ghost' : '', p.color);
+    addPigeon(p.id);
+    entry.dot = miniDot('', p.color);
     peers.set(p.id, entry);
     applyState(entry);
     reveal(entry, 3000);
@@ -808,7 +785,7 @@
     };
 
     ws.onclose = function () {
-      peers.forEach(function (p, k) { if (!p.ghost) removePeer(k, false); });
+      peers.forEach(function (p, k) { removePeer(k, false); });
       censusTotal = 0;
       updateCount();
       if (!invisible && retry < 5) setTimeout(connect, 1000 * Math.pow(2, retry++));
@@ -903,7 +880,6 @@
 
   function beginPresence() {
     if (!invisible) connect();
-    scheduleHaunt(Math.random() < 0.25 ? 90000 : 4000 + Math.random() * 6000);
   }
 
   /* Speculation-rules prerendered pages are not real visits: wait until shown */
@@ -920,88 +896,5 @@
       connect();
     }
   });
-
-  /* ---- Ghosts: replay one past visitor's cursor timeline at a time ---- */
-  var GHOST_ID = 'ghost';
-  var ghostTimer = null;
-
-  /* Nothing floats with a ghost, not even a label. Its time phrase
-     surfaces in the fixed chip while the ink is being drawn. */
-  var hauntPhrase = null;
-
-  function ghostPhrase(iso) {
-    var h = new Date(iso).getHours();
-    return 'plus a ghost from ' + (h % 12 || 12) + (h < 12 ? 'am' : 'pm');
-  }
-
-  function endGhost() {
-    hauntPhrase = null;
-    removePeer(GHOST_ID, true);
-    updateCount();
-    scheduleHaunt(15000 + Math.random() * 30000);
-  }
-
-  function playGhost(trace) {
-    ensureLayer();
-    hauntPhrase = ghostPhrase(trace.recorded);
-    peers.set(GHOST_ID, {
-      name: '',
-      color: 'currentColor',
-      ghost: true,
-      state: 'active',
-      pos: null,
-      el: cursorEl({ name: '', color: '', ghost: true }),
-    });
-    updateCount();
-    var i = 0;
-    var j = 0;
-    var states = trace.states || [];
-    function step() {
-      if (i >= trace.points.length) { endGhost(); return; }
-      var pt = trace.points[i];
-      var g = peers.get(GHOST_ID);
-      if (!g) return;
-      g.pos = { x: pt[1], y: pt[2] };
-      while (j < states.length && states[j][0] <= pt[0]) {
-        g.state = states[j][1];
-        applyState(g);
-        j++;
-      }
-      render();
-      i++;
-      if (i < trace.points.length) {
-        var dt = Math.min(Math.max(trace.points[i][0] - pt[0], 16), 3000); // cap long dwells
-        ghostTimer = setTimeout(step, dt);
-      } else {
-        ghostTimer = setTimeout(endGhost, 1200);
-      }
-    }
-    step();
-  }
-
-  function haunt() {
-    if (document.hidden) { scheduleHaunt(30000); return; }
-    fetch(GHOST_URL + '?path=' + encodeURIComponent(location.pathname))
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (g) {
-        if (g && g.points && g.points.length) { window.__ghostSeen = true; playGhost(g); }
-        else scheduleHaunt(60000);
-      })
-      .catch(function () { scheduleHaunt(120000); });
-  }
-
-  var ghostTaskCtrl = null;
-
-  function scheduleHaunt(ms) {
-    clearTimeout(ghostTimer);
-    if (ghostTaskCtrl) { ghostTaskCtrl.abort(); ghostTaskCtrl = null; }
-    if (window.TaskController && window.scheduler && scheduler.postTask) {
-      ghostTaskCtrl = new TaskController();
-      scheduler.postTask(haunt, { delay: ms, priority: 'background', signal: ghostTaskCtrl.signal })
-        .catch(function () { /* aborted */ });
-    } else {
-      ghostTimer = setTimeout(haunt, ms);
-    }
-  }
 
 })();
