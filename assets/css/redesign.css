@@ -255,7 +255,7 @@ section.block > h2 {
   color: var(--muted);
 }
 .site-footer .wrap { text-align: right; }
-.site-footer a { color: var(--muted); margin-right: 1.25rem; }
+.site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--accent); }
 
 @media (max-width: 480px) {
@@ -373,9 +373,9 @@ section.block > h2 {
   width: 28px;
   height: 19px;
   padding: 0;
-  margin: 0 0.35rem;
-  background: #35353b;
-  border: 1px solid #56565e;
+  margin: 0 0 0 0.5rem;
+  background: #3a342a;
+  border: 1px solid #6f6758;
   border-radius: 3px;
   cursor: pointer;
   transition: border-color 0.15s;
@@ -388,7 +388,7 @@ section.block > h2 {
   left: 4px;
   width: 6px;
   height: 4px;
-  background: #56565e;
+  background: #6f6758;
   border-radius: 2px 2px 0 0;
   transition: top 0.09s ease-in-out;
 }
@@ -401,7 +401,7 @@ section.block > h2 {
   right: 3px;
   width: 6px;
   height: 4px;
-  background: #d9d9d9;
+  background: #ddd4bf;
   border-radius: 1px;
 }
 .camera:active::after {
@@ -412,8 +412,8 @@ section.block > h2 {
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  border: 2px solid #56565e;
-  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55) 0 1.5px, rgba(255,255,255,0.12) 3.5px, #17171a 65%);
+  border: 2px solid #6f6758;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55) 0 1.5px, rgba(255,255,255,0.12) 3.5px, #23201a 65%);
   transition: border-color 0.15s;
 }
 .camera:hover { border-color: var(--accent); }
@@ -1047,9 +1047,7 @@ h1, h2, h3, h4,
 }
 .peer-cursor.show-label .peer-label { opacity: 1; }
 
-/* Footer sits at the bottom of short pages; black never pools below it */
-body { min-height: 100vh; display: flex; flex-direction: column; }
-main { flex: 1; }
+/* The signature follows the prose, like a letter; short pages end early */
 
 /* Copyright line links are prose, not a toolbar */
 .site-footer .fineprint a { margin-right: 0; }

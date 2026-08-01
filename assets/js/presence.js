@@ -562,9 +562,7 @@
       + (p.labelShown ? ' show-label' : '');
     var label = p.el.querySelector('.peer-label');
     if (label) {
-      label.textContent = p.ghost
-        ? p.name + STATE_META[s].suffix
-        : (p.own ? 'you' : '') + STATE_META[s].suffix;
+      label.textContent = p.ghost ? '' : (p.own ? 'you' : '') + STATE_META[s].suffix;
     }
   }
 
@@ -663,7 +661,7 @@
       : 'just you here';
     if (tabs > 1) label += ', in ' + tabs + ' tabs';
     if (elsewhere) label += ', ' + elsewhere + ' elsewhere on the site';
-    if (haunted) label += ', plus a ghost';
+    if (haunted) label += ', ' + (hauntPhrase || 'plus a ghost');
     if (!n && !haunted && !elsewhere && tabs === 1) label = 'just you here (a second tab makes two)';
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
@@ -865,7 +863,7 @@
     if (!pToggle) return;
     pToggle.hidden = false;
     pToggle.setAttribute('aria-pressed', invisible ? 'true' : 'false');
-    pToggle.textContent = invisible ? '🕊 invisible' : '🕊 visible to others';
+    pToggle.textContent = invisible ? '⌖ invisible' : '⌖ visible to others';
     pToggle.title = invisible
       ? 'Nobody can see your cursor and nothing is recorded. Click to rejoin.'
       : 'Others can see your cursor as an anonymous bird. Click to go invisible.';
@@ -905,34 +903,34 @@
   var GHOST_ID = 'ghost';
   var ghostTimer = null;
 
-  function ghostLabel(iso) {
-    var d = new Date(iso);
-    var mins = Math.max(1, Math.round((Date.now() - d.getTime()) / 60000));
-    var age = mins < 60 ? mins + 'm ago'
-      : mins < 2880 ? Math.round(mins / 60) + 'h ago'
-      : Math.round(mins / 1440) + 'd ago';
-    var h = d.getHours();
-    var tod = (h % 12 || 12) + (h < 12 ? 'am' : 'pm');
-    return 'a ghost from ' + tod + ', ' + age;
+  /* Nothing floats with a ghost, not even a label. Its time phrase
+     surfaces in the fixed chip while the ink is being drawn. */
+  var hauntPhrase = null;
+
+  function ghostPhrase(iso) {
+    var h = new Date(iso).getHours();
+    return 'plus a ghost from ' + (h % 12 || 12) + (h < 12 ? 'am' : 'pm');
   }
 
   function endGhost() {
+    hauntPhrase = null;
     removePeer(GHOST_ID, true);
+    updateCount();
     scheduleHaunt(15000 + Math.random() * 30000);
   }
 
   function playGhost(trace) {
     ensureLayer();
-    var gname = ghostLabel(trace.recorded);
+    hauntPhrase = ghostPhrase(trace.recorded);
     peers.set(GHOST_ID, {
-      name: gname,
+      name: '',
       color: 'currentColor',
       ghost: true,
       state: 'active',
       pos: null,
-      el: cursorEl({ name: gname, color: '', ghost: true }),
+      el: cursorEl({ name: '', color: '', ghost: true }),
     });
-    reveal(peers.get(GHOST_ID), 4000);
+    updateCount();
     var i = 0;
     var j = 0;
     var states = trace.states || [];
