@@ -1134,7 +1134,10 @@ h1, h2, h3, h4,
 }
 .trail-ghost {
   color: var(--muted);
-  animation-duration: 1300ms;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  animation-duration: 2600ms;
 }
 @keyframes trail-fade {
   from { opacity: 0.4; }
