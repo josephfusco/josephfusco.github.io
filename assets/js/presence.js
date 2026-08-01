@@ -126,14 +126,35 @@
   }
 
   var wire = document.querySelector('.powerline');
-    /* ---- The borb factory: every bird is a one-off permutation ----
-     Dials: puff, neck, tail, beak. No two are drawn alike. */
-  function makeBorb(rng) {
+    /* ---- The bird factory ----
+     Five real wire birds of upstate New York. Each species pins the
+     dials (puff, neck, tail, beak) to its field silhouette; individuals
+     vary only inside their species envelope. share = how often it turns
+     up, size relative to a pigeon, weight = pull on the wire, moves =
+     its field-guide tell. */
+  var SPECIES = [
+    { name: 'Rock Pigeon',       share: 0.36, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [1.0, 1.12],  weight: 1.0,  moves: ['resettle', 'bob'] },
+    { name: 'House Sparrow',     share: 0.2,  puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
+    { name: 'Mourning Dove',     share: 0.16, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.8, 0.88],  size: [0.88, 0.96], weight: 0.7,  moves: ['resettle'] },
+    { name: 'European Starling', share: 0.16, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.84], weight: 0.55, moves: ['turn', 'bob', 'headBob'] },
+    { name: 'Eastern Phoebe',    share: 0.12, puff: [0.32, 0.45], neck: [0.3, 0.42],  tail: [1.0, 1.12],  beak: [0.9, 1.0],   size: [0.68, 0.76], weight: 0.45, moves: ['tailPump', 'turn', 'tailPump'] },
+  ];
+  function pickSpecies(r) {
+    var roll = r(), acc = 0;
+    for (var i = 0; i < SPECIES.length; i++) {
+      acc += SPECIES[i].share;
+      if (roll < acc) return SPECIES[i];
+    }
+    return SPECIES[0];
+  }
+  function makeBorb(rng, species) {
     var r = rng || Math.random;
-    var p = r();                  /* puff: 0 slim, 1 borb */
-    var n = r() * (1 - p * 0.75); /* neck: borbs have none */
-    var t = 0.6 + r() * 0.7;      /* tail */
-    var b = 0.8 + r() * 0.4;      /* beak */
+    var sp = species || pickSpecies(r);
+    function dial(range) { return range[0] + r() * (range[1] - range[0]); }
+    var p = dial(sp.puff);
+    var n = dial(sp.neck);
+    var t = dial(sp.tail);
+    var b = dial(sp.beak);
     var backY = 4.6 - n * 1.4 + p * 0.4;
     var headR = 1.5 - p * 0.25;
     var headCx = 8.7 + n * 0.3;
@@ -158,8 +179,8 @@
       + ' Z';
     return {
       svg: '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true"><path d="' + d + '"/></svg>',
-      puff: p,
-      neck: n,
+      species: sp,
+      size: dial(sp.size),
     };
   }
 
@@ -176,14 +197,15 @@
   }
 
   /* The wire: flat at rest, flexed by the weight of whoever perches */
-  var WIRE_GEOM = { y: 12, scale: 2.8, minSag: 0.6, perBird: 2.0, maxSag: 6.5 };
+  /* perBird is sag per pigeon-weight; lighter species pull less */
+  var WIRE_GEOM = { y: 12, scale: 2.8, minSag: 0.6, perBird: 2.8, maxSag: 6.5 };
   var wirePathEl = document.querySelector('.wire-svg path');
   var currentSag = WIRE_GEOM.minSag;
 
   function setSag() {
-    var n = 0;
-    flock.forEach(function (b) { if (!b.flown) n++; });
-    currentSag = Math.min(WIRE_GEOM.minSag + n * WIRE_GEOM.perBird, WIRE_GEOM.maxSag);
+    var load = 0;
+    flock.forEach(function (b) { if (!b.flown) load += (b.weight || 1); });
+    currentSag = Math.min(WIRE_GEOM.minSag + load * WIRE_GEOM.perBird, WIRE_GEOM.maxSag);
     if (wirePathEl) {
       wirePathEl.style.d = 'path("M0 ' + WIRE_GEOM.y + ' Q 50 ' + (WIRE_GEOM.y + currentSag) + ' 100 ' + WIRE_GEOM.y + '")';
     }
@@ -210,9 +232,13 @@
      [1, 1, 1, 1, 0, 0.68]],
   ];
 
-  /* Static specimens anywhere in the page hydrate from the same registry */
+  /* Static specimens anywhere in the page hydrate a named species:
+     data-species is an index into SPECIES, drawn deterministically */
   document.querySelectorAll('[data-species]').forEach(function (el) {
-    el.innerHTML = makeBorb().svg;
+    var i = parseInt(el.getAttribute('data-species'), 10) || 0;
+    var sp = SPECIES[i % SPECIES.length];
+    el.innerHTML = makeBorb(seedFrom('specimen:' + i), sp).svg;
+    el.title = sp.name;
   });
 
   /* Seeded randomness: each page keeps its own regulars */
@@ -260,7 +286,7 @@
     var born = makeBorb(rng);
     var markup = born.svg;
     el.innerHTML = markup;
-    var scale = (0.85 + rng() * 0.3) * BIRD_BASE;
+    var scale = born.size * BIRD_BASE;
     el.style.width = Math.round(15 * scale) + 'px';
     el.style.height = Math.round(13 * scale) + 'px';
     var svgEl = el.querySelector('svg');
@@ -270,12 +296,10 @@
     el.style.left = pt.left + '%';
     el.style.top = (pt.top + (21 - Math.round(13 * scale))) + 'px';
     wire.appendChild(el);
-    /* temperament follows the build: doves sit, flycatchers pump, sparrows hop */
-    var moves = born.puff > 0.62 ? [MICRO.resettle, MICRO.bob]
-      : born.neck > 0.4 ? [MICRO.tailPump, MICRO.turn, MICRO.tailPump]
-      : [MICRO.turn, MICRO.headBob, MICRO.bob, MICRO.resettle];
+    /* temperament comes with the species: doves sit, phoebes pump, sparrows hop */
+    var moves = born.species.moves.map(function (k) { return MICRO[k]; });
     el.style.transformOrigin = '50% 100%';
-    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, slot: slot, topAdj: (21 - Math.round(13 * scale)), moves: moves, flown: false, returnTimer: null };
+    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, slot: slot, topAdj: (21 - Math.round(13 * scale)), moves: moves, weight: born.species.weight, flown: false, returnTimer: null };
     flock.set(key, bird);
     /* the regulars fly home when you arrive */
     bird.flown = true;
@@ -515,7 +539,8 @@
       '<path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/>' +
       '</svg><span class="peer-label"></span>' +
       '<span class="typing" aria-hidden="true"><span></span><span></span><span></span></span>';
-    d.querySelector('.peer-label').textContent = peer.name;
+    /* Ghost labels are time phrases; live people stay unnamed, always */
+    d.querySelector('.peer-label').textContent = peer.ghost ? peer.name : '';
     d.style.visibility = 'hidden';
     layer.appendChild(d);
     return d;
@@ -524,8 +549,8 @@
   /* Registry: every state a peer can be in, and how it renders */
   var STATE_META = {
     active: { suffix: '' },
-    idle:   { suffix: ' · idle' },
-    away:   { suffix: ' · away' },
+    idle:   { suffix: ', idle' },
+    away:   { suffix: ', away' },
     typing: { suffix: '' },
   };
 
