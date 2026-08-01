@@ -1079,13 +1079,20 @@ h1, h2, h3, h4,
 #colophon a { margin-right: 0; }
 
 /* The letter signs at the bottom right of the footer */
+/* The hand signs in fountain-pen blue; the type confirms it in ink */
+.signature-ink {
+  width: 10.5rem;
+  margin: calc(var(--lh) * 1.5) 0 0;
+  color: #26418f;
+}
+.signature-ink svg { display: block; width: 100%; height: auto; }
 .signature {
   font-family: Georgia, "Iowan Old Style", serif;
   font-style: italic;
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: var(--lh);
   color: var(--fg);
-  margin: calc(var(--lh) * 1.5) 0 0;
+  margin: 0;
 }
 
 /* ---- The footer: same sheet of paper, separated by rhythm alone ---- */
@@ -1095,7 +1102,6 @@ h1, h2, h3, h4,
   padding-top: var(--lh);
   margin-top: calc(var(--lh) * 2.5);
 }
-.site-footer .signature { color: #26418f; }
 
 /* ---- The birds come alive: banking, ink trails, perches ---- */
 .peer-cursor svg { transition: rotate 280ms ease-out; }
