@@ -133,11 +133,12 @@
      up, size relative to a pigeon, weight = pull on the wire, moves =
      its field-guide tell. */
   var SPECIES = [
-    { name: 'Rock Pigeon',       share: 0.36, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [1.0, 1.12],  weight: 1.0,  moves: ['resettle', 'bob'] },
-    { name: 'House Sparrow',     share: 0.2,  puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
+    { name: 'Rock Pigeon',       share: 0.32, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [1.0, 1.12],  weight: 1.0,  moves: ['resettle', 'bob'] },
+    { name: 'House Sparrow',     share: 0.18, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
     { name: 'Mourning Dove',     share: 0.16, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.8, 0.88],  size: [0.88, 0.96], weight: 0.7,  moves: ['resettle'] },
-    { name: 'European Starling', share: 0.16, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.84], weight: 0.55, moves: ['turn', 'bob', 'headBob'] },
-    { name: 'Eastern Phoebe',    share: 0.12, puff: [0.32, 0.45], neck: [0.3, 0.42],  tail: [1.0, 1.12],  beak: [0.9, 1.0],   size: [0.68, 0.76], weight: 0.45, moves: ['tailPump', 'turn', 'tailPump'] },
+    { name: 'European Starling', share: 0.14, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.84], weight: 0.55, moves: ['turn', 'bob', 'headBob'] },
+    { name: 'House Finch',       share: 0.12, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.78, 0.86], size: [0.58, 0.66], weight: 0.35, moves: ['turn', 'bob', 'headBob', 'resettle'] },
+    { name: 'Eastern Kingbird',  share: 0.08, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.68, 0.76], weight: 0.5,  moves: ['turn', 'resettle', 'turn'] },
   ];
   function pickSpecies(r) {
     var roll = r(), acc = 0;
@@ -445,13 +446,6 @@
       bird.el.animate(
         [{ scale: '1 1' }, { scale: '1.05 0.93' }, { scale: '0.98 1.03' }, { scale: '1 1' }],
         { duration: 340, easing: 'ease-in-out' }
-      );
-    },
-    /* the flycatcher tell: quick tail pumps from the feet */
-    tailPump: function (bird) {
-      bird.el.animate(
-        [{ rotate: '0deg' }, { rotate: '-7deg' }, { rotate: '2deg' }, { rotate: '-4deg' }, { rotate: '0deg' }],
-        { duration: 420, easing: 'ease-in-out' }
       );
     },
     /* the pigeon walk, in place */
