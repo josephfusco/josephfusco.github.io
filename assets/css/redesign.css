@@ -1055,8 +1055,10 @@ h1, h2, h3, h4,
 .site-footer .fineprint a { margin-right: 0; }
 
 /* Say hello */
-.hello-line {
-  margin: var(--lh) 0 0;
+.signature-email {
+  text-align: right;
+  margin: 0;
+  font-size: 0.875rem;
   line-height: var(--lh);
 }
 
