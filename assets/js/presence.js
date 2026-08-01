@@ -607,7 +607,18 @@
         moved = dx !== 0 || dy !== 0;
         var jumped = dx * dx + dy * dy > JUMP_PX * JUMP_PX;
         p.el.classList.toggle('jump', jumped);
-        if (moved && !jumped) {
+        if (p.ghost && moved) {
+          /* The ghost IS its ink: draw an unbroken line between recorded
+             points, however far apart the samples were. Only a true
+             teleport in the recording breaks the stroke. */
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 700) {
+            var steps = Math.min(80, Math.max(1, Math.round(dist / 6)));
+            for (var gi = 1; gi <= steps; gi++) {
+              spawnTrail(p.lastX + (dx * gi) / steps, p.lastY + (dy * gi) / steps, '', true);
+            }
+          }
+        } else if (moved && !jumped) {
           /* banking: the bird tilts into its turn, settles when it rests */
           if (p.svg) {
             var bank = Math.max(-8, Math.min(8, dx * 0.12));
