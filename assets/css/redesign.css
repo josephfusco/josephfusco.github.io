@@ -257,10 +257,9 @@ section.block > h2 {
 /* The close is a block anchored bottom right, read left to right
    inside, like the address block on a letter */
 .letter-close { width: fit-content; margin-left: auto; text-align: left; }
-.site-footer .wrap { max-width: none; padding: 0 2.5rem; }
-@media (max-width: 640px) {
-  .site-footer .wrap { padding: 0 1.25rem; }
-}
+/* Signed just past the text column's edge, never off in the margin
+   of a wide sheet */
+.site-footer .wrap { max-width: 54rem; }
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--accent); }
 
