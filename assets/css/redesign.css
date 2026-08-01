@@ -1062,11 +1062,10 @@ main { flex: 1; }
 
 /* Writing archive: years as landmarks, dates snug against titles */
 .year-label {
-  font-family: var(--sans);
-  font-size: 0.875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
   color: var(--muted);
   line-height: var(--lh);
   margin: var(--lh) 0 0;
@@ -1126,13 +1125,12 @@ main { flex: 1; }
   margin: calc(var(--lh) * 1.5) 0 0;
 }
 
-/* ---- The footer: one sheet deeper in the stack ---- */
+/* ---- The footer: same sheet of paper, separated by rhythm alone ---- */
 .site-footer {
-  background-color: var(--card);
   color: var(--muted);
   border-top: 0;
   padding-top: var(--lh);
-  box-shadow: inset 0 14px 18px -16px rgba(35, 28, 18, 0.18);
+  margin-top: calc(var(--lh) * 2.5);
 }
 .site-footer .signature { color: #26418f; }
 
@@ -1206,13 +1204,13 @@ main { flex: 1; }
 /* ---- The cotton has a tooth: wove grain, two frequencies of it ----
    Fine turbulence for the surface tooth, a broad mottle for the pulp
    formation. Inline SVG noise, seamlessly stitched; no image assets. */
-body, .site-footer {
+body {
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='280'%20height='280'%3E%20%3Cfilter%20id='tooth'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.85'%20numOctaves='2'%20stitchTiles='stitch'%20seed='7'/%3E%3CfeColorMatrix%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.30%200.30%200.30%200%200'/%3E%3C/filter%3E%20%3Cfilter%20id='pulp'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.045'%20numOctaves='3'%20stitchTiles='stitch'%20seed='11'/%3E%3CfeColorMatrix%20type='matrix'%20values='0%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.32%200.32%200.32%200%200'/%3E%3C/filter%3E%20%3Crect%20width='280'%20height='280'%20filter='url(%23tooth)'%20opacity='0.03'/%3E%20%3Crect%20width='280'%20height='280'%20filter='url(%23pulp)'%20opacity='0.018'/%3E%20%3C/svg%3E");
   background-size: 280px 280px;
 }
 
 @media print {
-  body, .site-footer { background-image: none; }
+  body { background-image: none; }
 }
 
 /* ---- The wire: a US distribution line under the masthead ----
@@ -1289,6 +1287,10 @@ body, .site-footer {
   color: var(--muted);
 }
 .signature-contacts a:hover { color: var(--accent); }
+
+/* Status and tools each take their own short line on the right rail */
+.footer-status { margin: var(--lh) 0 0; line-height: var(--lh); }
+.footer-tools { margin: 0; line-height: var(--lh); }
 
 /* Fineprint closes the page, small and quiet, under the signature block */
 .site-footer .fineprint { margin-top: 0.875rem; font-size: 0.875rem; }
