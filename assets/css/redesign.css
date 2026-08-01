@@ -254,7 +254,9 @@ section.block > h2 {
   font-size: 0.9375rem;
   color: var(--muted);
 }
-.site-footer .wrap { text-align: right; }
+/* The close is a block anchored bottom right, read left to right
+   inside, like the address block on a letter */
+.letter-close { width: fit-content; margin-left: auto; text-align: left; }
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--accent); }
 
@@ -548,7 +550,7 @@ section.block > h2 {
   border: 0;
   padding: 0;
   cursor: pointer;
-  margin-left: 1.25rem;
+  margin-right: 1.25rem;
   text-decoration: underline dotted;
   text-underline-offset: 3px;
 }
@@ -958,6 +960,8 @@ section.block > h2 {
   line-height: var(--lh);
 }
 .presence-toggle, .blueprint-toggle, .colophon-toggle { font-size: 0.9375rem; line-height: var(--lh); }
+.colophon-toggle { margin-right: 0; }
+.signature-contacts a:last-child { margin-right: 0; }
 
 /* The x-ray now shows the true baseline: rows are exactly one unit */
 html[data-blueprint] body {
@@ -1056,7 +1060,6 @@ h1, h2, h3, h4,
 
 /* Say hello */
 .signature-email {
-  text-align: right;
   margin: 0;
   font-size: 0.875rem;
   line-height: var(--lh);
@@ -1118,7 +1121,6 @@ h1, h2, h3, h4,
 
 /* The letter signs at the bottom right of the footer */
 .signature {
-  text-align: right;
   font-family: Georgia, "Iowan Old Style", serif;
   font-style: italic;
   font-size: 1.125rem;
@@ -1279,13 +1281,12 @@ body {
 
 /* Under the signature, how to reach the signer */
 .signature-contacts {
-  text-align: right;
   margin: 0 0 var(--lh);
   font-size: 0.875rem;
   line-height: var(--lh);
 }
 .signature-contacts a {
-  margin: 0 0 0 1.25rem;
+  margin: 0 1.25rem 0 0;
   color: var(--muted);
 }
 .signature-contacts a:hover { color: var(--accent); }
