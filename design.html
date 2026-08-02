@@ -19,26 +19,26 @@ permalink: /design
 			<li><span class="swatch" style="background:#ddd4bf"></span>border <code>#ddd4bf</code></li>
 			<li><span class="swatch" style="background:#efe8d6"></span>card <code>#efe8d6</code></li>
 		</ul>
-		<p>The cotton has a tooth. Two frequencies of SVG turbulence, one for the surface grain and one for the pulp formation, are woven inline. No image files were harmed.</p>
+		<p>The cotton has a tooth, two frequencies of SVG turbulence woven inline. No image files were harmed.</p>
 	</section>
 
 	<section class="block" aria-label="Type">
 		<h2>Type</h2>
 		<div class="specimen">
-			<p class="spec-note">Structure is Atkinson Hyperlegible, designed by the Braille Institute, for headings, the nameplate, navigation, and controls.</p>
+			<p class="spec-note">Structure is Atkinson Hyperlegible, by the Braille Institute.</p>
 			<p class="spec-sans">Hamburgevons 0O 1lI 5S 8B</p>
-			<p class="spec-note">Words are Georgia, for body text, descriptions, and this sentence's cousins.</p>
+			<p class="spec-note">Words are Georgia.</p>
 			<p class="spec-serif">The five boxing wizards jump quickly, 1234567890.</p>
-			<p class="spec-note">Asides are Georgia italic, for dates, tags, and whatever whispers.</p>
+			<p class="spec-note">Asides are Georgia italic, for whatever whispers.</p>
 			<p class="spec-italic">Rochester NY, March 2017, a note in the margin.</p>
-			<p class="spec-note">Code and the x-ray are monospace, never decoration.</p>
+			<p class="spec-note">Code and the x-ray are monospace.</p>
 			<p class="spec-mono">--lh: 1.75rem; skewY(-1.1deg); presence.js</p>
 		</div>
 	</section>
 
 	<section class="block" aria-label="Rhythm">
 		<h2>Rhythm</h2>
-		<p>One unit governs the page, <code>1.75rem</code>, which is 28 pixels. Every line of text sits on it. Every margin and padding is a multiple of it, halves allowed. Where a rule crosses the flow, the border's own width is subtracted from the adjacent padding so the grid never drifts. Toggle <strong>⌗ blueprint</strong> in the footer and the rows you see are this unit, measured against the real text.</p>
+		<p>One unit governs the page, <code>1.75rem</code>, 28 pixels. Everything vertical is a multiple of it, halves allowed, and borders subtract their own width from adjacent padding. Toggle <strong>⌗ blueprint</strong> to see it measured.</p>
 	</section>
 
 	<section class="block" aria-label="Components">
@@ -50,16 +50,35 @@ permalink: /design
 				</div>
 				<div>
 					<h3>Live cursor <span class="tag">presence</span></h3>
-					<p>A human, now, abstractly. It banks into its turns and leaves a wake of evaporating ink. Long jumps teleport instead of streaking across your view. Cursors only ever represent people.</p>
+					<p>A human, now, abstractly. It banks into turns, leaves a wake of evaporating ink, and teleports rather than streak across your view.</p>
 				</div>
 			</li>
 			<li>
 				<div class="stage" aria-hidden="true">
-					<span class="demo-wire"><span class="wire-bird" style="left:12%" data-species="0"></span><span class="wire-bird" style="left:27%" data-species="1"></span><span class="wire-bird" style="left:42%" data-species="2"></span><span class="wire-bird" style="left:56%" data-species="3"></span><span class="wire-bird" style="left:70%" data-species="4"></span><span class="wire-bird" style="left:84%" data-species="5"></span></span>
+					<span class="demo-wire"><span class="wire-bird" style="left:50%" data-species="0"></span></span>
 				</div>
 				<div>
 					<h3>The wire <span class="tag">presence</span></h3>
-					<p>The flock is the census, one bird per reader present, you included, seeded by the page so every page keeps its own regulars. The species are the wire birds of the reader's own region, told from the clock's timezone, which never leaves the machine. A reader in Rochester gets mourning doves and kingbirds, a reader in London gets wood pigeons and wagtails, a reader in Sydney gets willie wagtails and crested pigeons, and two readers on different continents share the same room while each sees it through their own window. Every species keeps its field habits; doves sit still, sparrows hop, wagtails pump their tails, and a pigeon flexes the wire more than a finch. Bring your cursor close and a bird startles; a click that leaves the page scatters them all. They come back.</p>
+					<p>The flock is the census, one bird per reader, seeded by the page. The species are the wire birds of the reader's own region, told from the clock's timezone, which never leaves the machine. Doves sit still, sparrows hop, wagtails pump their tails, and a pigeon flexes the wire more than a finch. Come close and a bird startles; leave and they all scatter. They come back. Pick a region to preview its field guide.</p>
+				</div>
+				<div class="bird-legend-block">
+					<div class="bird-legend" aria-label="The field guide, one entry per species">
+						<figure><span class="legend-perch"><span class="wire-bird" data-species="0"></span></span><figcaption data-species-caption="0"></figcaption></figure>
+						<figure><span class="legend-perch"><span class="wire-bird" data-species="1"></span></span><figcaption data-species-caption="1"></figcaption></figure>
+						<figure><span class="legend-perch"><span class="wire-bird" data-species="2"></span></span><figcaption data-species-caption="2"></figcaption></figure>
+						<figure><span class="legend-perch"><span class="wire-bird" data-species="3"></span></span><figcaption data-species-caption="3"></figcaption></figure>
+						<figure><span class="legend-perch"><span class="wire-bird" data-species="4"></span></span><figcaption data-species-caption="4"></figcaption></figure>
+						<figure><span class="legend-perch"><span class="wire-bird" data-species="5"></span></span><figcaption data-species-caption="5"></figcaption></figure>
+					</div>
+					<p class="region-pick" aria-label="Preview another region's flock">
+						<button data-region="" aria-pressed="true">local</button>
+						<button data-region="na" aria-pressed="false">North America</button>
+						<button data-region="eu" aria-pressed="false">Europe</button>
+						<button data-region="as" aria-pressed="false">Asia</button>
+						<button data-region="af" aria-pressed="false">Africa</button>
+						<button data-region="oc" aria-pressed="false">Oceania</button>
+						<button data-region="sa" aria-pressed="false">South America</button>
+					</p>
 				</div>
 			</li>
 			<li>
@@ -81,7 +100,7 @@ permalink: /design
 				</div>
 				<div>
 					<h3>Wordmark <span class="tag">identity</span></h3>
-					<p>Eleven squares wave on hover, staggered by <code>sibling-index()</code>. The square that jumps the queue is a bug from the original CodePen, kept on purpose. Try it. This one works.</p>
+					<p>Eleven squares wave on hover, staggered by <code>sibling-index()</code>. The square that jumps the queue is a kept bug from the original CodePen.</p>
 				</div>
 			</li>
 			<li>
@@ -90,7 +109,7 @@ permalink: /design
 				</div>
 				<div>
 					<h3>Camera <span class="tag">Rochester</span></h3>
-					<p>A miniature of the camera-flash pen. The shutter depresses, the flash fires. Press and hold. Kodak country.</p>
+					<p>The shutter depresses, the flash fires. Press and hold. Kodak country.</p>
 				</div>
 			</li>
 			<li>
@@ -109,7 +128,7 @@ permalink: /design
 		<h2>Patterns</h2>
 		<ul>
 			<li>Three voices with fixed roles. Bold sans names a thing, serif italic is metadata about it, serif roman describes it.</li>
-			<li>The organizing principle leads. Projects are named things, so the name comes first and the tag follows. Archives are chronological, so the date rail comes first and the title follows.</li>
+			<li>The organizing principle leads. Names first for projects, dates first for archives.</li>
 			<li>The wire under the masthead is the only rule on the page. Everything else is separated by rhythm alone.</li>
 		</ul>
 	</section>
