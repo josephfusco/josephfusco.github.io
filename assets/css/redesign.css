@@ -1032,9 +1032,11 @@ h1, h2, h3, h4,
   float: right;
   width: 8.75rem;
   height: auto;
-  margin: 0.25rem 0 0.875rem 1.75rem;
+  margin: 0 0 0.875rem 1.75rem;
   border: 1px solid var(--border);
   border-radius: 3px;
+  /* a photograph printed on the stationery, not a sticker on it */
+  filter: saturate(0.82) sepia(0.06);
 }
 @media (max-width: 540px) {
   .about-portrait { float: none; display: block; margin: 0 0 var(--lh); }

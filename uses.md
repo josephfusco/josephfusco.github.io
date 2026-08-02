@@ -1,11 +1,10 @@
 ---
 layout: page
 title: Uses
+meta: The desk, as of 2015. A fresh inventory is owed.
 ---
 
-Once in a while someone will ask about the specifics of software/hardware/services I use to develop with.
-
-This page serves as a living document of those items.
+Once in a while someone will ask about the specifics of software/hardware/services I use to develop with. What follows is the desk as it stood in 2015, kept as a record.
 
 ## Editor + Terminal
 
@@ -27,7 +26,7 @@ This page serves as a living document of those items.
 
 ## Desk Setup
 
-+ Right now I run dual 24" moniters from Acer.
++ Right now I run dual 24" monitors from Acer.
 + My development computer is a 2.9 GHz Intel Core i5 - 13" MacBook Pro (Early 2015) with 16GB Memory. This sits clamshelled on the side of my desk in a vertical [HengeDock](https://hengedocks.com/).
 
 ## Hosting / Domains
