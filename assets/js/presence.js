@@ -241,6 +241,16 @@
     return 'nae';
   }
 
+  /* Where to read more: Cornell's guide covers North America; the
+     rest of the world goes to Wikipedia's exact-match jump */
+  function speciesURL(name) {
+    var key = regionOverride || regionForTZ(TZ);
+    if (key === 'nae' || key === 'nac' || key === 'naw') {
+      return 'https://www.allaboutbirds.org/guide/' + name.replace(/'/g, '').replace(/ /g, '_');
+    }
+    return 'https://en.wikipedia.org/wiki/Special:Search?go=Go&search=' + encodeURIComponent(name);
+  }
+
   var TZ = '';
   try { TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { /* default region */ }
   var REGION_KEY = 'birds:region';
@@ -313,14 +323,18 @@
 
   /* The wire: flat at rest, flexed by the weight of whoever perches */
   /* perBird is sag per pigeon-weight; lighter species pull less */
-  var WIRE_GEOM = { y: 12, scale: 2.8, minSag: 0.6, perBird: 3.2, maxSag: 6.5 };
+  /* Sag saturates instead of clamping: every added gram still bends
+     the wire a little, but the curve approaches a limit, so a full
+     flock never folds the masthead in half. */
+  var WIRE_GEOM = { y: 12, scale: 2.8, minSag: 0.6, maxSag: 6.5, halfLoad: 1.6 };
   var wirePathEl = document.querySelector('.wire-svg path');
   var currentSag = WIRE_GEOM.minSag;
 
   function setSag() {
     var load = 0;
     flock.forEach(function (b) { if (!b.flown) load += (b.weight || 1); });
-    currentSag = Math.min(WIRE_GEOM.minSag + load * WIRE_GEOM.perBird, WIRE_GEOM.maxSag);
+    var span = WIRE_GEOM.maxSag - WIRE_GEOM.minSag;
+    currentSag = WIRE_GEOM.minSag + span * (1 - Math.exp(-load / WIRE_GEOM.halfLoad));
     if (wirePathEl) {
       wirePathEl.style.d = 'path("M0 ' + WIRE_GEOM.y + ' Q 50 ' + (WIRE_GEOM.y + currentSag) + ' 100 ' + WIRE_GEOM.y + '")';
     }
@@ -355,8 +369,10 @@
     document.querySelectorAll('[data-legend]').forEach(function (box) {
       var html = '';
       for (var li = 0; li < SPECIES.length; li++) {
+        var nm = SPECIES[li].name;
         html += '<figure><span class="legend-perch"><span class="wire-bird" data-species="' + li
-          + '"></span></span><figcaption>' + SPECIES[li].name + '</figcaption></figure>';
+          + '"></span></span><figcaption><a href="' + speciesURL(nm)
+          + '" target="_blank" rel="noopener">' + nm + '</a></figcaption></figure>';
       }
       box.innerHTML = html;
     });
@@ -390,6 +406,7 @@
       else localStorage.removeItem(REGION_KEY);
     } catch (e) { /* fine */ }
     SPECIES = REGIONS[key] || REGIONS[regionForTZ(TZ)];
+    clearBirdIds();
     /* the old flock leaves the way birds leave, and the new one
        flies in behind it */
     var keys = [];
@@ -601,15 +618,62 @@
     }).catch(function () { /* removed mid-arrival */ });
   }
 
-  /* The Merlin moment: a landing bird identifies itself, briefly */
+  /* The Merlin moment: arriving birds identify themselves. A second
+     of the same species increments a count rather than stacking a
+     duplicate, and labels step down a row instead of colliding. */
+  var idTags = [];
+  var ID_LIFE = 2600;
+
+  function dropTag(tag) {
+    var i = idTags.indexOf(tag);
+    if (i > -1) idTags.splice(i, 1);
+    if (tag.el) tag.el.remove();
+  }
+
+  function clearBirdIds() {
+    idTags.slice().forEach(function (t) { clearTimeout(t.timer); dropTag(t); });
+  }
+
   function announceBird(bird) {
-    if (!wire || !bird.name || bird.el == null) return;
-    var tag = document.createElement('span');
-    tag.className = 'bird-id';
-    tag.textContent = bird.name;
-    tag.style.left = (bird.slot * 100) + '%';
-    wire.appendChild(tag);
-    tag.addEventListener('animationend', function () { tag.remove(); });
+    if (!wire || !bird.name || !bird.el) return;
+    for (var i = 0; i < idTags.length; i++) {
+      if (idTags[i].name === bird.name) {
+        var t = idTags[i];
+        t.count++;
+        t.el.textContent = t.name + ' \u00d7' + t.count;
+        t.el.style.animation = 'none';
+        void t.el.offsetWidth;
+        t.el.style.animation = '';
+        clearTimeout(t.timer);
+        t.timer = setTimeout(function () { dropTag(t); }, ID_LIFE);
+        return;
+      }
+    }
+    var el = document.createElement('span');
+    el.className = 'bird-id';
+    el.textContent = bird.name;
+    el.style.left = (bird.slot * 100) + '%';
+    wire.appendChild(el);
+    var tag = { el: el, name: bird.name, count: 1, row: 0 };
+    /* step down until this label clears the ones already up */
+    var rect = el.getBoundingClientRect();
+    var moved = true;
+    while (moved && tag.row < 4) {
+      moved = false;
+      for (var j = 0; j < idTags.length; j++) {
+        var o = idTags[j];
+        if (o.row !== tag.row) continue;
+        var or = o.el.getBoundingClientRect();
+        if (rect.left < or.right + 8 && or.left < rect.right + 8) {
+          tag.row++;
+          el.style.top = (40 + tag.row * 15) + 'px';
+          moved = true;
+          break;
+        }
+      }
+    }
+    idTags.push(tag);
+    tag.timer = setTimeout(function () { dropTag(tag); }, ID_LIFE);
   }
 
   /* Perched birds live a little: a turn, a bob, a resettle. Rare and small. */
