@@ -8,13 +8,26 @@ import REGISTRY from "../../presence-server/registry.json";
 const BIRDS = REGISTRY.birds;
 const COLORS = REGISTRY.colors;
 
-/* TODO: site-wide census ("N elsewhere on the site") needs a small lobby DO
-   that rooms report their counts to; the client already handles the message. */
+/* The lobby: rooms report their head counts here so every page can
+   say "N elsewhere on the site". Counts only, nothing else. */
+export class PresenceLobby extends DurableObject {
+  async update(path, count) {
+    const counts = (await this.ctx.storage.get("counts")) || {};
+    if (count > 0) counts[path] = count;
+    else delete counts[path];
+    await this.ctx.storage.put("counts", counts);
+    return Object.values(counts).reduce((a, b) => a + b, 0);
+  }
+}
+
 export class PresenceRoom extends DurableObject {
   async fetch(request) {
     if (request.headers.get("Upgrade") !== "websocket") {
       return new Response("expected websocket", { status: 426 });
     }
+    const url = new URL(request.url);
+    let page = "/";
+    try { page = new URL(url.searchParams.get("path") || "/", "http://x").pathname.slice(0, 200); } catch { /* default */ }
     const pair = new WebSocketPair();
     const [client, server] = Object.values(pair);
 
@@ -24,7 +37,7 @@ export class PresenceRoom extends DurableObject {
       name: BIRDS[Math.floor(Math.random() * BIRDS.length)],
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
     };
-    server.serializeAttachment({ meta });
+    server.serializeAttachment({ meta, page });
     this.ctx.acceptWebSocket(server);
 
     const others = this.ctx.getWebSockets()
@@ -33,8 +46,17 @@ export class PresenceRoom extends DurableObject {
       .filter(Boolean);
     server.send(JSON.stringify({ type: "welcome", self: meta, peers: others }));
     this.broadcast(server, { type: "join", peer: meta });
+    this.ctx.waitUntil(this.announceCensus(page));
 
     return new Response(null, { status: 101, webSocket: client });
+  }
+
+  async announceCensus(page) {
+    try {
+      const total = await this.env.LOBBY.getByName("lobby")
+        .update(page, this.ctx.getWebSockets().length);
+      this.broadcast(null, { type: "census", total });
+    } catch { /* census is best effort */ }
   }
 
   webSocketMessage(ws, raw) {
@@ -71,6 +93,7 @@ export class PresenceRoom extends DurableObject {
     let att;
     try { att = ws.deserializeAttachment(); } catch { return; }
     this.broadcast(ws, { type: "leave", id: att.meta.id });
+    this.ctx.waitUntil(this.announceCensus(att.page || "/"));
   }
 
   broadcast(except, msg) {
