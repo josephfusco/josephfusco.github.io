@@ -144,7 +144,7 @@
        sparrow barely moves what a wood pigeon bends; the landing
        recoil still announces everyone. forked marks a forked tail,
        crest a crest. */
-    na: [
+    nae: [
       { name: 'Rock Pigeon',       share: 0.24, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.04], weight: 1.0,  moves: ['resettle', 'bob'] },
       { name: 'House Sparrow',     share: 0.16, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.66, 0.73], weight: 0.09, moves: ['turn', 'headBob', 'bob', 'resettle'] },
       { name: 'American Robin',    share: 0.12, puff: [0.5, 0.62],  neck: [0.15, 0.25], tail: [0.85, 0.95], beak: [0.85, 0.95], size: [0.84, 0.91], weight: 0.26, moves: ['turn', 'bob', 'resettle'] },
@@ -154,6 +154,32 @@
       { name: 'House Finch',       share: 0.08, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.61, 0.68], weight: 0.07, moves: ['turn', 'bob', 'headBob', 'resettle'] },
       { name: 'Blue Jay',          share: 0.04, puff: [0.38, 0.5],  neck: [0.2, 0.3],   tail: [1.15, 1.25], beak: [1.0, 1.1],   size: [0.89, 0.96], weight: 0.29, crest: true, moves: ['turn', 'headBob', 'bob'] },
       { name: 'Eastern Kingbird',  share: 0.03, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.77, 0.84], weight: 0.13, moves: ['turn', 'resettle', 'turn'] },
+    ],
+    nac: [
+      { name: 'Mourning Dove',             share: 0.2,  puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  moves: ['resettle'] },
+      { name: 'Red-winged Blackbird',      share: 0.18, puff: [0.4, 0.52],  neck: [0.18, 0.28], tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.2,  moves: ['turn', 'bob', 'resettle'] },
+      { name: 'House Sparrow',             share: 0.16, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.66, 0.73], weight: 0.09, moves: ['turn', 'headBob', 'bob', 'resettle'] },
+      { name: 'Common Grackle',            share: 0.14, puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [1.15, 1.25], beak: [1.05, 1.15], size: [0.92, 0.99], weight: 0.37, moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Western Kingbird',          share: 0.12, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.13, moves: ['turn', 'resettle', 'turn'] },
+      { name: 'Eurasian Collared-Dove',    share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67, moves: ['resettle'] },
+      { name: 'Scissor-tailed Flycatcher', share: 0.08, puff: [0.3, 0.42],  neck: [0.28, 0.38], tail: [1.3, 1.3],   beak: [0.9, 1.0],   size: [0.85, 0.95], weight: 0.14, forked: true, moves: ['turn', 'resettle', 'turn'] },
+    ],
+    naw: [
+      { name: 'House Finch',            share: 0.18, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.61, 0.68], weight: 0.07, moves: ['turn', 'bob', 'headBob', 'resettle'] },
+      { name: 'Mourning Dove',          share: 0.18, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  moves: ['resettle'] },
+      { name: "Brewer's Blackbird",     share: 0.16, puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [0.95, 1.05], beak: [0.9, 1.0],   size: [0.81, 0.88], weight: 0.21, moves: ['turn', 'headBob', 'bob'] },
+      { name: 'Black Phoebe',           share: 0.14, puff: [0.35, 0.45], neck: [0.25, 0.35], tail: [1.0, 1.1],   beak: [0.85, 0.95], size: [0.67, 0.74], weight: 0.06, moves: ['tailPump', 'turn', 'tailPump'] },
+      { name: 'Western Kingbird',       share: 0.12, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.13, moves: ['turn', 'resettle', 'turn'] },
+      { name: 'Eurasian Collared-Dove', share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67, moves: ['resettle'] },
+      { name: 'California Scrub-Jay',   share: 0.1,  puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [1.2, 1.3],   beak: [1.0, 1.1],   size: [0.91, 0.98], weight: 0.28, moves: ['turn', 'headBob', 'bob'] },
+    ],
+    mx: [
+      { name: 'Great-tailed Grackle', share: 0.22, puff: [0.35, 0.47], neck: [0.22, 0.32], tail: [1.25, 1.3],  beak: [1.1, 1.2],   size: [1.1, 1.18],  weight: 0.67, moves: ['turn', 'bob', 'headBob'] },
+      { name: 'White-winged Dove',    share: 0.18, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.0, 1.1],   beak: [0.75, 0.85], size: [0.91, 0.98], weight: 0.5,  moves: ['resettle'] },
+      { name: 'Inca Dove',            share: 0.16, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.2],   beak: [0.72, 0.82], size: [0.77, 0.84], weight: 0.16, moves: ['resettle'] },
+      { name: 'Great Kiskadee',       share: 0.16, puff: [0.45, 0.55], neck: [0.28, 0.38], tail: [0.9, 1.0],   beak: [1.05, 1.15], size: [0.81, 0.88], weight: 0.2,  moves: ['turn', 'resettle', 'turn'] },
+      { name: 'Tropical Kingbird',    share: 0.14, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.75, 0.82], weight: 0.13, moves: ['turn', 'resettle', 'turn'] },
+      { name: 'Social Flycatcher',    share: 0.14, puff: [0.4, 0.5],   neck: [0.25, 0.35], tail: [0.95, 1.05], beak: [0.9, 1.0],   size: [0.69, 0.76], weight: 0.09, moves: ['turn', 'resettle', 'turn'] },
     ],
     eu: [
       { name: 'Common Wood Pigeon', share: 0.26, puff: [0.75, 0.95], neck: [0.0, 0.06],  tail: [0.8, 0.95],  beak: [0.85, 0.95], size: [1.07, 1.15], weight: 1.6, moves: ['resettle', 'bob'] },
@@ -198,15 +224,21 @@
   };
 
   var SA_TZ = /^America\/(Argentina|Sao_Paulo|Bahia|Fortaleza|Recife|Manaus|Belem|Bogota|Lima|Santiago|Caracas|Montevideo|Asuncion|La_Paz|Guayaquil|Cuiaba|Campo_Grande|Boa_Vista|Porto_Velho|Rio_Branco|Maceio|Santarem|Araguaina|Punta_Arenas|Cayenne|Paramaribo|Guyana|Noronha)/;
+  var MX_TZ = /^America\/(Mexico_City|Monterrey|Merida|Cancun|Matamoros|Ojinaga|Chihuahua|Hermosillo|Mazatlan|Bahia_Banderas|Tijuana|Guatemala|Tegucigalpa|Managua|Costa_Rica|Panama|El_Salvador|Belize|Havana|Santo_Domingo|Puerto_Rico|Jamaica|Port-au-Prince|Cayman|Guadeloupe|Martinique|Barbados|Grand_Turk|Nassau)/;
+  var NAW_TZ = /^America\/(Los_Angeles|Vancouver|Phoenix|Denver|Edmonton|Boise|Whitehorse|Dawson|Fort_Nelson|Inuvik|Anchorage|Juneau|Sitka|Metlakatla|Yakutat|Nome|Adak)/;
+  var NAC_TZ = /^America\/(Chicago|Winnipeg|Regina|Swift_Current|North_Dakota|Menominee|Rankin_Inlet|Resolute)/;
 
   function regionForTZ(tz) {
-    if (!tz) return 'na';
+    if (!tz) return 'nae';
     if (tz.indexOf('Europe/') === 0) return 'eu';
     if (tz.indexOf('Australia/') === 0 || tz.indexOf('Pacific/') === 0) return 'oc';
     if (tz.indexOf('Africa/') === 0) return 'af';
     if (tz.indexOf('Asia/') === 0 || tz.indexOf('Indian/') === 0) return 'as';
     if (SA_TZ.test(tz)) return 'sa';
-    return 'na';
+    if (MX_TZ.test(tz)) return 'mx';
+    if (NAW_TZ.test(tz)) return 'naw';
+    if (NAC_TZ.test(tz)) return 'nac';
+    return 'nae';
   }
 
   var TZ = '';
