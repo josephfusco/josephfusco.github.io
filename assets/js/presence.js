@@ -432,7 +432,7 @@
        checkable at a glance */
     var local = el.querySelector('option[value=""]');
     var resolved = el.querySelector('option[value="' + regionForTZ(TZ) + '"]');
-    if (local && resolved) local.textContent = 'your region (' + resolved.textContent + ')';
+    if (local && resolved) local.textContent = resolved.textContent + ', your region';
   });
   reflectRegionSelect(regionOverride);
 
@@ -780,6 +780,8 @@
     var d = document.createElement('span');
     d.className = 'mini-dot' + (cls ? ' ' + cls : '');
     if (color) d.style.color = color;
+    /* nothing sits at the origin: a dot appears once it has a place */
+    d.style.visibility = 'hidden';
     minimap.appendChild(d);
     return d;
   }
@@ -887,6 +889,7 @@
       if (p.dot) {
         p.dot.style.left = (p.pos.x * 100) + '%';
         p.dot.style.top = (p.pos.y * 100) + '%';
+        p.dot.style.visibility = 'visible';
       }
     });
     if (minimap && selfPos) {
@@ -894,6 +897,7 @@
       if (selfDot) {
         selfDot.style.left = (selfPos.x * 100) + '%';
         selfDot.style.top = (selfPos.y * 100) + '%';
+        selfDot.style.visibility = 'visible';
       }
     }
   }

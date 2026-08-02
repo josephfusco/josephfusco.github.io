@@ -1,5 +1,6 @@
 ---
 layout: page
+permalink: /uses/
 title: Uses
 meta: The desk, as of 2015. A fresh inventory is owed.
 ---
