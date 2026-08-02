@@ -1,12 +1,14 @@
 <footer class="site-footer">
 	<div class="wrap">
 		<div class="letter-close">
-		<div class="signature-ink" aria-hidden="true">{% include signature.svg %}</div>
-		<p class="signature">{{ site.nameplate | default: site.name }}</p>
-		<p class="signature-email"><a href="mailto:{{ site.email }}?subject=Hello%20Joe&body=Hi%20Joe%2C%0A%0A">{{ site.email }}</a></p>
-		<p class="signature-contacts">
-			{% for account in site.accounts %}<a href="{{ account.url }}">{{ account.name }}</a>{% endfor %}
-		</p>
+		<address class="h-card">
+			<div class="signature-ink" aria-hidden="true">{% include signature.svg %}</div>
+			<p class="signature p-name">{{ site.nameplate | default: site.name }}</p>
+			<p class="signature-email"><a class="u-email" href="mailto:{{ site.email }}?subject=Hello%20Joe&body=Hi%20Joe%2C%0A%0A">{{ site.email }}</a></p>
+			<p class="signature-contacts">
+				{% for account in site.accounts %}<a rel="me" class="u-url" href="{{ account.url }}">{{ account.name }}</a>{% endfor %}
+			</p>
+		</address>
 		<p class="footer-tools">
 			<button class="blueprint-toggle" aria-pressed="false" title="See the schematics" commandfor="main" command="--blueprint" hidden><span class="tool-glyph">⌗</span> blueprint</button>
 			<button class="colophon-toggle" popovertarget="colophon"><span class="tool-glyph">✳</span> colophon</button>
