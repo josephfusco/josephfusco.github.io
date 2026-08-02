@@ -97,7 +97,7 @@ export default {
       return roomFor(env, url.searchParams.get("path")).fetch(request);
     }
 
-    return new Response("presence.josephfus.co — live cursors, nothing stored.", {
+    return new Response("josephfus.co/ws — live cursors, nothing stored.", {
       headers: { "Content-Type": "text/plain" },
     });
   },

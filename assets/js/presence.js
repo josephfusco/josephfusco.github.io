@@ -111,7 +111,7 @@
   } catch (e) { /* storage unavailable */ }
 
   var DEV = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-  var WS_URL = (DEV ? 'ws://' + location.hostname + ':4001' : 'wss://presence.josephfus.co/ws')
+  var WS_URL = (DEV ? 'ws://' + location.hostname + ':4001' : 'wss://' + location.host + '/ws')
     + '?path=' + encodeURIComponent(location.pathname);
 
   var peers = new Map();
