@@ -48,6 +48,7 @@
     { label: 'anchor positioning', on: function () { return CSS.supports('anchor-name: --a'); } },
     { label: 'sibling-index()', on: function () { return CSS.supports('animation-delay', 'calc(sibling-index() * 1ms)'); } },
     { label: '@starting-style', on: function () { return CSS.supports('transition-behavior', 'allow-discrete'); } },
+    { label: 'styleable select', on: function () { return CSS.supports('appearance', 'base-select'); } },
     { label: 'invoker commands', on: function () { return typeof CommandEvent !== 'undefined'; } },
     { label: 'scheduler API', on: function () { return !!(window.scheduler && scheduler.postTask); } },
     { label: 'presence relay', on: function () { return !!(window.__presenceLive); } },
