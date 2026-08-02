@@ -1045,8 +1045,8 @@ h1, h2, h3, h4,
 /* The field guide: every species perched on one continuous wire,
    feet on the line, true relative sizes, named beneath */
 .bird-legend-block { grid-column: 1 / -1; }
-.bird-legend { display: flex; margin: 0.875rem 0 0; }
-.bird-legend figure { flex: 1; margin: 0; text-align: center; min-width: 0; }
+.bird-legend { display: flex; flex-wrap: wrap; row-gap: 0.5rem; margin: 0.875rem 0 0; }
+.bird-legend figure { flex: 1 0 5.5rem; margin: 0; text-align: center; min-width: 0; }
 .legend-perch {
   display: block;
   position: relative;
@@ -1061,6 +1061,26 @@ h1, h2, h3, h4,
   color: var(--muted);
   padding: 0.25rem 0.25rem 0;
   line-height: 1.3;
+}
+
+/* The Merlin moment: an arriving bird's name appears beneath its
+   perch and fades, like a live ID list */
+.bird-id {
+  position: absolute;
+  top: 40px;
+  transform: translateX(-50%);
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: bird-id 2.6s ease-in-out both;
+}
+@keyframes bird-id {
+  0% { opacity: 0; translate: 0 -4px; }
+  12%, 78% { opacity: 1; translate: 0 0; }
+  100% { opacity: 0; }
 }
 
 /* The field guide rides in the field note: a bird for a button,
@@ -1089,6 +1109,7 @@ h1, h2, h3, h4,
   padding: 0.875rem 1rem;
 }
 #field-guide .bird-legend { margin: 0; }
+#field-guide { width: 26rem; }
 @supports (anchor-name: --a) {
   #field-guide {
     position: fixed;
