@@ -743,7 +743,6 @@ html[data-blueprint] .blueprint-systems {
   .presence-dot, .typing span, .flame,
   .site-mark rect, .site-name-text,
   .posts li, .read-progress { animation: none !important; }
-  .signature-ink .sig-trace { animation: none !important; stroke-dashoffset: 0 !important; }
   .read-progress { display: none; }
   .cheese { display: none; }
   .peer-cursor { transition: none; }
@@ -1105,16 +1104,6 @@ h1, h2, h3, h4,
    order when the footer first enters view, once. JS adds will-sign
    before paint and signing on arrival; without JS it is simply there. */
 .signature-ink.will-sign path { opacity: 0; }
-/* The ink is drawn, not faded: each stroke's mask sweeps along the
-   pen path, timed from the real stroke lengths, embedded per stroke
-   as custom properties in the SVG itself */
-.signature-ink .sig-trace { stroke-dasharray: 1; stroke-dashoffset: 0; }
-.signature-ink.will-sign .sig-trace { stroke-dashoffset: 1; }
-.signature-ink.signing .sig-trace {
-  stroke-dashoffset: 0;
-  animation: sig-draw var(--sd, 300ms) linear var(--sdel, 0ms) both;
-}
-@keyframes sig-draw { from { stroke-dashoffset: 1; } }
 .signature {
   font-family: Georgia, "Iowan Old Style", serif;
   font-style: italic;
