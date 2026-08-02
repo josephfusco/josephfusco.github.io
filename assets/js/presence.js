@@ -205,7 +205,11 @@
 
   var TZ = '';
   try { TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { /* default region */ }
-  var SPECIES = REGIONS[regionForTZ(TZ)];
+  var REGION_KEY = 'birds:region';
+  var regionOverride = null;
+  try { regionOverride = localStorage.getItem(REGION_KEY); } catch (e) { /* fine */ }
+  if (!regionOverride || !REGIONS[regionOverride]) regionOverride = null;
+  var SPECIES = REGIONS[regionOverride || regionForTZ(TZ)];
   function pickSpecies(r) {
     var roll = r(), acc = 0;
     for (var i = 0; i < SPECIES.length; i++) {
@@ -301,12 +305,55 @@
 
   /* Static specimens anywhere in the page hydrate a named species:
      data-species is an index into SPECIES, drawn deterministically */
-  document.querySelectorAll('[data-species]').forEach(function (el) {
-    var i = parseInt(el.getAttribute('data-species'), 10) || 0;
-    var sp = SPECIES[i % SPECIES.length];
-    el.innerHTML = makeBorb(seedFrom('specimen:' + i), sp).svg;
-    el.title = sp.name;
+  function hydrateSpecimens() {
+    document.querySelectorAll('[data-species]').forEach(function (el) {
+      var i = parseInt(el.getAttribute('data-species'), 10) || 0;
+      var sp = SPECIES[i % SPECIES.length];
+      var born = makeBorb(seedFrom('specimen:' + i), sp);
+      el.innerHTML = born.svg;
+      el.title = sp.name;
+      /* true to scale: a wood pigeon should dwarf a wagtail */
+      var scale = born.size * BIRD_BASE;
+      el.style.width = Math.round(15 * scale) + 'px';
+      el.style.height = Math.round(13 * scale) + 'px';
+      el.style.marginLeft = -Math.round(15 * scale / 2) + 'px';
+    });
+    document.querySelectorAll('[data-species-caption]').forEach(function (el) {
+      var i = parseInt(el.getAttribute('data-species-caption'), 10) || 0;
+      el.textContent = SPECIES[i % SPECIES.length].name;
+    });
+  }
+  hydrateSpecimens();
+
+  /* The region is choosable: preview another field guide, and keep
+     it for the whole site until you come back to local */
+  function reflectRegionButtons(key) {
+    document.querySelectorAll('.region-pick button').forEach(function (b) {
+      var mine = b.getAttribute('data-region') || null;
+      b.setAttribute('aria-pressed', mine === (key || null) ? 'true' : 'false');
+    });
+  }
+
+  function applyRegion(key) {
+    try {
+      if (key) localStorage.setItem(REGION_KEY, key);
+      else localStorage.removeItem(REGION_KEY);
+    } catch (e) { /* fine */ }
+    SPECIES = REGIONS[key] || REGIONS[regionForTZ(TZ)];
+    var keys = [];
+    flock.forEach(function (b, k) { keys.push(k); });
+    keys.forEach(function (k) { removePigeon(k); });
+    keys.forEach(function (k) { addPigeon(k); });
+    hydrateSpecimens();
+    reflectRegionButtons(key);
+  }
+
+  document.querySelectorAll('.region-pick button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      applyRegion(btn.getAttribute('data-region') || null);
+    });
   });
+  reflectRegionButtons(regionOverride);
 
   /* Seeded randomness: each page keeps its own regulars */
   function seedFrom(str) {

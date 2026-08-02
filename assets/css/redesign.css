@@ -1027,6 +1027,58 @@ h1, h2, h3, h4,
 
 /* The signature follows the prose, like a letter; short pages end early */
 
+/* The portrait on About: a photograph laid on the letter */
+.about-portrait {
+  float: right;
+  width: 8.75rem;
+  height: auto;
+  margin: 0.25rem 0 0.875rem 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+@media (max-width: 540px) {
+  .about-portrait { float: none; display: block; margin: 0 0 var(--lh); }
+}
+
+/* The field guide: every species perched on one continuous wire,
+   feet on the line, true relative sizes, named beneath */
+.bird-legend-block { grid-column: 1 / -1; }
+.bird-legend { display: flex; margin: 0.875rem 0 0; }
+.bird-legend figure { flex: 1; margin: 0; text-align: center; min-width: 0; }
+.legend-perch {
+  display: block;
+  position: relative;
+  height: 44px;
+  border-bottom: 1px solid var(--fg);
+}
+.legend-perch .wire-bird { position: absolute; bottom: -1px; left: 50%; top: auto; }
+.bird-legend figcaption {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding: 0.25rem 0.25rem 0;
+  line-height: 1.3;
+}
+
+/* Region picker: quiet dotted controls; the active one holds color */
+.region-pick { margin: 0.875rem 0 0; line-height: var(--lh); }
+.region-pick button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  cursor: pointer;
+  margin-right: 1rem;
+  text-decoration: underline dotted;
+}
+.region-pick button[aria-pressed="true"] {
+  color: var(--accent);
+  text-decoration-style: solid;
+}
+
 /* Copyright line links are prose, not a toolbar */
 .site-footer .fineprint a { margin-right: 0; }
 
@@ -1235,7 +1287,7 @@ body {
   border-bottom: 1px solid var(--muted);
   opacity: 0.7;
 }
-.demo-wire .wire-bird { top: -15px; }
+.demo-wire .wire-bird { top: auto; bottom: 1px; }
 
 /* ---- Flight ---- */
 
