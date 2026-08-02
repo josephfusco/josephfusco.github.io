@@ -1,9 +1,10 @@
 ---
 layout: page
 title: About
+meta: The person holding the pen.
 ---
 
-<img class="about-portrait" src="/assets/images/joe.jpg" alt="Joe Fusco" width="400" height="400">
+<img class="about-portrait" src="/assets/images/joe.jpg" alt="Joe Fusco smiling in a sun hat, in his garden among young trees" width="400" height="400">
 
 I'm Joe Fusco. I maintain headless WordPress plugins at [WP Engine](https://wpengine.com) and contribute to WordPress core.
 
@@ -11,4 +12,4 @@ Core work centers on the [Presence API](https://github.com/WordPress/presence-ap
 
 Outside WordPress there is [LexGrade](https://lexgrade.org), an open standard for grading legal motions, published under CC-BY-SA and owned by no one.
 
-The rest is amateur arboriculture, and being a dad. The desk itself, hardware and software both, is cataloged on the [uses page](/uses).
+The rest is amateur arboriculture, and being a dad. The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015 and owed a fresh one.

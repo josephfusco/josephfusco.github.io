@@ -333,10 +333,9 @@
 
   /* The region is choosable: preview another field guide, and keep
      it for the whole site until you come back to local */
-  function reflectRegionButtons(key) {
-    document.querySelectorAll('.region-pick button').forEach(function (b) {
-      var mine = b.getAttribute('data-region') || null;
-      b.setAttribute('aria-pressed', mine === (key || null) ? 'true' : 'false');
+  function reflectRegionSelect(key) {
+    document.querySelectorAll('.region-select').forEach(function (el) {
+      el.value = key || '';
     });
   }
 
@@ -358,15 +357,15 @@
       keys.forEach(function (k) { addPigeon(k); });
     }, 750);
     hydrateSpecimens();
-    reflectRegionButtons(key);
+    reflectRegionSelect(key);
   }
 
-  document.querySelectorAll('.region-pick button').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      applyRegion(btn.getAttribute('data-region') || null);
+  document.querySelectorAll('.region-select').forEach(function (el) {
+    el.addEventListener('change', function () {
+      applyRegion(el.value || null);
     });
   });
-  reflectRegionButtons(regionOverride);
+  reflectRegionSelect(regionOverride);
 
   /* Seeded randomness: each page keeps its own regulars */
   function seedFrom(str) {

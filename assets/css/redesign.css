@@ -1032,9 +1032,11 @@ h1, h2, h3, h4,
   float: right;
   width: 8.75rem;
   height: auto;
-  margin: 0.25rem 0 0.875rem 1.75rem;
+  margin: 0 0 0.875rem 1.75rem;
   border: 1px solid var(--border);
   border-radius: 3px;
+  /* a photograph printed on the stationery, not a sticker on it */
+  filter: saturate(0.82) sepia(0.06);
 }
 @media (max-width: 540px) {
   .about-portrait { float: none; display: block; margin: 0 0 var(--lh); }
@@ -1061,22 +1063,18 @@ h1, h2, h3, h4,
   line-height: 1.3;
 }
 
-/* Region picker: quiet dotted controls; the active one holds color */
-.region-pick { margin: 0.875rem 0 0; line-height: var(--lh); }
-.region-pick button {
-  background: none;
+/* The region line in the field note: a select dressed as prose */
+.region-line { color: var(--muted); font-size: 0.8125rem; }
+.region-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
   border: 0;
   padding: 0;
   font: inherit;
-  font-size: 0.8125rem;
-  color: var(--muted);
-  cursor: pointer;
-  margin-right: 1rem;
-  text-decoration: underline dotted;
-}
-.region-pick button[aria-pressed="true"] {
   color: var(--accent);
-  text-decoration-style: solid;
+  cursor: pointer;
+  text-decoration: underline dotted;
 }
 
 /* Copyright line links are prose, not a toolbar */
