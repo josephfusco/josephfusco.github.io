@@ -17,6 +17,9 @@ accounts:
   - name: WordPress.org
     url: https://profiles.wordpress.org/joefusco
 
+  - name: CodePen
+    url: https://codepen.io/fusco
+
   - name: LinkedIn
     url: https://www.linkedin.com/in/josephfusco3
 
