@@ -37,5 +37,16 @@
 		<option value="oc">Oceania</option>
 		<option value="sa">South America</option>
 	</select></label>
+	<button class="guide-toggle" popovertarget="field-guide"><span class="note-bird" data-species="0" data-inline aria-hidden="true"></span> field guide</button>
+	<div id="field-guide" popover>
+		<div class="bird-legend" aria-label="The field guide, one entry per species">
+			<figure><span class="legend-perch"><span class="wire-bird" data-species="0"></span></span><figcaption data-species-caption="0"></figcaption></figure>
+			<figure><span class="legend-perch"><span class="wire-bird" data-species="1"></span></span><figcaption data-species-caption="1"></figcaption></figure>
+			<figure><span class="legend-perch"><span class="wire-bird" data-species="2"></span></span><figcaption data-species-caption="2"></figcaption></figure>
+			<figure><span class="legend-perch"><span class="wire-bird" data-species="3"></span></span><figcaption data-species-caption="3"></figcaption></figure>
+			<figure><span class="legend-perch"><span class="wire-bird" data-species="4"></span></span><figcaption data-species-caption="4"></figcaption></figure>
+			<figure><span class="legend-perch"><span class="wire-bird" data-species="5"></span></span><figcaption data-species-caption="5"></figcaption></figure>
+		</div>
+	</div>
 </div>
 <script src="{{ '/assets/js/presence.js' | relative_url }}" defer></script>
