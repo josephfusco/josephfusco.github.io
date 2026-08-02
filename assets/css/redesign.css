@@ -1063,6 +1063,42 @@ h1, h2, h3, h4,
   line-height: 1.3;
 }
 
+/* The field guide rides in the field note: a bird for a button,
+   a slip of stationery for the guide */
+.guide-toggle {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: underline dotted;
+  anchor-name: --guide-btn;
+}
+.note-bird { display: inline-block; width: 17px; height: 15px; vertical-align: -3px; }
+.note-bird svg { display: block; width: 100%; height: 100%; }
+#field-guide {
+  width: 24rem;
+  max-width: calc(100vw - 2rem);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  box-shadow: 0 10px 24px -18px rgba(35, 28, 18, 0.5);
+  padding: 0.875rem 1rem;
+}
+#field-guide .bird-legend { margin: 0; }
+@supports (anchor-name: --a) {
+  #field-guide {
+    position: fixed;
+    position-anchor: --guide-btn;
+    position-area: top span-right;
+    position-try-fallbacks: top, bottom span-right, bottom;
+    margin: 0.5rem 0;
+  }
+}
+
 /* The region line in the field note: a select dressed as prose */
 .region-line { color: var(--muted); font-size: 0.8125rem; }
 .region-select {
