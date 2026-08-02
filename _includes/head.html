@@ -7,7 +7,7 @@
 
 	<link rel="preload" href="{{ '/assets/fonts/AtkinsonHyperlegible-Regular.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="{{ '/assets/fonts/AtkinsonHyperlegible-Bold.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="{{ '/assets/css/redesign.css' | relative_url }}">
+	<link rel="stylesheet" href="{{ '/assets/css/redesign.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 	<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 	<link rel="icon" type="image/svg+xml" href="{{ '/assets/images/mark.svg' | relative_url }}">
 	<link rel="shortcut icon" type="image/icon" href="/favicon.ico?v=2">
