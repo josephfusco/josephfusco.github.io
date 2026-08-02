@@ -126,6 +126,5 @@ exclude:
 
 plugins:
   - jekyll-feed
-  - jekyll-gist
   - jekyll-sitemap
   - jekyll-redirect-from
