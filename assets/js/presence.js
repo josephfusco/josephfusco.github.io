@@ -101,6 +101,24 @@
 
   /* ---- Presence layer ---- */
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* The signature writes itself, stroke by stroke, when the footer
+     first comes into view. Skipped under reduced motion. */
+  var ink = document.querySelector('.signature-ink');
+  if (ink && !reduced && 'IntersectionObserver' in window) {
+    ink.classList.add('will-sign');
+    var inkIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          ink.classList.remove('will-sign');
+          ink.classList.add('signing');
+          inkIO.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    inkIO.observe(ink);
+  }
+
   if (reduced || !('WebSocket' in window)) return;
 
   /* Invisibility: a human off-switch. Respects Global Privacy Control. */
