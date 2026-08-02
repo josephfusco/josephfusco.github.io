@@ -16,7 +16,8 @@
 		<div id="colophon" popover>
 			<h2>Colophon</h2>
 			<p>Static site, built with Jekyll. The animations are recycled from <a href="https://codepen.io/fusco">my CodePens</a>.</p>
-			<p>Other readers appear as anonymous birds, live. Cursor positions pass through in the moment and nothing is stored, no paths, no IPs, no identifiers. The ⌖ toggle turns it off for you. Global Privacy Control is honored automatically.</p>
+			<p>Other readers appear as anonymous birds, live. Cursor positions pass through in the moment and nothing is stored, no paths, no IPs, no identifiers. Global Privacy Control is honored automatically, and the toggle below turns it off by hand.</p>
+			<p><button class="presence-toggle" aria-pressed="false" commandfor="main" command="--presence" hidden><span class="tool-glyph">⌖</span> visible to others</button></p>
 			<p>Source on <a href="https://github.com/josephfusco/josephfusco.github.io">GitHub</a>.</p>
 		</div>
 		<div class="fineprint">
@@ -28,6 +29,14 @@
 </footer>
 <div class="field-note">
 	<span class="status"><span class="presence-dot" aria-hidden="true"></span> <span data-presence-count>just you here</span></span>
-	<button class="presence-toggle" aria-pressed="false" commandfor="main" command="--presence" hidden><span class="tool-glyph">⌖</span> visible to others</button>
+	<label class="region-line"><span class="tool-glyph">⊕</span> birds of <select class="region-select" aria-label="Flock region">
+		<option value="">your region</option>
+		<option value="na">North America</option>
+		<option value="eu">Europe</option>
+		<option value="as">Asia</option>
+		<option value="af">Africa</option>
+		<option value="oc">Oceania</option>
+		<option value="sa">South America</option>
+	</select></label>
 </div>
 <script src="{{ '/assets/js/presence.js' | relative_url }}" defer></script>
