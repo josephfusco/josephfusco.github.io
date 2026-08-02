@@ -409,6 +409,11 @@
     el.addEventListener('change', function () {
       applyRegion(el.value || null);
     });
+    /* "your region" says which one it resolved to, so the claim is
+       checkable at a glance */
+    var local = el.querySelector('option[value=""]');
+    var resolved = el.querySelector('option[value="' + regionForTZ(TZ) + '"]');
+    if (local && resolved) local.textContent = 'your region (' + resolved.textContent + ')';
   });
   reflectRegionSelect(regionOverride);
 
