@@ -294,9 +294,10 @@ section.block > h2 {
 
 /* Hero kicker: face + presence (the iMessage typing pen, all grown up) */
 .field-note .status {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  align-items: baseline;
   gap: 0.4375rem;
+  text-wrap: pretty;
   color: var(--muted);
   font-size: 0.75rem;
   font-family: Georgia, serif;
@@ -1173,6 +1174,14 @@ body.wire .powerline { display: none; }
     margin: 0.5rem 0;
   }
 }
+
+/* The tab hint sits under the count, smaller, never stranded */
+.note-hint {
+  display: block;
+  font-size: 0.6875rem;
+  opacity: 0.75;
+}
+.field-note .presence-dot { flex: none; position: relative; top: -1px; }
 
 /* The region line in the field note: a select dressed as prose */
 .region-line { color: var(--muted); font-size: 0.75rem; }

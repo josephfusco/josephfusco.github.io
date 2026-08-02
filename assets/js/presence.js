@@ -919,9 +919,16 @@
       : 'just you here';
     if (tabs > 1) label += ', in ' + tabs + ' tabs';
     if (elsewhere) label += ', ' + elsewhere + ' elsewhere on the site';
-    if (!n && !elsewhere && tabs === 1) label = 'just you here (a second tab makes two)';
+    /* The tab hint is its own quiet line, never a stranded word */
+    var hint = (!n && !elsewhere && tabs === 1) ? 'a second tab makes two' : '';
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
+      if (hint) {
+        var h = document.createElement('span');
+        h.className = 'note-hint';
+        h.textContent = hint;
+        el.appendChild(h);
+      }
     });
     /* The dot rests still; it pulses only when the room changes */
     if (label !== lastCountLabel) {
