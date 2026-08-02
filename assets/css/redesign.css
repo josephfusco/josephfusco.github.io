@@ -257,11 +257,23 @@ section.block > h2 {
 
 /* Prose extras for legacy post content */
 .prose img { max-width: 100%; height: auto; border-radius: 6px; }
+/* A quotation is an exhibit: a clipped excerpt laid on the letter,
+   same stationery as the colophon slip, popped past the text edge */
 .prose blockquote {
-  margin: 1.25rem 0;
-  padding: 0.25rem 1.25rem;
-  border-left: 3px solid var(--accent);
-  color: var(--muted);
+  margin: var(--lh) calc(var(--lh) * -1);
+  padding: calc(var(--lh) * 0.5 - 1px) var(--lh);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--fg);
+}
+.prose blockquote p { margin: 0; }
+.prose blockquote p + p { margin-top: var(--lh); }
+@media (max-width: 720px) {
+  .prose blockquote { margin-left: 0; margin-right: 0; }
 }
 .prose hr { border: 0; margin: var(--lh) 0; }
 .prose table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
@@ -731,6 +743,7 @@ html[data-blueprint] .blueprint-systems {
   .presence-dot, .typing span, .flame,
   .site-mark rect, .site-name-text,
   .posts li, .read-progress { animation: none !important; }
+  .signature-ink { animation: none !important; mask: none !important; }
   .read-progress { display: none; }
   .cheese { display: none; }
   .peer-cursor { transition: none; }
@@ -1079,6 +1092,8 @@ h1, h2, h3, h4,
 #colophon a { margin-right: 0; }
 
 /* The letter signs at the bottom right of the footer */
+.letter-close address { font-style: normal; }
+
 /* The hand signs in fountain-pen blue; the type confirms it in ink */
 .signature-ink {
   width: 10.5rem;
@@ -1086,6 +1101,22 @@ h1, h2, h3, h4,
   color: #26418f;
 }
 .signature-ink svg { display: block; width: 100%; height: auto; }
+/* The signature signs itself as it scrolls into view, an ink wipe
+   driven by the reader's own scroll. Still ink everywhere else. */
+@supports (animation-timeline: view()) {
+  .signature-ink {
+    mask-image: linear-gradient(100deg, #000 46%, transparent 54%);
+    mask-size: 240% 100%;
+    mask-repeat: no-repeat;
+    animation: sign-in linear both;
+    animation-timeline: view();
+    animation-range: entry 20% entry 95%;
+  }
+  @keyframes sign-in {
+    from { mask-position: 100% 0; }
+    to { mask-position: 0% 0; }
+  }
+}
 .signature {
   font-family: Georgia, "Iowan Old Style", serif;
   font-style: italic;
