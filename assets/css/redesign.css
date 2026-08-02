@@ -65,6 +65,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 
 /* Masthead */
+.site-header { position: relative; }
 .site-header {
   padding: 1.5rem 0 1rem;
   margin-bottom: 0.75rem;
@@ -1045,22 +1046,31 @@ h1, h2, h3, h4,
 /* The field guide: every species perched on one continuous wire,
    feet on the line, true relative sizes, named beneath */
 .bird-legend-block { grid-column: 1 / -1; }
-.bird-legend { display: flex; flex-wrap: wrap; row-gap: 0.5rem; margin: 0.875rem 0 0; }
-.bird-legend figure { flex: 1 0 5.5rem; margin: 0; text-align: center; min-width: 0; }
+.bird-legend { margin: 0.875rem 0 0; }
+.bird-legend figure {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  align-items: end;
+  column-gap: 0.875rem;
+  margin: 0;
+}
 .legend-perch {
   display: block;
   position: relative;
-  height: 44px;
+  height: 30px;
   border-bottom: 1px solid var(--fg);
 }
 .legend-perch .wire-bird { position: absolute; bottom: -1px; left: 50%; top: auto; }
 .bird-legend figcaption {
   font-family: Georgia, serif;
   font-style: italic;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: var(--muted);
-  padding: 0.25rem 0.25rem 0;
+  padding: 0 0 0.25rem;
   line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /* The name is a quiet door to the field authority */
 .bird-legend figcaption a { color: inherit; text-decoration: none; }
@@ -1068,6 +1078,29 @@ h1, h2, h3, h4,
 .bird-legend figcaption a:focus-visible {
   color: var(--accent);
   text-decoration: underline dotted;
+}
+
+/* ---- The watching page: nothing but cotton, a wire, and birds ---- */
+body.wire .powerline { display: none; }
+.watch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 12rem);
+}
+.watch-wire {
+  position: relative;
+  height: 44px;
+  margin: 0 0 calc(var(--lh) * 2);
+}
+.watch-wire .wire-svg { position: absolute; inset: auto 0 0; height: 44px; width: 100%; color: var(--fg); }
+.watch-note {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin: 0;
 }
 
 /* The Merlin moment: an arriving bird's name appears beneath its
@@ -1116,13 +1149,13 @@ h1, h2, h3, h4,
   padding: 0.875rem 1rem;
 }
 #field-guide .bird-legend { margin: 0; }
-#field-guide { width: 26rem; }
+#field-guide { width: 17rem; }
 @supports (anchor-name: --a) {
   #field-guide {
     position: fixed;
     position-anchor: --guide-btn;
-    position-area: top span-right;
-    position-try-fallbacks: top, bottom span-right, bottom;
+    position-area: bottom span-right;
+    position-try-fallbacks: bottom, top span-right, top;
     margin: 0.5rem 0;
   }
 }
@@ -1430,9 +1463,9 @@ body {
 /* The field note: live presence pinned to the page's quiet corner,
    a slip of the same stationery as the colophon */
 .field-note {
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 1.25rem;
   z-index: 250;
   display: flex;
   flex-direction: column;
@@ -1445,7 +1478,7 @@ body {
   box-shadow: 0 8px 18px -14px rgba(35, 28, 18, 0.5);
 }
 .field-note .presence-toggle { margin-right: 0; }
-html[data-blueprint] .blueprint-systems { bottom: 6rem; }
+
 @media print {
   .field-note { display: none; }
 }
