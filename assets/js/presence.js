@@ -126,20 +126,86 @@
   }
 
   var wire = document.querySelector('.powerline');
-    /* ---- The bird factory ----
-     Six real wire birds of upstate New York. Each species pins the
-     dials (puff, neck, tail, beak) to its field silhouette; individuals
-     vary only inside their species envelope. share = how often it turns
-     up, size relative to a pigeon, weight = pull on the wire, moves =
+    /* ---- The bird factory, regional edition ----
+     The species on the wire are real wire birds of the reader's own
+     region, told from the clock's timezone, which never leaves the
+     machine. Two readers on different continents share the same room
+     and each see it through their own window. Dials per species:
+     puff, neck, tail, beak envelopes; share = how often it turns up,
+     size relative to a pigeon, weight = pull on the wire, moves =
      its field-guide tell. */
-  var SPECIES = [
-    { name: 'Rock Pigeon',       share: 0.32, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [1.0, 1.12],  weight: 1.0,  moves: ['resettle', 'bob'] },
-    { name: 'House Sparrow',     share: 0.18, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
-    { name: 'Mourning Dove',     share: 0.16, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.8, 0.88],  size: [0.88, 0.96], weight: 0.7,  moves: ['resettle'] },
-    { name: 'European Starling', share: 0.14, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.84], weight: 0.55, moves: ['turn', 'bob', 'headBob'] },
-    { name: 'House Finch',       share: 0.12, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.78, 0.86], size: [0.58, 0.66], weight: 0.35, moves: ['turn', 'bob', 'headBob', 'resettle'] },
-    { name: 'Eastern Kingbird',  share: 0.08, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.68, 0.76], weight: 0.5,  moves: ['turn', 'resettle', 'turn'] },
-  ];
+  var REGIONS = {
+    /* upstate New York and North America at large */
+    na: [
+      { name: 'Rock Pigeon',       share: 0.32, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [1.0, 1.12],  weight: 1.0,  moves: ['resettle', 'bob'] },
+      { name: 'House Sparrow',     share: 0.18, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
+      { name: 'Mourning Dove',     share: 0.16, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.8, 0.88],  size: [0.88, 0.96], weight: 0.7,  moves: ['resettle'] },
+      { name: 'European Starling', share: 0.14, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.84], weight: 0.55, moves: ['turn', 'bob', 'headBob'] },
+      { name: 'House Finch',       share: 0.12, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.78, 0.86], size: [0.58, 0.66], weight: 0.35, moves: ['turn', 'bob', 'headBob', 'resettle'] },
+      { name: 'Eastern Kingbird',  share: 0.08, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.68, 0.76], weight: 0.5,  moves: ['turn', 'resettle', 'turn'] },
+    ],
+    /* Europe: the wood pigeon outweighs everything on the line */
+    eu: [
+      { name: 'Common Wood Pigeon', share: 0.26, puff: [0.75, 0.95], neck: [0.0, 0.06],  tail: [0.8, 0.95],  beak: [0.85, 0.95], size: [1.05, 1.18], weight: 1.2,  moves: ['resettle', 'bob'] },
+      { name: 'Collared Dove',      share: 0.18, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.8, 0.88],  size: [0.85, 0.93], weight: 0.65, moves: ['resettle'] },
+      { name: 'House Sparrow',      share: 0.2,  puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
+      { name: 'Common Starling',    share: 0.16, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.84], weight: 0.55, moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Barn Swallow',       share: 0.12, puff: [0.3, 0.42],  neck: [0.05, 0.12], tail: [1.2, 1.3],   beak: [0.78, 0.84], size: [0.6, 0.68],  weight: 0.3,  moves: ['turn', 'bob'] },
+      { name: 'White Wagtail',      share: 0.08, puff: [0.28, 0.38], neck: [0.15, 0.25], tail: [1.15, 1.3],  beak: [0.8, 0.88],  size: [0.62, 0.7],  weight: 0.35, moves: ['tailPump', 'turn', 'tailPump'] },
+    ],
+    /* Asia: the drongo owns the wires */
+    as: [
+      { name: 'Rock Pigeon',           share: 0.24, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [1.0, 1.12],  weight: 1.0,  moves: ['resettle', 'bob'] },
+      { name: 'Spotted Dove',          share: 0.18, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.25],  beak: [0.8, 0.88],  size: [0.85, 0.93], weight: 0.65, moves: ['resettle'] },
+      { name: 'Eurasian Tree Sparrow', share: 0.2,  puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.6, 0.68],  weight: 0.38, moves: ['turn', 'headBob', 'bob', 'resettle'] },
+      { name: 'Common Myna',           share: 0.16, puff: [0.4, 0.52],  neck: [0.25, 0.35], tail: [0.75, 0.85], beak: [1.0, 1.1],   size: [0.8, 0.88],  weight: 0.6,  moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Black Drongo',          share: 0.14, puff: [0.28, 0.38], neck: [0.2, 0.3],   tail: [1.25, 1.3],  beak: [0.9, 1.0],   size: [0.72, 0.8],  weight: 0.45, moves: ['tailPump', 'turn', 'resettle'] },
+      { name: 'Barn Swallow',          share: 0.08, puff: [0.3, 0.42],  neck: [0.05, 0.12], tail: [1.2, 1.3],   beak: [0.78, 0.84], size: [0.6, 0.68],  weight: 0.3,  moves: ['turn', 'bob'] },
+    ],
+    /* Africa: doves, drongos, and the fiscal watching the road */
+    af: [
+      { name: 'Speckled Pigeon',     share: 0.22, puff: [0.68, 0.88], neck: [0.02, 0.08], tail: [0.78, 0.9],  beak: [0.85, 0.95], size: [1.0, 1.1],   weight: 1.0,  moves: ['resettle', 'bob'] },
+      { name: 'Laughing Dove',       share: 0.2,  puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.05, 1.2],  beak: [0.78, 0.86], size: [0.8, 0.88],  weight: 0.6,  moves: ['resettle'] },
+      { name: 'Cape Sparrow',        share: 0.18, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.82, 0.9],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
+      { name: 'Red-winged Starling', share: 0.14, puff: [0.32, 0.44], neck: [0.2, 0.3],   tail: [0.95, 1.1],  beak: [1.0, 1.1],   size: [0.85, 0.95], weight: 0.65, moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Fork-tailed Drongo',  share: 0.14, puff: [0.28, 0.38], neck: [0.2, 0.3],   tail: [1.25, 1.3],  beak: [0.9, 1.0],   size: [0.72, 0.8],  weight: 0.45, moves: ['tailPump', 'turn', 'resettle'] },
+      { name: 'Common Fiscal',       share: 0.12, puff: [0.35, 0.45], neck: [0.3, 0.4],   tail: [1.0, 1.15],  beak: [1.05, 1.15], size: [0.7, 0.78],  weight: 0.5,  moves: ['turn', 'resettle', 'turn'] },
+    ],
+    /* Oceania: the willie wagtail never sits still */
+    oc: [
+      { name: 'Crested Pigeon', share: 0.22, puff: [0.65, 0.85], neck: [0.05, 0.12], tail: [0.95, 1.1],  beak: [0.8, 0.9],   size: [0.95, 1.05], weight: 0.9,  moves: ['resettle', 'bob'] },
+      { name: 'Spotted Dove',   share: 0.16, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.25],  beak: [0.8, 0.88],  size: [0.85, 0.93], weight: 0.65, moves: ['resettle'] },
+      { name: 'Willie Wagtail', share: 0.2,  puff: [0.3, 0.4],   neck: [0.15, 0.25], tail: [1.25, 1.3],  beak: [0.85, 0.95], size: [0.65, 0.73], weight: 0.4,  moves: ['tailPump', 'turn', 'tailPump'] },
+      { name: 'Magpie-lark',    share: 0.16, puff: [0.35, 0.45], neck: [0.25, 0.35], tail: [1.0, 1.15],  beak: [0.95, 1.05], size: [0.85, 0.93], weight: 0.6,  moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Noisy Miner',    share: 0.14, puff: [0.4, 0.5],   neck: [0.2, 0.3],   tail: [1.0, 1.1],   beak: [0.95, 1.05], size: [0.75, 0.83], weight: 0.5,  moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Welcome Swallow', share: 0.12, puff: [0.3, 0.42],  neck: [0.05, 0.12], tail: [1.2, 1.3],   beak: [0.78, 0.84], size: [0.58, 0.66], weight: 0.3,  moves: ['turn', 'bob'] },
+    ],
+    /* South America: the kiskadee announces everything */
+    sa: [
+      { name: 'Rock Pigeon',              share: 0.22, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [1.0, 1.12],  weight: 1.0,  moves: ['resettle', 'bob'] },
+      { name: 'Eared Dove',               share: 0.18, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.05, 1.2],  beak: [0.78, 0.86], size: [0.82, 0.9],  weight: 0.6,  moves: ['resettle'] },
+      { name: 'Rufous-collared Sparrow',  share: 0.18, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.8, 0.88],  size: [0.62, 0.7],  weight: 0.4,  moves: ['turn', 'headBob', 'bob', 'resettle'] },
+      { name: 'Great Kiskadee',           share: 0.16, puff: [0.45, 0.55], neck: [0.28, 0.38], tail: [0.9, 1.0],   beak: [1.05, 1.15], size: [0.85, 0.93], weight: 0.65, moves: ['turn', 'resettle', 'turn'] },
+      { name: 'Tropical Kingbird',        share: 0.14, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.72, 0.8],  weight: 0.5,  moves: ['turn', 'resettle', 'turn'] },
+      { name: 'Monk Parakeet',            share: 0.12, puff: [0.55, 0.7],  neck: [0.1, 0.2],   tail: [1.15, 1.3],  beak: [0.9, 1.0],   size: [0.8, 0.88],  weight: 0.6,  moves: ['turn', 'bob', 'resettle'] },
+    ],
+  };
+
+  var SA_TZ = /^America\/(Argentina|Sao_Paulo|Bahia|Fortaleza|Recife|Manaus|Belem|Bogota|Lima|Santiago|Caracas|Montevideo|Asuncion|La_Paz|Guayaquil|Cuiaba|Campo_Grande|Boa_Vista|Porto_Velho|Rio_Branco|Maceio|Santarem|Araguaina|Punta_Arenas|Cayenne|Paramaribo|Guyana|Noronha)/;
+
+  function regionForTZ(tz) {
+    if (!tz) return 'na';
+    if (tz.indexOf('Europe/') === 0) return 'eu';
+    if (tz.indexOf('Australia/') === 0 || tz.indexOf('Pacific/') === 0) return 'oc';
+    if (tz.indexOf('Africa/') === 0) return 'af';
+    if (tz.indexOf('Asia/') === 0 || tz.indexOf('Indian/') === 0) return 'as';
+    if (SA_TZ.test(tz)) return 'sa';
+    return 'na';
+  }
+
+  var TZ = '';
+  try { TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { /* default region */ }
+  var SPECIES = REGIONS[regionForTZ(TZ)];
   function pickSpecies(r) {
     var roll = r(), acc = 0;
     for (var i = 0; i < SPECIES.length; i++) {
@@ -448,6 +514,13 @@
         { duration: 340, easing: 'ease-in-out' }
       );
     },
+    /* the wagtail and drongo tell: quick tail pumps from the feet */
+    tailPump: function (bird) {
+      bird.el.animate(
+        [{ rotate: '0deg' }, { rotate: '-7deg' }, { rotate: '2deg' }, { rotate: '-4deg' }, { rotate: '0deg' }],
+        { duration: 420, easing: 'ease-in-out' }
+      );
+    },
     /* the pigeon walk, in place */
     headBob: function (bird) {
       bird.el.animate(
@@ -638,6 +711,15 @@
   }
 
   function updateCount() {
+    if (invisible) {
+      var why = (navigator.globalPrivacyControl === true)
+        ? 'invisible, honoring your browser privacy signal'
+        : 'invisible to others';
+      document.querySelectorAll('[data-presence-count]').forEach(function (el) {
+        el.textContent = why;
+      });
+      return;
+    }
     var n = 0;
     var ownHere = 0;
     peers.forEach(function (p) {
@@ -875,6 +957,7 @@
       invisible = !invisible;
       try { localStorage.setItem(OFF_KEY, invisible ? '1' : '0'); } catch (e) { /* fine */ }
       reflectToggle();
+      updateCount();
       if (invisible) { if (ws) ws.close(); }
       else { retry = 0; connect(); }
     });
@@ -887,6 +970,7 @@
     updateCount();
     if (!invisible) connect();
   }
+
 
   /* Speculation-rules prerendered pages are not real visits: wait until shown */
   if (document.prerendering) {
