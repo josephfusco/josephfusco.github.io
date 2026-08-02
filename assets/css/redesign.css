@@ -286,6 +286,7 @@ section.block > h2 {
   justify-content: space-between;
   gap: 1rem;
   font-size: 0.9375rem;
+  margin-top: var(--lh);
 }
 
 /* ---- Life layer: motifs recycled from codepen.io/fusco ---- */
@@ -922,7 +923,7 @@ section.block > h2 {
   margin: 0 0 var(--lh);
 }
 .prose h2 { font-size: 1.25rem; line-height: var(--lh); margin: var(--lh) 0 0.875rem; }
-.prose p, .prose ul, .prose ol, .prose blockquote { margin: 0 0 var(--lh); }
+.prose p, .prose ul, .prose ol { margin: 0 0 var(--lh); }
 .prose pre { margin: 0 0 var(--lh); line-height: var(--lh); }
 .post-nav { margin-top: var(--lh); padding-top: 0; line-height: var(--lh); }
 
