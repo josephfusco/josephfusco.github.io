@@ -319,6 +319,7 @@
       var born = makeBorb(seedFrom('specimen:' + i), sp);
       el.innerHTML = born.svg;
       el.title = sp.name;
+      if (el.hasAttribute('data-inline')) return;
       /* true to scale: a wood pigeon should dwarf a wagtail */
       var scale = born.size * BIRD_BASE;
       el.style.width = Math.round(15 * scale) + 'px';
