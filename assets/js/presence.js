@@ -126,7 +126,7 @@
     return Math.max(document.documentElement.scrollHeight, innerHeight);
   }
 
-  var wire = document.querySelector('.powerline');
+  var wire = document.querySelector('[data-flock-stage]') || document.querySelector('.powerline');
     /* ---- The bird factory, regional edition ----
      The species on the wire are real wire birds of the reader's own
      region, told from the clock's timezone, which never leaves the
@@ -329,7 +329,7 @@
      the wire a little, but the curve approaches a limit, so a full
      flock never folds the masthead in half. */
   var WIRE_GEOM = { y: 12, scale: 2.8, minSag: 0.6, maxSag: 6.5, halfLoad: 1.6 };
-  var wirePathEl = document.querySelector('.wire-svg path');
+  var wirePathEl = wire ? wire.querySelector('.wire-svg path') : null;
   var currentSag = WIRE_GEOM.minSag;
 
   function setSag() {
@@ -1125,11 +1125,30 @@
   addEventListener('scroll', instantRender, { passive: true });
   addEventListener('resize', instantRender, { passive: true });
 
+  /* The watching page: birds come and go on their own, forever */
+  function beginAmbient() {
+    var stage = document.querySelector('[data-ambient]');
+    if (!stage) return;
+    var n = 0;
+    for (var i = 0; i < 5; i++) addPigeon('amb' + (n++));
+    setInterval(function () {
+      if (document.hidden) return;
+      var keys = [];
+      flock.forEach(function (b, k) { if (String(k).indexOf('amb') === 0) keys.push(k); });
+      if (keys.length > 6 || (keys.length > 2 && Math.random() < 0.55)) {
+        removePigeon(keys[Math.floor(Math.random() * keys.length)]);
+      } else {
+        addPigeon('amb' + (n++));
+      }
+    }, 7000 + Math.random() * 6000);
+  }
+
   function beginPresence() {
     /* Your own bird perches whether or not the relay answers;
        the wire is never empty for the reader on it */
     addPigeon('self');
     updateCount();
+    beginAmbient();
     if (!invisible) connect();
   }
 
