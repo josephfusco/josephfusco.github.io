@@ -25,4 +25,23 @@
 	<div class="powerline" aria-hidden="true">
 		<svg class="wire-svg" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 12 Q 50 12.6 100 12" fill="none" stroke="currentColor" vector-effect="non-scaling-stroke" stroke-width="1"/></svg>
 	</div>
+	<div class="field-note">
+		<span class="status"><span class="presence-dot" aria-hidden="true"></span> <span data-presence-count>just you here</span></span>
+		<label class="region-line"><span class="tool-glyph">⊕</span> birds of <select class="region-select" aria-label="Flock region">
+			<option value="">your region</option>
+			<option value="nae">North America, East</option>
+			<option value="nac">North America, Central</option>
+			<option value="naw">North America, West</option>
+			<option value="mx">Mexico and Central America</option>
+			<option value="eu">Europe</option>
+			<option value="as">Asia</option>
+			<option value="af">Africa</option>
+			<option value="oc">Oceania</option>
+			<option value="sa">South America</option>
+		</select></label>
+		<button class="guide-toggle" popovertarget="field-guide"><span class="note-bird" data-species="0" data-inline aria-hidden="true"></span> field guide</button>
+		<div id="field-guide" popover>
+			<div class="bird-legend" data-legend aria-label="The field guide, one entry per species"></div>
+		</div>
+	</div>
 </header>
