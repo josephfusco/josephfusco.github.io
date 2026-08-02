@@ -294,9 +294,10 @@ section.block > h2 {
 
 /* Hero kicker: face + presence (the iMessage typing pen, all grown up) */
 .field-note .status {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  align-items: baseline;
   gap: 0.4375rem;
+  text-wrap: pretty;
   color: var(--muted);
   font-size: 0.75rem;
   font-family: Georgia, serif;
@@ -617,8 +618,10 @@ html[data-blueprint] [data-spec]::after {
 /* ---- 2026 platform layer ---- */
 
 /* Typographic precision */
-h1, h2, h3 { text-wrap: balance; }
-p, li { text-wrap: pretty; }
+/* Typographic hygiene: headings balance across their lines, prose
+   avoids widows and orphans, and captions never strand a word. */
+h1, h2, h3, .signature, .watch-note { text-wrap: balance; }
+p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
 .signup input[type="email"] { field-sizing: content; }
 
 /* Masthead is static — pages begin at the beginning */
@@ -1049,22 +1052,22 @@ h1, h2, h3, h4,
 .bird-legend { margin: 0.875rem 0 0; }
 .bird-legend figure {
   display: grid;
-  grid-template-columns: 3.5rem 1fr;
+  grid-template-columns: 2.75rem 1fr;
   align-items: end;
-  column-gap: 0.875rem;
+  column-gap: 0.625rem;
   margin: 0;
 }
 .legend-perch {
   display: block;
   position: relative;
-  height: 30px;
-  border-bottom: 1px solid var(--fg);
+  height: 26px;
+  border-bottom: 1px solid var(--border);
 }
 .legend-perch .wire-bird { position: absolute; bottom: -1px; left: 50%; top: auto; }
 .bird-legend figcaption {
   font-family: Georgia, serif;
   font-style: italic;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--muted);
   padding: 0 0 0.25rem;
   line-height: 1.3;
@@ -1139,17 +1142,29 @@ body.wire .powerline { display: none; }
 }
 .note-bird { display: inline-block; width: 14px; height: 12px; vertical-align: -2px; }
 .note-bird svg { display: block; width: 100%; height: 100%; }
+/* The guide is written in the same margin as the note, on the same
+   paper, with no card between them */
 #field-guide {
-  width: 24rem;
+  width: 15rem;
   max-width: calc(100vw - 2rem);
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  box-shadow: 0 10px 24px -18px rgba(35, 28, 18, 0.5);
-  padding: 0.875rem 1rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  color: var(--muted);
 }
 #field-guide .bird-legend { margin: 0; }
-#field-guide { width: 17rem; }
+@media (max-width: 900px) {
+  #field-guide {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.5rem 0.75rem;
+  }
+}
 @supports (anchor-name: --a) {
   #field-guide {
     position: fixed;
@@ -1159,6 +1174,14 @@ body.wire .powerline { display: none; }
     margin: 0.5rem 0;
   }
 }
+
+/* The tab hint sits under the count, smaller, never stranded */
+.note-hint {
+  display: block;
+  font-size: 0.6875rem;
+  opacity: 0.75;
+}
+.field-note .presence-dot { flex: none; position: relative; top: -1px; }
 
 /* The region line in the field note: a select dressed as prose */
 .region-line { color: var(--muted); font-size: 0.75rem; }
