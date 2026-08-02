@@ -257,11 +257,23 @@ section.block > h2 {
 
 /* Prose extras for legacy post content */
 .prose img { max-width: 100%; height: auto; border-radius: 6px; }
+/* A quotation is an exhibit: a clipped excerpt laid on the letter,
+   same stationery as the colophon slip, popped past the text edge */
 .prose blockquote {
-  margin: 1.25rem 0;
-  padding: 0.25rem 1.25rem;
-  border-left: 3px solid var(--accent);
-  color: var(--muted);
+  margin: var(--lh) calc(var(--lh) * -1);
+  padding: calc(var(--lh) * 0.5 - 1px) var(--lh);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--fg);
+}
+.prose blockquote p { margin: 0; }
+.prose blockquote p + p { margin-top: var(--lh); }
+@media (max-width: 720px) {
+  .prose blockquote { margin-left: 0; margin-right: 0; }
 }
 .prose hr { border: 0; margin: var(--lh) 0; }
 .prose table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
@@ -1079,6 +1091,8 @@ h1, h2, h3, h4,
 #colophon a { margin-right: 0; }
 
 /* The letter signs at the bottom right of the footer */
+.letter-close address { font-style: normal; }
+
 /* The hand signs in fountain-pen blue; the type confirms it in ink */
 .signature-ink {
   width: 10.5rem;
@@ -1086,6 +1100,10 @@ h1, h2, h3, h4,
   color: #26418f;
 }
 .signature-ink svg { display: block; width: 100%; height: auto; }
+/* The signature is written, not shown: strokes appear in drawing
+   order when the footer first enters view, once. JS adds will-sign
+   before paint and signing on arrival; without JS it is simply there. */
+.signature-ink.will-sign path { opacity: 0; }
 .signature {
   font-family: Georgia, "Iowan Old Style", serif;
   font-style: italic;
