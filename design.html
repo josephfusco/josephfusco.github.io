@@ -1,0 +1,128 @@
+---
+layout: default
+title: Design
+permalink: /design
+---
+<div class="wrap">
+	<div class="prose">
+		<h1>Design</h1>
+		<p class="meta">The system this site is built from.</p>
+	</div>
+
+	<section class="block" aria-label="Palette">
+		<h2>Palette</h2>
+		<ul class="swatches">
+			<li><span class="swatch" style="background:#f6f1e5"></span>cotton <code>#f6f1e5</code></li>
+			<li><span class="swatch" style="background:#23201a"></span>ink <code>#23201a</code></li>
+			<li><span class="swatch" style="background:#b8420f"></span>accent <code>#b8420f</code></li>
+			<li><span class="swatch" style="background:#6f6758"></span>muted <code>#6f6758</code></li>
+			<li><span class="swatch" style="background:#ddd4bf"></span>border <code>#ddd4bf</code></li>
+			<li><span class="swatch" style="background:#efe8d6"></span>card <code>#efe8d6</code></li>
+		</ul>
+		<p>The cotton has a tooth. Two frequencies of SVG turbulence, one for the surface grain and one for the pulp formation, are woven inline. No image files were harmed.</p>
+	</section>
+
+	<section class="block" aria-label="Type">
+		<h2>Type</h2>
+		<div class="specimen">
+			<p class="spec-note">Structure is Atkinson Hyperlegible, designed by the Braille Institute, for headings, the nameplate, navigation, and controls.</p>
+			<p class="spec-sans">Hamburgevons 0O 1lI 5S 8B</p>
+			<p class="spec-note">Words are Georgia, for body text, descriptions, and this sentence's cousins.</p>
+			<p class="spec-serif">The five boxing wizards jump quickly, 1234567890.</p>
+			<p class="spec-note">Asides are Georgia italic, for dates, tags, and whatever whispers.</p>
+			<p class="spec-italic">Rochester NY, March 2017, a note in the margin.</p>
+			<p class="spec-note">Code and the x-ray are monospace, never decoration.</p>
+			<p class="spec-mono">--lh: 1.75rem; skewY(-1.1deg); presence.js</p>
+		</div>
+	</section>
+
+	<section class="block" aria-label="Rhythm">
+		<h2>Rhythm</h2>
+		<p>One unit governs the page, <code>1.75rem</code>, which is 28 pixels. Every line of text sits on it. Every margin and padding is a multiple of it, halves allowed. Where a rule crosses the flow, the border's own width is subtracted from the adjacent padding so the grid never drifts. Toggle <strong>⌗ blueprint</strong> in the footer and the rows you see are this unit, measured against the real text.</p>
+	</section>
+
+	<section class="block" aria-label="Components">
+		<h2>Components</h2>
+		<ul class="components">
+			<li>
+				<div class="stage" aria-hidden="true">
+					<span class="demo-cursor"><svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg></span>
+				</div>
+				<div>
+					<h3>Live cursor <span class="tag">presence</span></h3>
+					<p>A human, now, abstractly. It banks into its turns and leaves a wake of evaporating ink. Long jumps teleport instead of streaking across your view. Cursors only ever represent people.</p>
+				</div>
+			</li>
+			<li>
+				<div class="stage" aria-hidden="true">
+					<span class="demo-wire"><span class="wire-bird" style="left:12%" data-species="0"></span><span class="wire-bird" style="left:27%" data-species="1"></span><span class="wire-bird" style="left:42%" data-species="2"></span><span class="wire-bird" style="left:56%" data-species="3"></span><span class="wire-bird" style="left:70%" data-species="4"></span><span class="wire-bird" style="left:84%" data-species="5"></span></span>
+				</div>
+				<div>
+					<h3>The wire <span class="tag">presence</span></h3>
+					<p>The flock is the census, one bird per reader present, you included, seeded by the page so every page keeps its own regulars. The six species are the Rock Pigeon, the House Sparrow, the Mourning Dove, the European Starling, the House Finch, and the Eastern Kingbird, all real wire birds of upstate New York. Each keeps its field habits; doves sit still, sparrows hop, kingbirds sit tall and scan the road, and a pigeon flexes the wire more than a finch. Bring your cursor close and a bird startles; a click that leaves the page scatters them all. They come back.</p>
+				</div>
+			</li>
+			<li>
+				<div class="stage" aria-hidden="true">
+					<span class="demo-chip"><span class="presence-dot"></span> just you here</span>
+				</div>
+				<div>
+					<h3>Occupancy chip <span class="tag">presence</span></h3>
+					<p>Who is here, counted honestly. Your own tabs count as you, never as strangers.</p>
+				</div>
+			</li>
+			<li>
+				<div class="stage">
+					<a class="site-name" href="/" tabindex="-1" aria-label="Wordmark demo">
+						<svg class="site-mark" viewBox="0 0 600 600" aria-hidden="true">
+							<rect x="350" y="250" /><rect x="50" y="350" /><rect x="50" y="450" /><rect x="150" y="450" /><rect x="250" y="450" /><rect x="250" y="350" /><rect x="250" y="250" /><rect x="250" y="150" /><rect x="250" y="50" /><rect x="350" y="50" /><rect x="450" y="50" />
+						</svg>
+					</a>
+				</div>
+				<div>
+					<h3>Wordmark <span class="tag">identity</span></h3>
+					<p>Eleven squares wave on hover, staggered by <code>sibling-index()</code>. The square that jumps the queue is a bug from the original CodePen, kept on purpose. Try it. This one works.</p>
+				</div>
+			</li>
+			<li>
+				<div class="stage">
+					<button class="camera" aria-label="Take a photo" title="Say cheese"><span class="camera-lens"></span></button><span class="cheese" aria-hidden="true">CHEESE!</span>
+				</div>
+				<div>
+					<h3>Camera <span class="tag">Rochester</span></h3>
+					<p>A miniature of the camera-flash pen. The shutter depresses, the flash fires. Press and hold. Kodak country.</p>
+				</div>
+			</li>
+			<li>
+				<div class="stage" aria-hidden="true">
+					<img src="/assets/images/mark.svg" width="20" height="20" alt=""> <img src="/assets/images/mark-away.svg" width="20" height="20" alt="">
+				</div>
+				<div>
+					<h3>Favicon <span class="tag">chrome</span></h3>
+					<p>Each tab wears its own color. The favicon dims when you step away and flashes when someone new arrives.</p>
+				</div>
+			</li>
+		</ul>
+	</section>
+
+	<section class="block" aria-label="Patterns">
+		<h2>Patterns</h2>
+		<ul>
+			<li>Three voices with fixed roles. Bold sans names a thing, serif italic is metadata about it, serif roman describes it.</li>
+			<li>The organizing principle leads. Projects are named things, so the name comes first and the tag follows. Archives are chronological, so the date rail comes first and the title follows.</li>
+			<li>The wire under the masthead is the only rule on the page. Everything else is separated by rhythm alone.</li>
+		</ul>
+	</section>
+
+	<section class="block" aria-label="Rules">
+		<h2>Rules</h2>
+		<ul>
+			<li>At rest, one thing moves at most.</li>
+			<li>Motion is discovered, not broadcast. Hover the wordmark, press the camera, toggle the x-ray.</li>
+			<li>Accessibility is the default, never an option behind a toggle.</li>
+			<li>Everything decorative is recycled from my CodePens. No ornament without provenance.</li>
+			<li>State never changes font weight. Weight is hierarchy; state is color.</li>
+			<li>Reduced motion turns all of it off.</li>
+		</ul>
+	</section>
+</div>

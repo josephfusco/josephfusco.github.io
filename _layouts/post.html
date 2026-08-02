@@ -1,49 +1,27 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: page.lang | default: 'en' }}">
 {% include head.html %}
-<body class="{{ page.path | remove: '.html' }}">
+<body>
+	<a class="skip-link" href="#main">Skip to content</a>
+	<div class="read-progress" aria-hidden="true"></div>
 	{% include header.html %}
-	<main class="main post" aria-label="Content">
-		<div class="heading">
-			<div class="container">
-				<h1>{{ page.title}}</h1>
-			</div>
-		</div>
-		<div class="content">
-			<div class="container">
-				<div class="row">
-					<div class="c-sm-7">
-						<div class="content__inner">
-							<div class="content__meta">
-								<time class="publish-date" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date_to_long_string }}</time>
-								<span class="reading-time" title="Estimated read time">
-									{% assign words = content | number_of_words %}
-									{% if words < 360 %}
-										1 minute read
-									{% else %}
-										{{ words | divided_by:180 }} minute read
-									{% endif %}
-								</span>
-							</div>
-							{{ content }}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="post__nav">
-			<div class="container">
-				{% if page.previous %}
-				<a rel="prev" href="{{ site.baseurl }}{{ page.previous.url }}" class="post__nav--prev btn">
-					&larr; <span class="nav-title nav-title-prev">older</span>
-				</a>
-				{% endif %}
-				{% if page.next %}
-				<a rel="next" href="{{ site.baseurl }}{{ page.next.url }}" class="post__nav--next btn">
-					<span class="nav-title nav-title-next">newer</span> &rarr;
-				</a>
-				{% endif %}
-			</div>
+	<main id="main" aria-label="Content">
+		<div class="wrap">
+			<article class="prose">
+				<h1 style="view-transition-name: vt-{{ page.url | slugify }}; view-transition-class: post">{{ page.title }}</h1>
+				<p class="meta">
+					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_long_string }}</time>
+					{% assign words = content | number_of_words %}
+					, {% if words < 360 %}1{% else %}{{ words | divided_by:180 }}{% endif %} min read
+				</p>
+				{{ content }}
+			</article>
+
+			<nav class="post-nav" aria-label="Post navigation">
+				<span>{% if page.previous %}<a rel="prev" href="{{ page.previous.url | relative_url }}">&larr; {{ page.previous.title }}</a>{% endif %}</span>
+				<span>{% if page.next %}<a rel="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &rarr;</a>{% endif %}</span>
+			</nav>
+
 		</div>
 	</main>
 	{% include footer.html %}

@@ -3,13 +3,10 @@ layout: page
 title: About
 ---
 
-Hello, my name is Joe. I am a Rochester based web developer who specializes in creating WordPress themes &amp; plugins.
+I'm Joe Fusco. I maintain headless WordPress plugins at [WP Engine](https://wpengine.com) and contribute to WordPress core.
 
-More of my work:
-+ [CodePen](https://codepen.io/fusco)
-+ [Github](https://github.com/josephfusco)
-+ [WordPress](https://profiles.wordpress.org/joefusco)
+Core work centers on the [Presence API](https://github.com/WordPress/presence-api), WordPress's system-wide presence and awareness layer. On the headless side, that work continues in the [WPGraphQL IDE](https://wordpress.org/plugins/wpgraphql-ide/). Most of my open-source time goes into release automation and testing.
 
-If you are looking to find out what software/hardware/services I use, check out my [uses page](/uses).
+Outside WordPress there is [LexGrade](https://lexgrade.org), an open standard for scoring the quality of legal drafting, published under CC-BY-SA and owned by no one.
 
-If you would like to get in touch, you can connect with me on [Twitter](https://twitter.com/heyfusco){:target="_blank"}, [LinkedIn](https://www.linkedin.com/in/josephfusco3){:target="_blank"}, or [email me](mailto:hello@josephfus.co).
+The rest is amateur arboriculture, and being a dad. The desk itself, hardware and software both, is cataloged on the [uses page](/uses).

@@ -1,14 +1,28 @@
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
+	<title>{% if page.title %}{{ page.title | escape }} | {{ site.name }}{% else %}{{ site.name }} | {{ site.role }}{% endif %}</title>
 	<meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
 
-	<link rel="stylesheet" href="{{ '/assets/css/main.min.css' | relative_url }}">
+	<link rel="preload" href="{{ '/assets/fonts/AtkinsonHyperlegible-Regular.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="{{ '/assets/fonts/AtkinsonHyperlegible-Bold.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="{{ '/assets/css/redesign.css' | relative_url }}">
 	<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+	<link rel="icon" type="image/svg+xml" href="{{ '/assets/images/mark.svg' | relative_url }}">
 	<link rel="shortcut icon" type="image/icon" href="/favicon.ico?v=2">
+	<meta name="theme-color" content="#f6f1e5">
 
-	{% feed_meta %}
+	<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+	<meta property="og:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.name }} | {{ site.role }}{% endif %}">
+	<meta property="og:description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+	<meta property="og:url" content="{{ page.url | replace:'index.html','' | absolute_url }}">
+
+	<link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | absolute_url }}" title="{{ site.name }}">
+
+	<script type="speculationrules">
+	{
+		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+	}
+	</script>
 </head>

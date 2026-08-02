@@ -3,3 +3,6 @@ _site
 .jekyll-metadata
 .DS_Store
 node_modules
+presence-server/ghosts/
+vendor/
+.jekyll-cache/

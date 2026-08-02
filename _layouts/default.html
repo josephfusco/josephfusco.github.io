@@ -2,8 +2,9 @@
 <html lang="{{ site.lang | default: page.lang | default: 'en' }}">
 {% include head.html %}
 <body class="{{ page.path | remove: '.html' }}">
+	<a class="skip-link" href="#main">Skip to content</a>
 	{% include header.html %}
-	<main class="main" aria-label="Content">
+	<main id="main" aria-label="Content">
 		{{ content }}
 	</main>
 	{% include footer.html %}
