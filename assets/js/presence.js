@@ -879,6 +879,10 @@
   }
 
   function beginPresence() {
+    /* Your own bird perches whether or not the relay answers;
+       the wire is never empty for the reader on it */
+    addPigeon('self');
+    updateCount();
     if (!invisible) connect();
   }
 
