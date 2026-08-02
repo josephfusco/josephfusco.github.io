@@ -145,12 +145,15 @@
        recoil still announces everyone. forked marks a forked tail,
        crest a crest. */
     na: [
-      { name: 'Rock Pigeon',       share: 0.32, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.04], weight: 1.0,  moves: ['resettle', 'bob'] },
-      { name: 'House Sparrow',     share: 0.18, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.66, 0.73], weight: 0.09, moves: ['turn', 'headBob', 'bob', 'resettle'] },
-      { name: 'Mourning Dove',     share: 0.16, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4, moves: ['resettle'] },
-      { name: 'European Starling', share: 0.14, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.83], weight: 0.25,  moves: ['turn', 'bob', 'headBob'] },
-      { name: 'House Finch',       share: 0.12, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.61, 0.68], weight: 0.07, moves: ['turn', 'bob', 'headBob', 'resettle'] },
-      { name: 'Eastern Kingbird',  share: 0.08, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.77, 0.84], weight: 0.13, moves: ['turn', 'resettle', 'turn'] },
+      { name: 'Rock Pigeon',       share: 0.24, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.04], weight: 1.0,  moves: ['resettle', 'bob'] },
+      { name: 'House Sparrow',     share: 0.16, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.66, 0.73], weight: 0.09, moves: ['turn', 'headBob', 'bob', 'resettle'] },
+      { name: 'American Robin',    share: 0.12, puff: [0.5, 0.62],  neck: [0.15, 0.25], tail: [0.85, 0.95], beak: [0.85, 0.95], size: [0.84, 0.91], weight: 0.26, moves: ['turn', 'bob', 'resettle'] },
+      { name: 'Mourning Dove',     share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  moves: ['resettle'] },
+      { name: 'European Starling', share: 0.12, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.76, 0.83], weight: 0.25, moves: ['turn', 'bob', 'headBob'] },
+      { name: 'American Crow',     share: 0.09, puff: [0.4, 0.52],  neck: [0.2, 0.3],   tail: [0.9, 1.0],   beak: [1.15, 1.25], size: [1.13, 1.21], weight: 1.5,  moves: ['turn', 'bob', 'resettle'] },
+      { name: 'House Finch',       share: 0.08, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.61, 0.68], weight: 0.07, moves: ['turn', 'bob', 'headBob', 'resettle'] },
+      { name: 'Blue Jay',          share: 0.04, puff: [0.38, 0.5],  neck: [0.2, 0.3],   tail: [1.15, 1.25], beak: [1.0, 1.1],   size: [0.89, 0.96], weight: 0.29, crest: true, moves: ['turn', 'headBob', 'bob'] },
+      { name: 'Eastern Kingbird',  share: 0.03, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.77, 0.84], weight: 0.13, moves: ['turn', 'resettle', 'turn'] },
     ],
     eu: [
       { name: 'Common Wood Pigeon', share: 0.26, puff: [0.75, 0.95], neck: [0.0, 0.06],  tail: [0.8, 0.95],  beak: [0.85, 0.95], size: [1.07, 1.15], weight: 1.6, moves: ['resettle', 'bob'] },
@@ -315,6 +318,16 @@
   /* Static specimens anywhere in the page hydrate a named species:
      data-species is an index into SPECIES, drawn deterministically */
   function hydrateSpecimens() {
+    /* The legend is generated from the roster, however many species
+       a region carries */
+    document.querySelectorAll('[data-legend]').forEach(function (box) {
+      var html = '';
+      for (var li = 0; li < SPECIES.length; li++) {
+        html += '<figure><span class="legend-perch"><span class="wire-bird" data-species="' + li
+          + '"></span></span><figcaption>' + SPECIES[li].name + '</figcaption></figure>';
+      }
+      box.innerHTML = html;
+    });
     document.querySelectorAll('[data-species]').forEach(function (el) {
       var i = parseInt(el.getAttribute('data-species'), 10) || 0;
       var sp = SPECIES[i % SPECIES.length];
@@ -327,10 +340,6 @@
       el.style.width = Math.round(15 * scale) + 'px';
       el.style.height = Math.round(13 * scale) + 'px';
       el.style.marginLeft = -Math.round(15 * scale / 2) + 'px';
-    });
-    document.querySelectorAll('[data-species-caption]').forEach(function (el) {
-      var i = parseInt(el.getAttribute('data-species-caption'), 10) || 0;
-      el.textContent = SPECIES[i % SPECIES.length].name;
     });
   }
   hydrateSpecimens();
@@ -431,6 +440,7 @@
     el.style.transformOrigin = '50% 100%';
     var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, slot: slot, topAdj: (21 - Math.round(13 * scale)), moves: moves, weight: born.species.weight, flown: false, returnTimer: null };
     flock.set(key, bird);
+    bird.name = born.species.name;
     /* the regulars fly home when you arrive */
     bird.flown = true;
     el.style.visibility = 'hidden';
@@ -550,7 +560,19 @@
       bird.flown = false;
       bounceWire();
       setSag();
+      announceBird(bird);
     }).catch(function () { /* removed mid-arrival */ });
+  }
+
+  /* The Merlin moment: a landing bird identifies itself, briefly */
+  function announceBird(bird) {
+    if (!wire || !bird.name || bird.el == null) return;
+    var tag = document.createElement('span');
+    tag.className = 'bird-id';
+    tag.textContent = bird.name;
+    tag.style.left = (bird.slot * 100) + '%';
+    wire.appendChild(tag);
+    tag.addEventListener('animationend', function () { tag.remove(); });
   }
 
   /* Perched birds live a little: a turn, a bob, a resettle. Rare and small. */
