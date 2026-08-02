@@ -1,18 +1,21 @@
 {
-  "name": "vetrina",
-  "description": "A simple jekyll portfolio theme.",
+  "name": "josephfusco-website",
+  "description": "Joseph Fusco's personal website",
   "author": "Joseph Fusco",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "dev": "bundler exec jekyll serve --watch"
+    "dev": "bundler exec jekyll serve --watch",
+    "build": "gulp build"
   },
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.0",
-    "gulp-uglify": "^1.5.1",
-    "gulp-watch": "^4.3.5"
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-watch": "^5.0.1",
+    "sass": "^1.70.0"
   }
 }

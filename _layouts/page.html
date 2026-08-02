@@ -1,24 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ site.lang | default: page.lang | default: 'en' }}">
 {% include head.html %}
-<body class="{{ page.path | remove: '.html' }}">
+<body>
+	<a class="skip-link" href="#main">Skip to content</a>
 	{% include header.html %}
-	<main class="main" aria-label="Content">
-		<div class="heading">
-			<div class="container">
+	<main id="main" aria-label="Content">
+		<div class="wrap">
+			<article class="prose">
 				<h1>{{ page.title }}</h1>
-			</div>
-		</div>
-		<div class="content">
-			<div class="container">
-				<div class="row">
-					<div class="c-sm-7">
-						<div class="content__inner">
-							{{ content }}
-						</div>
-					</div>
-				</div>
-			</div>
+				{{ content }}
+			</article>
 		</div>
 	</main>
 	{% include footer.html %}

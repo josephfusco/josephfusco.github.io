@@ -1,21 +1,26 @@
-const gulp = require('gulp')
-const sass = require('gulp-sass')
-const rename = require('gulp-rename')
-const watch = require('gulp-watch')
-const autoprefixer = require('gulp-autoprefixer')
+import gulp from 'gulp';
+import autoprefixer from 'gulp-autoprefixer';
+import rename from 'gulp-rename';
+import gulpSass from 'gulp-sass';
+import * as sass from 'sass';
 
-gulp.task('styles', () => {
-	gulp.src('./assets/sass/**/*.scss')
-		.pipe(sass().on('error', sass.logError))
-		.pipe(sass({outputStyle: 'compressed'}))
-		.pipe(autoprefixer())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest('./assets/css/'))
-});
+const sassCompiler = gulpSass(sass);
 
-gulp.task('watch', () => {
-	gulp.watch('./assets/sass/**/*.scss', ['styles'])
-	gulp.watch('./assets/js/*.js', ['js'])
-});
+// Compile SASS
+export function styles() {
+  return gulp.src('./assets/sass/**/*.scss')
+    .pipe(sassCompiler().on('error', sassCompiler.logError))
+    .pipe(sassCompiler({outputStyle: 'compressed'}))
+    .pipe(autoprefixer())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('./assets/css/'));
+}
 
-gulp.task('default', ['styles', 'watch'])
+// Watch task
+export function watchFiles() {
+  gulp.watch('./assets/sass/**/*.scss', styles);
+  gulp.watch('./assets/js/*.js', () => { console.log('JS file changed') });
+}
+
+// Default task
+export default gulp.series(styles, watchFiles);
