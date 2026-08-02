@@ -834,13 +834,14 @@
 
   var lastSent = 0;
   addEventListener('mousemove', function (e) {
-    if (!ws || ws.readyState !== 1) return;
     var now = Date.now();
     if (now - lastSent < 50) return;
     lastSent = now;
+    /* The birds are the reader's own business; only the broadcast
+       needs the socket */
     checkStartle(e.clientX, e.clientY);
     selfPos = { x: e.clientX / innerWidth, y: (e.clientY + scrollY) / docHeight() };
-    ws.send(JSON.stringify({ type: 'move', pos: selfPos }));
+    if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'move', pos: selfPos }));
     render();
   }, { passive: true });
 
