@@ -1076,6 +1076,51 @@ h1, h2, h3, h4,
   cursor: pointer;
   text-decoration: underline dotted;
 }
+/* Where the customizable select exists, the picker is a slip of the
+   same stationery instead of the OS menu. Still a native select;
+   keyboard and screen readers keep everything. */
+@supports (appearance: base-select) {
+  .region-select,
+  .region-select::picker(select) {
+    appearance: base-select;
+  }
+  .region-select {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: var(--accent);
+  }
+  .region-select::picker-icon {
+    color: var(--muted);
+    font-size: 0.6875rem;
+    padding-left: 0.25rem;
+  }
+  .region-select::picker(select) {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    box-shadow: 0 10px 24px -18px rgba(35, 28, 18, 0.5);
+    padding: 0.25rem 0;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    color: var(--fg);
+  }
+  .region-select option {
+    padding: 0.25rem 0.875rem;
+    cursor: pointer;
+  }
+  .region-select option:hover,
+  .region-select option:focus {
+    background: var(--border);
+  }
+  .region-select option:checked {
+    color: var(--accent);
+  }
+  .region-select option::checkmark {
+    color: var(--accent);
+    margin-right: 0.375rem;
+  }
+}
 
 /* Copyright line links are prose, not a toolbar */
 .site-footer .fineprint a { margin-right: 0; }

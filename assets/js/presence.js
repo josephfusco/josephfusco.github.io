@@ -48,6 +48,7 @@
     { label: 'anchor positioning', on: function () { return CSS.supports('anchor-name: --a'); } },
     { label: 'sibling-index()', on: function () { return CSS.supports('animation-delay', 'calc(sibling-index() * 1ms)'); } },
     { label: '@starting-style', on: function () { return CSS.supports('transition-behavior', 'allow-discrete'); } },
+    { label: 'styleable select', on: function () { return CSS.supports('appearance', 'base-select'); } },
     { label: 'invoker commands', on: function () { return typeof CommandEvent !== 'undefined'; } },
     { label: 'scheduler API', on: function () { return !!(window.scheduler && scheduler.postTask); } },
     { label: 'presence relay', on: function () { return !!(window.__presenceLive); } },
@@ -105,11 +106,11 @@
   if (reduced || !('WebSocket' in window)) return;
 
   /* Invisibility: a human off-switch. Respects Global Privacy Control. */
-  var OFF_KEY = 'presence:off';
-  var invisible = false;
-  try {
-    invisible = localStorage.getItem(OFF_KEY) === '1' || navigator.globalPrivacyControl === true;
-  } catch (e) { /* storage unavailable */ }
+  /* Invisibility is automatic only: Global Privacy Control opts a
+     reader out of the live relay, no toggle, no ceremony. The old
+     manual off-switch key is cleared so nobody stays stuck. */
+  var invisible = navigator.globalPrivacyControl === true;
+  try { localStorage.removeItem('presence:off'); } catch (e) { /* fine */ }
 
   var DEV = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
   var WS_URL = (DEV ? 'ws://' + location.hostname + ':4001' : 'wss://' + location.host + '/ws')
@@ -771,11 +772,8 @@
 
   function updateCount() {
     if (invisible) {
-      var why = (navigator.globalPrivacyControl === true)
-        ? 'invisible, honoring your browser privacy signal'
-        : 'invisible to others';
       document.querySelectorAll('[data-presence-count]').forEach(function (el) {
-        el.textContent = why;
+        el.textContent = 'invisible, honoring your browser privacy signal';
       });
       return;
     }
@@ -998,29 +996,6 @@
   }
   addEventListener('scroll', instantRender, { passive: true });
   addEventListener('resize', instantRender, { passive: true });
-
-  /* ---- The off-switch ---- */
-  var pToggle = document.querySelector('.presence-toggle');
-  function reflectToggle() {
-    if (!pToggle) return;
-    pToggle.hidden = false;
-    pToggle.setAttribute('aria-pressed', invisible ? 'true' : 'false');
-    pToggle.innerHTML = '<span class="tool-glyph">\u2316</span> ' + (invisible ? 'invisible' : 'visible to others');
-    pToggle.title = invisible
-      ? 'Nobody can see your cursor and nothing is recorded. Click to rejoin.'
-      : 'Others can see your cursor as an anonymous bird. Click to go invisible.';
-  }
-  reflectToggle();
-  if (pToggle) {
-    onActivate(pToggle, '--presence', function () {
-      invisible = !invisible;
-      try { localStorage.setItem(OFF_KEY, invisible ? '1' : '0'); } catch (e) { /* fine */ }
-      reflectToggle();
-      updateCount();
-      if (invisible) { if (ws) ws.close(); }
-      else { retry = 0; connect(); }
-    });
-  }
 
   function beginPresence() {
     /* Your own bird perches whether or not the relay answers;
