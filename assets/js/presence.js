@@ -391,12 +391,17 @@
       el.innerHTML = born.svg;
       el.title = sp.name;
       if (el.hasAttribute('data-inline')) return;
-      /* true to scale: a wood pigeon should dwarf a wagtail. The plate
-         magnifies every bird equally so the smallest still reads. */
-      var scale = born.size * BIRD_BASE * (el.closest('.bird-legend') ? 1.45 : 1);
+      /* On the wire, sizes stay compressed so the smallest bird is
+         still hoverable. On the plate, where showing scale is the
+         whole job, the compression is undone and the birds stand in
+         true proportion: a crow really is three finches long. */
+      var scale = born.size * BIRD_BASE;
+      if (el.closest('.bird-legend')) scale = born.size * born.size * BIRD_BASE * 1.25;
       el.style.width = Math.round(15 * scale) + 'px';
       el.style.height = Math.round(13 * scale) + 'px';
-      el.style.marginLeft = -Math.round(15 * scale / 2) + 'px';
+      /* on the wire a bird is centred on its perch; on the plate every
+         bird starts at the same edge so the lengths compare at a glance */
+      el.style.marginLeft = el.closest('.bird-legend') ? '0' : -Math.round(15 * scale / 2) + 'px';
     });
   }
   hydrateSpecimens();
@@ -406,6 +411,8 @@
   function reflectRegionSelect(key) {
     document.querySelectorAll('.region-select').forEach(function (el) {
       el.value = key || '';
+      var mine = el.parentNode && el.parentNode.querySelector('.region-yours');
+      if (mine) mine.hidden = !!key;
     });
   }
 
@@ -439,7 +446,7 @@
        checkable at a glance */
     var local = el.querySelector('option[value=""]');
     var resolved = el.querySelector('option[value="' + regionForTZ(TZ) + '"]');
-    if (local && resolved) local.textContent = resolved.textContent + ', your region';
+    if (local && resolved) local.textContent = resolved.textContent;
   });
   reflectRegionSelect(regionOverride);
 

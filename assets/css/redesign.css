@@ -1058,7 +1058,7 @@ h1, h2, h3, h4,
 }
 .bird-legend figure {
   display: grid;
-  grid-template-columns: 3rem 1fr;
+  grid-template-columns: 3.25rem 1fr;
   align-items: baseline;
   column-gap: 0.75rem;
   margin: 0 0 0.25rem;
@@ -1066,9 +1066,9 @@ h1, h2, h3, h4,
 .legend-perch {
   display: block;
   position: relative;
-  height: 24px;
+  height: 34px;
 }
-.legend-perch .wire-bird { position: absolute; bottom: 0; left: 50%; top: auto; }
+.legend-perch .wire-bird { position: absolute; bottom: 0; left: 0; top: auto; }
 .bird-legend figcaption {
   font-family: Georgia, serif;
   font-style: italic;
@@ -1241,6 +1241,7 @@ body.wire .powerline { display: none; }
 
 /* The region line in the field note: a select dressed as prose */
 .region-line { color: var(--muted); font-size: 0.75rem; }
+.region-yours { font-style: italic; opacity: 0.7; margin-left: 0.375rem; }
 .region-select {
   appearance: none;
   -webkit-appearance: none;
