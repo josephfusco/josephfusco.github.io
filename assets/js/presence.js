@@ -369,8 +369,14 @@
     /* The legend is generated from the roster, however many species
        a region carries */
     document.querySelectorAll('[data-legend]').forEach(function (box) {
+      /* A plate reads largest to smallest, so the scale is the first
+         thing you see */
+      var order = SPECIES.map(function (sp, i) { return i; }).sort(function (a, b) {
+        return (SPECIES[b].size[0] + SPECIES[b].size[1]) - (SPECIES[a].size[0] + SPECIES[a].size[1]);
+      });
       var html = '';
-      for (var li = 0; li < SPECIES.length; li++) {
+      for (var oi = 0; oi < order.length; oi++) {
+        var li = order[oi];
         var nm = SPECIES[li].name;
         html += '<figure><span class="legend-perch"><span class="wire-bird" data-species="' + li
           + '"></span></span><figcaption><a href="' + speciesURL(nm)
@@ -385,8 +391,9 @@
       el.innerHTML = born.svg;
       el.title = sp.name;
       if (el.hasAttribute('data-inline')) return;
-      /* true to scale: a wood pigeon should dwarf a wagtail */
-      var scale = born.size * BIRD_BASE;
+      /* true to scale: a wood pigeon should dwarf a wagtail. The plate
+         magnifies every bird equally so the smallest still reads. */
+      var scale = born.size * BIRD_BASE * (el.closest('.bird-legend') ? 1.45 : 1);
       el.style.width = Math.round(15 * scale) + 'px';
       el.style.height = Math.round(13 * scale) + 'px';
       el.style.marginLeft = -Math.round(15 * scale / 2) + 'px';
