@@ -24,37 +24,42 @@
   var busy = false;          /* one pigeon acts at a time; a yard is calm */
 
   function pigeonSVG(puff) {
-    /* Side view in a 34 by 26 box, ground at y 23. Rock pigeon
-       proportions: a deep barrel chest carried low on short legs, a
-       small round head on a thick short neck, a stubby bill, and a
-       tail about a third of the body held just clear of the ground. */
-    var b = puff * 0.9;                       /* how puffed this one is */
-    var chest = 25.4 + b * 0.5;
-    var belly = 18.4 + b * 0.4;
-    return '<svg viewBox="0 0 34 26" fill="currentColor" aria-hidden="true">'
-      /* tail: broad and flat, carried nearly level, a third of the bird */
-      + '<path class="pg-tail" d="M10.6 12.4 L1.2 14.8 L1.5 17.8 L11.2 16.4 Z"/>'
-      /* body: shoulder high at the back, deep chest forward and low */
-      + '<path class="pg-body" d="M10.2 13'
-      + ' C10 9.6 13.4 7.2 17.8 7.2'
-      + ' C21.6 7.2 24.4 9 ' + chest.toFixed(1) + ' 11.6'
-      + ' C26.2 14 24.8 16.6 21.6 17.8'
-      + ' C18.4 19 14 19 12 ' + belly.toFixed(1)
-      + ' C10.6 16.4 10.2 14.8 10.2 13 Z"/>'
-      /* legs: short, set back, three toes forward */
-      + '<path class="pg-leg" d="M15.8 18.4 L15 22.3 M15 22.3 L13.3 23.2 M15 22.3 L16.7 23.2 M15 22.3 L15 23.3"'
+    /* Rock pigeon in side profile, 46 by 32, standing on y 29.
+       The landmarks that make it a pigeon and not a songbird: a long
+       body rather than a ball, a back that slopes gently from nape to
+       tail, a breast carried forward of the feet, a small head on a
+       thick short neck, a stubby bill, and a broad tail angled down
+       behind. The folded wing is drawn as a hairline of paper across
+       the flank, the way a real one breaks the silhouette. */
+    var b = puff * 0.9;
+    var breast = 33 + b * 0.7;
+    var belly = 21.4 + b * 0.5;
+    return '<svg viewBox="0 0 46 30" fill="currentColor" aria-hidden="true">'
+      /* Built from overlapping parts rather than one outline, the way
+         a bird is built: a long body, a deep breast set forward, a
+         small head, and a tail drawn first so it emerges from under
+         the rump instead of sticking out of the flank. */
+      + '<path class="pg-tail" d="M18 15.8 C13 17 8.6 18.2 4.6 19.6 L5.2 22.2 C9.6 21.8 14.2 21.2 18.4 20.6 Z"/>'
+      + '<g class="pg-body">'
+      + '<ellipse cx="21" cy="17" rx="9.4" ry="' + (6.1 + b * 0.5).toFixed(1) + '"'
+      + ' transform="rotate(-6 21 17)"/>'
+      + '<circle cx="27" cy="17.6" r="' + (5.6 + b * 0.4).toFixed(1) + '"/>'
+      /* the nape: fills the hollow between crown and shoulder so the
+         head reads as joined to the bird, not perched on it */
+      + '<path d="M31.6 9.4 C29.4 10.6 27 12 24.4 12.6 C21.8 13.2 20 13.6 19 14.4'
+      + ' L20.5 18 C24 16.4 28.4 14.6 31.8 13.2 Z"/>'
+      + '</g>'
+      /* the folded wing, a line of paper laid across the flank */
+      + '<path class="pg-wing" d="M26.4 16.6 C22.6 18.4 18.6 19.2 14.8 19.2"'
+      + ' stroke="var(--bg)" stroke-width="0.6" fill="none" opacity="0.4" stroke-linecap="round"/>'
+      + '<path class="pg-leg" d="M21.4 22.6 L20.7 26.9 M20.7 26.9 L19.1 27.9 M20.7 26.9 L22.3 27.9 M20.7 26.9 L20.7 28"'
       + ' stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round"/>'
-      + '<path class="pg-leg pg-leg-b" d="M19.6 18.4 L20.1 22.3 M20.1 22.3 L18.4 23.2 M20.1 22.3 L21.8 23.2 M20.1 22.3 L20.1 23.3"'
+      + '<path class="pg-leg pg-leg-b" d="M25.4 22.6 L26 26.9 M26 26.9 L24.4 27.9 M26 26.9 L27.6 27.9 M26 26.9 L26 28"'
       + ' stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round"/>'
-      /* head, neck and bill as one continuous shape, its base buried
-         in the shoulders so no seam shows when the head moves */
       + '<g class="pg-head">'
-      + '<path d="M20.6 13.8'
-      + ' C20.4 10.8 21.8 8.4 24.2 7.2'
-      + ' C26.2 6.2 28.6 6.4 29.6 8'
-      + ' L31.9 8.7 L29.5 9.7'
-      + ' C28.8 11 27 12.1 24.6 12.9'
-      + ' C23.2 13.4 21.6 14.1 20.6 13.8 Z"/>'
+      + '<path d="M29.5 16 C29.2 13 30.4 11.2 32.4 10.4 L35.4 13.4 C34 15.2 31.6 16.4 29.5 16 Z"/>'
+      + '<circle cx="33.6" cy="10.6" r="3.5"/>'
+      + '<path d="M36.4 9.6 C38 9.8 39.2 10.4 39.5 11.2 C38.9 11.9 37.6 12.2 36.3 12.1 Z"/>'
       + '</g></svg>';
   }
 
@@ -206,8 +211,8 @@
     var puffiness = Math.random();
     el.innerHTML = pigeonSVG(puffiness);
     var scale = 0.92 + Math.random() * 0.22;
-    el.style.width = Math.round(34 * scale) + 'px';
-    el.style.height = Math.round(26 * scale) + 'px';
+    el.style.width = Math.round(46 * scale) + 'px';
+    el.style.height = Math.round(30 * scale) + 'px';
     yard.appendChild(el);
     var p = {
       el: el,
