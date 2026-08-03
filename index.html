@@ -18,7 +18,6 @@ layout: default
 				<div>
 					<h3><a href="https://github.com/WordPress/presence-api">Presence API</a> <span class="tag">WordPress core project</span></h3>
 					<p>System-wide presence and awareness for WordPress, and the foundation for real-time collaboration in the block editor. The cursors on this site run on the same idea.</p>
-					{% for pl in site.data.wp.plugins %}{% if pl.slug == 'presence-api' %}<p class="live-stat">Version {{ pl.version }}, updated {{ pl.updated | date: "%B %Y" }}.</p>{% endif %}{% endfor %}
 				</div>
 			</li>
 			<li>
@@ -37,7 +36,6 @@ layout: default
 				<div>
 					<h3><a href="https://wordpress.org/plugins/wpgraphql-ide/">WPGraphQL IDE</a> <span class="tag">wp-graphql</span></h3>
 					<p>A next-generation query editor for WPGraphQL, on the WordPress.org plugin directory.</p>
-					{% for pl in site.data.wp.plugins %}{% if pl.slug == 'wpgraphql-ide' %}<p class="live-stat">Version {{ pl.version }}, {% if pl.installs >= 100 %}{{ pl.installs }}+ active installs, {% endif %}updated {{ pl.updated | date: "%B %Y" }}.</p>{% endif %}{% endfor %}
 				</div>
 			</li>
 			<li>
@@ -50,6 +48,19 @@ layout: default
 				</div>
 			</li>
 		</ul>
+	</section>
+
+	<section class="block" aria-label="Lately in WordPress">
+		<h2>Lately</h2>
+		<ul class="posts lately">
+			{% for it in site.data.wp.activity limit: 4 %}
+			<li>
+				<time datetime="{{ it.date }}">{{ it.date | date: "%b %-d" }}</time>
+				<span><a href="{{ it.url }}">{{ it.subject | default: it.what }}</a> <span class="lately-what">{{ it.what | downcase }}</span></span>
+			</li>
+			{% endfor %}
+		</ul>
+		<p class="lately-note">From the <a href="https://profiles.wordpress.org/joefusco/">WordPress.org activity feed</a>, read when this page was built.</p>
 	</section>
 
 	<section class="block" aria-label="Recent writing" data-spec="writing · jekyll + kramdown · since 2014">

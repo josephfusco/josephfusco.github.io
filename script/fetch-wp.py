@@ -1,82 +1,86 @@
 #!/usr/bin/env python3
-"""Pull the WordPress record from official sources into _data/wp.json.
+"""Pull recent WordPress.org activity into _data/wp.json.
 
-Three endpoints, all public and documented enough to rely on:
-  core credits   which releases carry props for this contributor
-  plugin info    install counts and release dates for maintained plugins
+Source: https://profiles.wordpress.org/joefusco/feed/, the official
+RSS feed behind the .org profile. It carries the real record, plugin
+SVN commits, pull requests opened and merged, pushes, in the order
+they happened.
 
-Pull requests are deliberately not counted: core patches land as
-Trac changesets, so a contribution that shipped often shows on
-GitHub as a closed, unmerged PR. Props in the credits API are the
-record that matches how core actually works.
-
-Run before `jekyll build`. If a source is unreachable the previous
-file is kept, so a bad network never publishes a page that claims
+Run before `jekyll build`. If the feed is unreachable the previous
+file stands, so a bad network never publishes a page that claims
 less than the truth.
 """
+import html
 import json
 import os
+import re
 import sys
-import urllib.error
 import urllib.request
+import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 
-USER = "joefusco"
-PLUGINS = ["wpgraphql-ide", "presence-api"]
-RELEASES = ["4.5", "4.6", "4.7", "4.8", "4.9", "5.0", "5.5", "5.9",
-            "6.0", "6.1", "6.2", "6.3", "6.4", "6.5", "6.6", "6.7", "6.8", "7.0"]
+FEED = "https://profiles.wordpress.org/joefusco/feed/"
 OUT = os.path.join(os.path.dirname(__file__), "..", "_data", "wp.json")
+KEEP = 6
+
+# "Merged pull request #158 into WordPress/presence-api: fix: enforce ..."
+PR = re.compile(r"^(Submitted|Merged) pull request #(\d+) (?:to|into) ([\w.-]+/[\w.-]+): (.+)$")
+PUSH = re.compile(r"^Pushed (\d+) commits? to ([\w.-]+/[\w.-]+): (.+)$")
+SVN = re.compile(r"^Committed \[(\d+)\] to (.+?): (.+)$")
 
 
-def get(url, headers=None):
-    req = urllib.request.Request(url, headers=headers or {"User-Agent": "josephfus.co build"})
-    with urllib.request.urlopen(req, timeout=20) as r:
-        return json.load(r)
-
-
-def credited_releases():
-    out = []
-    for v in RELEASES:
-        try:
-            d = get("https://api.wordpress.org/core/credits/1.1/?version=%s&locale=en_US" % v)
-        except Exception:
-            continue
-        for group in (d.get("groups") or {}).values():
-            data = group.get("data")
-            if isinstance(data, dict) and USER in data:
-                out.append(v)
-                break
-    return out
-
-
-def plugins():
-    out = []
-    for slug in PLUGINS:
-        try:
-            d = get("https://api.wordpress.org/plugins/info/1.2/"
-                    "?action=plugin_information&request[slug]=" + slug)
-        except Exception:
-            continue
-        if not d or d.get("error"):
-            continue
-        out.append({
-            "slug": slug,
-            "name": d.get("name"),
-            "installs": d.get("active_installs"),
-            "version": d.get("version"),
-            "updated": (d.get("last_updated") or "").split(" ")[0],
-        })
-    return out
+def phrase(title):
+    """Say what happened in the site's voice, without the bookkeeping."""
+    m = PR.match(title)
+    if m:
+        verb = "Opened" if m.group(1) == "Submitted" else "Merged"
+        return "%s a pull request in %s" % (verb, m.group(3)), m.group(4)
+    m = PUSH.match(title)
+    if m:
+        n = int(m.group(1))
+        return "Pushed %s to %s" % ("a commit" if n == 1 else "%d commits" % n, m.group(2)), m.group(3)
+    m = SVN.match(title)
+    if m:
+        return "Committed to %s" % m.group(2), m.group(3)
+    return title, ""
 
 
 def main():
-    data = {"releases": credited_releases(), "plugins": plugins()}
-    if not data["releases"] and not data["plugins"]:
-        print("every source failed; keeping the file that is already there", file=sys.stderr)
+    req = urllib.request.Request(FEED, headers={"User-Agent": "josephfus.co build"})
+    try:
+        with urllib.request.urlopen(req, timeout=20) as r:
+            root = ET.fromstring(r.read())
+    except Exception as e:
+        print("feed unreachable (%s); keeping the file already there" % e, file=sys.stderr)
         return 0
+
+    seen, items = set(), []
+    for it in root.findall(".//item"):
+        title = html.unescape(re.sub(r"<[^>]+>", "", (it.findtext("title") or "")).strip())
+        link = (it.findtext("link") or "").strip()
+        if not title or link in seen:
+            continue
+        seen.add(link)
+        what, subject = phrase(title)
+        # collapse an opened-then-merged pair into the merge alone
+        try:
+            when = parsedate_to_datetime(it.findtext("pubDate")).date().isoformat()
+        except Exception:
+            when = ""
+        items.append({"what": what, "subject": subject.rstrip("."), "url": link, "date": when})
+        if len(items) >= KEEP:
+            break
+
+    if not items:
+        print("feed held nothing; keeping the file already there", file=sys.stderr)
+        return 0
+
     with open(OUT, "w") as f:
-        json.dump(data, f, indent=2, sort_keys=True)
+        json.dump({"activity": items, "fetched": datetime.now(timezone.utc).date().isoformat()},
+                  f, indent=2, sort_keys=True)
         f.write("\n")
-    print("releases %d, plugins %d" % (len(data["releases"]), len(data["plugins"])))
+    print("wrote %d items, newest %s" % (len(items), items[0]["date"]))
     return 0
 
 
