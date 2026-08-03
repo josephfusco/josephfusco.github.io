@@ -1,24 +1,41 @@
 {
-  "plugins": [
+  "activity": [
     {
-      "installs": 1000,
-      "name": "WPGraphQL IDE",
-      "slug": "wpgraphql-ide",
-      "updated": "2026-07-23",
-      "version": "5.3.0"
+      "date": "2026-07-31",
+      "subject": "Update to version 0.1.11 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3630394/",
+      "what": "Committed to Plugins SVN"
     },
     {
-      "installs": 0,
-      "name": "Presence API",
-      "slug": "presence-api",
-      "updated": "2026-07-31",
-      "version": "0.1.11"
+      "date": "2026-07-31",
+      "subject": "chore(main): release 0.1.11",
+      "url": "https://github.com/WordPress/presence-api/pull/173",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-07-31",
+      "subject": "fix: filter presence read paths by per-post capability",
+      "url": "https://github.com/WordPress/presence-api/pull/174",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-07-31",
+      "subject": "fix: enforce per-room authorization checks for presence rooms",
+      "url": "https://github.com/WordPress/presence-api/pull/158",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-07-31",
+      "subject": "ci: correct the pull request title linter's rationale",
+      "url": "https://github.com/WordPress/presence-api/pull/172",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-07-31",
+      "subject": "ci: stop cancelling in-flight Release Please runs",
+      "url": "https://github.com/WordPress/presence-api/pull/171",
+      "what": "Merged a pull request in WordPress/presence-api"
     }
   ],
-  "releases": [
-    "4.5",
-    "4.7",
-    "6.5",
-    "7.0"
-  ]
+  "fetched": "2026-08-03"
 }
