@@ -169,6 +169,39 @@ section.block > h2 {
 .work h3 a { color: var(--fg); }
 .work h3 a:hover { color: var(--accent); text-decoration: none; }
 .work p { margin: 0; color: var(--muted); font-size: 0.9688rem; }
+/* The pigeons at the foot of the page. They stand on the bottom of
+   the paper; no groundline is drawn, because the wire is the only
+   rule on the page. */
+.pigeon-yard {
+  position: relative;
+  height: 34px;
+  margin-top: calc(var(--lh) * 2);
+  color: var(--fg);
+  overflow: hidden;
+}
+.pigeon {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  opacity: 0.85;
+}
+.pigeon svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pg-head { transform-box: fill-box; transform-origin: 8% 62%; }
+.pg-body { transform-box: fill-box; transform-origin: 50% 100%; }
+@media (prefers-reduced-motion: reduce) { .pigeon-yard { display: none; } }
+@media print { .pigeon-yard { display: none; } }
+
+/* The WordPress record, read from the .org activity feed at build
+   time and set in the archive's own voice */
+.lately-what { font-family: Georgia, serif; font-style: italic; color: var(--muted); }
+.lately li { align-items: baseline; }
+.lately-note {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin: 0.875rem 0 0;
+}
 .work .tag {
   font-family: "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.75rem;

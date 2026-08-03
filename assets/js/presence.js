@@ -834,7 +834,17 @@
       var by = r.top + r.height / 2;
       var dx = cx - bx;
       var dy = cy - by;
-      if (dx * dx + dy * dy < 2200) {
+      var d2 = dx * dx + dy * dy;
+      /* attention has a gradient: from a distance a bird watches you,
+         turning to keep you in view; only up close does it bolt */
+      if (d2 > 2200 && d2 < 120000) {
+        var want = dx < 0;
+        if (bird.flip !== want) {
+          bird.flip = want;
+          if (bird.svgEl) bird.svgEl.style.transform = want ? 'scaleX(-1)' : '';
+        }
+      }
+      if (d2 < 2200) {
         var dir = dx > 0 ? -1 : 1;
         flyAway(bird, dir);
         spreadAlarm(bird, dir);
@@ -1100,6 +1110,18 @@
     var cutoff = Date.now() - 12000;
     for (var k in ownTabs) if (ownTabs[k] < cutoff) delete ownTabs[k];
   }, 5000);
+
+  /* Which one is me? Brushing the count answers it: your own bird
+     bobs, the strangers stay put. */
+  document.querySelectorAll('.field-note .status').forEach(function (el) {
+    el.addEventListener('mouseenter', function () {
+      var mine = flock.get('self');
+      if (mine && !mine.flown && mine.el) {
+        MICRO.bob(mine);
+        setTimeout(function () { if (!mine.flown) MICRO.bob(mine); }, 320);
+      }
+    });
+  });
 
   /* The seal stirs when someone walks in */
   function waveGlyph() {
