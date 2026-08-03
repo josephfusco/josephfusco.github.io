@@ -1208,6 +1208,11 @@
     });
   });
 
+  /* A heartbeat, so the room can tell a reader from a dead socket */
+  setInterval(function () {
+    if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'ping' }));
+  }, 45000);
+
   var lastSent = 0;
   addEventListener('mousemove', function (e) {
     var now = Date.now();
