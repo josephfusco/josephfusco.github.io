@@ -1106,6 +1106,23 @@ body.wire .powerline { display: none; }
   margin: 0;
 }
 
+/* Wind: the whole wire leans into the same air. Perched birds tilt
+   with it and the line breathes; a gust leans everything further. */
+.powerline, .watch-wire { --wind: 0; }
+.wire-bird:not(.airborne) {
+  rotate: calc(var(--wind, 0) * 1.6deg);
+  transition: rotate 2.4s cubic-bezier(0.37, 0, 0.28, 1);
+}
+.powerline .wire-svg, .watch-wire .wire-svg {
+  translate: 0 calc(var(--wind, 0) * 0.6px);
+  transition: translate 2.4s cubic-bezier(0.37, 0, 0.28, 1);
+}
+.gust .wire-bird:not(.airborne) { rotate: calc(var(--wind, 0) * 1.6deg + 2.2deg); }
+.gust .wire-svg { translate: 0 1.4px; }
+@media (prefers-reduced-motion: reduce) {
+  .wire-bird:not(.airborne), .wire-svg { rotate: 0 !important; translate: 0 !important; }
+}
+
 /* The Merlin moment: an arriving bird's name appears beneath its
    perch and fades, like a live ID list */
 .bird-id {
