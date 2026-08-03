@@ -205,6 +205,21 @@
     }, wait);
   }
 
+  var taken = [];
+  function spot() {
+    for (var tries = 0; tries < 40; tries++) {
+      var x = 6 + Math.random() * 78;
+      var clear = true;
+      for (var i = 0; i < taken.length; i++) {
+        if (Math.abs(taken[i] - x) < 9) { clear = false; break; }
+      }
+      if (clear) { taken.push(x); return x; }
+    }
+    var fallback = 6 + Math.random() * 78;
+    taken.push(fallback);
+    return fallback;
+  }
+
   for (var i = 0; i < COUNT; i++) {
     var el = document.createElement('span');
     el.className = 'pigeon';
@@ -220,7 +235,8 @@
       head: el.querySelector('.pg-head'),
       body: el.querySelector('.pg-body'),
       face: Math.random() < 0.5 ? -1 : 1,
-      x: 8 + i * (74 / COUNT) + Math.random() * 8,
+      /* real flocks clump and leave gaps; even spacing reads as a fence */
+      x: spot(),
     };
     if (p.face < 0) p.svg.style.transform = 'scaleX(-1)';
     place(p, p.x);

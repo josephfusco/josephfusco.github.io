@@ -174,14 +174,15 @@ section.block > h2 {
    rule on the page. */
 .pigeon-yard {
   position: relative;
-  height: 42px;
+  height: 34px;
   margin-top: calc(var(--lh) * 2);
+  padding-bottom: var(--lh);
   color: var(--fg);
-  overflow: hidden;
+  overflow-x: clip;
 }
 .pigeon {
   position: absolute;
-  bottom: 0;
+  bottom: var(--lh);
   display: block;
   opacity: 0.85;
 }
