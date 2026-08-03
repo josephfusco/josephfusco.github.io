@@ -174,7 +174,7 @@ section.block > h2 {
    rule on the page. */
 .pigeon-yard {
   position: relative;
-  height: 34px;
+  height: 42px;
   margin-top: calc(var(--lh) * 2);
   color: var(--fg);
   overflow: hidden;
