@@ -18,6 +18,7 @@ layout: default
 				<div>
 					<h3><a href="https://github.com/WordPress/presence-api">Presence API</a> <span class="tag">WordPress core project</span></h3>
 					<p>System-wide presence and awareness for WordPress, and the foundation for real-time collaboration in the block editor. The cursors on this site run on the same idea.</p>
+					{% for pl in site.data.wp.plugins %}{% if pl.slug == 'presence-api' %}<p class="live-stat">Version {{ pl.version }}, updated {{ pl.updated | date: "%B %Y" }}.</p>{% endif %}{% endfor %}
 				</div>
 			</li>
 			<li>
@@ -36,6 +37,7 @@ layout: default
 				<div>
 					<h3><a href="https://wordpress.org/plugins/wpgraphql-ide/">WPGraphQL IDE</a> <span class="tag">wp-graphql</span></h3>
 					<p>A next-generation query editor for WPGraphQL, on the WordPress.org plugin directory.</p>
+					{% for pl in site.data.wp.plugins %}{% if pl.slug == 'wpgraphql-ide' %}<p class="live-stat">Version {{ pl.version }}, {% if pl.installs >= 100 %}{{ pl.installs }}+ active installs, {% endif %}updated {{ pl.updated | date: "%B %Y" }}.</p>{% endif %}{% endfor %}
 				</div>
 			</li>
 			<li>

@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    {
+      "installs": 1000,
+      "name": "WPGraphQL IDE",
+      "slug": "wpgraphql-ide",
+      "updated": "2026-07-23",
+      "version": "5.3.0"
+    },
+    {
+      "installs": 0,
+      "name": "Presence API",
+      "slug": "presence-api",
+      "updated": "2026-07-31",
+      "version": "0.1.11"
+    }
+  ],
+  "releases": [
+    "4.5",
+    "4.7",
+    "6.5",
+    "7.0"
+  ]
+}

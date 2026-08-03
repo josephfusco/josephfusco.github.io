@@ -4,6 +4,9 @@ on:
   push:
     branches: [master]
   workflow_dispatch:
+  schedule:
+    # the WordPress record refreshes itself each morning
+    - cron: "17 11 * * *"
 
 permissions:
   contents: read
@@ -25,6 +28,9 @@ jobs:
           bundler-cache: true
       - uses: actions/configure-pages@v5
         id: pages
+      - name: Refresh the WordPress record
+        run: python3 script/fetch-wp.py
+        continue-on-error: true
       - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
