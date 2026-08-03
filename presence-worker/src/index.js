@@ -37,8 +37,9 @@ export class PresenceRoom extends DurableObject {
       name: BIRDS[Math.floor(Math.random() * BIRDS.length)],
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
     };
-    server.serializeAttachment({ meta, page });
+    server.serializeAttachment({ meta, page, seen: Date.now() });
     this.ctx.acceptWebSocket(server);
+    this.ctx.waitUntil(this.armSweep());
 
     const others = this.ctx.getWebSockets()
       .filter((ws) => ws !== server)
@@ -59,9 +60,43 @@ export class PresenceRoom extends DurableObject {
     } catch { /* census is best effort */ }
   }
 
+  /* A room is only as honest as its membership. Sockets that stop
+     answering are swept, so a laptop that slept or a tab that died
+     without a close frame cannot haunt the count. */
+  async armSweep() {
+    if (!(await this.ctx.storage.getAlarm())) {
+      await this.ctx.storage.setAlarm(Date.now() + 60_000);
+    }
+  }
+
+  async alarm() {
+    const cutoff = Date.now() - 150_000;
+    for (const ws of this.ctx.getWebSockets()) {
+      let a;
+      try { a = ws.deserializeAttachment(); } catch { continue; }
+      if ((a.seen || 0) < cutoff) {
+        try { ws.close(1001, "quiet too long"); } catch { /* already gone */ }
+        this.broadcast(ws, { type: "leave", id: a.meta.id });
+      }
+    }
+    if (this.ctx.getWebSockets().length > 0) {
+      await this.ctx.storage.setAlarm(Date.now() + 60_000);
+    }
+  }
+
+  touch(ws) {
+    try {
+      const a = ws.deserializeAttachment();
+      a.seen = Date.now();
+      ws.serializeAttachment(a);
+    } catch { /* closing */ }
+  }
+
   webSocketMessage(ws, raw) {
     let m;
     try { m = JSON.parse(raw); } catch { return; }
+    this.touch(ws);
+    if (m.type === "ping") return;
 
     if (m.type === "state" && REGISTRY.states.includes(m.s)) {
       const a = ws.deserializeAttachment();
