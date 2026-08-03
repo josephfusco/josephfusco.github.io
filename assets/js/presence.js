@@ -409,14 +409,18 @@
   /* The region is choosable: preview another field guide, and keep
      it for the whole site until you come back to local */
   function reflectRegionSelect(key) {
+    var home = regionForTZ(TZ);
     document.querySelectorAll('.region-select').forEach(function (el) {
-      el.value = key || '';
+      el.value = key || home;
       var mine = el.parentNode && el.parentNode.querySelector('.region-yours');
-      if (mine) mine.hidden = !!key;
+      if (mine) mine.hidden = (el.value !== home);
     });
   }
 
   function applyRegion(key) {
+    /* choosing your own region is not an override; it is coming home,
+       so the clock keeps deciding if you travel */
+    if (key === regionForTZ(TZ)) key = null;
     try {
       if (key) localStorage.setItem(REGION_KEY, key);
       else localStorage.removeItem(REGION_KEY);
@@ -444,9 +448,7 @@
     });
     /* "your region" says which one it resolved to, so the claim is
        checkable at a glance */
-    var local = el.querySelector('option[value=""]');
-    var resolved = el.querySelector('option[value="' + regionForTZ(TZ) + '"]');
-    if (local && resolved) local.textContent = resolved.textContent;
+    /* nothing to relabel: every option is a real region now */
   });
   reflectRegionSelect(regionOverride);
 
