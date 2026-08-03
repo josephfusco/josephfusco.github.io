@@ -527,12 +527,19 @@
     }, dur * (0.38 + Math.random() * 0.15));
   }
 
-  function bounceWire() {
-    var w = document.querySelector('.wire-svg');
-    if (w) w.animate(WIRE_RECOIL, { duration: 620, easing: 'ease-out' });
+  function bounceWire(mass) {
+    /* the wire answers in proportion to what left or landed on it */
+    var amp = Math.max(0.35, Math.min(2.2, Math.sqrt((mass || 0.4) / 0.4)));
+    var dur = Math.round(520 + amp * 180);
+    var frames = WIRE_RECOIL.map(function (f) {
+      var px = parseFloat(f.transform.replace(/[^0-9.-]/g, '')) || 0;
+      return { transform: 'translateY(' + (px * amp).toFixed(2) + 'px)' };
+    });
+    var w = wire && wire.querySelector('.wire-svg');
+    if (w) w.animate(frames, { duration: dur, easing: 'ease-out' });
     /* everything perched rides the same oscillation */
     flock.forEach(function (b) {
-      if (!b.flown && b.el) b.el.animate(WIRE_RECOIL, { duration: 620, easing: 'ease-out' });
+      if (!b.flown && b.el) b.el.animate(frames, { duration: dur, easing: 'ease-out' });
     });
   }
 
@@ -542,6 +549,7 @@
     var el = bird.el;
     bird.lastDir = dir;
     setTimeout(setSag, 120);
+    bounceWire(bird.weight);
     var flip = dir < 0 ? 'scaleX(-1)' : '';
     el.innerHTML = flightSVG();
     bird.svgEl = el.querySelector('svg');
@@ -549,10 +557,12 @@
     el.classList.add('airborne');
     /* smaller birds beat faster */
     el.style.setProperty('--flapms', Math.round(70 + bird.scale * 30) + 'ms');
-    var fx = dir * (160 + Math.random() * 280);
-    var fy = -(90 + Math.random() * 130);
+    /* heavy birds labor off the wire; light ones flick away */
+    var heft = Math.max(0.5, Math.min(1.9, Math.sqrt((bird.weight || 0.4) / 0.3)));
+    var fx = dir * (160 + Math.random() * 280) / heft;
+    var fy = -(90 + Math.random() * 130) / Math.sqrt(heft);
     var fr = dir * (6 + Math.random() * 12);
-    var dur = 620 + Math.random() * 320;
+    var dur = (620 + Math.random() * 320) * (0.8 + heft * 0.28);
     var frames = FLIGHTS[Math.floor(Math.random() * FLIGHTS.length)].map(function (f) {
       return {
         offset: f[0],
@@ -678,6 +688,31 @@
     tag.timer = setTimeout(function () { dropTag(tag); }, ID_LIFE);
   }
 
+  /* One wind over the whole wire. It turns slowly, gusts rarely, and
+     every bird leans into the same air, which is what makes a row of
+     them read as one scene instead of several sprites. */
+  function startWind() {
+    if (!wire) return;
+    var phase = 0;
+    function breathe() {
+      phase += 0.7 + Math.random() * 0.6;
+      var w = Math.sin(phase) * 0.6 + Math.sin(phase * 0.37) * 0.4;
+      wire.style.setProperty('--wind', w.toFixed(2));
+      setTimeout(breathe, 2600 + Math.random() * 2600);
+    }
+    breathe();
+    function gust() {
+      setTimeout(function () {
+        if (!document.hidden) {
+          wire.classList.add('gust');
+          setTimeout(function () { wire.classList.remove('gust'); }, 1400);
+        }
+        gust();
+      }, 24000 + Math.random() * 40000);
+    }
+    gust();
+  }
+
   /* Perched birds live a little: a turn, a bob, a resettle. Rare and small. */
   var MICRO = {
     turn: function (bird) {
@@ -730,6 +765,24 @@
   }, 7500);
 
   /* A cursor that comes too close disturbs the bird */
+  /* Alarm is contagious. A bird that bolts takes its neighbors with
+     it, the nearer ones sooner, the calmer ones sometimes not at all. */
+  function spreadAlarm(origin, dir) {
+    var or = origin.el && origin.el.getBoundingClientRect();
+    if (!or) return;
+    var ox = or.left + or.width / 2;
+    flock.forEach(function (b) {
+      if (b === origin || b.flown || !b.el) return;
+      var r = b.el.getBoundingClientRect();
+      if (!r.width) return;
+      var gap = Math.abs(r.left + r.width / 2 - ox);
+      if (gap > 340) return;
+      var nerve = 1 - Math.min(1, gap / 340);
+      if (Math.random() > 0.25 + nerve * 0.6) return;
+      setTimeout(function () { flyAway(b, dir); }, 60 + gap * 1.4 + Math.random() * 120);
+    });
+  }
+
   function checkStartle(cx, cy) {
     flock.forEach(function (bird) {
       if (bird.flown || !bird.el) return;
@@ -739,7 +792,11 @@
       var by = r.top + r.height / 2;
       var dx = cx - bx;
       var dy = cy - by;
-      if (dx * dx + dy * dy < 2200) flyAway(bird, dx > 0 ? -1 : 1);
+      if (dx * dx + dy * dy < 2200) {
+        var dir = dx > 0 ? -1 : 1;
+        flyAway(bird, dir);
+        spreadAlarm(bird, dir);
+      }
     });
   }
 
@@ -1159,6 +1216,7 @@
        the wire is never empty for the reader on it */
     addPigeon('self');
     updateCount();
+    startWind();
     beginAmbient();
     if (!invisible) connect();
   }
