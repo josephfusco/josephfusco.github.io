@@ -474,7 +474,18 @@
   function addPigeon(key) {
     if (!wire || flock.has(key)) return;
     var idx = slotCursor++;
+    /* wire birds keep individual distance; take the next free perch */
+    var taken = [];
+    flock.forEach(function (b) { if (b.slot != null) taken.push(b.slot); });
     var slot = SLOTS[idx % SLOTS.length];
+    for (var si = 0; si < SLOTS.length; si++) {
+      var cand = SLOTS[(idx + si) % SLOTS.length];
+      var clear = true;
+      for (var ti = 0; ti < taken.length; ti++) {
+        if (Math.abs(taken[ti] - cand) < 0.075) { clear = false; break; }
+      }
+      if (clear) { slot = cand; break; }
+    }
     var rng = seedFrom(location.pathname + ':' + (idx % SLOTS.length));
     var el = document.createElement('span');
     el.className = 'wire-bird';
@@ -557,6 +568,13 @@
     el.classList.add('airborne');
     /* smaller birds beat faster */
     el.style.setProperty('--flapms', Math.round(70 + bird.scale * 30) + 'ms');
+    /* anticipation: a glance the way it is about to go */
+    if (bird.svgEl) {
+      bird.svgEl.animate(
+        [{ rotate: '0deg' }, { rotate: (dir * -7) + 'deg' }, { rotate: '0deg' }],
+        { duration: 190, easing: 'ease-out' }
+      );
+    }
     /* heavy birds labor off the wire; light ones flick away */
     var heft = Math.max(0.5, Math.min(1.9, Math.sqrt((bird.weight || 0.4) / 0.3)));
     var fx = dir * (160 + Math.random() * 280) / heft;
@@ -624,8 +642,13 @@
       bird.svgEl = el.querySelector('svg');
       bird.svgEl.style.transform = flip;
       bird.flown = false;
-      bounceWire();
+      bounceWire(bird.weight);
       setSag();
+      /* follow-through: the body keeps going a moment, then settles */
+      bird.svgEl.animate(
+        [{ rotate: (side * -7) + 'deg' }, { rotate: (side * 3) + 'deg' }, { rotate: '0deg' }],
+        { duration: 460, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+      );
       announceBird(bird);
     }).catch(function () { /* removed mid-arrival */ });
   }
@@ -758,7 +781,10 @@
     if (document.hidden) return;
     var perched = [];
     flock.forEach(function (b) { if (!b.flown && b.el) perched.push(b); });
-    if (!perched.length || Math.random() < 0.5) return;
+    /* after dusk they roost: still on the wire, but far less restless */
+    var hour = new Date().getHours();
+    var roosting = hour >= 20 || hour < 5;
+    if (!perched.length || Math.random() < (roosting ? 0.85 : 0.5)) return;
     var bird = perched[Math.floor(Math.random() * perched.length)];
     var set = bird.moves || [MICRO.bob];
     set[Math.floor(Math.random() * set.length)](bird);
