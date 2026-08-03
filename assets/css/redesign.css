@@ -1050,20 +1050,25 @@ h1, h2, h3, h4,
    feet on the line, true relative sizes, named beneath */
 .bird-legend-block { grid-column: 1 / -1; }
 .bird-legend { margin: 0.875rem 0 0; }
+/* A plate, not nine little wires: every bird stands on one shared
+   groundline with its name beside it, ordered largest to smallest */
+.bird-legend {
+  border-left: 1px solid var(--border);
+  padding-left: 0.75rem;
+}
 .bird-legend figure {
   display: grid;
-  grid-template-columns: 2.75rem 1fr;
-  align-items: end;
-  column-gap: 0.625rem;
-  margin: 0;
+  grid-template-columns: 3rem 1fr;
+  align-items: baseline;
+  column-gap: 0.75rem;
+  margin: 0 0 0.25rem;
 }
 .legend-perch {
   display: block;
   position: relative;
-  height: 26px;
-  border-bottom: 1px solid var(--border);
+  height: 24px;
 }
-.legend-perch .wire-bird { position: absolute; bottom: -1px; left: 50%; top: auto; }
+.legend-perch .wire-bird { position: absolute; bottom: 0; left: 50%; top: auto; }
 .bird-legend figcaption {
   font-family: Georgia, serif;
   font-style: italic;
@@ -1095,6 +1100,40 @@ body.wire .powerline { display: none; }
   position: relative;
   height: 44px;
   margin: 0 0 calc(var(--lh) * 2);
+}
+/* Depth: a second wire further off, smaller and paler, out of reach.
+   Atmospheric perspective is what turns a line into a sky. */
+.watch-far {
+  position: relative;
+  height: 30px;
+  width: 78%;
+  margin: 0 auto calc(var(--lh) * 3);
+  opacity: 0.38;
+  filter: blur(0.3px);
+  pointer-events: none;
+}
+.watch-far .wire-svg { position: absolute; inset: auto 0 0; height: 30px; width: 100%; color: var(--fg); }
+.watch-far .wire-bird {
+  position: absolute;
+  bottom: -1px;
+  top: auto;
+  width: 15px;
+  height: 13px;
+  margin-left: -7px;
+  color: var(--fg);
+}
+.watch-far .wire-bird svg { width: 100%; height: 100%; display: block; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .watch-far {
+      animation: far-drift linear both;
+      animation-timeline: scroll(root);
+    }
+    @keyframes far-drift {
+      from { translate: 0 0; }
+      to { translate: 0 -22px; }
+    }
+  }
 }
 .watch-wire .wire-svg { position: absolute; inset: auto 0 0; height: 44px; width: 100%; color: var(--fg); }
 .watch-note {
