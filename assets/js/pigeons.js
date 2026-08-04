@@ -23,44 +23,67 @@
   var birds = [];
   var busy = false;          /* one pigeon acts at a time; a yard is calm */
 
+  /* These are the birds from the wire, standing on the ground. The
+     geometry is the factory's, dial for dial, including the small
+     feet at the base of the path; a pigeon's legs are short and half
+     hidden under it anyway. The only change is the seam: the same
+     closed outline is split along the neck so the head can hold
+     still in space while the body walks under it, which is the whole
+     of a pigeon's gait. */
   function pigeonSVG(puff) {
-    /* Rock pigeon in side profile, 46 by 32, standing on y 29.
-       The landmarks that make it a pigeon and not a songbird: a long
-       body rather than a ball, a back that slopes gently from nape to
-       tail, a breast carried forward of the feet, a small head on a
-       thick short neck, a stubby bill, and a broad tail angled down
-       behind. The folded wing is drawn as a hairline of paper across
-       the flank, the way a real one breaks the silhouette. */
-    var b = puff * 0.9;
-    var breast = 33 + b * 0.7;
-    var belly = 21.4 + b * 0.5;
-    return '<svg viewBox="0 0 46 30" fill="currentColor" aria-hidden="true">'
-      /* Built from overlapping parts rather than one outline, the way
-         a bird is built: a long body, a deep breast set forward, a
-         small head, and a tail drawn first so it emerges from under
-         the rump instead of sticking out of the flank. */
-      + '<path class="pg-tail" d="M18 14.8 C13.6 15.6 9.6 16.4 6.2 17.4 L6.8 21.8 C10.6 21.4 14.6 21 18.6 20.6 Z"/>'
-      + '<g class="pg-body">'
-      + '<ellipse cx="21" cy="17" rx="9.4" ry="' + (6.1 + b * 0.5).toFixed(1) + '"'
-      + ' transform="rotate(-6 21 17)"/>'
-      + '<circle cx="27" cy="17.6" r="' + (5.6 + b * 0.4).toFixed(1) + '"/>'
-      /* the nape: fills the hollow between crown and shoulder so the
-         head reads as joined to the bird, not perched on it */
-      + '<path d="M31.6 9.4 C29.4 10.6 27 12 24.4 12.6 C21.8 13.2 20 13.6 19 14.4'
-      + ' L20.5 18 C24 16.4 28.4 14.6 31.8 13.2 Z"/>'
-      + '</g>'
-      /* the folded wing, a line of paper laid across the flank */
-      + '<path class="pg-wing" d="M26.4 16.6 C22.6 18.4 18.6 19.2 14.8 19.2"'
-      + ' stroke="var(--bg)" stroke-width="0.6" fill="none" opacity="0.4" stroke-linecap="round"/>'
-      + '<path class="pg-leg" d="M21.4 22.6 L20.7 26.9 M20.7 26.9 L19.1 27.9 M20.7 26.9 L22.3 27.9 M20.7 26.9 L20.7 28"'
-      + ' stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round"/>'
-      + '<path class="pg-leg pg-leg-b" d="M25.4 22.6 L26 26.9 M26 26.9 L24.4 27.9 M26 26.9 L27.6 27.9 M26 26.9 L26 28"'
-      + ' stroke="currentColor" stroke-width="0.85" fill="none" stroke-linecap="round"/>'
-      + '<g class="pg-head">'
-      + '<path d="M29.8 16.4 C29.4 13.4 30.6 11.6 32.6 10.8 L35.6 13.6 C34.2 15.4 31.9 16.7 29.8 16.4 Z"/>'
-      + '<circle cx="33.9" cy="11" r="3.3"/>'
-      + '<path d="M36.5 10.2 C38.1 10.4 39.2 11 39.5 11.7 C38.9 12.4 37.7 12.6 36.4 12.5 Z"/>'
-      + '</g></svg>';
+    var p = 0.68 + puff * 0.2;
+    var n = 0.02 + puff * 0.06;
+    var t = 0.75 + puff * 0.14;
+    var b = 0.85 + puff * 0.14;
+    var backY = 4.6 - n * 1.4 + p * 0.4;
+    var headR = 1.5 - p * 0.25;
+    var headCx = 8.7 + n * 0.3;
+    var headCy = backY - 0.4 - n * 1.5;
+    var beakX = headCx + headR + 1.3 * b;
+    var beakY = headCy + 0.25;
+    var bellyY = 9.7 + p * 0.9;
+    var chestX = 10.3 + p * 0.6;
+    var tailX = 1.9 - t * 1.2;
+    var tailY = backY + 2.2 + t * 2.6;
+    function f(v) { return Math.round(v * 100) / 100; }
+
+    var ax = headCx - headR - 0.7, ay = headCy + 0.7;   /* nape */
+    var bx = headCx + headR * 0.75, by = beakY + 0.75;  /* throat */
+
+    var head = 'M' + f(ax) + ' ' + f(ay)
+      + ' C' + f(headCx - headR + 0.1) + ' ' + f(headCy - headR)
+      + ' ' + f(headCx + headR * 0.9) + ' ' + f(headCy - headR)
+      + ' ' + f(headCx + headR) + ' ' + f(headCy + 0.1)
+      + ' L' + f(beakX) + ' ' + f(beakY)
+      + ' L' + f(bx) + ' ' + f(by)
+      + ' C' + f(bx - 0.5) + ' ' + f(by + 1.3) + ' ' + f(ax + 0.5) + ' ' + f(ay + 1.7)
+      + ' ' + f(ax) + ' ' + f(ay) + ' Z';
+
+    var body = 'M' + f(tailX) + ' ' + f(tailY)
+      + ' L4.5 ' + f(backY + 1.3)
+      + ' C5.2 ' + f(backY - 0.1) + ' 6.6 ' + f(backY - 0.5) + ' ' + f(ax) + ' ' + f(ay)
+      + ' C' + f(ax + 0.5) + ' ' + f(ay + 1.6) + ' ' + f(bx - 0.5) + ' ' + f(by + 1.2)
+      + ' ' + f(bx) + ' ' + f(by)
+      + ' C' + f(chestX) + ' ' + f(headCy + 2.6) + ' ' + f(chestX - 0.4) + ' ' + f(bellyY - 1.2)
+      + ' 8.6 ' + f(bellyY)
+      + ' C8.2 ' + f(bellyY + 0.4) + ' 7.6 ' + f(bellyY + 0.35) + ' 6.9 ' + f(bellyY + 0.25)
+      + ' C5.4 ' + f(bellyY + 0.3) + ' 4.5 ' + f(bellyY - 0.4) + ' 4.2 ' + f(backY + 3) + ' Z';
+
+    /* short legs in place of the wire grip: a pigeon stands low */
+    var foot = 12.5;
+    function leg(hx, tilt) {
+      return '<path class="pg-leg" d="M' + f(hx) + ' ' + f(bellyY) + ' L' + f(hx + tilt) + ' ' + foot
+        + ' M' + f(hx + tilt) + ' ' + foot + ' L' + f(hx + tilt - 0.6) + ' ' + (foot + 0.42)
+        + ' M' + f(hx + tilt) + ' ' + foot + ' L' + f(hx + tilt + 0.6) + ' ' + (foot + 0.42)
+        + ' M' + f(hx + tilt) + ' ' + foot + ' L' + f(hx + tilt) + ' ' + (foot + 0.45) + '"'
+        + ' stroke="currentColor" stroke-width="0.34" fill="none" stroke-linecap="round"/>';
+    }
+
+    return '<svg viewBox="0 0 15 13.4" fill="currentColor" aria-hidden="true">'
+      + leg(7.1, -0.25) + leg(8.5, 0.2)
+      + '<path class="pg-body" d="' + body + '"/>'
+      + '<g class="pg-head"><path d="' + head + '"/></g>'
+      + '</svg>';
   }
 
   function place(p, x) {
@@ -250,9 +273,9 @@
     el.className = 'pigeon';
     var puffiness = Math.random();
     el.innerHTML = pigeonSVG(puffiness);
-    var scale = 1.16 + Math.random() * 0.26;
-    el.style.width = Math.round(46 * scale) + 'px';
-    el.style.height = Math.round(30 * scale) + 'px';
+    var scale = 2.6 + Math.random() * 0.5;
+    el.style.width = Math.round(15 * scale) + 'px';
+    el.style.height = Math.round(13.4 * scale) + 'px';
     yard.appendChild(el);
     var p = {
       el: el,
