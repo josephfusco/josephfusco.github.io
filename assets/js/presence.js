@@ -328,7 +328,9 @@
   /* Sag saturates instead of clamping: every added gram still bends
      the wire a little, but the curve approaches a limit, so a full
      flock never folds the masthead in half. */
-  var WIRE_GEOM = { y: 12, scale: 2.8, minSag: 0.6, maxSag: 6.5, halfLoad: 1.6 };
+  /* y=10 puts the wire one baseline unit (28px) below the masthead row,
+     which centers the nameplate exactly between viewport top and wire */
+  var WIRE_GEOM = { y: 10, scale: 2.8, minSag: 0.6, maxSag: 6.5, halfLoad: 1.6 };
   var wirePathEl = wire ? wire.querySelector('.wire-svg path') : null;
   var currentSag = WIRE_GEOM.minSag;
 
