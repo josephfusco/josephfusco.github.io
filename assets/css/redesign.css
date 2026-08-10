@@ -814,7 +814,7 @@ html[data-blueprint] .blueprint-systems {
 
 /* Nameplate */
 .site-name-text { font-size: 1.5rem; letter-spacing: 0; }
-.site-mark { width: 30px; height: 30px; }
+.site-mark { width: 28px; height: 28px; } /* one baseline unit, so the masthead row is too */
 .site-header .wrap { align-items: center; }
 .site-nav a { font-size: 1rem; }
 
@@ -943,7 +943,9 @@ section.block > h2 {
   font-family: inherit;
   font-style: italic;
   font-size: 0.9375rem;
-  line-height: var(--lh);
+  /* tight line box tucks inside the title's, so baseline alignment
+     can't stretch the row past one unit */
+  line-height: 1;
 }
 
 /* Articles */
