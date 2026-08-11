@@ -95,8 +95,12 @@
         if (on) renderSystems();
       };
       var noMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (document.startViewTransition && !noMotion) document.startViewTransition(flip);
-      else flip();
+      if (document.startViewTransition && !noMotion) {
+        /* a skipped transition rejects .ready even if nobody asked;
+           acknowledge it so the console stays quiet */
+        var vt = document.startViewTransition(flip);
+        if (vt && vt.ready && vt.ready.catch) vt.ready.catch(function () {});
+      } else flip();
     });
   }
 
