@@ -1295,6 +1295,8 @@
     codeAt = (k === OLD_CODE[codeAt]) ? codeAt + 1 : (k === OLD_CODE[0] ? 1 : 0);
     if (codeAt < OLD_CODE.length) return;
     codeAt = 0;
+    /* the flock lands on the wire, so the page rises to meet it */
+    scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     var landed = 0;
     var arrival = setInterval(function () {
       var key = 'flock' + Date.now();
