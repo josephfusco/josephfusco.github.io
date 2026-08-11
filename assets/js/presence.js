@@ -95,8 +95,12 @@
         if (on) renderSystems();
       };
       var noMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (document.startViewTransition && !noMotion) document.startViewTransition(flip);
-      else flip();
+      if (document.startViewTransition && !noMotion) {
+        /* a skipped transition rejects .ready even if nobody asked;
+           acknowledge it so the console stays quiet */
+        var vt = document.startViewTransition(flip);
+        if (vt && vt.ready && vt.ready.catch) vt.ready.catch(function () {});
+      } else flip();
     });
   }
 
@@ -1281,6 +1285,35 @@
       }
     }, 7000 + Math.random() * 6000);
   }
+
+  /* The wire remembers the old code: a whole flock lands at once,
+     stays a minute, and drifts off the way it came */
+  var OLD_CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  var codeAt = 0;
+  addEventListener('keydown', function (e) {
+    var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    codeAt = (k === OLD_CODE[codeAt]) ? codeAt + 1 : (k === OLD_CODE[0] ? 1 : 0);
+    if (codeAt < OLD_CODE.length) return;
+    codeAt = 0;
+    /* the flock lands on the wire, so the page rises to meet it */
+    scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    var landed = 0;
+    var arrival = setInterval(function () {
+      var key = 'flock' + Date.now();
+      addPigeon(key);
+      setTimeout(function () { removePigeon(key); }, 45000 + Math.random() * 30000);
+      if (++landed >= 9) clearInterval(arrival);
+    }, 320);
+  });
+
+  /* A note for the reader who opens the hood */
+  try {
+    console.log(
+      '%c(o>  every bird on the wire is a real reader.\n' +
+      '~~)~  the old customs: /humans.txt · /wire · ↑↑↓↓←→←→ba',
+      'font-family: Georgia, serif; font-style: italic;'
+    );
+  } catch (err) {}
 
   function beginPresence() {
     /* Your own bird perches whether or not the relay answers;
