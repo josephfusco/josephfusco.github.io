@@ -306,7 +306,9 @@ section.block > h2 {
 @media (max-width: 720px) {
   .prose blockquote { margin-left: 0; margin-right: 0; }
 }
-.prose hr { border: 0; margin: var(--lh) 0; }
+/* The section break is set as the old printers set it: a leaf */
+.prose hr { border: 0; margin: var(--lh) 0; text-align: center; line-height: var(--lh); color: var(--muted); }
+.prose hr::before { content: "❦"; font-family: Georgia, serif; }
 .prose table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
 .prose th, .prose td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
 .prose .highlight pre { margin: 1rem 0; }
@@ -504,7 +506,7 @@ section.block > h2 {
 .site-name:focus-visible .site-mark rect {
   animation: mark-shift 1.4s infinite;
 }
-.site-mark rect:nth-child(1) { animation-delay: 0.64s; } /* the original's quirk: child 1 fires as if it were 8th */
+.site-mark rect:nth-child(1) { animation-delay: 0.64s; } /* first square waves on the eighth beat */
 .site-mark rect:nth-child(2) { animation-delay: 0.16s; }
 .site-mark rect:nth-child(3) { animation-delay: 0.24s; }
 .site-mark rect:nth-child(4) { animation-delay: 0.32s; }
@@ -814,7 +816,7 @@ html[data-blueprint] .blueprint-systems {
 
 /* Nameplate */
 .site-name-text { font-size: 1.5rem; letter-spacing: 0; }
-.site-mark { width: 30px; height: 30px; }
+.site-mark { width: 28px; height: 28px; } /* one baseline unit, so the masthead row is too */
 .site-header .wrap { align-items: center; }
 .site-nav a { font-size: 1rem; }
 
@@ -830,16 +832,24 @@ html[data-blueprint] .blueprint-systems {
 }
 .prose a:visited { color: #7d5185; }
 
-/* Posts: dates hang in the left margin, archive-style */
+/* Posts: dates hang out in the left margin, truly — the titles keep
+   the letter's one left edge with the marks and everything else */
 .posts li {
-  display: grid;
-  grid-template-columns: 5.5rem 1fr;
-  column-gap: 1rem;
-  align-items: baseline;
+  display: block;
+  position: relative;
   padding: 0;
 }
-.posts time { grid-column: 1; grid-row: 1; }
-.posts a { grid-column: 2; grid-row: 1; }
+.posts time {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  margin-right: 1.75rem;
+  white-space: nowrap;
+}
+/* No margin to hang in: the date steps back into the line */
+@media (max-width: 50rem) {
+  .posts time { position: static; margin-right: 0.75rem; }
+}
 
 /* ---- Motion governor: nobody's mouse becomes someone else's problem ---- */
 .peer-cursor.jump { transition-duration: 0s, 700ms, 700ms, 700ms; }
@@ -943,6 +953,7 @@ section.block > h2 {
   font-family: inherit;
   font-style: italic;
   font-size: 0.9375rem;
+  /* out of flow, so the date's line box can't stretch the row */
   line-height: var(--lh);
 }
 
@@ -1349,21 +1360,24 @@ body.wire .powerline { display: none; }
   line-height: var(--lh);
   margin: var(--lh) 0 0;
 }
-.posts li { grid-template-columns: 4.25rem 1fr; column-gap: 1.25rem; }
-.posts time { text-align: right; }
 
-/* Now list adopts the stage rail: one pattern shared with /design */
+/* Now list: the marks step out into the margin like a printer's
+   fist, and the words keep the letter's one left edge. The stage
+   rail stays on /design, where the page is the spec sheet. */
 .work li {
-  display: grid;
-  grid-template-columns: 10.5rem 1fr;
-  column-gap: 1.75rem;
-  align-items: start;
+  display: block;
+  position: relative;
 }
 .work .stage {
+  position: absolute;
+  top: 0.875rem;
+  right: 100%;
+  margin-right: 1.75rem;
+  width: 3.5rem;
+  height: var(--lh);
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: calc(var(--lh) * 2.5);
+  justify-content: flex-end;
   color: var(--muted);
 }
 .work li:hover .stage { color: var(--accent); }
@@ -1375,8 +1389,19 @@ body.wire .powerline { display: none; }
   font-family: Georgia, serif;
   font-size: 1.5rem;
 }
-@media (max-width: 540px) {
-  .work li { grid-template-columns: 1fr; row-gap: 0.875rem; }
+/* No margin to stand in: the marginalia bows out, decoration only */
+@media (max-width: 50rem) {
+  .work .stage { display: none; }
+}
+
+/* Section labels speak in the letter's own hand, not a dashboard's */
+section.block > h2 {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 /* Post titles morph as one class, on one clock */
@@ -1606,3 +1631,39 @@ body {
 /* Fineprint closes the page, small and quiet, under the signature block */
 .site-footer .fineprint { margin-top: 0; font-size: 0.8125rem; }
 .site-footer .fineprint a { margin-right: 0; }
+
+/* Selection wears the accent faintly, like a wax pencil */
+::selection { background: rgba(184, 66, 15, 0.16); }
+
+/* 404: the wire ends here, and one bird considers the gap */
+.dead-wire { position: relative; height: 3.5rem; margin: var(--lh) 0 0; pointer-events: none; }
+.dead-wire .wire-svg { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--muted); opacity: 0.65; }
+.dead-wire .wire-bird { position: absolute; top: calc(50% - 13px); width: 15px; height: 13px; margin-left: -7px; color: var(--fg); }
+
+/* Skeleton for Lately: bone bars hold the grid until the feed answers */
+.lately-skeleton { line-height: var(--lh); }
+.lately-skeleton .bone {
+  display: inline-block;
+  height: 0.75rem;
+  border-radius: 2px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.lately-skeleton .bone-date {
+  position: absolute;
+  top: 0.5rem;
+  right: 100%;
+  margin-right: 1.75rem;
+  width: 2.25rem;
+}
+.lately-skeleton .bone-line { width: 66%; vertical-align: -0.05rem; }
+.lately-skeleton:nth-child(2) .bone-line { width: 78%; }
+.lately-skeleton:nth-child(3) .bone-line { width: 54%; }
+.lately-skeleton:nth-child(4) .bone-line { width: 71%; }
+@media (prefers-reduced-motion: no-preference) {
+  .lately-skeleton .bone { animation: bone-breathe 1.6s ease-in-out infinite; }
+}
+@keyframes bone-breathe { 50% { opacity: 0.45; } }
+@media (max-width: 50rem) {
+  .lately-skeleton .bone-date { position: static; margin-right: 0.75rem; vertical-align: -0.05rem; }
+}
