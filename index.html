@@ -52,15 +52,24 @@ layout: default
 
 	<section class="block" aria-label="Lately in WordPress">
 		<h2>Lately</h2>
-		<ul class="posts lately">
-			{% for it in site.data.wp.activity limit: 4 %}
-			<li>
-				<time datetime="{{ it.date }}">{{ it.date | date: "%b %-d" }}</time>
-				<span><a href="{{ it.url }}">{{ it.subject | default: it.what }}</a> <span class="lately-what">{{ it.what | downcase }}</span></span>
-			</li>
+		<ul class="posts lately" data-lately aria-busy="true">
+			{% for i in (1..4) %}
+			<li class="lately-skeleton" aria-hidden="true"><span class="bone bone-date"></span><span class="bone bone-line"></span></li>
 			{% endfor %}
 		</ul>
-		<p class="lately-note">From the <a href="https://profiles.wordpress.org/joefusco/">WordPress.org activity feed</a>, read when this page was built.</p>
+		<noscript>
+			<ul class="posts lately">
+				{% for it in site.data.wp.activity limit: 4 %}
+				<li>
+					<time datetime="{{ it.date }}">{{ it.date | date: "%b %-d" }}</time>
+					<span><a href="{{ it.url }}">{{ it.subject | default: it.what }}</a> <span class="lately-what">{{ it.what | downcase }}</span></span>
+				</li>
+				{% endfor %}
+			</ul>
+			<style>[data-lately] { display: none; }</style>
+		</noscript>
+		<script type="application/json" id="lately-fallback">{{ site.data.wp.activity | jsonify }}</script>
+		<p class="lately-note">From the <a href="https://profiles.wordpress.org/joefusco/">WordPress.org activity feed</a>.</p>
 	</section>
 
 	<section class="block" aria-label="Recent writing" data-spec="writing · jekyll + kramdown · since 2014">
@@ -77,3 +86,4 @@ layout: default
 	</section>
 
 </div>
+<script src="{{ '/assets/js/lately.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
