@@ -506,7 +506,7 @@ section.block > h2 {
 .site-name:focus-visible .site-mark rect {
   animation: mark-shift 1.4s infinite;
 }
-.site-mark rect:nth-child(1) { animation-delay: 0.64s; } /* the original's quirk: child 1 fires as if it were 8th */
+.site-mark rect:nth-child(1) { animation-delay: 0.64s; } /* first square waves on the eighth beat */
 .site-mark rect:nth-child(2) { animation-delay: 0.16s; }
 .site-mark rect:nth-child(3) { animation-delay: 0.24s; }
 .site-mark rect:nth-child(4) { animation-delay: 0.32s; }
