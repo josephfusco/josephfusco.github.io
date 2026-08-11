@@ -13,4 +13,4 @@ Core work centers on the [Presence API](https://github.com/WordPress/presence-ap
 
 The other line of work is access to justice. [LexGrade](https://lexgrade.org) is an open standard for grading legal motions — eight principles and forty-five graded criteria, with a companion register of named advocacy techniques. Both are published under CC-BY-SA and owned by no one; the source lives on [GitHub](https://github.com/LexGrade/standard).
 
-The rest is amateur arboriculture, and being a dad. The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015 and owed a fresh one.
+The rest is amateur arboriculture, and being a dad. The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015.
