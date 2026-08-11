@@ -1,0 +1,19 @@
+/* TEAM */
+	Person: Joe Fusco
+	Contact: hello [at] josephfus.co
+	From: Rochester, New York, USA
+	Work: headless WordPress plugins at WP Engine, WordPress core,
+	      and access to justice (lexgrade.org)
+
+/* THANKS */
+	Everyone who ever published their source.
+
+/* SITE */
+	Standards: HTML, CSS, a little JS. One 28px baseline under everything.
+	Components: Jekyll, GitHub Pages, a Cloudflare Worker for the birds
+	Typefaces: Georgia for the words, Atkinson Hyperlegible for the structure
+	Doctype: HTML5
+
+	The birds on the wire are real readers, one each, and nothing about
+	them is stored. There is a page that is only the wire, at /wire.
+	The wire also remembers the old code. Up, up, down, down.
