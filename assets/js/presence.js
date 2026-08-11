@@ -1282,6 +1282,33 @@
     }, 7000 + Math.random() * 6000);
   }
 
+  /* The wire remembers the old code: a whole flock lands at once,
+     stays a minute, and drifts off the way it came */
+  var OLD_CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  var codeAt = 0;
+  addEventListener('keydown', function (e) {
+    var k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    codeAt = (k === OLD_CODE[codeAt]) ? codeAt + 1 : (k === OLD_CODE[0] ? 1 : 0);
+    if (codeAt < OLD_CODE.length) return;
+    codeAt = 0;
+    var landed = 0;
+    var arrival = setInterval(function () {
+      var key = 'flock' + Date.now();
+      addPigeon(key);
+      setTimeout(function () { removePigeon(key); }, 45000 + Math.random() * 30000);
+      if (++landed >= 9) clearInterval(arrival);
+    }, 320);
+  });
+
+  /* A note for the reader who opens the hood */
+  try {
+    console.log(
+      '%c(o>  every bird on the wire is a real reader.\n' +
+      '~~)~  the old customs: /humans.txt · /wire · ↑↑↓↓←→←→ba',
+      'font-family: Georgia, serif; font-style: italic;'
+    );
+  } catch (err) {}
+
   function beginPresence() {
     /* Your own bird perches whether or not the relay answers;
        the wire is never empty for the reader on it */
