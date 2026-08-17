@@ -20,8 +20,7 @@
       var d = it.date ? new Date(it.date + 'T00:00:00') : null;
       var label = d && !isNaN(d) ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
       html += '<li><time datetime="' + esc(it.date || '') + '">' + esc(label) + '</time>'
-        + '<span><a href="' + esc(it.url) + '">' + esc(it.subject || it.what) + '</a> '
-        + '<span class="lately-what">' + esc((it.what || '').toLowerCase()) + '</span></span></li>';
+        + '<span><a href="' + esc(it.url) + '">' + esc(it.subject || it.what) + '</a></span></li>';
     });
     list.innerHTML = html;
     list.removeAttribute('aria-busy');
