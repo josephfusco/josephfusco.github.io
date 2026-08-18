@@ -597,7 +597,8 @@ section.block > h2 {
 
 html[data-blueprint] body {
   background-image:
-    repeating-linear-gradient(to bottom, transparent 0 7px, rgba(77, 148, 255, 0.06) 7px 8px),
+    repeating-linear-gradient(to bottom, transparent 0 27px, rgba(77, 148, 255, 0.15) 27px 28px),
+    repeating-linear-gradient(to bottom, transparent 0 6.75px, rgba(77, 148, 255, 0.04) 6.75px 7px),
     repeating-linear-gradient(to right, transparent 0 99px, rgba(77, 148, 255, 0.06) 99px 100px);
 }
 html[data-blueprint] [data-spec] {
