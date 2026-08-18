@@ -947,7 +947,11 @@ section.block > h2 {
 }
 
 /* Work list */
-.work li { padding: 0.875rem 0; }
+.work li {
+  padding: 0.875rem 0 0.875rem;
+  /* Shift baseline onto grid: font cap-height sits above the line-height midpoint */
+  transform: translateY(-0.125rem);
+}
 .work h3 { font-size: 1rem; line-height: var(--lh); margin: 0; font-weight: 600; }
 .work p { font-size: 0.9375rem; line-height: var(--lh); margin: 0; color: var(--muted); opacity: 0.85; }
 .work .tag {
