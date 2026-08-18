@@ -1,41 +1,41 @@
 {
   "activity": [
     {
+      "date": "2026-08-18",
+      "subject": "fix: stop Playwright from starting a second wp-env instance in CI",
+      "url": "https://github.com/WordPress/sync-storage/pull/22",
+      "what": "Opened a pull request in WordPress/sync-storage"
+    },
+    {
+      "date": "2026-08-18",
+      "subject": "docs: rewrite README to match Presence API's format",
+      "url": "https://github.com/WordPress/sync-storage/pull/21",
+      "what": "Opened a pull request in WordPress/sync-storage"
+    },
+    {
+      "date": "2026-08-18",
+      "subject": "Update to version 0.1.23 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3653300/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-08-18",
+      "subject": "chore(main): release 0.1.23",
+      "url": "https://github.com/WordPress/presence-api/pull/295",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-08-17",
+      "subject": "",
+      "url": "https://github.com/WordPress/gutenberg/pull/81697",
+      "what": "Pull request #81697 merged into WordPress/gutenberg: Add `__unstable_wp_sync_storage` filter for pluggable storage backends"
+    },
+    {
       "date": "2026-08-17",
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/285",
       "what": "Closed issue #285 on the WordPress/presence-api repository: get_rooms() hydrates every room before paginating"
-    },
-    {
-      "date": "2026-08-17",
-      "subject": "perf: paginate rooms before user hydration",
-      "url": "https://github.com/WordPress/presence-api/pull/297",
-      "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-08-17",
-      "subject": "perf: cap heartbeat payload to visible rows only",
-      "url": "https://github.com/WordPress/presence-api/pull/296",
-      "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-08-17",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/291",
-      "what": "Closed issue #291 on the WordPress/presence-api repository: Cap Who's Online heartbeat payload to visible rows"
-    },
-    {
-      "date": "2026-08-17",
-      "subject": "chore(main): release 0.1.23",
-      "url": "https://github.com/WordPress/presence-api/pull/295",
-      "what": "Opened a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-08-17",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/287",
-      "what": "Closed issue #287 on the WordPress/presence-api repository: screen-stale-demo-helper.php's demo bump no-ops on post screens"
     }
   ],
-  "fetched": "2026-08-17"
+  "fetched": "2026-08-18"
 }
