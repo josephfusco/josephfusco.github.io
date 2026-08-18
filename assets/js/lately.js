@@ -16,7 +16,7 @@
 
   function render(items) {
     var html = '';
-    items.slice(0, 4).forEach(function (it) {
+    items.slice(0, 3).forEach(function (it) {
       var d = it.date ? new Date(it.date + 'T00:00:00') : null;
       var label = d && !isNaN(d) ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
       html += '<li><time datetime="' + esc(it.date || '') + '">' + esc(label) + '</time>'
