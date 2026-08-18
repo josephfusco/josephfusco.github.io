@@ -96,14 +96,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .site-nav a[aria-current="page"] { color: var(--fg); }
 
-/* Hero */
-.hero { padding: calc(var(--lh) * 2) 0 var(--lh); }
-.hero h1 {
-  font-size: clamp(1.9rem, 5vw, 2.6rem);
-  line-height: calc(var(--lh) * 2);
-  letter-spacing: 0;
-  margin: 0 0 0.875rem;
-}
+/* Hero: removed - using rhythm layer version */
 .hero p.lede {
   font-size: 1.0625rem;
   line-height: var(--lh);
@@ -891,8 +884,8 @@ body { line-height: var(--lh); }
 .site-name-text { font-size: 1.375rem; line-height: var(--lh); }
 .site-nav a { font-size: 1rem; line-height: var(--lh); }
 
-/* Hero */
-.hero { padding: var(--lh) 0 0; }
+/* Hero: dominant section with golden ratio emphasis */
+.hero { padding: calc(var(--lh) * 2.618) 0 calc(var(--lh) * 1.618); }
 
 .field-note .status {
   font-family: inherit;
@@ -915,8 +908,12 @@ body { line-height: var(--lh); }
 
 /* Proof: one serif italic line between hairlines, on the grid */
 
-/* Sections */
-section.block { padding: 0.875rem 0 0; }
+/* Sections: primary get φ spacing, secondary recede */
+section.block { padding: calc(var(--lh) * 1.618) 0 var(--lh); }
+section.block[aria-label*="Lately"],
+section.block[aria-label*="writing"] {
+  padding: var(--lh) 0 calc(var(--lh) * 0.618);
+}
 section.block > h2 {
   line-height: var(--lh);
 }
