@@ -947,9 +947,9 @@ section.block > h2 {
 }
 
 /* Work list */
-.work li { padding: 0.875rem 0; }
-.work h3 { font-size: 1rem; line-height: var(--lh); margin: 0; }
-.work p { font-size: 1rem; line-height: var(--lh); }
+.work li { padding: var(--lh) 0; }
+.work h3 { font-size: 1rem; line-height: var(--lh); margin: 0 0 0.875rem; }
+.work p { font-size: 1rem; line-height: var(--lh); margin: 0; }
 .work .tag {
   font-family: Georgia, serif;
   font-style: italic;
