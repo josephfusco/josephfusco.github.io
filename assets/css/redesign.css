@@ -97,15 +97,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .site-nav a[aria-current="page"] { color: var(--fg); }
 
 /* Hero */
-.hero { padding: 2.25rem 0 1rem; }
+.hero { padding: calc(var(--lh) * 2) 0 var(--lh); }
 .hero h1 {
   font-size: clamp(1.9rem, 5vw, 2.6rem);
-  line-height: 1.15;
+  line-height: calc(var(--lh) * 2);
   letter-spacing: 0;
-  margin: 0 0 1rem;
+  margin: 0 0 0.875rem;
 }
 .hero p.lede {
   font-size: 1.0625rem;
+  line-height: var(--lh);
   color: var(--muted);
   margin: 0;
 }
@@ -149,7 +150,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .signup .fine { font-size: 0.8125rem; margin: 0.75rem 0 0; }
 
 /* Sections */
-section.block { padding: 0.75rem 0 0.25rem; }
+section.block { padding: var(--lh) 0 0; }
 section.block > h2 {
   font-size: 0.875rem;
   font-weight: 700;
@@ -157,18 +158,19 @@ section.block > h2 {
   letter-spacing: 0.08em;
   color: var(--muted);
   text-align: left;
+  line-height: var(--lh);
   margin: 0 0 0.875rem;
 }
 
 /* Work list */
 .work { list-style: none; margin: 0; padding: 0; }
 .work li {
-  padding: 1.125rem 0;
+  padding: 0.875rem 0;
 }
-.work h3 { margin: 0 0 0.25rem; font-size: 1.0625rem; letter-spacing: 0; }
+.work h3 { margin: 0; font-size: 1.0625rem; line-height: var(--lh); letter-spacing: 0; }
 .work h3 a { color: var(--fg); }
 .work h3 a:hover { color: var(--accent); text-decoration: none; }
-.work p { margin: 0; color: var(--muted); font-size: 0.9688rem; }
+.work p { margin: 0; color: var(--muted); font-size: 0.9688rem; line-height: var(--lh); }
 /* The WordPress record, read from the .org activity feed at build
    time and set in the archive's own voice */
 .lately-what { font-family: Georgia, serif; font-style: italic; color: var(--muted); }
@@ -194,8 +196,8 @@ section.block > h2 {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 1rem;
-  padding: 0.625rem 0;
+  gap: 0.875rem;
+  padding: 0.875rem 0;
 }
 .posts a { color: var(--fg); font-weight: 500; }
 .posts a:hover { color: var(--accent); }
