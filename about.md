@@ -7,7 +7,7 @@ meta: The person holding the pen.
 
 <img class="about-portrait" src="/assets/images/joe.jpg" alt="Joe Fusco smiling in a sun hat, in his garden among young trees" width="400" height="400">
 
-I'm Joe Fusco — software engineer at WP Engine, Dad, and neurospicy human. I build WordPress core, contribute to the Presence API, and work on real-time collaboration.
+I'm Joe Fusco, a software engineer at WP Engine contributing to WordPress core. I work on presence systems, real-time collaboration, and access to justice projects.
 
 Core work centers on the [Presence API](https://github.com/WordPress/presence-api), WordPress's system-wide presence and awareness layer. On the headless side, that work continues in the [WPGraphQL IDE](https://wordpress.org/plugins/wpgraphql-ide/). Most of my open-source time goes into release automation and testing.
 
