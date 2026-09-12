@@ -1093,8 +1093,18 @@ section.block > h2 {
 }
 
 /* Work list */
-.work li { padding: 0.875rem 0; }
-.work h3 { font-size: 1rem; line-height: var(--lh); margin: 0; }
+/* rows step on phi, like the space between every other block */
+.work li { padding: var(--space-xs) 0; }
+.work h3 {
+  font-size: 1rem;
+  line-height: var(--lh);
+  margin: 0;
+  display: grid;
+  grid-template-columns: 13.5rem auto;
+  align-items: baseline;
+  column-gap: 0.875rem;
+  justify-content: start;
+}
 .work p { font-size: 1rem; line-height: var(--lh); }
 /* Categories are badges: a hairline box, set small, that never
    pushes the heading off the 1.75rem line. Same badge wherever a
@@ -1102,6 +1112,7 @@ section.block > h2 {
 .work .tag,
 .components .tag {
   display: inline-block;
+  justify-self: start;
   font-family: "SF Mono", Menlo, Consolas, monospace;
   font-style: normal;
   font-size: 0.6875rem;
@@ -1113,7 +1124,7 @@ section.block > h2 {
   border: 1px solid var(--border);
   border-radius: 2px;
   padding: 0.25rem 0.375rem;
-  margin-left: 0.5rem;
+  margin-left: 0;
   vertical-align: 0.1em;
 }
 
@@ -1233,8 +1244,9 @@ h1, h2, h3, h4,
   display: grid;
   grid-template-columns: 10.5rem 1fr;
   column-gap: 1.75rem;
-  align-items: start;
-  padding: 0.875rem 0;
+  /* the demo and the name it belongs to share one centre line */
+  align-items: center;
+  padding: var(--space-xs) 0;
 }
 .components .stage {
   display: flex;
@@ -1243,7 +1255,17 @@ h1, h2, h3, h4,
   gap: 0.5rem;
   height: calc(var(--lh) * 2.5);
 }
-.components h3 { font-size: 1.0625rem; line-height: var(--lh); margin: 0; }
+.components h3 {
+  font-size: 1.0625rem;
+  line-height: var(--lh);
+  margin: 0;
+  /* the name takes a fixed column so the badges form one of their own */
+  display: grid;
+  grid-template-columns: 10.5rem auto;
+  align-items: baseline;
+  column-gap: 0.875rem;
+  justify-content: start;
+}
 .components p { margin: 0; }
 .stage .demo-cursor, .stage .demo-chip { margin: 0; }
 .stage .site-mark { width: 34px; height: 34px; }
