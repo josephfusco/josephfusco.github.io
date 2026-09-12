@@ -24,6 +24,7 @@
 
   function render(items) {
     var html = '';
+    var day = '';
     items.slice(0, 20).forEach(function (it) {
       var d = it.date ? new Date(it.date + 'T00:00:00') : null;
       var label = d && !isNaN(d) ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
@@ -43,7 +44,12 @@
         .replace(/\s+(?:on|in)\s+[^\s/]+\/[^\s]+$/i, '')
         .trim();
       var tail = subject && verb.toLowerCase() !== subject.toLowerCase() ? verb.toLowerCase() : '';
-      html += '<li><time datetime="' + esc(it.date || '') + '">' + esc(label) + '</time>'
+      /* the day is written once, the way the archive writes a year once */
+      if (label && label !== day) {
+        day = label;
+        html += '<li class="lately-day"><time datetime="' + esc(it.date || '') + '">' + esc(label) + '</time></li>';
+      }
+      html += '<li>'
         + '<span class="lately-line"><a href="' + esc(it.url) + '">' + esc(subject || what) + '</a>'
         + (tail ? ' <span class="lately-what">' + esc(tail) + '</span>' : '')
         + '</span></li>';

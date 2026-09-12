@@ -1006,9 +1006,16 @@ body { line-height: var(--lh); overflow-x: clip; }
    hero's own height, so its first line meets the first project. */
 @media (min-width: 78rem) {
   body.index .wrap { position: relative; }
+  /* the rule runs under the feed too, so the page reads as one sheet
+     with a margin, not a column with something parked beside it */
+  body.index .hero {
+    margin-right: calc(-1 * (17rem + 1.75rem + 1.25rem));
+    padding-right: calc(17rem + 1.75rem + 1.25rem);
+  }
   body.index section.block[aria-label*="Lately"] {
     position: absolute;
-    top: 17.5rem;
+    /* the hero's height, so Lately starts on Now's line */
+    top: calc(var(--space-l) + var(--lh) * 4 + var(--space-m) + var(--space-m) + 2.625rem);
     left: 100%;
     margin-left: 1.75rem;
     width: 17rem;
@@ -1026,11 +1033,15 @@ body { line-height: var(--lh); overflow-x: clip; }
   body.index section.block[aria-label*="Lately"] .lately-line,
   body.index section.block[aria-label*="Lately"] .posts time { font-size: 0.75rem; }
   body.index section.block[aria-label*="Lately"] .lately li { padding: 0; }
+  /* the day stands over its entries; the entries step in under it */
   body.index section.block[aria-label*="Lately"] .posts time {
     position: static;
-    float: left;
-    margin: 0 0.4375rem 0 0;
+    float: none;
+    margin: 0;
   }
+  body.index section.block[aria-label*="Lately"] .lately-day { padding-top: 0.4375rem; }
+  body.index section.block[aria-label*="Lately"] .lately-day:first-child { padding-top: 0; }
+  body.index section.block[aria-label*="Lately"] .lately-line { padding-left: 0.875rem; }
   body.index section.block[aria-label*="Lately"] .lately-note { font-size: 0.6875rem; }
 }
 
