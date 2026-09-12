@@ -1391,15 +1391,16 @@ body.wire .powerline { display: none; }
     padding: 0.5rem 0.75rem;
   }
 }
-@supports (anchor-name: --a) {
-  #field-guide {
-    position: fixed;
-    position-anchor: --guide-btn;
-    /* opens into the margin it lives in, never across the words */
-    position-area: bottom span-left;
-    position-try-fallbacks: bottom span-left, top span-left, top;
-    margin: 0.5rem 0;
-  }
+/* The guide stands in the left margin and holds the whole flock at
+   once: a region runs to nine species, which will not fit under a
+   button without falling off the page. */
+#field-guide {
+  position: fixed;
+  left: 1.25rem;
+  top: 50%;
+  translate: 0 -50%;
+  max-height: calc(100dvh - var(--space-l));
+  margin: 0;
 }
 /* the guide reads left to right even in a right-aligned margin */
 #field-guide, #field-guide .bird-legend { text-align: left; }
