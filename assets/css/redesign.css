@@ -925,7 +925,49 @@ body { line-height: var(--lh); }
 .lately a:hover { color: var(--accent); }
 
 /* Hero */
-.hero { padding: var(--lh) 0 0; }
+.hero {
+  /* the rule subtracts its own width from the padding under it */
+  padding: var(--lh) 0 calc(var(--lh) - 1px);
+  position: relative;
+  border-bottom: 1px dashed var(--border);
+}
+
+/* The face keeps the right margin, the way the bird's note keeps the
+   left. Neither takes a pixel from the measure. */
+.hero-card { margin: 0; }
+.hero-card img {
+  display: block;
+  /* four units of picture, so the card ends on the line Now starts */
+  width: 7rem;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  /* a photograph printed on the stationery, not a sticker on it */
+  filter: saturate(0.82) sepia(0.06);
+}
+.hero-card figcaption {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.8125rem;
+  line-height: var(--lh);
+  color: var(--muted);
+  margin-top: var(--lh);
+  white-space: nowrap;
+}
+@media (min-width: 75rem) {
+  .hero-card {
+    position: absolute;
+    /* half a unit down, where the title's caps begin: a photograph's
+       edge lines up with the letters, not with their leading */
+    top: calc(var(--lh) + 0.875rem);
+    left: 100%;
+    margin-left: 1.75rem;
+  }
+}
+@media (max-width: 75rem) {
+  .hero-card { margin: var(--lh) 0 0; }
+  .hero-card figcaption { margin-bottom: 0; }
+}
 
 .field-note .status {
   font-family: inherit;
@@ -949,10 +991,10 @@ body { line-height: var(--lh); }
 /* Proof: one serif italic line between hairlines, on the grid */
 
 /* Sections: primary get φ spacing, secondary recede */
-section.block { padding: calc(var(--lh) * 1.618) 0 var(--lh); }
+section.block { padding: var(--lh) 0 var(--lh); }
 section.block[aria-label*="Lately"],
 section.block[aria-label*="writing"] {
-  padding: var(--lh) 0 calc(var(--lh) * 0.618);
+  padding: var(--lh) 0 0.875rem;
 }
 section.block > h2 {
   line-height: var(--lh);
@@ -1344,11 +1386,14 @@ body.wire .powerline { display: none; }
   #field-guide {
     position: fixed;
     position-anchor: --guide-btn;
-    position-area: bottom span-right;
-    position-try-fallbacks: bottom, top span-right, top;
+    /* opens into the margin it lives in, never across the words */
+    position-area: bottom span-left;
+    position-try-fallbacks: bottom span-left, top span-left, top;
     margin: 0.5rem 0;
   }
 }
+/* the guide reads left to right even in a right-aligned margin */
+#field-guide, #field-guide .bird-legend { text-align: left; }
 
 /* The tab hint sits under the count, smaller, never stranded */
 .note-hint {
@@ -1705,10 +1750,18 @@ body {
 /* The note scans as lines: every row is one 1.75rem unit tall, so the
    eye runs down a rhythm instead of hunting for the next thing. */
 .field-note { gap: 0; max-width: 12rem; }
-/* Where the trail hangs, the note starts on the same line it does, so
-   the margin and the title read as one row across the page. */
+/* The note measures from the words, like every other thing in this
+   margin: marks, dates, the trail. Its right edge is theirs. Where a
+   trail is already on that line, the note takes the next one down. */
 @media (min-width: 75rem) {
-  .field-note { top: calc(100% + 3.5rem); }
+  .field-note {
+    top: calc(100% + 3.5rem);
+    left: auto;
+    right: calc(50% + 21.5rem);
+    align-items: flex-end;
+    text-align: right;
+  }
+  .field-note--after-trail { top: calc(100% + 5.25rem); }
 }
 .field-note > * { line-height: var(--lh); min-height: var(--lh); }
 
