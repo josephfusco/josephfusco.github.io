@@ -1018,7 +1018,10 @@ body { line-height: var(--lh); overflow-x: clip; }
   margin-top: var(--space-m);
   white-space: nowrap;
 }
-@media (min-width: 75rem) {
+/* The picture needs 7rem of margin and a gutter, not the 12rem the
+   note needs, so it holds the margin far longer than the note does —
+   one move on the way down, not two. */
+@media (min-width: 60rem) {
   .hero-card {
     position: absolute;
     /* half a unit under the title's box, where its caps begin: a
@@ -1028,9 +1031,20 @@ body { line-height: var(--lh); overflow-x: clip; }
     margin-left: 1.75rem;
   }
 }
-@media (max-width: 75rem) {
-  .hero-card { margin: var(--lh) 0 0; }
-  .hero-card figcaption { margin-bottom: 0; }
+/* No margin left to stand in: the picture leads the hero instead of
+   trailing it, with its line beside it rather than stranded under. */
+@media (max-width: 60rem) {
+  /* phi squared of air over the title is for a page with margins */
+  .hero { display: flex; flex-direction: column; padding-top: var(--space-m); }
+  .hero-card {
+    order: -1;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin: 0 0 var(--space-s);
+  }
+  .hero-card img { width: 5.25rem; }
+  .hero-card figcaption { margin: 0; padding: 0; }
 }
 
 .field-note .status {
