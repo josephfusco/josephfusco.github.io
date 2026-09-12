@@ -1432,27 +1432,23 @@ body.wire .powerline { display: none; }
 .note-bird svg { display: block; width: 100%; height: 100%; }
 /* The guide is written in the same margin as the note, on the same
    paper, with no card between them */
+/* The guide is a plate of paper laid over the page, not a note in the
+   margin: both margins hold something of their own now, so it has to
+   carry its own ground to stay readable over either. */
 #field-guide {
   width: 15rem;
   max-width: calc(100vw - 2rem);
   max-height: 70vh;
   overflow-y: auto;
-  background: none;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  box-shadow: 0 10px 24px -14px rgba(35, 32, 26, 0.32);
+  padding: 0.875rem 1.25rem;
   margin: 0;
   color: var(--muted);
 }
 #field-guide .bird-legend { margin: 0; }
-@media (max-width: 900px) {
-  #field-guide {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 0.5rem 0.75rem;
-  }
-}
 /* The guide stands in the left margin and holds the whole flock at
    once: a region runs to nine species, which will not fit under a
    button without falling off the page. */
@@ -1841,7 +1837,8 @@ body {
   /* the front page opens on phi squared, so the note drops with it */
   body.index .field-note { top: calc(100% + 3.5rem + var(--space-m)); }
   /* the guide opens into its own margin, not across the page */
-  #field-guide { left: auto; right: 1.25rem; }
+  /* the left margin is the empty one on the front page */
+  #field-guide { left: 1.25rem; right: auto; }
 }
 .field-note > * { line-height: var(--lh); min-height: var(--lh); }
 
@@ -1854,7 +1851,9 @@ body {
    note keeps to its own lines under it. */
 .crumb-line {
   position: absolute;
-  top: 2.625rem;
+  /* two pixels past the half-unit, where the title's baseline actually
+     falls: the serif sits higher than its box says it does */
+  top: calc(2.625rem + 2px);
   right: 100%;
   display: flex;
   align-items: center;
