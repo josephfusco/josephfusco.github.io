@@ -285,6 +285,61 @@ section.block > h2 {
 
 /* Prose extras for legacy post content */
 .prose img { max-width: 100%; height: auto; border-radius: 6px; }
+/* A figure is a picture and a line about it. The caption steps down to
+   0.8 of the body, the ratio the block editor sets, and back in colour
+   so it reads as a label and not as the next paragraph. */
+/* A figure leaves the measure: the picture runs the width of the page
+   while its caption stays a line of text. */
+.prose figure {
+  margin-block: var(--space-l);
+  margin-inline: calc(50% - 50vw);
+  width: auto;
+  max-width: none;
+}
+.prose figure img {
+  display: block;
+  width: 100%;
+  border-radius: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+/* A key, in the marks the picture uses */
+.prose .figure-key {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4375rem 1.3125rem;
+  list-style: none;
+  max-width: 42rem;
+  margin: 0.875rem auto 0;
+  padding-inline: 1.25rem;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.8125rem;
+  line-height: var(--lh);
+  color: var(--muted);
+}
+.prose .figure-key li { display: flex; align-items: center; gap: 0.4375rem; }
+.key { flex: none; }
+.key-diamond { width: 7px; height: 7px; background: var(--fg); rotate: 45deg; }
+.key-square { width: 7px; height: 7px; background: var(--fg); }
+.key-dot { width: 7px; height: 7px; border-radius: 50%; }
+.key-p { background: #5b87ad; }
+.key-d { background: #c2703f; }
+.key-line { width: 18px; height: 2px; background: #8c3b34; }
+
+.prose figcaption {
+  max-width: 42rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.8125rem;
+  line-height: var(--lh);
+  color: var(--muted);
+  text-align: center;
+  margin-top: 0.875rem;
+}
 /* A quotation is an exhibit: a clipped excerpt laid on the letter,
    same stationery as the colophon slip, popped past the text edge */
 .prose blockquote {
@@ -885,7 +940,7 @@ html[data-blueprint] .blueprint-systems {
   --space-l: calc(var(--lh) * 2.618);
 }
 
-body { line-height: var(--lh); }
+body { line-height: var(--lh); overflow-x: clip; }
 
 /* Masthead: 1 unit above, half below (minus the 4px double rule) */
 .site-header {
