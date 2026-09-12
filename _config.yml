@@ -1,9 +1,10 @@
 # Site settings
 
 name: Joe Fusco
+author: Joe Fusco
 nameplate: Joseph M. Fusco III
-role: WordPress core and access to justice
-description: Joe Fusco maintains headless WordPress plugins at WP Engine, contributes to WordPress core, and publishes LexGrade, an open standard for grading legal motions.
+role: OSS and access to justice
+description: Joe Fusco contributes to WordPress Core, sponsored by WP Engine, and publishes LexGrade, an open standard for grading legal motions.
 url: "https://josephfus.co"
 email: hello@josephfus.co
 

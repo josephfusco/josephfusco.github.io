@@ -8,6 +8,7 @@
 	<main id="main" aria-label="Content">
 		<div class="wrap">
 			<article class="prose">
+				{% include crumbs.html %}
 				<h1 style="view-transition-name: vt-{{ page.url | slugify }}; view-transition-class: post">{{ page.title }}</h1>
 				<p class="meta">
 					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>{% assign words = content | number_of_words %}, {% if words < 360 %}1{% else %}{{ words | divided_by:180 }}{% endif %} min read
@@ -16,8 +17,8 @@
 			</article>
 
 			<nav class="post-nav" aria-label="Post navigation">
-				<span>{% if page.previous %}<a rel="prev" href="{{ page.previous.url | relative_url }}">&larr; {{ page.previous.title }}</a>{% endif %}</span>
-				<span>{% if page.next %}<a rel="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &rarr;</a>{% endif %}</span>
+				<span class="post-nav-prev">{% if page.previous %}<a rel="prev" href="{{ page.previous.url | relative_url }}"><span class="post-nav-arrow">&larr;</span><span class="post-nav-title">{{ page.previous.title }}</span></a>{% endif %}</span>
+				<span class="post-nav-next">{% if page.next %}<a rel="next" href="{{ page.next.url | relative_url }}"><span class="post-nav-title">{{ page.next.title }}</span><span class="post-nav-arrow">&rarr;</span></a>{% endif %}</span>
 			</nav>
 
 		</div>

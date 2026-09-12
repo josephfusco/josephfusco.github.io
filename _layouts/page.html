@@ -7,6 +7,7 @@
 	<main id="main" aria-label="Content">
 		<div class="wrap">
 			<article class="prose">
+				{% include crumbs.html %}
 				<h1>{{ page.title }}</h1>
 				{% if page.meta %}<p class="meta">{{ page.meta }}</p>{% endif %}
 				{{ content }}

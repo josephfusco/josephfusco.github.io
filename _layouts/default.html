@@ -17,6 +17,7 @@
 	<a class="skip-link" href="#main">Skip to content</a>
 	{% include header.html %}
 	<main id="main" aria-label="Content">
+		{% unless page.url == '/' %}<div class="wrap crumb-rail">{% include crumbs.html %}</div>{% endunless %}
 		{{ content }}
 	</main>
 	{% include footer.html %}
