@@ -1011,21 +1011,21 @@ body { line-height: var(--lh); overflow-x: clip; }
     top: 17.5rem;
     left: 100%;
     margin-left: 1.75rem;
-    width: 15rem;
+    width: 17rem;
     padding: 0;
   }
+  /* one entry, one line, one unit: nothing in a feed wraps */
   body.index section.block[aria-label*="Lately"] .lately-line {
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    display: block;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   /* a feed reads small and quiet: the date runs with the line, not
      above it, and nothing here competes with the work beside it */
   body.index section.block[aria-label*="Lately"] .lately-line,
   body.index section.block[aria-label*="Lately"] .posts time { font-size: 0.75rem; }
-  body.index section.block[aria-label*="Lately"] .lately li { padding-bottom: 0.4375rem; }
+  body.index section.block[aria-label*="Lately"] .lately li { padding: 0; }
   body.index section.block[aria-label*="Lately"] .posts time {
     position: static;
     float: left;
@@ -1234,11 +1234,15 @@ h1, h2, h3, h4,
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
-  gap: 0.875rem;
+  /* rows two units apart, so the palette sits on the same grid as
+     everything else on the sheet */
+  row-gap: var(--lh);
+  column-gap: 0.875rem;
 }
 .swatches li { display: flex; align-items: center; gap: 0.875rem; line-height: var(--lh); }
 .swatch { width: 1.75rem; height: 1.75rem; border-radius: 4px; border: 1px solid var(--border); flex: none; }
-.specimen p { margin: 0 0 0.875rem; }
+/* every line on the sheet is one unit tall, whatever size it is set at */
+.specimen p { margin: 0 0 0.875rem; line-height: var(--lh); }
 .spec-note { font-family: Georgia, serif; font-style: italic; font-size: 0.9375rem; color: var(--muted); margin-top: 0.875rem; }
 .spec-sans { font-family: var(--sans); font-size: 1.5rem; font-weight: 700; line-height: var(--lh); }
 .spec-serif { font-family: Georgia, serif; font-size: 1.125rem; }
