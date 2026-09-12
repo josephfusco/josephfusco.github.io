@@ -1822,21 +1822,26 @@ body {
 /* The note scans as lines: every row is one 1.75rem unit tall, so the
    eye runs down a rhythm instead of hunting for the next thing. */
 .field-note { gap: 0; max-width: 12rem; }
-/* The note measures from the words, like every other thing in this
-   margin: marks, dates, the trail. Its right edge is theirs. Where a
-   trail is already on that line, the note takes the next one down. */
-@media (min-width: 75rem) {
+/* Left is what lasts, right is what is passing. The note is the most
+   now thing on the page, so it heads the right margin, over the feed
+   of what happened this week; the left margin keeps navigation and the
+   page's own dates. */
+@media (min-width: 70rem) {
   .field-note {
     top: calc(100% + 3.5rem);
-    left: auto;
-    right: calc(50% + 21.5rem);
-    align-items: flex-end;
-    text-align: right;
+    /* the same edge the feed hangs from, so the column has one */
+    left: calc(50% + 21rem + 1.75rem);
+    right: auto;
+    width: 17rem;
+    max-width: 17rem;
+    align-items: flex-start;
+    text-align: left;
   }
-  .field-note--after-trail { top: calc(100% + 5.25rem); }
-  /* the front page opens on phi squared, so the note drops with it and
-     starts on the band the title and the face share */
+  .field-note--after-trail { top: calc(100% + 3.5rem); }
+  /* the front page opens on phi squared, so the note drops with it */
   body.index .field-note { top: calc(100% + 3.5rem + var(--space-m)); }
+  /* the guide opens into its own margin, not across the page */
+  #field-guide { left: auto; right: 1.25rem; }
 }
 .field-note > * { line-height: var(--lh); min-height: var(--lh); }
 
