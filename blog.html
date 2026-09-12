@@ -1,26 +1,8 @@
 ---
 layout: default
 title: Writing
+permalink: /blog/
+redirect_to: /#writing
 redirect_from:
   - /archive/
 ---
-<div class="wrap">
-	<div class="prose">
-		<h1>Writing</h1>
-		<p class="meta">Notes from the desk.</p>
-	</div>
-
-	{% assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
-	{% for year in by_year %}
-	<h2 class="year-label">{{ year.name }}</h2>
-	<ul class="posts">
-		{% for post in year.items %}
-		<li>
-			<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d' }}</time>
-			<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}; view-transition-class: post">{{ post.title }}</a>
-		</li>
-		{% endfor %}
-	</ul>
-	{% endfor %}
-
-</div>

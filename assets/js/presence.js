@@ -1156,6 +1156,15 @@
       if (m.self && m.self.color) { selfColor = m.self.color; refreshIcon(false); }
       addPigeon('self');
       announceSelf();
+      /* The welcome is the room's own account of itself, so it replaces
+         what this tab thinks it knows. Adding to the old list let a tab
+         that slept through a leave keep the ghost for as long as it
+         stayed open. */
+      var here = {};
+      m.peers.forEach(function (p) { if (p && p.id) here[p.id] = 1; });
+      Array.prototype.slice.call(peers.keys()).forEach(function (id) {
+        if (!here[id]) removePeer(id, false);
+      });
       m.peers.forEach(addPeer);
     },
     join: function (m) {

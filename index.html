@@ -81,17 +81,20 @@ layout: default
 		<p class="lately-note">From the <a href="https://profiles.wordpress.org/joefusco/">WordPress.org activity feed</a>.</p>
 	</section>
 
-	<section class="block" aria-label="Recent writing" data-spec="writing · jekyll + kramdown · since 2014">
+	<section class="block" id="writing" aria-label="Writing" data-spec="writing · jekyll + kramdown · since 2014">
 		<h2>Writing</h2>
-		<ul class="posts">
-			{% for post in site.posts limit:3 %}
+		{% assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+		{% for year in by_year %}
+		<ul class="posts posts-year">
+			<li class="posts-year-label"><time datetime="{{ year.name }}">{{ year.name }}</time></li>
+			{% for post in year.items %}
 			<li>
 				<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}; view-transition-class: post">{{ post.title }}</a>
-				<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %Y' }}</time>
+				<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d' }}</time>
 			</li>
 			{% endfor %}
 		</ul>
-		<p><a href="{{ '/blog' | relative_url }}">All writing →</a></p>
+		{% endfor %}
 	</section>
 
 </div>

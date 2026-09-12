@@ -1563,6 +1563,18 @@ body.wire .powerline { display: none; }
   line-height: var(--lh);
 }
 
+/* the year on the front page is the same landmark the archive used */
+.posts-year { margin: 0; }
+.posts-year + .posts-year { margin-top: var(--space-xs); }
+.posts-year-label time {
+  position: static;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: var(--lh);
+}
+
 /* Writing archive: years as landmarks, dates snug against titles */
 .year-label {
   font-family: Georgia, serif;

@@ -10,13 +10,29 @@ const COLORS = REGISTRY.colors;
 
 /* The lobby: rooms report their head counts here so every page can
    say "N elsewhere on the site". Counts only, nothing else. */
+/* The lobby adds up the rooms, and a room only counts while it is
+   still saying so. Every entry is stamped; anything that has not
+   reported inside the window is dropped rather than summed, so a room
+   whose object went away cannot keep a number alive forever. */
+const LOBBY_STALE_MS = 180_000;
+
 export class PresenceLobby extends DurableObject {
   async update(path, count) {
     const counts = (await this.ctx.storage.get("counts")) || {};
-    if (count > 0) counts[path] = count;
+    const now = Date.now();
+    if (count > 0) counts[path] = { n: count, at: now };
     else delete counts[path];
+
+    let total = 0;
+    for (const [key, entry] of Object.entries(counts)) {
+      /* entries written before the stamp existed are treated as stale */
+      const at = entry && typeof entry === "object" ? entry.at : 0;
+      const n = entry && typeof entry === "object" ? entry.n : entry;
+      if (!at || now - at > LOBBY_STALE_MS) { delete counts[key]; continue; }
+      total += n;
+    }
     await this.ctx.storage.put("counts", counts);
-    return Object.values(counts).reduce((a, b) => a + b, 0);
+    return total;
   }
 }
 
@@ -79,7 +95,12 @@ export class PresenceRoom extends DurableObject {
         this.broadcast(ws, { type: "leave", id: a.meta.id });
       }
     }
-    if (this.ctx.getWebSockets().length > 0) {
+    const left = this.ctx.getWebSockets();
+    if (left.length > 0) {
+      /* renew the room's claim in the lobby while anyone is still here */
+      let page = "/";
+      try { page = left[0].deserializeAttachment().page || "/"; } catch { /* default */ }
+      await this.announceCensus(page);
       await this.ctx.storage.setAlarm(Date.now() + 60_000);
     }
   }
