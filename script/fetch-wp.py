@@ -22,7 +22,7 @@ from email.utils import parsedate_to_datetime
 
 FEED = "https://profiles.wordpress.org/joefusco/feed/"
 OUT = os.path.join(os.path.dirname(__file__), "..", "_data", "wp.json")
-KEEP = 6
+KEEP = 20
 
 # "Merged pull request #158 into WordPress/presence-api: fix: enforce ..."
 PR = re.compile(r"^(Submitted|Merged) pull request #(\d+) (?:to|into) ([\w.-]+/[\w.-]+): (.+)$")

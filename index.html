@@ -62,13 +62,13 @@ layout: default
 	<section class="block" aria-label="Lately in WordPress">
 		<h2>Lately</h2>
 		<ul class="posts lately" data-lately aria-busy="true">
-			{% for i in (1..5) %}
+			{% for i in (1..20) %}
 			<li class="lately-skeleton" aria-hidden="true"><span class="bone bone-date"></span><span class="bone bone-line"></span></li>
 			{% endfor %}
 		</ul>
 		<noscript>
 			<ul class="posts lately">
-				{% for it in site.data.wp.activity limit: 5 %}
+				{% for it in site.data.wp.activity limit: 20 %}
 				<li>
 					<time datetime="{{ it.date }}">{{ it.date | date: "%b %-d" }}</time>
 					<span class="lately-line"><a href="{{ it.url }}">{{ it.subject | default: it.what }}</a>{% if it.subject != '' and it.what != it.subject %} <span class="lately-what">{{ it.what | downcase }}</span>{% endif %}</span>
