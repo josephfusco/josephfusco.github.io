@@ -439,44 +439,7 @@ section.block > h2 {
 
 
 /* The full stop takes the accent — quiet signature, no theatrics */
-/* The period is a drop of water sitting on the paper, and it leans in
-   the same wind that moves the birds. Surface tension is the whole of
-   it: the foot is pinned where the drop meets the baseline, the body
-   shears away from it, and it comes back past true before it settles.
-   No shine, no gradient — it reads as liquid because it behaves that
-   way, not because it is drawn wet. */
-.flame {
-  color: var(--accent);
-  display: inline-block;
-}
-.flame-period {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-.drop {
-  display: inline-block;
-  width: 0.17em;
-  height: 0.17em;
-  vertical-align: baseline;
-  fill: currentColor;
-  /* pinned to the paper: water holds on where it touches */
-  transform-origin: 50% 100%;
-  translate: calc(var(--wind, 0) * 1.6px) 0;
-  transform: skewX(calc(var(--wind, 0) * -7deg));
-  transition:
-    translate 2.6s cubic-bezier(0.37, 0, 0.63, 1),
-    transform 2.6s cubic-bezier(0.34, 1.45, 0.64, 1);
-}
-/* a gust pulls it further out of round, and tension takes it back faster */
-html.gust .drop {
-  translate: calc(var(--wind, 0) * 3.4px) 0;
-  transform: skewX(calc(var(--wind, 0) * -14deg)) scale(1.06, 0.94);
-  transition-duration: 0.85s;
-}
+.flame { color: var(--accent); }
 
 
 
