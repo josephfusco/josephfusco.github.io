@@ -950,29 +950,55 @@ body { line-height: var(--lh); overflow-x: clip; }
 .site-name-text { font-size: 1.375rem; line-height: var(--lh); }
 .site-nav a { font-size: 1rem; line-height: var(--lh); }
 
-/* The blog is the one thing the nav asks for: a pane of glass over the
-   paper, holding its own line so the masthead stays four units tall. */
+/* The blog is the one thing the nav asks for: a lens over the paper.
+   Glass reads by its rim and its specular, not by blur alone — the
+   rim lights at the top and darkens at the bottom, the dome catches a
+   highlight, and the whole of it floats a little off the page. */
 .site-nav .nav-cta {
+  position: relative;
   color: var(--fg);
-  padding: 0.1875rem 0.6875rem;
-  border: 1px solid var(--border);
+  padding: 0.4375rem 1.0625rem;
+  border: 1px solid transparent;
   border-radius: 999px;
-  background: rgba(255, 253, 247, 0.5);
-  -webkit-backdrop-filter: blur(10px) saturate(1.35);
-  backdrop-filter: blur(10px) saturate(1.35);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 1px 2px rgba(35, 32, 26, 0.05);
-  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 253, 247, 0.12) 45%, rgba(255, 253, 247, 0.3)) padding-box,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(221, 212, 191, 0.9) 55%, rgba(35, 32, 26, 0.16)) border-box;
+  -webkit-backdrop-filter: blur(14px) saturate(1.7) brightness(1.05);
+  backdrop-filter: blur(14px) saturate(1.7) brightness(1.05);
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(35, 32, 26, 0.09),
+    0 1px 1px rgba(35, 32, 26, 0.05),
+    0 7px 16px -8px rgba(35, 32, 26, 0.22);
+  transition: box-shadow 200ms ease, translate 200ms ease;
+}
+/* the dome's own highlight, across the top third */
+.site-nav .nav-cta::before {
+  content: "";
+  position: absolute;
+  inset: 1px 1px auto;
+  height: 42%;
+  border-radius: 999px 999px 40% 40% / 999px 999px 100% 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 .site-nav .nav-cta:hover {
   color: var(--accent);
-  border-color: var(--muted);
-  background: rgba(255, 253, 247, 0.78);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 6px rgba(35, 32, 26, 0.08);
+  translate: 0 -1px;
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 1),
+    inset 0 -1px 1px rgba(35, 32, 26, 0.1),
+    0 2px 2px rgba(35, 32, 26, 0.05),
+    0 12px 22px -10px rgba(35, 32, 26, 0.28);
 }
 .site-nav .nav-cta[aria-current="page"] {
   color: var(--fg);
-  border-color: var(--muted);
-  background: rgba(255, 253, 247, 0.85);
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 255, 255, 1),
+    inset 0 -1px 1px rgba(35, 32, 26, 0.12),
+    inset 0 0 12px rgba(255, 255, 255, 0.5),
+    0 1px 1px rgba(35, 32, 26, 0.05),
+    0 7px 16px -8px rgba(35, 32, 26, 0.22);
 }
 
 /* Lately is a log, not writing: one line an entry, a size down, and the
@@ -995,57 +1021,6 @@ body { line-height: var(--lh); overflow-x: clip; }
   border-bottom: 1px dashed var(--border);
 }
 
-/* The face keeps the right margin, the way the bird's note keeps the
-   left. Neither takes a pixel from the measure. */
-.hero-card { margin: 0; }
-.hero-card img {
-  display: block;
-  /* four units of picture, so the card ends on the line Now starts */
-  width: 7rem;
-  height: auto;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  /* a photograph printed on the stationery, not a sticker on it */
-  filter: saturate(0.82) sepia(0.06);
-}
-.hero-card figcaption {
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: 0.8125rem;
-  line-height: var(--lh);
-  color: var(--muted);
-  /* picture, phi, caption: the card's foot lands on the rule */
-  margin-top: var(--space-m);
-  white-space: nowrap;
-}
-/* The picture needs 7rem of margin and a gutter, not the 12rem the
-   note needs, so it holds the margin far longer than the note does —
-   one move on the way down, not two. */
-@media (min-width: 60rem) {
-  .hero-card {
-    position: absolute;
-    /* half a unit under the title's box, where its caps begin: a
-       photograph's edge lines up with the letters, not their leading */
-    top: calc(var(--space-l) + 0.875rem);
-    left: 100%;
-    margin-left: 1.75rem;
-  }
-}
-/* No margin left to stand in: the picture leads the hero instead of
-   trailing it, with its line beside it rather than stranded under. */
-@media (max-width: 60rem) {
-  /* phi squared of air over the title is for a page with margins */
-  .hero { display: flex; flex-direction: column; padding-top: var(--space-m); }
-  .hero-card {
-    order: -1;
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    margin: 0 0 var(--space-s);
-  }
-  .hero-card img { width: 5.25rem; }
-  .hero-card figcaption { margin: 0; padding: 0; }
-}
 
 .field-note .status {
   font-family: inherit;
