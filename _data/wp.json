@@ -1,41 +1,125 @@
 {
   "activity": [
     {
-      "date": "2026-08-18",
-      "subject": "fix: stop Playwright from starting a second wp-env instance in CI",
-      "url": "https://github.com/WordPress/sync-storage/pull/22",
-      "what": "Opened a pull request in WordPress/sync-storage"
+      "date": "2026-09-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/498",
+      "what": "Closed issue #498 on the WordPress/presence-api repository: e2e's ~8 minute wall-clock is bounded by wp-env boot cost, not test\u2026"
     },
     {
-      "date": "2026-08-18",
-      "subject": "docs: rewrite README to match Presence API's format",
-      "url": "https://github.com/WordPress/sync-storage/pull/21",
-      "what": "Opened a pull request in WordPress/sync-storage"
+      "date": "2026-09-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/pull/500",
+      "what": "Closed pull request #500 on WordPress/presence-api: ci: cache wp-env's WordPress core checkout in the e2e job"
     },
     {
-      "date": "2026-08-18",
-      "subject": "Update to version 0.1.23 from GitHub",
-      "url": "https://plugins.trac.wordpress.org/changeset/3653300/",
+      "date": "2026-09-11",
+      "subject": "feat: expose the room's collaborator count as JS hooks",
+      "url": "https://github.com/WordPress/presence-api/pull/503",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-09-11",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/502",
+      "what": "Created issue #502 in the WordPress/presence-api repository: The collaborator count only reaches code already listening to heartbeat-tick"
+    },
+    {
+      "date": "2026-09-11",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/501",
+      "what": "Created issue #501 in the WordPress/presence-api repository: Consider requesting identicon avatars on presence-api's own surfaces"
+    },
+    {
+      "date": "2026-09-10",
+      "subject": "ci: derive the Playground preview PR from the triggering run",
+      "url": "https://github.com/WordPress/sync-storage/pull/130",
+      "what": "Merged a pull request in WordPress/sync-storage"
+    },
+    {
+      "date": "2026-09-10",
+      "subject": "Update to version 0.5.0 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3690092/",
       "what": "Committed to Plugins SVN"
     },
     {
-      "date": "2026-08-18",
-      "subject": "chore(main): release 0.1.23",
-      "url": "https://github.com/WordPress/presence-api/pull/295",
+      "date": "2026-09-10",
+      "subject": "chore(main): release 0.5.0",
+      "url": "https://github.com/WordPress/presence-api/pull/478",
       "what": "Merged a pull request in WordPress/presence-api"
     },
     {
-      "date": "2026-08-17",
+      "date": "2026-09-10",
       "subject": "",
-      "url": "https://github.com/WordPress/gutenberg/pull/81697",
-      "what": "Pull request #81697 merged into WordPress/gutenberg: Add `__unstable_wp_sync_storage` filter for pluggable storage backends"
+      "url": "https://github.com/WordPress/presence-api/issues/493",
+      "what": "Closed issue #493 on the WordPress/presence-api repository: Required status checks never report when CI skips them, blocking every release-please\u2026"
     },
     {
-      "date": "2026-08-17",
+      "date": "2026-09-10",
+      "subject": "ci: gate phpunit's steps instead of the job, so both PHP versions\u2026",
+      "url": "https://github.com/WordPress/presence-api/pull/497",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-09-10",
       "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/285",
-      "what": "Closed issue #285 on the WordPress/presence-api repository: get_rooms() hydrates every room before paginating"
+      "url": "https://github.com/WordPress/presence-api/issues/495",
+      "what": "Closed issue #495 on the WordPress/presence-api repository: plugin-check installs wp-env globally instead of reusing the project's own"
+    },
+    {
+      "date": "2026-09-10",
+      "subject": "ci: reuse the project's own wp-env in plugin-check instead of a global\u2026",
+      "url": "https://github.com/WordPress/presence-api/pull/496",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-09-10",
+      "subject": "ci: report required checks under their composite name even when skipped",
+      "url": "https://github.com/WordPress/presence-api/pull/494",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-09-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/480",
+      "what": "Closed issue #480 on the WordPress/presence-api repository: Who's Online row avatar doesn't bookend its two-line text block"
+    },
+    {
+      "date": "2026-09-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/479",
+      "what": "Closed issue #479 on the WordPress/presence-api repository: Avatar images are undersized for retina displays across the presence surfaces"
+    },
+    {
+      "date": "2026-09-09",
+      "subject": "fix: request a retina-sharp avatar resolution and bookend the Who's Online row",
+      "url": "https://github.com/WordPress/presence-api/pull/481",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-09-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/311",
+      "what": "Closed issue #311 on the WordPress/presence-api repository: Consider a neutral/inactive avatar state instead of dropping stale presence entries"
+    },
+    {
+      "date": "2026-09-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/484",
+      "what": "Closed issue #484 on the WordPress/presence-api repository: Add a Settings link to the plugin row actions"
+    },
+    {
+      "date": "2026-09-09",
+      "subject": "feat: add a Settings link to the plugin row actions",
+      "url": "https://github.com/WordPress/presence-api/pull/492",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-09-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/486",
+      "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-08-18"
+  "fetched": "2026-09-12"
 }

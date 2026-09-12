@@ -151,7 +151,7 @@ function roomFor(env, pathParam) {
    the site's voice. Cached an hour; the site keeps a build-time copy
    for when this endpoint is unreachable. */
 const WP_FEED = "https://profiles.wordpress.org/joefusco/feed/";
-const WP_KEEP = 6;
+const WP_KEEP = 20;
 const WP_PR = /^(Submitted|Merged) pull request #(\d+) (?:to|into) ([\w.-]+\/[\w.-]+): (.+)$/;
 const WP_PUSH = /^Pushed (\d+) commits? to ([\w.-]+\/[\w.-]+): (.+)$/;
 const WP_SVN = /^Committed \[(\d+)\] to (.+?): (.+)$/;

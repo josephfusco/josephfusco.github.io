@@ -1001,11 +1001,45 @@ body { line-height: var(--lh); overflow-x: clip; }
     0 7px 16px -8px rgba(35, 32, 26, 0.22);
 }
 
+/* The record is a feed, so on a page with margins it stands in one:
+   the right margin, beside the work it is a record of. The top is the
+   hero's own height, so its first line meets the first project. */
+@media (min-width: 78rem) {
+  body.index .wrap { position: relative; }
+  body.index section.block[aria-label*="Lately"] {
+    position: absolute;
+    top: 17.5rem;
+    left: 100%;
+    margin-left: 1.75rem;
+    width: 15rem;
+    padding: 0;
+  }
+  body.index section.block[aria-label*="Lately"] .lately-line {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* a feed reads small and quiet: the date runs with the line, not
+     above it, and nothing here competes with the work beside it */
+  body.index section.block[aria-label*="Lately"] .lately-line,
+  body.index section.block[aria-label*="Lately"] .posts time { font-size: 0.75rem; }
+  body.index section.block[aria-label*="Lately"] .lately li { padding-bottom: 0.4375rem; }
+  body.index section.block[aria-label*="Lately"] .posts time {
+    position: static;
+    float: left;
+    margin: 0 0.4375rem 0 0;
+  }
+  body.index section.block[aria-label*="Lately"] .lately-note { font-size: 0.6875rem; }
+}
+
 /* Lately is a log, not writing: one line an entry, a size down, and the
    whole row steps back so Now and Writing keep the ink. */
 .lately .lately-line {
   display: block;
-  font-size: 0.9375rem;
+  /* a feed is passing; the writing list is permanent and keeps its size */
+  font-size: 0.875rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
