@@ -875,7 +875,15 @@ html[data-blueprint] .blueprint-systems {
    and live cursor labels.
    ============================================================ */
 
-:root { --lh: 1.75rem; }
+:root {
+  --lh: 1.75rem;
+  /* Type sits on the unit; space between blocks is the unit times phi.
+     0.618 = 1/phi, 1.618 = phi, 2.618 = phi squared. */
+  --space-xs: calc(var(--lh) * 0.618);
+  --space-s: var(--lh);
+  --space-m: calc(var(--lh) * 1.618);
+  --space-l: calc(var(--lh) * 2.618);
+}
 
 body { line-height: var(--lh); }
 
@@ -927,7 +935,7 @@ body { line-height: var(--lh); }
 /* Hero */
 .hero {
   /* the rule subtracts its own width from the padding under it */
-  padding: var(--lh) 0 calc(var(--lh) - 1px);
+  padding: var(--space-l) 0 calc(var(--space-m) - 1px);
   position: relative;
   border-bottom: 1px dashed var(--border);
 }
@@ -951,15 +959,16 @@ body { line-height: var(--lh); }
   font-size: 0.8125rem;
   line-height: var(--lh);
   color: var(--muted);
-  margin-top: var(--lh);
+  /* picture, phi, caption: the card's foot lands on the rule */
+  margin-top: var(--space-m);
   white-space: nowrap;
 }
 @media (min-width: 75rem) {
   .hero-card {
     position: absolute;
-    /* half a unit down, where the title's caps begin: a photograph's
-       edge lines up with the letters, not with their leading */
-    top: calc(var(--lh) + 0.875rem);
+    /* half a unit under the title's box, where its caps begin: a
+       photograph's edge lines up with the letters, not their leading */
+    top: calc(var(--space-l) + 0.875rem);
     left: 100%;
     margin-left: 1.75rem;
   }
@@ -991,10 +1000,10 @@ body { line-height: var(--lh); }
 /* Proof: one serif italic line between hairlines, on the grid */
 
 /* Sections: primary get φ spacing, secondary recede */
-section.block { padding: var(--lh) 0 var(--lh); }
+section.block { padding: var(--space-m) 0 var(--space-s); }
 section.block[aria-label*="Lately"],
 section.block[aria-label*="writing"] {
-  padding: var(--lh) 0 0.875rem;
+  padding: var(--space-s) 0 var(--space-xs);
 }
 section.block > h2 {
   line-height: var(--lh);
@@ -1762,6 +1771,9 @@ body {
     text-align: right;
   }
   .field-note--after-trail { top: calc(100% + 5.25rem); }
+  /* the front page opens on phi squared, so the note drops with it and
+     starts on the band the title and the face share */
+  body.index .field-note { top: calc(100% + 3.5rem + var(--space-m)); }
 }
 .field-note > * { line-height: var(--lh); min-height: var(--lh); }
 
