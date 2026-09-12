@@ -747,6 +747,9 @@
       phase += 0.7 + Math.random() * 0.6;
       var w = Math.sin(phase) * 0.6 + Math.sin(phase * 0.37) * 0.4;
       wire.style.setProperty('--wind', w.toFixed(2));
+      /* the same weather on the root, so anything on the page can lean
+         in it — the period after the name does */
+      document.documentElement.style.setProperty('--wind', w.toFixed(2));
       setTimeout(breathe, 2600 + Math.random() * 2600);
     }
     breathe();
@@ -754,7 +757,11 @@
       setTimeout(function () {
         if (!document.hidden) {
           wire.classList.add('gust');
-          setTimeout(function () { wire.classList.remove('gust'); }, 1400);
+          document.documentElement.classList.add('gust');
+          setTimeout(function () {
+            wire.classList.remove('gust');
+            document.documentElement.classList.remove('gust');
+          }, 1400);
         }
         gust();
       }, 24000 + Math.random() * 40000);
