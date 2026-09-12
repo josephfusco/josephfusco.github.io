@@ -1,5 +1,4 @@
 {% if page.layout == 'post' %}{% assign crumb_url = '/blog' %}{% assign crumb_label = 'Writing' %}{% else %}{% assign crumb_url = '/' %}{% assign crumb_label = 'Home' %}{% endif %}
 <p class="crumb-line">
-	<span class="crumbs" data-crumbs aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
 	<a class="crumb-back" href="{{ crumb_url | relative_url }}">&larr; {{ crumb_label }}</a>
 </p>
