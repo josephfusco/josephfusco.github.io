@@ -1766,11 +1766,10 @@ body {
 .crumbs i:nth-child(2n) { translate: 0 2px; }
 .crumbs i:nth-child(3n) { translate: 0 -1px; width: 2px; height: 2px; }
 .crumbs i.eaten { opacity: 0; scale: 0.3; }
-/* a fragment on its way down from the wire */
+/* A fragment on its way down from the wire. Its size is set by the
+   bird that dropped it, so nothing here fixes it. */
 .crumb-fall {
   position: fixed;
-  width: 3px;
-  height: 3px;
   border-radius: 50%;
   background: var(--muted);
   z-index: 300;

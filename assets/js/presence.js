@@ -1441,16 +1441,33 @@
       document.body.appendChild(bit);
       var dx = (to.left + to.width / 2) - (from.left + from.width / 2);
       var dy = (to.top + to.height / 2) - (from.top + from.height * 0.7);
-      /* it tumbles: gravity down, the drift carries it sideways */
-      var fall = bit.animate([
-        { transform: 'translate(0,0)', opacity: 0.8 },
-        { offset: 0.3, transform: 'translate(' + (dx * 0.3) + 'px,' + (dy * 0.12) + 'px)', opacity: 0.8 },
-        { transform: 'translate(' + dx + 'px,' + dy + 'px)', opacity: 0.8 },
-      ], { duration: 700 + Math.abs(dy), easing: 'cubic-bezier(0.4, 0, 0.9, 1)' });
-      fall.finished.then(function () {
-        bit.remove();
-        gone.classList.remove('eaten');
-      }).catch(function () { bit.remove(); });
+
+      /* What falls is the size of the bird that dropped it, and it
+         falls at the rate that distance costs. The scene has a scale:
+         a rock pigeon is a third of a metre and draws about 24px, so
+         73px is a metre here. t = sqrt(2h/g), plus a little, because a
+         crumb is not a stone and the air holds it up. */
+      var span = (1.8 + bird.scale * 1.1).toFixed(1);
+      bit.style.width = span + 'px';
+      bit.style.height = span + 'px';
+      var metres = Math.abs(dy) / 73;
+      var dur = Math.max(200, Math.sqrt(2 * metres / 9.81) * 1000 * 1.15);
+
+      /* the parabola drawn out: it is still gaining speed when it lands */
+      var frames = [];
+      for (var i = 0; i <= 6; i++) {
+        var p = i / 6;
+        frames.push({
+          offset: p,
+          transform: 'translate(' + (dx * p).toFixed(1) + 'px,' + (dy * p * p).toFixed(1) + 'px)',
+          opacity: (0.85 - 0.85 * Math.max(0, (p - 0.72) / 0.28)).toFixed(2),
+        });
+      }
+      var fall = bit.animate(frames, { duration: dur, easing: 'linear' });
+      /* the crumb it becomes fades up as the fragment fades out */
+      setTimeout(function () { gone.classList.remove('eaten'); }, dur * 0.78);
+      fall.finished.then(function () { bit.remove(); })
+        .catch(function () { bit.remove(); gone.classList.remove('eaten'); });
     }
     function at(x, y) { return 'translate(' + x + 'px,' + y + 'px)'; }
     function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
