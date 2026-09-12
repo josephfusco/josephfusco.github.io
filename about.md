@@ -12,4 +12,6 @@ Core work centers on the [Presence API](https://github.com/WordPress/presence-ap
 
 The other line of work is access to justice. [LexGrade](https://lexgrade.org) is an open standard for grading legal motions — eight principles and forty-five graded criteria, with a companion register of named advocacy techniques. Both are published under CC-BY-SA and owned by no one; the source lives on [GitHub](https://github.com/LexGrade/standard). [LexBunker](https://lexbunker.com) is the other piece: case software for family-law litigators that keeps a contested matter on one timeline, offline on the firm's own hardware.
 
+[Mashable](https://mashable.com/archive/teach-yourself-programming) and [Treehouse](https://teamtreehouse.com/stories/joe-fusco) covered the career change in 2015.
+
 The rest is amateur arboriculture, and being a dad. The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015.
