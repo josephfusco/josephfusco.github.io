@@ -1795,7 +1795,7 @@ body {
 
 /* Under the signature, how to reach the signer */
 .signature-contacts {
-  margin: 0 0 var(--lh);
+  margin: 0;
   font-size: 0.8125rem;
   line-height: var(--lh);
 }
@@ -1806,7 +1806,13 @@ body {
 .signature-contacts a:hover { color: var(--accent); }
 
 /* Tools take one short line above the fineprint */
-.footer-tools { margin: var(--lh) 0 0; line-height: var(--lh); }
+/* The tools are a different kind of thing from the signature, so phi
+   of air separates them; everything else in the close is one unit. */
+.footer-tools { margin: var(--space-m) 0 var(--space-xs); line-height: var(--lh); }
+.fineprint > span { display: block; }
+/* the camera sits in the line, at the size of the line */
+.fineprint .camera { width: 22px; height: 15px; vertical-align: -3px; margin-left: 0.4375rem; }
+.fineprint .camera .camera-lens { width: 7px; height: 7px; }
 
 /* The field note: live presence pinned to the page's quiet corner,
    a slip of the same stationery as the colophon */
