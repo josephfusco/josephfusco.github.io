@@ -4,20 +4,20 @@ layout: default
 <div class="wrap">
 	<section class="hero" data-spec="hero · measure 42rem · 2.75rem / 3.5rem">
 		<h1>Hello, I'm Joe<span class="flame">.</span></h1>
-		<p class="lede">I maintain headless WordPress plugins at <strong>WP&nbsp;Engine</strong>, contribute to <strong>WordPress core</strong>, and work on <strong>access to justice</strong>.</p>
+		<p class="lede">I contribute to <strong>WordPress&nbsp;Core</strong>, sponsored by <strong>WP&nbsp;Engine</strong>, and work on <strong>access to justice</strong>.</p>
 	</section>
 
 
-	<section class="block" aria-label="Current work" data-spec="now · 4 projects · border-b 1px">
+	<section class="block" aria-label="Current work" data-spec="now · 5 projects · rhythm only, no rule">
 		<h2>Now</h2>
 		<ul class="work">
 			<li>
 				<div class="stage" aria-hidden="true">
-					<svg viewBox="0 0 24 24" width="20" height="20" fill="none" class="work-mark-svg"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/></svg>
+					<svg viewBox="17 42 94 44" width="38" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="work-mark-svg"><path d="M51.5,76.95 A18,18 0 1 1 51.5,51.05"/><path d="M76.5,76.95 A18,18 0 1 1 76.5,51.05"/><circle cx="89" cy="64" r="18"/></svg>
 				</div>
 				<div>
-					<h3><a href="https://github.com/WordPress/presence-api">Presence API</a> <span class="tag">WordPress core project</span></h3>
-					<p>System-wide presence and awareness for WordPress, and the foundation for real-time collaboration in the block editor. The cursors on this site run on the same idea.</p>
+					<h3><a href="https://github.com/WordPress/presence-api">Presence API</a> <span class="tag">WordPress Core</span></h3>
+					<p>System-wide presence and awareness for WordPress, and the foundation for real-time collaboration in the block editor.</p>
 				</div>
 			</li>
 			<li>
@@ -25,17 +25,26 @@ layout: default
 					<svg viewBox="0 0 40 24" width="33" height="20" fill="none" class="work-mark-svg"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/><g opacity="0.45"><circle cx="28" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M28 0v5M28 19v5M16 12h5M35 12h5" stroke="currentColor" stroke-width="1.5"/></g></svg>
 				</div>
 				<div>
-					<h3><a href="https://github.com/WordPress/wordpress-develop">Real-time collaboration in core</a> <span class="tag">wordpress-develop</span></h3>
-					<p>Dedicated storage and infrastructure for collaborative editing in WordPress core.</p>
+					<h3><a href="https://github.com/WordPress/sync-storage">Realtime Collaboration</a> <span class="tag">WordPress Core</span></h3>
+					<p>Dedicated storage and infrastructure for collaborative editing in WordPress Core.</p>
 				</div>
 			</li>
 			<li>
 				<div class="stage" aria-hidden="true">
-					<span class="work-mark-serif">&sect;</span>
+					<svg viewBox="-6 12 192 234" width="23" height="28" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" class="work-mark-svg"><path d="M0,144 H36 V204 H180 V240 H0 Z"/><rect x="48" y="108" width="36" height="84"/><rect x="96" y="72" width="36" height="120"/><path d="M144,36 L162,18 L180,36 V192 H144 Z"/></svg>
 				</div>
 				<div>
 					<h3><a href="https://lexgrade.org">LexGrade</a> <span class="tag">access to justice</span></h3>
-					<p>An open standard for grading legal motions. Openly published, owned by no one.</p>
+					<p>An open standard for grading legal motions, owned by no one.</p>
+				</div>
+			</li>
+			<li>
+				<div class="stage" aria-hidden="true">
+					<svg viewBox="-6 98 192 148" width="36" height="27" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" class="work-mark-svg"><path d="M0,144 H36 V204 H180 V240 H0 Z"/><path d="M48,192 V144 L180,104 V192 Z"/><path d="M62,152 h26 v12 h-26 Z"/><path d="M98,141 h26 v12 h-26 Z"/><path d="M134,130 h26 v12 h-26 Z"/></svg>
+				</div>
+				<div>
+					<h3><a href="https://lexbunker.com">LexBunker</a> <span class="tag">access to justice</span></h3>
+					<p>Case software for family-law litigators that keeps a contested matter on one timeline, offline.</p>
 				</div>
 			</li>
 			<li>
@@ -44,7 +53,7 @@ layout: default
 				</div>
 				<div>
 					<h3><a href="https://wordpress.org/plugins/wpgraphql-ide/">WPGraphQL IDE</a> <span class="tag">wp-graphql</span></h3>
-					<p>A next-generation query editor for WPGraphQL, on the WordPress.org plugin directory.</p>
+					<p>A next-generation query editor for WPGraphQL.</p>
 				</div>
 			</li>
 		</ul>
@@ -53,16 +62,16 @@ layout: default
 	<section class="block" aria-label="Lately in WordPress">
 		<h2>Lately</h2>
 		<ul class="posts lately" data-lately aria-busy="true">
-			{% for i in (1..4) %}
+			{% for i in (1..5) %}
 			<li class="lately-skeleton" aria-hidden="true"><span class="bone bone-date"></span><span class="bone bone-line"></span></li>
 			{% endfor %}
 		</ul>
 		<noscript>
 			<ul class="posts lately">
-				{% for it in site.data.wp.activity limit: 4 %}
+				{% for it in site.data.wp.activity limit: 5 %}
 				<li>
 					<time datetime="{{ it.date }}">{{ it.date | date: "%b %-d" }}</time>
-					<span><a href="{{ it.url }}">{{ it.subject | default: it.what }}</a> <span class="lately-what">{{ it.what | downcase }}</span></span>
+					<span class="lately-line"><a href="{{ it.url }}">{{ it.subject | default: it.what }}</a>{% if it.subject != '' and it.what != it.subject %} <span class="lately-what">{{ it.what | downcase }}</span>{% endif %}</span>
 				</li>
 				{% endfor %}
 			</ul>

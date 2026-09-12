@@ -17,9 +17,9 @@
 			</svg>
 		</a>
 		<nav class="site-nav" aria-label="Main">
-			<a href="{{ '/blog' | relative_url }}"{% if page.url contains '/blog' or page.layout == 'post' %} aria-current="page"{% endif %}>Writing</a>
 			<a href="{{ '/about' | relative_url }}"{% if page.url contains '/about' %} aria-current="page"{% endif %}>About</a>
 			<a href="{{ '/design' | relative_url }}"{% if page.url contains '/design' %} aria-current="page"{% endif %}>Design</a>
+			<a class="nav-cta" href="{{ '/blog' | relative_url }}"{% if page.url contains '/blog' or page.layout == 'post' %} aria-current="page"{% endif %}>Writing</a>
 		</nav>
 	</div>
 	<div class="powerline" aria-hidden="true">
@@ -37,7 +37,7 @@
 			<option value="af">Africa</option>
 			<option value="oc">Oceania</option>
 			<option value="sa">South America</option>
-		</select><span class="region-yours" hidden>yours</span></label>
+		</select></label>
 		<button class="guide-toggle" popovertarget="field-guide"><span class="note-bird" data-species="0" data-inline aria-hidden="true"></span> field guide</button>
 		<div id="field-guide" popover>
 			<div class="bird-legend" data-legend aria-label="The field guide, one entry per species"></div>

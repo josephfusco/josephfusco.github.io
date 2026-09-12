@@ -49,8 +49,11 @@
     { label: 'sibling-index()', on: function () { return CSS.supports('animation-delay', 'calc(sibling-index() * 1ms)'); } },
     { label: '@starting-style', on: function () { return CSS.supports('transition-behavior', 'allow-discrete'); } },
     { label: 'styleable select', on: function () { return CSS.supports('appearance', 'base-select'); } },
+    { label: 'popover', on: function () { return HTMLElement.prototype.hasOwnProperty('popover'); } },
+    { label: 'backdrop-filter', on: function () { return CSS.supports('backdrop-filter', 'blur(1px)') || CSS.supports('-webkit-backdrop-filter', 'blur(1px)'); } },
     { label: 'invoker commands', on: function () { return typeof CommandEvent !== 'undefined'; } },
     { label: 'scheduler API', on: function () { return !!(window.scheduler && scheduler.postTask); } },
+    { label: 'broadcast channel', on: function () { return 'BroadcastChannel' in window; } },
     { label: 'presence relay', on: function () { return !!(window.__presenceLive); } },
   ];
 
@@ -418,8 +421,6 @@
     var home = regionForTZ(TZ);
     document.querySelectorAll('.region-select').forEach(function (el) {
       el.value = key || home;
-      var mine = el.parentNode && el.parentNode.querySelector('.region-yours');
-      if (mine) mine.hidden = (el.value !== home);
     });
   }
 
@@ -570,9 +571,12 @@
     });
     var w = wire && wire.querySelector('.wire-svg');
     if (w) w.animate(frames, { duration: dur, easing: 'ease-out' });
-    /* everything perched rides the same oscillation */
+    /* everything perched rides the same oscillation, labels included */
     flock.forEach(function (b) {
       if (!b.flown && b.el) b.el.animate(frames, { duration: dur, easing: 'ease-out' });
+    });
+    idTags.forEach(function (t) {
+      if (t.el) t.el.animate(frames, { duration: dur, easing: 'ease-out' });
     });
   }
 
@@ -833,7 +837,22 @@
 
   function checkStartle(cx, cy) {
     flock.forEach(function (bird) {
-      if (bird.flown || !bird.el) return;
+      if (!bird.el) return;
+      /* a bird down at the crumbs is closer to you than one on the
+         wire, and it flushes the same way — leaving the food behind */
+      if (bird.feeding && bird.flush) {
+        var fr = bird.el.getBoundingClientRect();
+        if (fr.width) {
+          var fdx = cx - (fr.left + fr.width / 2);
+          var fdy = cy - (fr.top + fr.height / 2);
+          if (fdx * fdx + fdy * fdy < 5200) {
+            bird.flush(fdx > 0 ? -1 : 1);
+            spreadAlarm(bird, fdx > 0 ? -1 : 1);
+          }
+        }
+        return;
+      }
+      if (bird.flown) return;
       var r = bird.el.getBoundingClientRect();
       if (!r.width) return;
       var bx = r.left + r.width / 2;
@@ -1042,12 +1061,20 @@
     var hint = (!n && !elsewhere && tabs === 1) ? 'a second tab makes two' : '';
     document.querySelectorAll('[data-presence-count]').forEach(function (el) {
       el.textContent = label;
-      if (hint) {
-        var h = document.createElement('span');
-        h.className = 'note-hint';
-        h.textContent = hint;
-        el.appendChild(h);
+      /* the hint is its own line beside the status, not inside it:
+         nested, it stretched the line and stranded the dot */
+      var host = el.closest('.status');
+      var holder = host && host.parentNode ? host.parentNode : null;
+      if (holder) {
+        var stale = holder.querySelector(':scope > .note-hint');
+        if (stale) stale.remove();
       }
+      if (!hint) return;
+      var h = document.createElement('span');
+      h.className = 'note-hint';
+      h.textContent = hint;
+      if (holder) holder.insertBefore(h, host.nextSibling);
+      else el.appendChild(h);
     });
     /* The dot rests still; it pulses only when the room changes */
     if (label !== lastCountLabel) {
@@ -1315,6 +1342,371 @@
     );
   } catch (err) {}
 
+  /* ---- How each species takes a crumb ----
+     Field behaviour, not decoration. The flycatchers, phoebes,
+     swallows and drongos on this wire hawk insects on the wing and do
+     not forage on the ground: they sit the crumbs out. Pigeons and
+     doves walk with the head-bob and swallow whole into the crop, so
+     they take several without looking up. Sparrows and finches hop on
+     both feet, husk what they take, and spend half their time with
+     their heads up. Starlings walk fast and stab. Jays, crows and
+     grackles carry a crumb off rather than stand and eat it, which is
+     why they leave with the first one. */
+  var FEED_BASE = { ground: true, gait: 'hop', bob: false, pecks: [2, 3], vigilance: 0.5, take: 1, carry: false };
+  var FEED_FAMILY = [
+    [/Kingbird|Flycatcher|Phoebe|Swallow|Drongo|Fiscal|Willie Wagtail/, { ground: false }],
+    [/Magpie-lark/,        { gait: 'walk', pecks: [2, 3], vigilance: 0.5, take: 2 }],
+    [/Jay|Crow/,           { gait: 'hop', pecks: [1, 1], vigilance: 0.85, take: 1, carry: true }],
+    [/Grackle/,            { gait: 'walk', pecks: [1, 2], vigilance: 0.4, take: 1, carry: true }],
+    [/Pigeon/,             { gait: 'walk', bob: true, pecks: [3, 5], vigilance: 0.12, take: 3 }],
+    [/Dove/,               { gait: 'walk', bob: true, pecks: [3, 5], vigilance: 0.3, take: 3 }],
+    [/Starling|Myna|Miner/,{ gait: 'walk', pecks: [2, 3], vigilance: 0.25, take: 3 }],
+    [/Blackbird/,          { gait: 'walk', pecks: [2, 3], vigilance: 0.4, take: 2 }],
+    [/Sparrow|Finch/,      { gait: 'hop', pecks: [2, 4], vigilance: 0.75, take: 2 }],
+    [/Wagtail/,            { gait: 'walk', pecks: [1, 2], vigilance: 0.8, take: 1 }],
+    [/Robin|Mockingbird|Kiskadee/, { gait: 'hop', pecks: [1, 2], vigilance: 0.7, take: 1 }],
+  ];
+
+  function feedProfile(name) {
+    var prof = {};
+    for (var k in FEED_BASE) prof[k] = FEED_BASE[k];
+    for (var i = 0; i < FEED_FAMILY.length; i++) {
+      if (FEED_FAMILY[i][0].test(name || '')) {
+        var over = FEED_FAMILY[i][1];
+        for (var j in over) prof[j] = over[j];
+        break;
+      }
+    }
+    return prof;
+  }
+
+  /* Crumbs in the margin, and the wire notices. A ground feeder drops
+     off its perch, works the trail the way its species works a lawn,
+     and climbs back. One bird at a time: at rest, one thing moves.
+     The link is not a crumb; it is never eaten. */
+  function beginCrumbs() {
+    var trail = document.querySelector('[data-crumbs]');
+    if (!trail || !wire) return;
+    var busy = false;
+
+    function rand(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+
+    /* A trip flies the wire's own flight curves, scaled to the distance
+       it actually has to cover: the crouch, the climb, the bob and the
+       settle, instead of a straight slide between two points. */
+    function tripFrames(from, to, rot) {
+      var f = FLIGHTS[Math.floor(Math.random() * FLIGHTS.length)];
+      var last = f[f.length - 1];
+      var dx = to.x - from.x;
+      var dy = to.y - from.y;
+      return f.map(function (k) {
+        var px = from.x + dx * (k[1] / last[1]);
+        var py = from.y + dy * (k[2] / last[2]);
+        return {
+          offset: k[0],
+          transform: 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px) rotate('
+            + (rot * k[3]).toFixed(1) + 'deg) scale(' + (0.95 + 0.05 * k[5]).toFixed(3) + ')',
+        };
+      });
+    }
+
+    /* the flare: nose up on the last of the descent, the way a bird
+       stalls onto a perch instead of arriving flat */
+    function flare(bird, face, dir, dur) {
+      setTimeout(function () {
+        if (!bird.svgEl) return;
+        bird.svgEl.animate(
+          [{ transform: face + ' rotate(0deg)' }, { transform: face + ' rotate(' + (dir * 13) + 'deg)' },
+           { transform: face + ' rotate(0deg)' }],
+          { duration: dur * 0.32, easing: 'ease-out' }
+        );
+      }, dur * 0.66);
+    }
+
+    /* A bird that carried a crumb up to the wire hammers it apart on
+       the perch, and what it scatters falls back to the trail. That is
+       the loop the ground feeders are waiting on: the carriers make
+       the crumbs the others come down for. */
+    function dropFrom(bird) {
+      var gone = trail.querySelector('i.eaten');
+      if (!gone || !bird.el) return;
+      var from = bird.el.getBoundingClientRect();
+      var to = gone.getBoundingClientRect();
+      if (!from.width || !to.width) return;
+      var bit = document.createElement('span');
+      bit.className = 'crumb-fall';
+      bit.setAttribute('aria-hidden', 'true');
+      bit.style.left = (from.left + from.width / 2) + 'px';
+      bit.style.top = (from.top + from.height * 0.7) + 'px';
+      document.body.appendChild(bit);
+      var dx = (to.left + to.width / 2) - (from.left + from.width / 2);
+      var dy = (to.top + to.height / 2) - (from.top + from.height * 0.7);
+      /* it tumbles: gravity down, the drift carries it sideways */
+      var fall = bit.animate([
+        { transform: 'translate(0,0)', opacity: 0.8 },
+        { offset: 0.3, transform: 'translate(' + (dx * 0.3) + 'px,' + (dy * 0.12) + 'px)', opacity: 0.8 },
+        { transform: 'translate(' + dx + 'px,' + dy + 'px)', opacity: 0.8 },
+      ], { duration: 700 + Math.abs(dy), easing: 'cubic-bezier(0.4, 0, 0.9, 1)' });
+      fall.finished.then(function () {
+        bit.remove();
+        gone.classList.remove('eaten');
+      }).catch(function () { bit.remove(); });
+    }
+    function at(x, y) { return 'translate(' + x + 'px,' + y + 'px)'; }
+    function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+    /* whoever is perched nearest the trail and eats off the ground */
+    function forager(x) {
+      var best = null, bestDx = Infinity;
+      flock.forEach(function (b) {
+        if (b.flown || b.busy || !b.el) return;
+        if (!feedProfile(b.name).ground) return;
+        var r = b.el.getBoundingClientRect();
+        if (!r.width) return;
+        var d = Math.abs(r.left + r.width / 2 - x);
+        if (d < bestDx) { bestDx = d; best = b; }
+      });
+      return best;
+    }
+
+    function eat() {
+      if (busy || document.hidden) return;
+      var crumb = trail.querySelector('i:not(.eaten)');
+      if (!crumb) return;
+      var cr = crumb.getBoundingClientRect();
+      if (!cr.width) return;
+      var bird = forager(cr.left + cr.width / 2);
+      if (!bird) return;          /* an all-flycatcher wire ignores bread */
+      var prof = feedProfile(bird.name);
+      var el = bird.el;
+      var br = el.getBoundingClientRect();
+      var home = { x: 0, y: 0 };
+      var pos = {
+        x: (cr.left + cr.width / 2) - (br.left + br.width / 2),
+        y: (cr.top + cr.height / 2) - br.bottom,
+      };
+      if (!isFinite(pos.x) || !isFinite(pos.y)) return;
+
+      busy = bird.busy = true;
+      bird.flown = true;            /* the wire lifts: that weight is off it */
+      var spooked = false;
+      var holding = null;           /* the crumb in the bill, not yet swallowed */
+      var flip = pos.x < 0 ? 'scaleX(-1)' : '';
+      var tilt = pos.x < 0 ? -8 : 8;
+      /* flight is flown at a speed, not a duration: a bird from the far
+         end of the wire takes the time the distance costs it */
+      var span = Math.sqrt(pos.x * pos.x + pos.y * pos.y);
+      var trip = Math.max(700, Math.min(1900, 300 + span / 0.62));
+
+      function wings() {
+        el.innerHTML = flightSVG();
+        bird.svgEl = el.querySelector('svg');
+        bird.svgEl.style.transform = flip;
+        el.classList.add('airborne');
+        el.style.setProperty('--flapms', Math.round(70 + bird.scale * 30) + 'ms');
+      }
+      function stand(face) {
+        el.classList.remove('airborne');
+        el.innerHTML = bird.markup;
+        bird.svgEl = el.querySelector('svg');
+        bird.svgEl.style.transformOrigin = '50% 100%';
+        bird.svgEl.style.transform = face;
+      }
+      function backOnWire() {
+        bird.busy = busy = false;   /* clear first: a bird can be removed mid-meal */
+        bird.feeding = false;
+        bird.flush = null;
+        if (!bird.el) return;
+        el.style.transform = '';
+        el.style.zIndex = '';
+        stand(bird.flip ? 'scaleX(-1)' : '');
+        bird.flown = false;
+        bounceWire(bird.weight);
+        setSag();
+      }
+
+      /* A peck is the whole body pivoting over the feet: down fast,
+         up slower, and never on a beat. Vigilance is the head staying
+         up afterwards to look around before the next one. */
+      function peckAt(target) {
+        if (spooked) return Promise.resolve(null);
+        holding = target;           /* in the bill until it goes down */
+        var dips = rand(prof.pecks[0], prof.pecks[1]);
+        var segs = [];
+        var dur = 0;
+        for (var i = 0; i < dips; i++) {
+          var seg = [80 + Math.random() * 50, 130 + Math.random() * 110, 50 + Math.random() * 190];
+          segs.push(seg);
+          dur += seg[0] + seg[1] + seg[2];
+        }
+        var frames = [{ offset: 0, transform: flip + ' translateY(0) rotate(0deg)' }];
+        var t = 0;
+        var swallow = 0;
+        segs.forEach(function (seg, n) {
+          t += seg[0];
+          if (n === Math.min(1, dips - 1)) swallow = t;
+          frames.push({ offset: t / dur, transform: flip + ' translateY(3.5px) rotate(9deg)', easing: 'ease-out' });
+          t += seg[1];
+          frames.push({ offset: t / dur, transform: flip + ' translateY(0) rotate(0deg)', easing: 'ease-in-out' });
+          t += seg[2];
+          frames.push({ offset: Math.min(1, t / dur), transform: flip + ' translateY(0) rotate(0deg)' });
+        });
+        var a = bird.svgEl.animate(frames, { duration: dur, easing: 'linear' });
+        setTimeout(function () { if (target) target.classList.add('eaten'); }, swallow);
+        return a.finished.then(function () {
+          holding = null;           /* swallowed; nothing left to drop */
+          if (spooked) return null;
+          if (Math.random() > prof.vigilance) return null;
+          /* head up, a look either way, then back down */
+          return bird.svgEl.animate(
+            [{ transform: flip + ' translateY(0)' }, { transform: flip + ' translateY(-2px)' },
+             { transform: flip + ' translateY(-2px)' }, { transform: flip + ' translateY(0)' }],
+            { duration: 420 + Math.random() * 400, easing: 'ease-out' }
+          ).finished;
+        });
+      }
+
+      /* between crumbs: sparrows and finches hop on both feet, pigeons
+         and doves walk, and the head-bob goes with the walk */
+      function goTo(next) {
+        var nr = next.getBoundingClientRect();
+        var to = {
+          x: pos.x + (nr.left + nr.width / 2) - (cr.left + cr.width / 2),
+          y: pos.y + (nr.top + nr.height / 2) - (cr.top + cr.height / 2),
+        };
+        var from = { x: pos.x, y: pos.y };
+        pos = to;
+        if (prof.gait === 'hop') {
+          var hops = 2;
+          var frames = [];
+          for (var i = 0; i <= hops; i++) {
+            var p = i / hops;
+            if (i > 0) {
+              frames.push({ offset: (p - 0.5 / hops), transform: at(from.x + (to.x - from.x) * (p - 0.5 / hops), from.y + (to.y - from.y) * (p - 0.5 / hops) - 5) });
+            }
+            frames.push({ offset: p, transform: at(from.x + (to.x - from.x) * p, from.y + (to.y - from.y) * p) });
+          }
+          return el.animate(frames, { duration: 200 * hops, easing: 'ease-out', fill: 'forwards' }).finished
+            .then(function (a) { el.style.transform = at(to.x, to.y); });
+        }
+        if (prof.bob) {
+          bird.svgEl.animate(
+            [{ transform: flip + ' translateX(0)' }, { transform: flip + ' translateX(1.5px)' },
+             { transform: flip + ' translateX(0)' }, { transform: flip + ' translateX(1.5px)' },
+             { transform: flip + ' translateX(0)' }],
+            { duration: 460, easing: 'ease-in-out' }
+          );
+        }
+        return el.animate(
+          [{ transform: at(from.x, from.y) }, { transform: at(to.x, to.y) }],
+          { duration: 460, easing: 'linear', fill: 'forwards' }
+        ).finished.then(function () { el.style.transform = at(to.x, to.y); });
+      }
+
+      function flyHome(carrying) {
+        bird.feeding = false;       /* in the air it is out of reach again */
+        bird.flush = null;
+        if (spooked || !bird.el) { if (!spooked) backOnWire(); return null; }
+        wings();
+        scheduleGlide(el, trip);
+        var back = pos.x < 0 ? 'scaleX(-1)' : '';
+        if (bird.svgEl) bird.svgEl.style.transform = pos.x < 0 ? '' : 'scaleX(-1)';
+        flare(bird, pos.x < 0 ? '' : 'scaleX(-1)', pos.x < 0 ? -1 : 1, trip);
+        var up = el.animate(
+          tripFrames({ x: pos.x, y: pos.y }, { x: home.x, y: home.y }, -tilt),
+          { duration: trip, easing: 'cubic-bezier(0.18, 0.65, 0.45, 1)', fill: 'forwards' }
+        );
+        return up.finished.then(function () {
+          up.cancel();
+          if (!carrying) { backOnWire(); return null; }
+          /* a jay holds it underfoot on the perch and hammers it apart */
+          stand(bird.flip ? 'scaleX(-1)' : '');
+          el.style.transform = '';
+          var face = bird.flip ? 'scaleX(-1)' : '';
+          return bird.svgEl.animate([
+            { transform: face + ' translateY(0)' }, { transform: face + ' translateY(3px)' },
+            { transform: face + ' translateY(0)' }, { transform: face + ' translateY(3px)' },
+            { transform: face + ' translateY(0)' }, { transform: face + ' translateY(2px)' },
+            { transform: face + ' translateY(0)' },
+          ], { duration: 620, easing: 'ease-in-out' }).finished.then(function () {
+            dropFrom(bird);          /* the scatter lands back in the trail */
+            backOnWire();
+          });
+        });
+      }
+
+      /* Startled off the crumbs: whatever was in the bill goes back on
+         the ground, and the bird is gone in half the time it came. */
+      bird.flush = function (dir) {
+        if (spooked || !bird.el) return;
+        spooked = true;
+        bird.feeding = false;
+        bird.flush = null;
+        if (holding) holding.classList.remove('eaten');
+        el.getAnimations().forEach(function (a) { a.cancel(); });
+        if (bird.svgEl) bird.svgEl.getAnimations().forEach(function (a) { a.cancel(); });
+        el.style.transform = at(pos.x, pos.y);
+        wings();
+        if (bird.svgEl) bird.svgEl.style.transform = dir < 0 ? 'scaleX(-1)' : '';
+        var bolt = el.animate([
+          { transform: at(pos.x, pos.y) + ' scale(1)' },
+          { offset: 0.25, transform: at(pos.x + dir * 18, pos.y - 26) + ' rotate(' + (dir * 10) + 'deg) scale(0.99)' },
+          { transform: at(0, 0) + ' scale(1)' },
+        ], { duration: Math.max(380, trip * 0.45), easing: 'cubic-bezier(0.16, 0.9, 0.3, 1)', fill: 'forwards' });
+        bolt.finished.then(function () { bolt.cancel(); backOnWire(); })
+          .catch(function () { backOnWire(); });
+      };
+
+      el.style.zIndex = '260';      /* the field note sits at 250 */
+      bounceWire(bird.weight);
+      setSag();
+      wings();
+      scheduleGlide(el, trip);
+
+      flare(bird, flip, pos.x < 0 ? 1 : -1, trip);
+      var down = el.animate(
+        tripFrames({ x: 0, y: 0 }, { x: pos.x, y: pos.y }, tilt),
+        { duration: trip, easing: 'cubic-bezier(0.18, 0.65, 0.45, 1)', fill: 'forwards' }
+      );
+
+      down.finished.then(function () {
+        down.cancel();
+        if (!bird.el) { backOnWire(); return null; }
+        el.style.transform = at(pos.x, pos.y);
+        stand(flip);
+        bird.feeding = true;        /* on the ground now, and flushable */
+        /* the corvids and grackles do not stand and eat: one crumb,
+           and they take it with them */
+        if (prof.carry) {
+          return peckAt(crumb).then(function () { return flyHome(true); });
+        }
+        /* everyone else works the trail on foot for as long as the
+           species would before the nerves win */
+        var taken = 0;
+        function next() {
+          if (spooked) return null;
+          var target = taken === 0 ? crumb : trail.querySelector('i:not(.eaten)');
+          if (!target) return flyHome(false);
+          var step = taken === 0 ? Promise.resolve() : goTo(target);
+          return step.then(function () { return peckAt(target); }).then(function () {
+            if (spooked) return null;
+            if (!bird.el) { backOnWire(); return null; }
+            taken++;
+            if (taken >= prof.take) return flyHome(false);
+            return next();
+          });
+        }
+        return next();
+      }).catch(function () { backOnWire(); });
+    }
+
+    /* discovered, not broadcast: nothing happens for a while */
+    setTimeout(function () {
+      eat();
+      setInterval(eat, 14000 + Math.random() * 9000);
+    }, 7000 + Math.random() * 5000);
+  }
+
   function beginPresence() {
     /* Your own bird perches whether or not the relay answers;
        the wire is never empty for the reader on it */
@@ -1322,6 +1714,7 @@
     updateCount();
     startWind();
     beginAmbient();
+    beginCrumbs();
     if (!invisible) connect();
   }
 

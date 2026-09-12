@@ -2,7 +2,7 @@
 	Person: Joe Fusco
 	Contact: hello [at] josephfus.co
 	From: Rochester, New York, USA
-	Work: headless WordPress plugins at WP Engine, WordPress core,
+	Work: WordPress Core, sponsored by WP Engine,
 	      and access to justice (lexgrade.org)
 
 /* THANKS */

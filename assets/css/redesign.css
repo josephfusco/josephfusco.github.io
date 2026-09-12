@@ -178,7 +178,9 @@ section.block > h2 {
   font-style: italic;
   font-size: 0.8125rem;
   color: var(--muted);
-  margin: 0.875rem 0 0;
+  /* Trailing half-unit: every other section ends on one, so the next
+     heading sits a full unit below it and half a unit above its list. */
+  margin: 0.875rem 0;
 }
 .work .tag {
   font-family: "SF Mono", Menlo, Consolas, monospace;
@@ -830,7 +832,8 @@ html[data-blueprint] .blueprint-systems {
   text-underline-offset: 2px;
   text-decoration-thickness: 1px;
 }
-.prose a:visited { color: #7d5185; }
+/* visited links still keep score, in a colour the paper knows */
+.prose a:visited { color: #7c5a52; }
 
 /* Posts: dates hang out in the left margin, truly — the titles keep
    the letter's one left edge with the marks and everything else */
@@ -876,6 +879,43 @@ body { line-height: var(--lh); }
 }
 .site-name-text { font-size: 1.375rem; line-height: var(--lh); }
 .site-nav a { font-size: 1rem; line-height: var(--lh); }
+
+/* The blog is the one thing the nav asks for: a pane of glass over the
+   paper, holding its own line so the masthead stays four units tall. */
+.site-nav .nav-cta {
+  color: var(--fg);
+  padding: 0.1875rem 0.6875rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 253, 247, 0.5);
+  -webkit-backdrop-filter: blur(10px) saturate(1.35);
+  backdrop-filter: blur(10px) saturate(1.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 1px 2px rgba(35, 32, 26, 0.05);
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.site-nav .nav-cta:hover {
+  color: var(--accent);
+  border-color: var(--muted);
+  background: rgba(255, 253, 247, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 6px rgba(35, 32, 26, 0.08);
+}
+.site-nav .nav-cta[aria-current="page"] {
+  color: var(--fg);
+  border-color: var(--muted);
+  background: rgba(255, 253, 247, 0.85);
+}
+
+/* Lately is a log, not writing: one line an entry, a size down, and the
+   whole row steps back so Now and Writing keep the ink. */
+.lately .lately-line {
+  display: block;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lately a { color: var(--muted); }
+.lately a:hover { color: var(--accent); }
 
 /* Hero */
 .hero { padding: var(--lh) 0 0; }
@@ -936,14 +976,25 @@ section.block > h2 {
 .work li { padding: 0.875rem 0; }
 .work h3 { font-size: 1rem; line-height: var(--lh); margin: 0; }
 .work p { font-size: 1rem; line-height: var(--lh); }
-.work .tag {
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: 0.9375rem;
+/* Categories are badges: a hairline box, set small, that never
+   pushes the heading off the 1.75rem line. Same badge wherever a
+   category is named, on the front page or the spec sheet. */
+.work .tag,
+.components .tag {
+  display: inline-block;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-style: normal;
+  font-size: 0.6875rem;
   font-weight: 400;
+  line-height: 1;
   color: var(--muted);
-  letter-spacing: 0;
+  letter-spacing: 0.02em;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.25rem 0.375rem;
   margin-left: 0.5rem;
+  vertical-align: 0.1em;
 }
 
 /* Post lists: serif dates, grid lines */
@@ -970,7 +1021,31 @@ section.block > h2 {
 .prose h2 { font-size: 1.25rem; line-height: var(--lh); margin: var(--lh) 0 0.875rem; }
 .prose p, .prose ul, .prose ol { margin: 0 0 var(--lh); }
 .prose pre { margin: 0 0 var(--lh); line-height: var(--lh); }
-.post-nav { margin-top: var(--lh); padding-top: 0; line-height: var(--lh); }
+/* Prev and next: one line each, quiet, and the arrow never orphans —
+   the title clips, the arrow is its own box and always shows. */
+.post-nav {
+  margin-top: var(--lh);
+  padding-top: 0;
+  line-height: var(--lh);
+  gap: 1.75rem;
+  align-items: baseline;
+}
+.post-nav > span { flex: 1 1 0; min-width: 0; }
+.post-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4375rem;
+  min-width: 0;
+  color: var(--muted);
+}
+.post-nav a:hover { color: var(--accent); }
+.post-nav-next a { justify-content: flex-end; }
+.post-nav-arrow { flex: none; }
+.post-nav-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* Footer */
 .site-footer {
@@ -1046,14 +1121,6 @@ h1, h2, h3, h4,
 }
 .components h3 { font-size: 1.0625rem; line-height: var(--lh); margin: 0; }
 .components p { margin: 0; }
-.components .tag {
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-size: 0.9375rem;
-  font-weight: 400;
-  color: var(--muted);
-  margin-left: 0.5rem;
-}
 .stage .demo-cursor, .stage .demo-chip { margin: 0; }
 .stage .site-mark { width: 34px; height: 34px; }
 .stage img { display: inline-block; }
@@ -1275,14 +1342,14 @@ body.wire .powerline { display: none; }
 /* The tab hint sits under the count, smaller, never stranded */
 .note-hint {
   display: block;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
+  line-height: var(--lh);
   opacity: 0.75;
 }
 .field-note .presence-dot { flex: none; position: relative; top: -1px; }
 
 /* The region line in the field note: a select dressed as prose */
 .region-line { color: var(--muted); font-size: 0.75rem; }
-.region-yours { font-style: italic; opacity: 0.7; margin-left: 0.375rem; }
 .region-select {
   appearance: none;
   -webkit-appearance: none;
@@ -1624,6 +1691,92 @@ body {
 }
 .field-note .presence-toggle { margin-right: 0; }
 
+/* The note scans as lines: every row is one 1.75rem unit tall, so the
+   eye runs down a rhythm instead of hunting for the next thing. */
+.field-note { gap: 0; max-width: 12rem; }
+.field-note > * { line-height: var(--lh); min-height: var(--lh); }
+
+/* The way back, and the trail that got you here. The crumbs are
+   decoration and go missing one at a time; the link never does. */
+.prose { position: relative; }
+/* A rail with no height of its own, so pages that build their own
+   markup still have the text column's edge to hang from. */
+.crumb-rail { position: relative; height: 0; }
+/* The way back hangs off the words, on the title's own baseline, and
+   the crumbs trail away from the page rather than into it. The bird's
+   note keeps the page's left edge; these are two different things and
+   never share a column. */
+.crumb-line {
+  position: absolute;
+  top: 2.625rem;
+  right: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  line-height: var(--lh);
+  white-space: nowrap;
+}
+.prose .crumb-line,
+.crumb-rail .crumb-line { margin: 0 1.75rem 0 0; }
+/* the rail is a .wrap and already holds 1.25rem of that gutter */
+.crumb-rail .crumb-line { margin-right: 0.5rem; }
+/* Under this, the margin cannot hold the note and the trail side by
+   side, so the trail steps back into the page above the title. */
+@media (max-width: 75rem) {
+  .crumb-line { position: static; }
+  .prose .crumb-line,
+  .crumb-rail .crumb-line { margin: 0 0 0.875rem; }
+  .crumb-rail { height: auto; }
+}
+
+/* No margin to hang in: the trail steps back into the page */
+@media (max-width: 62rem) {
+  .crumb-line {
+    position: static;
+    margin: 0 0 0.875rem;
+  }
+}
+.crumb-back {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+/* marginalia keeps out of the prose link system */
+.prose .crumb-back,
+.prose .crumb-back:visited { color: var(--muted); text-decoration: none; }
+.crumb-back:hover,
+.prose .crumb-back:hover { color: var(--accent); text-decoration: none; }
+.crumbs {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 8px;
+}
+.crumbs i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  color: var(--muted);
+  opacity: 0.55;
+  /* scattered, not plotted */
+  transition: opacity 260ms ease, scale 260ms ease;
+}
+.crumbs i:nth-child(2n) { translate: 0 2px; }
+.crumbs i:nth-child(3n) { translate: 0 -1px; width: 2px; height: 2px; }
+.crumbs i.eaten { opacity: 0; scale: 0.3; }
+/* a fragment on its way down from the wire */
+.crumb-fall {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--muted);
+  z-index: 300;
+  pointer-events: none;
+}
+
 @media print {
   .field-note { display: none; }
 }
@@ -1660,6 +1813,7 @@ body {
 .lately-skeleton:nth-child(2) .bone-line { width: 78%; }
 .lately-skeleton:nth-child(3) .bone-line { width: 54%; }
 .lately-skeleton:nth-child(4) .bone-line { width: 71%; }
+.lately-skeleton:nth-child(5) .bone-line { width: 61%; }
 @media (prefers-reduced-motion: no-preference) {
   .lately-skeleton .bone { animation: bone-breathe 1.6s ease-in-out infinite; }
 }
