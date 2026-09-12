@@ -1833,16 +1833,13 @@ body {
 }
 .field-note > * { line-height: var(--lh); min-height: var(--lh); }
 
-/* The way back, and the trail that got you here. The crumbs are
-   decoration and go missing one at a time; the link never does. */
+/* The way back, in the margin. */
 .prose { position: relative; }
 /* A rail with no height of its own, so pages that build their own
    markup still have the text column's edge to hang from. */
 .crumb-rail { position: relative; height: 0; }
 /* The way back hangs off the words, on the title's own baseline, and
-   the crumbs trail away from the page rather than into it. The bird's
-   note keeps the page's left edge; these are two different things and
-   never share a column. */
+   note keeps to its own lines under it. */
 .crumb-line {
   position: absolute;
   top: 2.625rem;
@@ -1884,34 +1881,6 @@ body {
 .prose .crumb-back:visited { color: var(--muted); text-decoration: none; }
 .crumb-back:hover,
 .prose .crumb-back:hover { color: var(--accent); text-decoration: none; }
-.crumbs {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  height: 8px;
-}
-.crumbs i {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: currentColor;
-  color: var(--muted);
-  opacity: 0.55;
-  /* scattered, not plotted */
-  transition: opacity 260ms ease, scale 260ms ease;
-}
-.crumbs i:nth-child(2n) { translate: 0 2px; }
-.crumbs i:nth-child(3n) { translate: 0 -1px; width: 2px; height: 2px; }
-.crumbs i.eaten { opacity: 0; scale: 0.3; }
-/* A fragment on its way down from the wire. Its size is set by the
-   bird that dropped it, so nothing here fixes it. */
-.crumb-fall {
-  position: fixed;
-  border-radius: 50%;
-  background: var(--muted);
-  z-index: 300;
-  pointer-events: none;
-}
 
 @media print {
   .field-note { display: none; }
