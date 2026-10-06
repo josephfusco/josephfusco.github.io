@@ -26,16 +26,4 @@
 		</div>
 	</div>
 </footer>
-<script>
-	// Open the colophon when a link points straight at it, e.g. from vennyd.josephfus.co/#colophon.
-	(function openColophonFromHash() {
-		var open = function () {
-			if (location.hash !== '#colophon') return;
-			var el = document.getElementById('colophon');
-			if (el && el.showPopover && !el.matches(':popover-open')) { try { el.showPopover(); } catch (e) { /* unsupported */ } }
-		};
-		open();
-		addEventListener('hashchange', open);
-	})();
-</script>
 <script src="{{ '/assets/js/presence.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
