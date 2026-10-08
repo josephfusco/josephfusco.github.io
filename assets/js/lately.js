@@ -22,37 +22,51 @@
     });
   }
 
+  /* Releases and the SVN sync that follows each one say the same
+     thing as the work they ship; they are bookkeeping, not work. */
+  var NOISE = [
+    /^chore\(main\): release\b/i,
+    /^update to version \S+ from github$/i
+  ];
+
+  /* What was done, said plainly: no commit-type prefix, no pin. */
+  function clean(s) {
+    s = s.replace(/^[\u2600-\u27BF\uD83C-\uDBFF\uDC00-\uDFFF\uFE0F\s]+/, '');
+    s = s.replace(/^[a-z][\w-]*(?:\([^)]*\))?!?:\s+/, '');
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   function render(items) {
     var html = '';
     var day = '';
-    items.slice(0, 20).forEach(function (it) {
-      var d = it.date ? new Date(it.date + 'T00:00:00') : null;
-      var label = d && !isNaN(d) ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+    var seen = {};
+    var shown = 0;
+    items.forEach(function (it) {
+      if (shown >= 12) return;
       /* Two shapes come back: a title with a verb phrase beside it, or
-         the whole sentence in what with subject left empty. Make them
-         one shape — what was done, and what it was done to — and drop
-         the repository, which is the same on nearly every line. */
+         the whole sentence in what with subject left empty. Keep only
+         what it was done to; the verb is the same handful every day. */
       var subject = decode(it.subject).trim();
       var what = decode(it.what).trim();
-      var verb = what;
       if (!subject) {
         var split = what.match(/^([^:]{3,60}):\s+([\s\S]+)$/);
-        if (split) { verb = split[1]; subject = split[2]; }
+        subject = split ? split[2] : what;
       }
-      verb = verb
-        .replace(/\s+(?:on|in)\s+the\s+.+?\s+repository$/i, '')
-        .replace(/\s+(?:on|in)\s+[^\s/]+\/[^\s]+$/i, '')
-        .trim();
-      var tail = subject && verb.toLowerCase() !== subject.toLowerCase() ? verb.toLowerCase() : '';
+      if (/plugins svn/i.test(what) || NOISE.some(function (re) { return re.test(subject); })) return;
+      subject = clean(subject);
+      /* an issue and the pull request that closes it share a title */
+      var key = subject.toLowerCase().replace(/\u2026$/, '');
+      if (!subject || seen[key]) return;
+      seen[key] = 1;
+      shown++;
+      var d = it.date ? new Date(it.date + 'T00:00:00') : null;
+      var label = d && !isNaN(d) ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
       /* the day is written once, the way the archive writes a year once */
       if (label && label !== day) {
         day = label;
         html += '<li class="lately-day"><time datetime="' + esc(it.date || '') + '">' + esc(label) + '</time></li>';
       }
-      html += '<li>'
-        + '<span class="lately-line"><a href="' + esc(it.url) + '">' + esc(subject || what) + '</a>'
-        + (tail ? ' <span class="lately-what">' + esc(tail) + '</span>' : '')
-        + '</span></li>';
+      html += '<li><span class="lately-line"><a href="' + esc(it.url) + '">' + esc(subject) + '</a></span></li>';
     });
     list.innerHTML = html;
     list.removeAttribute('aria-busy');

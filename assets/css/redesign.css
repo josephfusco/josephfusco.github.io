@@ -990,13 +990,6 @@ body { line-height: var(--lh); overflow-x: clip; }
     width: 17rem;
     padding: 0;
   }
-  /* one entry, one line, one unit: nothing in a feed wraps */
-  body.index section.block[aria-label*="Lately"] .lately-line {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   /* a feed reads small and quiet: the date runs with the line, not
      above it, and nothing here competes with the work beside it */
   body.index section.block[aria-label*="Lately"] .lately-line,
@@ -1010,7 +1003,11 @@ body { line-height: var(--lh); overflow-x: clip; }
   }
   body.index section.block[aria-label*="Lately"] .lately-day { padding-top: 0.4375rem; }
   body.index section.block[aria-label*="Lately"] .lately-day:first-child { padding-top: 0; }
-  body.index section.block[aria-label*="Lately"] .lately-line { padding-left: 0.875rem; }
+  /* a wrapped title stays one entry: its lines sit close, entries sit apart */
+  body.index section.block[aria-label*="Lately"] .lately-line {
+    padding: 0.25rem 0 0.25rem 0.875rem;
+    line-height: 1.45;
+  }
   body.index section.block[aria-label*="Lately"] .lately-note { font-size: 0.6875rem; }
 }
 
@@ -1020,9 +1017,12 @@ body { line-height: var(--lh); overflow-x: clip; }
   display: block;
   /* a feed is passing; the writing list is permanent and keeps its size */
   font-size: 0.875rem;
-  white-space: nowrap;
+  /* a title reads whole; two lines at most, the second hung under the first */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 .lately a { color: var(--muted); }
 .lately a:hover { color: var(--accent); }
@@ -1100,7 +1100,7 @@ section.block > h2 {
   line-height: var(--lh);
   margin: 0;
   display: grid;
-  grid-template-columns: 13.5rem auto;
+  grid-template-columns: auto auto;
   align-items: baseline;
   column-gap: 0.875rem;
   justify-content: start;
