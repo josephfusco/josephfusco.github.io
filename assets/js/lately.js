@@ -36,13 +36,17 @@
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
 
+  /* the repository a line came from, read off its link */
+  function repo(url) {
+    var m = String(url || '').match(/^https:\/\/github\.com\/([^/]+\/[^/]+)/);
+    return m ? m[1] : '';
+  }
+
   function render(items) {
-    var html = '';
-    var day = '';
+    /* First the lines worth reading: no bookkeeping, no line twice. */
     var seen = {};
-    var shown = 0;
+    var lines = [];
     items.forEach(function (it) {
-      if (shown >= 12) return;
       /* Two shapes come back: a title with a verb phrase beside it, or
          the whole sentence in what with subject left empty. Keep only
          what it was done to; the verb is the same handful every day. */
@@ -58,15 +62,38 @@
       var key = subject.toLowerCase().replace(/\u2026$/, '');
       if (!subject || seen[key]) return;
       seen[key] = 1;
-      shown++;
-      var d = it.date ? new Date(it.date + 'T00:00:00') : null;
+      lines.push({ date: it.date || '', url: it.url, subject: subject, repo: repo(it.url) });
+    });
+
+    /* Then a day reads as one line per repository: the latest thing
+       done there, and how much else that day, so a busy afternoon
+       takes a line and the week still fits. */
+    var groups = [];
+    var at = {};
+    lines.forEach(function (l) {
+      var k = l.date + ' ' + (l.repo || l.url);
+      if (at[k]) { at[k].more++; return; }
+      at[k] = { first: l, more: 0 };
+      groups.push(at[k]);
+    });
+
+    var html = '';
+    var day = '';
+    groups.slice(0, 12).forEach(function (g) {
+      var l = g.first;
+      var d = l.date ? new Date(l.date + 'T00:00:00') : null;
       var label = d && !isNaN(d) ? d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
       /* the day is written once, the way the archive writes a year once */
       if (label && label !== day) {
         day = label;
-        html += '<li class="lately-day"><time datetime="' + esc(it.date || '') + '">' + esc(label) + '</time></li>';
+        html += '<li class="lately-day"><time datetime="' + esc(l.date) + '">' + esc(label) + '</time></li>';
       }
-      html += '<li><span class="lately-line"><a href="' + esc(it.url) + '">' + esc(subject) + '</a></span></li>';
+      var more = '';
+      if (g.more && l.repo) {
+        var q = encodeURIComponent('involves:josephfusco updated:' + l.date);
+        more = ' <a class="lately-more" href="https://github.com/' + esc(l.repo) + '/issues?q=' + q + '">+' + g.more + '</a>';
+      }
+      html += '<li><span class="lately-line"><a href="' + esc(l.url) + '">' + esc(l.subject) + '</a>' + more + '</span></li>';
     });
     list.innerHTML = html;
     list.removeAttribute('aria-busy');
