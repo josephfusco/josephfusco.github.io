@@ -11,7 +11,7 @@
 				{% include crumbs.html %}
 				<h1 style="view-transition-name: vt-{{ page.url | slugify }}; view-transition-class: post">{{ page.title }}</h1>
 				<p class="meta">
-					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>{% assign words = content | number_of_words %}, {% if words < 360 %}1{% else %}{{ words | divided_by:180 }}{% endif %} min read
+					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>{% comment %}code blocks are looked up, not read: count the prose only{% endcomment %}{% assign prose = "" %}{% assign parts = content | split: "<pre" %}{% for part in parts %}{% if forloop.first %}{% assign prose = prose | append: part %}{% else %}{% assign tail = part | split: "</pre>" %}{% if tail.size > 1 %}{% assign prose = prose | append: tail.last %}{% endif %}{% endif %}{% endfor %}{% assign words = prose | number_of_words %}, {% if words < 360 %}1{% else %}{{ words | divided_by:180 }}{% endif %} min read
 				</p>
 				{{ content }}
 			</article>
