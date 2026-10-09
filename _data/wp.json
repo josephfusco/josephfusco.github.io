@@ -1,10 +1,184 @@
 {
   "activity": [
     {
+      "date": "2026-10-09",
+      "subject": "fix: cap the heartbeat ping's title and screen before storing them",
+      "url": "https://github.com/WordPress/presence-api/pull/816",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "test: cover the stale-screen notice's baseline, dismissal and message paths",
+      "url": "https://github.com/WordPress/presence-api/pull/812",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "build: lint the CSS with stylelint",
+      "url": "https://github.com/WordPress/presence-api/pull/811",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/806",
+      "what": "Closed issue #806 on the WordPress/presence-api repository: test_get_presence_reads_the_table_once_per_request fails when the clock ticks between its two reads"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "test: repeat the cached-read check when the clock ticks between its two…",
+      "url": "https://github.com/WordPress/presence-api/pull/810",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "docs: say the presence TTL is 150 seconds, not 60, in the…",
+      "url": "https://github.com/WordPress/presence-api/pull/804",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "feat: tell a second browser from a second tab with a per-room…",
+      "url": "https://github.com/WordPress/presence-api/pull/815",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "feat: register each switchable piece with the callback that adds its hooks",
+      "url": "https://github.com/WordPress/presence-api/pull/814",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/676",
+      "what": "Closed issue #676 on the WordPress/presence-api repository: Make the presence write functions extensible before core freezes their signatures"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "test: cover the REST controller's validation, empty-room and failed-write paths",
+      "url": "https://github.com/WordPress/presence-api/pull/796",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "test: cover the front-end ping and the network Users list's pass-through paths",
+      "url": "https://github.com/WordPress/presence-api/pull/797",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "test: cover the presence helpers the admin surfaces share",
+      "url": "https://github.com/WordPress/presence-api/pull/795",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "test: cover the post-lock bridge's pass-through and early-return paths",
+      "url": "https://github.com/WordPress/presence-api/pull/794",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "test: add unit test coverage for privacy policy content, exporter and eraser",
+      "url": "https://github.com/WordPress/presence-api/pull/793",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/737",
+      "what": "Closed issue #737 on the WordPress/presence-api repository: Let a reader tell a room changed without reading every row"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "feat: let a reader check room versions without reading every row",
+      "url": "https://github.com/WordPress/presence-api/pull/791",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/735",
+      "what": "Closed issue #735 on the WordPress/presence-api repository: Take an $args array in the presence write functions instead of more…"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "feat: return WP_Error with specific refusal codes when presence write fails",
+      "url": "https://github.com/WordPress/presence-api/pull/792",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/736",
+      "what": "Closed issue #736 on the WordPress/presence-api repository: Say why a presence write was refused"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "chore(main): release 0.18.0",
+      "url": "https://github.com/WordPress/presence-api/pull/803",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "feat: raise a deprecation notice for positional presence arguments",
+      "url": "https://github.com/WordPress/presence-api/pull/800",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-09",
+      "subject": "Presence API: pass options as an array from version 0.17.0",
+      "url": "https://github.com/WordPress/gutenberg-sync-engines/pull/163",
+      "what": "Opened a pull request in WordPress/gutenberg-sync-engines"
+    },
+    {
+      "date": "2026-10-08",
+      "subject": "Update to version 0.17.0 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3735395/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-10-08",
+      "subject": "chore(main): release 0.17.0",
+      "url": "https://github.com/WordPress/presence-api/pull/790",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-08",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/746",
+      "what": "Closed issue #746 on the WordPress/presence-api repository: 📌 Tracking: Build the plugin's own screens on its public API"
+    },
+    {
+      "date": "2026-10-08",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/799",
+      "what": "Created issue #799 in the WordPress/presence-api repository: Give each switchable piece its own folder and registration"
+    },
+    {
+      "date": "2026-10-08",
+      "subject": "test: build the expected feature lists from wp_presence_get_features()",
+      "url": "https://github.com/WordPress/presence-api/pull/798",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-08",
+      "subject": "feat: take an $args array in the presence functions",
+      "url": "https://github.com/WordPress/presence-api/pull/789",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-08",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/749",
+      "what": "Closed issue #749 on the WordPress/presence-api repository: Nothing in the plugin uses its own React hook"
+    },
+    {
       "date": "2026-09-12",
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/498",
-      "what": "Closed issue #498 on the WordPress/presence-api repository: e2e's ~8 minute wall-clock is bounded by wp-env boot cost, not test\u2026"
+      "what": "Closed issue #498 on the WordPress/presence-api repository: e2e's ~8 minute wall-clock is bounded by wp-env boot cost, not test…"
     },
     {
       "date": "2026-09-12",
@@ -52,11 +226,11 @@
       "date": "2026-09-10",
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/493",
-      "what": "Closed issue #493 on the WordPress/presence-api repository: Required status checks never report when CI skips them, blocking every release-please\u2026"
+      "what": "Closed issue #493 on the WordPress/presence-api repository: Required status checks never report when CI skips them, blocking every release-please…"
     },
     {
       "date": "2026-09-10",
-      "subject": "ci: gate phpunit's steps instead of the job, so both PHP versions\u2026",
+      "subject": "ci: gate phpunit's steps instead of the job, so both PHP versions…",
       "url": "https://github.com/WordPress/presence-api/pull/497",
       "what": "Merged a pull request in WordPress/presence-api"
     },
@@ -68,7 +242,7 @@
     },
     {
       "date": "2026-09-10",
-      "subject": "ci: reuse the project's own wp-env in plugin-check instead of a global\u2026",
+      "subject": "ci: reuse the project's own wp-env in plugin-check instead of a global…",
       "url": "https://github.com/WordPress/presence-api/pull/496",
       "what": "Merged a pull request in WordPress/presence-api"
     },
@@ -121,5 +295,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-09-12"
+  "fetched": "2026-10-09"
 }

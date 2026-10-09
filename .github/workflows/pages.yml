@@ -9,7 +9,8 @@ on:
     - cron: "17 11 * * *"
 
 permissions:
-  contents: read
+  # write, so the record can be kept between runs
+  contents: write
   pages: write
   id-token: write
 
@@ -30,6 +31,15 @@ jobs:
         id: pages
       - name: Refresh the WordPress record
         run: python3 script/fetch-wp.py
+        continue-on-error: true
+      # the feed forgets after a day or two; the repository does not
+      - name: Keep the WordPress record
+        run: |
+          git diff --quiet -- _data/wp.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "The WordPress record, kept" -- _data/wp.json
+          git push
         continue-on-error: true
       - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
