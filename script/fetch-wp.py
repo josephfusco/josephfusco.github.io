@@ -6,9 +6,11 @@ RSS feed behind the .org profile. It carries the real record, plugin
 SVN commits, pull requests opened and merged, pushes, in the order
 they happened.
 
-Run before `jekyll build`. If the feed is unreachable the previous
-file stands, so a bad network never publishes a page that claims
-less than the truth.
+Run before `jekyll build`. The feed only holds the latest thirty or so
+entries, a day or two when the work is busy, so each run adds what is
+new to the record already in the file instead of replacing it. If the
+feed is unreachable the previous file stands, so a bad network never
+publishes a page that claims less than the truth.
 """
 import html
 import json
@@ -17,12 +19,13 @@ import re
 import sys
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
 FEED = "https://profiles.wordpress.org/joefusco/feed/"
 OUT = os.path.join(os.path.dirname(__file__), "..", "_data", "wp.json")
-KEEP = 20
+# how far back the record reaches
+KEEP_DAYS = 60
 
 # "Merged pull request #158 into WordPress/presence-api: fix: enforce ..."
 PR = re.compile(r"^(Submitted|Merged) pull request #(\d+) (?:to|into) ([\w.-]+/[\w.-]+): (.+)$")
@@ -69,16 +72,28 @@ def main():
         except Exception:
             when = ""
         items.append({"what": what, "subject": subject.rstrip("."), "url": link, "date": when})
-        if len(items) >= KEEP:
-            break
 
     if not items:
         print("feed held nothing; keeping the file already there", file=sys.stderr)
         return 0
 
-    with open(OUT, "w") as f:
+    # what the feed has now, then whatever the record kept that it no
+    # longer does, newest first, back as far as KEEP_DAYS
+    try:
+        with open(OUT) as f:
+            kept = json.load(f).get("activity", [])
+    except Exception:
+        kept = []
+    items += [it for it in kept if it.get("url") not in seen]
+    items.sort(key=lambda it: it.get("date", ""), reverse=True)
+    cutoff = (datetime.now(timezone.utc).date() - timedelta(days=KEEP_DAYS)).isoformat()
+    items = [it for it in items if it.get("date", "") >= cutoff]
+
+    with open(OUT, "w", encoding="utf-8") as f:
         json.dump({"activity": items, "fetched": datetime.now(timezone.utc).date().isoformat()},
-                  f, indent=2, sort_keys=True)
+                  # as UTF-8: Jekyll reads this through YAML, which refuses the
+                  # escaped surrogate pairs JSON would write for an emoji
+                  f, indent=2, sort_keys=True, ensure_ascii=False)
         f.write("\n")
     print("wrote %d items, newest %s" % (len(items), items[0]["date"]))
     return 0

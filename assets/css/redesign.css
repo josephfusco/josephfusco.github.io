@@ -218,13 +218,16 @@ section.block > h2 {
   margin: 0 0 2rem;
 }
 .prose h2 { font-size: 1.375rem; letter-spacing: 0; margin: 2.25rem 0 0.75rem; }
-.prose code {
+.prose code,
+.components .stage code {
   font-family: "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.875em;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.1em 0.35em;
+  /* a code word must not push its line off the 1.75rem grid */
+  line-height: 1;
 }
 .prose pre {
   background: var(--card);
@@ -327,6 +330,94 @@ section.block > h2 {
 .key-p { background: #5b87ad; }
 .key-d { background: #c2703f; }
 .key-line { width: 18px; height: 2px; background: #8c3b34; }
+
+/* Labels, drawn the way GitHub draws them, so the post shows the real thing */
+.prose .label-set { margin: 0 0 var(--lh); border-top: 1px dashed var(--border); }
+.prose .label-set .label-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  column-gap: 1.25rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.prose .label-set dt {
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  color: var(--muted);
+}
+.prose .label-set dd { margin: 0; }
+.prose .label-set .labels { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.prose .label-set .note {
+  display: block;
+  margin-top: 0.4375rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.prose .label-set .note code,
+.prose .chroma-tiers .chroma {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-left: 0.375rem;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 40rem) {
+  .prose .label-set .label-row { grid-template-columns: 1fr; row-gap: 0.375rem; }
+}
+.gh-label {
+  display: inline-block;
+  padding: 0 0.625rem;
+  border-radius: 2em;
+  background: var(--c);
+  color: #1f2328;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.375rem;
+  white-space: nowrap;
+}
+.gh-label.on-dark { color: #fff; }
+.gh-label[style*="#FFFFFF"] { box-shadow: inset 0 0 0 1px var(--border); }
+
+/* The tiers, as the colors themselves */
+.prose .chroma-tiers { list-style: none; padding: 0; margin: 0 0 var(--lh); }
+.prose .chroma-tiers li {
+  display: grid;
+  grid-template-columns: 7rem 1fr auto;
+  column-gap: 1.25rem;
+  align-items: center;
+  margin: 0;
+  padding: 0.625rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.prose .chroma-tiers li:first-child { border-top: 1px dashed var(--border); }
+.prose .chroma-tiers .tier { font-family: Georgia, serif; font-style: italic; font-size: 0.9375rem; color: var(--muted); }
+.prose .chroma-tiers .swatches { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.prose .chroma-tiers .swatch {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: inset 0 0 0 1px rgba(35, 32, 26, 0.08);
+}
+.prose .chroma-tiers .chroma { margin: 0; }
+
+/* Long reference material stays folded until it is wanted */
+.prose details.commands { margin: 0 0 var(--lh); }
+.prose details.commands summary {
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: var(--muted);
+}
+.prose details.commands summary:hover { color: var(--accent); }
+.prose details.commands pre { margin-top: 0.875rem; font-size: 0.75rem; }
 
 .prose figcaption {
   max-width: 42rem;
@@ -1026,6 +1117,12 @@ body { line-height: var(--lh); overflow-x: clip; }
 }
 .lately a { color: var(--muted); }
 .lately a:hover { color: var(--accent); }
+/* how much else happened there that day */
+.lately .lately-more {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
 
 /* Hero */
 .hero {
@@ -1106,26 +1203,19 @@ section.block > h2 {
   justify-content: start;
 }
 .work p { font-size: 1rem; line-height: var(--lh); }
-/* Categories are badges: a hairline box, set small, that never
-   pushes the heading off the 1.75rem line. Same badge wherever a
+/* Categories are a note beside the name, in the hand the page uses
+   for every other note: no box, nothing to click. Same wherever a
    category is named, on the front page or the spec sheet. */
 .work .tag,
 .components .tag {
-  display: inline-block;
   justify-self: start;
-  font-family: "SF Mono", Menlo, Consolas, monospace;
-  font-style: normal;
-  font-size: 0.6875rem;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 0.9375rem;
   font-weight: 400;
-  line-height: 1;
+  letter-spacing: 0;
   color: var(--muted);
-  letter-spacing: 0.02em;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  padding: 0.25rem 0.375rem;
   margin-left: 0;
-  vertical-align: 0.1em;
 }
 
 /* Post lists: serif dates, grid lines */
@@ -1873,7 +1963,8 @@ body {
     align-items: flex-start;
     text-align: left;
   }
-  .field-note--after-trail { top: calc(100% + 3.5rem); }
+  /* measured: the note's first baseline meets the title's */
+  .field-note--after-trail { top: calc(100% + 3.5rem - 3px); }
   /* the front page opens on phi squared, so the note drops with it */
   body.index .field-note { top: calc(100% + 3.5rem + var(--space-m)); }
   /* the guide opens into its own margin, not across the page */
@@ -1891,9 +1982,8 @@ body {
    note keeps to its own lines under it. */
 .crumb-line {
   position: absolute;
-  /* two pixels past the half-unit, where the title's baseline actually
-     falls: the serif sits higher than its box says it does */
-  top: calc(2.625rem + 2px);
+  /* measured: this puts the italic's baseline on the title's */
+  top: calc(2.625rem - 3px);
   right: 100%;
   display: flex;
   align-items: center;
