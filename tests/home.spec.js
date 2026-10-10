@@ -3,7 +3,7 @@ const { test, expect } = require('./fixtures');
 test('Now lists the current projects', async ({ page }) => {
   await page.goto('/');
   const names = await page.locator('.work h3 a').allTextContents();
-  expect(names).toEqual(['Presence API', 'LexGrade', 'LexBunker', 'WPGraphQL IDE']);
+  expect(names).toEqual(['Presence API', 'LexGrade', 'LexBunker', 'WPGraphQL IDE', 'VennyD']);
   await expect(page.locator('.work a[href*="sync-storage"]')).toHaveCount(0);
 });
 
@@ -39,4 +39,16 @@ test('Lately reads as days, one line per repository', async ({ page }) => {
     expect(seen.has(day + repo), `${repo} twice on ${day}`).toBe(false);
     seen.add(day + repo);
   }
+});
+
+test('Writing keeps the 1.75rem grid, years included', async ({ page }) => {
+  await page.goto('/');
+  const off = await page.evaluate(() => {
+    const unit = parseFloat(getComputedStyle(document.documentElement).fontSize) * 1.75;
+    const h2 = document.querySelector('#writing > h2');
+    return [...document.querySelectorAll('#writing li, #writing .posts-year')]
+      .map((el) => ({ text: el.textContent.trim().slice(0, 24), top: (el.offsetTop - h2.offsetTop) % unit, height: el.offsetHeight % unit }))
+      .filter((r) => r.top !== 0 || r.height !== 0);
+  });
+  expect(off).toEqual([]);
 });
