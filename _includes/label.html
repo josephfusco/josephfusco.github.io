@@ -1,0 +1,7 @@
+{%- comment -%}
+A GitHub label, drawn the way GitHub draws it.
+  name:  the label's text
+  color: its hex, without the #, as GitHub stores it
+  dark:  true when the color needs white text
+{%- endcomment -%}
+<span class="gh-label{% if include.dark %} on-dark{% endif %}" style="--c:#{{ include.color }}">{{ include.name }}</span>

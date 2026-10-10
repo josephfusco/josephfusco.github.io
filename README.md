@@ -4,11 +4,13 @@ A simple portfolio theme powered by [jekyll](https://jekyllrb.com/).
 
 # Development
 
-To start the server run `npm run dev`.
+```sh
+bundle exec jekyll serve --config _config.yml,_config_dev.yml --drafts --livereload
+```
 
-JS and Sass is managed with Gulp. I find it a lot faster to compile using gulp rather than relying on jekyll to build.
+A post starts in `_drafts/` with no date in its filename. It shows locally with `--drafts` and nowhere else. Moving it to `_posts/` as `YYYY-MM-DD-slug.md` publishes it.
 
-Run `npm install` to download dependecies and then run `gulp` to build and watch for changes.
+GitHub labels in a post are an include: `{% include label.html name="[Area] CLI" color="FEF298" %}`, with `dark=true` for a dark color.
 
 # License
 
