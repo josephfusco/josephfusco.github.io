@@ -125,6 +125,11 @@ exclude:
   - presence-server
   - presence-worker
   - _config_dev.yml
+  - package-lock.json
+  - playwright.config.js
+  - tests
+  - test-results
+  - playwright-report
 
 # Plugin settings
 
