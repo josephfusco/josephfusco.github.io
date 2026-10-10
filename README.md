@@ -12,6 +12,15 @@ A post starts in `_drafts/` with no date in its filename. It shows locally with 
 
 GitHub labels in a post are an include: `{% include label.html name="[Area] CLI" color="FEF298" %}`, with `dark=true` for a dark color.
 
+# Tests
+
+```sh
+npm ci && npx playwright install chromium
+npm test
+```
+
+Playwright builds the site and checks what has broken before: the nav marking the wrong page, the margins leaving the title's baseline, paragraphs leaving the grid, Lately repeating itself, and old addresses that no longer answer. CI runs them on every pull request.
+
 # License
 
 MIT
