@@ -1653,7 +1653,18 @@ body.wire .powerline { display: none; }
 /* a blank line between years, a whole unit, so every title after the
    first year still lands on the grid the rest of the page keeps */
 .posts-year + .posts-year { margin-top: var(--lh); }
+/* the heading keeps the same blank line before the first year, so
+   every landmark in the list is one unit from what came before it */
+#writing > h2 { margin-bottom: var(--lh); }
+/* in the line on a phone, the date's own box stays shorter than the
+   row's strut, so two sizes on one baseline can't stretch the unit */
+@media (max-width: 50rem) {
+  .posts li:not(.posts-year-label) time { line-height: 1; }
+}
 .posts-year-label time {
+  /* a block, so the row is the year's own line box and not a strut
+     a size larger, which used to make it 29px, not 28 */
+  display: block;
   position: static;
   font-family: Georgia, serif;
   font-style: italic;

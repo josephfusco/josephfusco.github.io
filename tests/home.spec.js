@@ -40,3 +40,15 @@ test('Lately reads as days, one line per repository', async ({ page }) => {
     seen.add(day + repo);
   }
 });
+
+test('Writing keeps the 1.75rem grid, years included', async ({ page }) => {
+  await page.goto('/');
+  const off = await page.evaluate(() => {
+    const unit = parseFloat(getComputedStyle(document.documentElement).fontSize) * 1.75;
+    const h2 = document.querySelector('#writing > h2');
+    return [...document.querySelectorAll('#writing li, #writing .posts-year')]
+      .map((el) => ({ text: el.textContent.trim().slice(0, 24), top: (el.offsetTop - h2.offsetTop) % unit, height: el.offsetHeight % unit }))
+      .filter((r) => r.top !== 0 || r.height !== 0);
+  });
+  expect(off).toEqual([]);
+});
