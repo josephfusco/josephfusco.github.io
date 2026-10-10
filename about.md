@@ -10,7 +10,9 @@ I'm Joe Fusco. I contribute to WordPress Core, sponsored by [WP Engine](https://
 
 Core work centers on the [Presence API](https://github.com/WordPress/presence-api), WordPress's system-wide presence and awareness layer. On the headless side, that work continues in the [WPGraphQL IDE](https://wordpress.org/plugins/wpgraphql-ide/). Most of my open-source time goes into release automation and testing.
 
-The other line of work is access to justice. [LexGrade](https://lexgrade.org) is an open standard for grading legal motions — eight principles and forty-five graded criteria, with a companion register of named advocacy techniques. Both are published under CC-BY-SA and owned by no one; the source lives on [GitHub](https://github.com/LexGrade/standard). [LexBunker](https://lexbunker.com) is the other piece: case software for family-law litigators that keeps a contested matter on one timeline, offline on the firm's own hardware.
+Access to justice is the other thing I care about. [LexGrade](https://lexgrade.org) is an open standard for grading legal motions — eight principles and forty-five graded criteria, with a companion register of named advocacy techniques. Both are published under CC-BY-SA and owned by no one; the source lives on [GitHub](https://github.com/LexGrade/standard). [LexBunker](https://lexbunker.com) is the other piece: case software for family-law litigators that keeps a contested matter on one timeline, offline on the firm's own hardware.
+
+[VennyD](https://vennyd.com) is a free Venn diagram maker: two or three circles, no sign-up, nothing uploaded.
 
 [Mashable](https://mashable.com/archive/teach-yourself-programming) and [Treehouse](https://teamtreehouse.com/stories/joe-fusco) covered the career change in 2015.
 
