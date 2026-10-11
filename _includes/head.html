@@ -25,6 +25,25 @@
 
 	<link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | absolute_url }}" title="{{ site.name }}">
 
+	{% if page.url == '/' or page.url == '/about/' %}
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"@id": {{ site.url | append: '/#person' | jsonify }},
+		"name": {{ site.name | jsonify }},
+		"alternateName": {{ site.nameplate | jsonify }},
+		"url": {{ site.url | jsonify }},
+		"image": {{ '/assets/images/joe.jpg' | absolute_url | jsonify }},
+		"email": {{ site.email | jsonify }},
+		"description": {{ site.description | jsonify }},
+		"worksFor": { "@type": "Organization", "name": "WP Engine", "url": "https://wpengine.com" },
+		"address": { "@type": "PostalAddress", "addressLocality": "Rochester", "addressRegion": "NY", "addressCountry": "US" },
+		"sameAs": {{ site.accounts | map: 'url' | jsonify }}
+	}
+	</script>
+	{% endif %}
+
 	<script type="speculationrules">
 	{
 		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
