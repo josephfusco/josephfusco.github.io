@@ -1,6 +1,96 @@
 {
   "activity": [
     {
+      "date": "2026-10-12",
+      "subject": "Presence API: pass options as an array from version 0.17.0",
+      "url": "https://github.com/WordPress/gutenberg-sync-engines/pull/163",
+      "what": "Merged a pull request in WordPress/gutenberg-sync-engines"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "",
+      "url": "https://make.wordpress.org/core/2026/10/12/presence-api-meeting-summary-october-12-2026/",
+      "what": "Wrote a new post, Presence API meeting summary: October 12, 2026, on the site Make WordPress Core: The Presence API meeting took place on Monday, October 12, 2026 at 15:00 UTC in…"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "Update to version 0.18.0 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3742296/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "chore(main): release 0.18.0",
+      "url": "https://github.com/WordPress/presence-api/pull/803",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "docs: correct the API docs and readme before 0.18.0",
+      "url": "https://github.com/WordPress/presence-api/pull/820",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/710",
+      "what": "Closed issue #710 on the WordPress/presence-api repository: 📌 Tracking: Turn pieces on and off while core adopts them one…"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/799",
+      "what": "Closed issue #799 on the WordPress/presence-api repository: Give each switchable piece its own registration"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/pull/818",
+      "what": "Closed pull request #818 on WordPress/presence-api: feat: load each feature's files from its registration, and none once core…"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "docs: even out the README's features, Playground table, rooms and headings",
+      "url": "https://github.com/WordPress/presence-api/pull/819",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "feat: let core's copy of a presence function or class win when…",
+      "url": "https://github.com/WordPress/presence-api/pull/805",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/725",
+      "what": "Closed issue #725 on the WordPress/presence-api repository: A room can tell people from tabs, but not a second device…"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "feat: tell a second browser from a second tab with a per-room…",
+      "url": "https://github.com/WordPress/presence-api/pull/815",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/809",
+      "what": "Closed issue #809 on the WordPress/presence-api repository: The PHPUnit tests are not linted"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "test: lint the PHPUnit tests against WordPress-Core",
+      "url": "https://github.com/WordPress/presence-api/pull/817",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "feat: register each switchable piece with the callback that adds its hooks",
+      "url": "https://github.com/WordPress/presence-api/pull/814",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-10-09",
       "subject": "fix: cap the heartbeat ping's title and screen before storing them",
       "url": "https://github.com/WordPress/presence-api/pull/816",
@@ -35,18 +125,6 @@
       "subject": "docs: say the presence TTL is 150 seconds, not 60, in the…",
       "url": "https://github.com/WordPress/presence-api/pull/804",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-09",
-      "subject": "feat: tell a second browser from a second tab with a per-room…",
-      "url": "https://github.com/WordPress/presence-api/pull/815",
-      "what": "Opened a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-09",
-      "subject": "feat: register each switchable piece with the callback that adds its hooks",
-      "url": "https://github.com/WordPress/presence-api/pull/814",
-      "what": "Opened a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-09",
@@ -116,21 +194,9 @@
     },
     {
       "date": "2026-10-09",
-      "subject": "chore(main): release 0.18.0",
-      "url": "https://github.com/WordPress/presence-api/pull/803",
-      "what": "Opened a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-09",
       "subject": "feat: raise a deprecation notice for positional presence arguments",
       "url": "https://github.com/WordPress/presence-api/pull/800",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-09",
-      "subject": "Presence API: pass options as an array from version 0.17.0",
-      "url": "https://github.com/WordPress/gutenberg-sync-engines/pull/163",
-      "what": "Opened a pull request in WordPress/gutenberg-sync-engines"
     },
     {
       "date": "2026-10-08",
@@ -149,12 +215,6 @@
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/746",
       "what": "Closed issue #746 on the WordPress/presence-api repository: 📌 Tracking: Build the plugin's own screens on its public API"
-    },
-    {
-      "date": "2026-10-08",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/799",
-      "what": "Created issue #799 in the WordPress/presence-api repository: Give each switchable piece its own folder and registration"
     },
     {
       "date": "2026-10-08",
@@ -295,5 +355,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-11"
+  "fetched": "2026-10-12"
 }
