@@ -2,6 +2,24 @@
   "activity": [
     {
       "date": "2026-10-12",
+      "subject": "chore(main): release 0.18.1",
+      "url": "https://github.com/WordPress/presence-api/pull/826",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/807",
+      "what": "Closed issue #807 on the WordPress/presence-api repository: The inline CSS in PHP files is not linted"
+    },
+    {
+      "date": "2026-10-12",
+      "subject": "build: move the inline CSS into stylesheets so stylelint covers it",
+      "url": "https://github.com/WordPress/presence-api/pull/825",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-12",
       "subject": "Presence API: pass options as an array from version 0.17.0",
       "url": "https://github.com/WordPress/gutenberg-sync-engines/pull/163",
       "what": "Merged a pull request in WordPress/gutenberg-sync-engines"
@@ -355,5 +373,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-12"
+  "fetched": "2026-10-13"
 }
