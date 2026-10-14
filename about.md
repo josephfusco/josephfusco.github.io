@@ -12,7 +12,7 @@ Core work centers on the [Presence API](https://github.com/WordPress/presence-ap
 
 Access to justice is the other thing I care about. [LexGrade](https://lexgrade.org) is an open standard for grading legal motions — eight principles and forty-five graded criteria, with a companion register of named advocacy techniques. Both are published under CC-BY-SA and owned by no one; the source lives on [GitHub](https://github.com/LexGrade/standard). [LexBunker](https://lexbunker.com) is the other piece: case software for family-law litigators that keeps a contested matter on one timeline, offline on the firm's own hardware.
 
-[VennyD](https://vennyd.com) is a free Venn diagram maker: two or three circles, no sign-up, nothing uploaded.
+[VennyD](https://vennyd.com) is a free Venn diagram maker: two or three circles, no sign-up, nothing uploaded. [Riff](https://riffpress.com) is a music player for WordPress: the audio and video in your posts, in a player that keeps going while you read.
 
 [Mashable](https://mashable.com/archive/teach-yourself-programming) and [Treehouse](https://teamtreehouse.com/stories/joe-fusco) covered the career change in 2015.
 
