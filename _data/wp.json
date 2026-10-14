@@ -1,10 +1,100 @@
 {
   "activity": [
     {
-      "date": "2026-10-12",
+      "date": "2026-10-14",
+      "subject": "refactor: drop the CLI command's class_exists() guard",
+      "url": "https://github.com/WordPress/presence-api/pull/837",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/836",
+      "what": "Created issue #836 in the WordPress/presence-api repository: The post query cache hasn't been measured before and after post locks…"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/835",
+      "what": "Created issue #835 in the WordPress/presence-api repository: The plugin hasn't been through user testing"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/834",
+      "what": "Created issue #834 in the WordPress/presence-api repository: The plugin hasn't had a security audit"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/833",
+      "what": "Created issue #833 in the WordPress/presence-api repository: Screens haven't been checked on touch devices and small screens"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "",
+      "url": "https://github.com/WordPress/gutenberg/issues/84712",
+      "what": "Created issue #84712 in the WordPress/gutenberg repository: Audio: measure waveform peaks once at upload and store them with the…"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "ci: open the release pull request as github-actions[bot]",
+      "url": "https://github.com/WordPress/presence-api/pull/832",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "test: cover the heartbeat-events utility functions",
+      "url": "https://github.com/WordPress/presence-api/pull/827",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "chore(main): release 0.18.2",
+      "url": "https://github.com/WordPress/presence-api/pull/831",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "test: cover the synced pattern editors notice",
+      "url": "https://github.com/WordPress/presence-api/pull/828",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "build: let check-private-calls.php run on Windows",
+      "url": "https://github.com/WordPress/presence-api/pull/829",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-13",
+      "subject": "Update to version 0.18.1 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3744962/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-10-13",
       "subject": "chore(main): release 0.18.1",
       "url": "https://github.com/WordPress/presence-api/pull/826",
-      "what": "Opened a pull request in WordPress/presence-api"
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-13",
+      "subject": "fix: show the admin bar presence node on phones and spell out…",
+      "url": "https://github.com/WordPress/presence-api/pull/830",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-13",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/821",
+      "what": "Closed issue #821 on the WordPress/presence-api repository: The admin bar faces are hidden on phones, and some names only…"
+    },
+    {
+      "date": "2026-10-13",
+      "subject": "test: cover the admin bar, active-posts widget and Users list edge paths",
+      "url": "https://github.com/WordPress/presence-api/pull/813",
+      "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-12",
@@ -373,5 +463,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-13"
+  "fetched": "2026-10-14"
 }
