@@ -2,9 +2,33 @@
   "activity": [
     {
       "date": "2026-10-14",
+      "subject": "docs: add a showcase page on GitHub Pages",
+      "url": "https://github.com/WordPress/presence-api/pull/840",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/839",
+      "what": "Created issue #839 in the WordPress/presence-api repository: A showcase page on GitHub Pages, to stage future announcement"
+    },
+    {
+      "date": "2026-10-14",
       "subject": "refactor: drop the CLI command's class_exists() guard",
       "url": "https://github.com/WordPress/presence-api/pull/837",
-      "what": "Opened a pull request in WordPress/presence-api"
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/808",
+      "what": "Closed issue #808 on the WordPress/presence-api repository: End-to-end tests run in Chromium only"
+    },
+    {
+      "date": "2026-10-14",
+      "subject": "test: run the cross-tab, visibility and admin bar contrast specs in Firefox…",
+      "url": "https://github.com/WordPress/presence-api/pull/838",
+      "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-14",
@@ -463,5 +487,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-14"
+  "fetched": "2026-10-15"
 }
