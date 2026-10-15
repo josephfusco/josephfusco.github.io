@@ -2075,3 +2075,19 @@ body {
 @media (max-width: 50rem) {
   .lately-skeleton .bone-date { position: static; margin-right: 0.75rem; vertical-align: -0.05rem; }
 }
+
+/* ---- Reading measure ----
+   Georgia at 17px runs near eighty characters across the full wrap.
+   An essay reads best nearer seventy, so the text of an article
+   takes a narrower column than the page. Pictures and code keep the
+   width they had. The rag is hyphenated so the narrower column does
+   not go toothy, and a word has to be long enough to earn the break. */
+.prose > :not(figure, pre, .label-set) { max-width: 36rem; }
+.prose p, .prose li, .prose blockquote {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphenate-limit-chars: 8 4 3;
+}
+/* A paragraph under a section label on the design page starts on the
+   next line, like any other; the article's top padding is for articles. */
+section.block > .prose { padding-top: 0; }
