@@ -5,7 +5,7 @@ permalink: we-keep-it-running
 description: WordPress is not going anywhere. You are allowed to. It will be there when you come back.
 ---
 
-I am more hopeful about WordPress than I have been in years. AI can write a site from a sentence now, and there is a lot of noise around the project. I see both. Here is why I am hopeful anyway.
+There is a lot of noise around WordPress right now, and AI can write a site from a sentence. I am still more hopeful about the project than I have been in years, and this is why.
 
 I am a steward of the open web. The web is for everyone, and access to it is a human right. WordPress exists to democratize publishing.
 
