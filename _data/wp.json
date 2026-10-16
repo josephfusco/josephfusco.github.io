@@ -1,16 +1,88 @@
 {
   "activity": [
     {
-      "date": "2026-10-14",
-      "subject": "docs: add a showcase page on GitHub Pages",
-      "url": "https://github.com/WordPress/presence-api/pull/840",
+      "date": "2026-10-16",
+      "subject": "test: add a drop-in that measures the post query cache with post…",
+      "url": "https://github.com/WordPress/presence-api/pull/851",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-16",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/839",
+      "what": "Closed issue #839 on the WordPress/presence-api repository: A showcase page on GitHub Pages, to stage future announcement"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps-dev): bump @wordpress/eslint-plugin from 27.0.0 to 27.1.0",
+      "url": "https://github.com/WordPress/presence-api/pull/847",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps-dev): bump @wordpress/e2e-test-utils-playwright from 2.1.0 to 3.0.0",
+      "url": "https://github.com/WordPress/presence-api/pull/845",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/822",
+      "what": "Closed issue #822 on the WordPress/presence-api repository: Screens haven't been checked with a keyboard"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "fix: make the presence screens readable with only a keyboard",
+      "url": "https://github.com/WordPress/presence-api/pull/841",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps-dev): bump globals from 17.12.0 to 17.13.0",
+      "url": "https://github.com/WordPress/presence-api/pull/848",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps-dev): bump @wordpress/env from 11.16.0 to 11.17.0",
+      "url": "https://github.com/WordPress/presence-api/pull/843",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps-dev): bump jsdom from 30.1.1 to 30.1.2",
+      "url": "https://github.com/WordPress/presence-api/pull/842",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps): bump actions/setup-node from 7.0.0 to 7.1.0",
+      "url": "https://github.com/WordPress/presence-api/pull/844",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps): bump crate-ci/typos from 1.50.3 to 1.51.1",
+      "url": "https://github.com/WordPress/presence-api/pull/850",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps): bump actions/upload-artifact from 7.0.1 to 7.0.2",
+      "url": "https://github.com/WordPress/presence-api/pull/849",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-15",
+      "subject": "build(deps-dev): update phpstan/phpstan requirement from 2.2.16 to 2.3.0",
+      "url": "https://github.com/WordPress/presence-api/pull/846",
       "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-14",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/839",
-      "what": "Created issue #839 in the WordPress/presence-api repository: A showcase page on GitHub Pages, to stage future announcement"
+      "subject": "docs: add a showcase page on GitHub Pages",
+      "url": "https://github.com/WordPress/presence-api/pull/840",
+      "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-14",
@@ -487,5 +559,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-15"
+  "fetched": "2026-10-16"
 }
