@@ -2,9 +2,51 @@
   "activity": [
     {
       "date": "2026-10-16",
+      "subject": "Update to version 0.18.2 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3751178/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-10-16",
+      "subject": "chore(main): release 0.18.2",
+      "url": "https://github.com/WordPress/presence-api/pull/831",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-16",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/855",
+      "what": "Created issue #855 in the WordPress/presence-api repository: The markup check validates the browser's repaired markup, not the HTML the…"
+    },
+    {
+      "date": "2026-10-16",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/824",
+      "what": "Closed issue #824 on the WordPress/presence-api repository: The plugin's markup hasn't been validated"
+    },
+    {
+      "date": "2026-10-16",
+      "subject": "test: validate the plugin's markup in e2e",
+      "url": "https://github.com/WordPress/presence-api/pull/852",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-16",
+      "subject": "docs: ask reviewers what the diff already answers",
+      "url": "https://github.com/WordPress/presence-api/pull/854",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-16",
+      "subject": "ci: give each pinned action's comment its exact version",
+      "url": "https://github.com/WordPress/presence-api/pull/853",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-16",
       "subject": "test: add a drop-in that measures the post query cache with post…",
       "url": "https://github.com/WordPress/presence-api/pull/851",
-      "what": "Opened a pull request in WordPress/presence-api"
+      "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-16",
@@ -143,12 +185,6 @@
       "subject": "test: cover the heartbeat-events utility functions",
       "url": "https://github.com/WordPress/presence-api/pull/827",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-14",
-      "subject": "chore(main): release 0.18.2",
-      "url": "https://github.com/WordPress/presence-api/pull/831",
-      "what": "Opened a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-14",
@@ -559,5 +595,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-16"
+  "fetched": "2026-10-17"
 }
