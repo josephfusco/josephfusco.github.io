@@ -1,6 +1,24 @@
 {
   "activity": [
     {
+      "date": "2026-10-19",
+      "subject": "test: validate the markup the server sends, not the browser's repaired copy",
+      "url": "https://github.com/WordPress/presence-api/pull/858",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-19",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/823",
+      "what": "Closed issue #823 on the WordPress/presence-api repository: The plugin hasn't been checked with JavaScript turned off"
+    },
+    {
+      "date": "2026-10-19",
+      "subject": "test: check the plugin's screens with JavaScript turned off",
+      "url": "https://github.com/WordPress/presence-api/pull/857",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-10-16",
       "subject": "Update to version 0.18.2 from GitHub",
       "url": "https://plugins.trac.wordpress.org/changeset/3751178/",
@@ -595,5 +613,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-18"
+  "fetched": "2026-10-19"
 }
