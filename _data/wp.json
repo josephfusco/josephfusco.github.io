@@ -1,10 +1,76 @@
 {
   "activity": [
     {
-      "date": "2026-10-19",
+      "date": "2026-10-20",
+      "subject": "fix: leave a presence table from an older schema alone until it…",
+      "url": "https://github.com/WordPress/presence-api/pull/866",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "fix: store no session hash on the admin room's one row per…",
+      "url": "https://github.com/WordPress/presence-api/pull/867",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "ci: drop the log-container line left over from the chromium shards",
+      "url": "https://github.com/WordPress/presence-api/pull/865",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "ci: read the e2e debug log from the instance the tests ran…",
+      "url": "https://github.com/WordPress/presence-api/pull/863",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "ci: split the chromium e2e leg in two",
+      "url": "https://github.com/WordPress/presence-api/pull/864",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/833",
+      "what": "Closed issue #833 on the WordPress/presence-api repository: Screens haven't been checked on touch devices and small screens"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/860",
+      "what": "Closed issue #860 on the WordPress/presence-api repository: Six files would fatal with \"cannot redeclare\" if core ships their functions"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "fix: guard the functions in the six files core would ship in…",
+      "url": "https://github.com/WordPress/presence-api/pull/861",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/733",
+      "what": "Closed issue #733 on the WordPress/presence-api repository: Step aside one piece at a time if core adopts it"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/859",
+      "what": "Created issue #859 in the WordPress/presence-api repository: The whole plugin stops loading if core registers the presence table"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/855",
+      "what": "Closed issue #855 on the WordPress/presence-api repository: The markup check validates the browser's repaired markup, not the HTML the…"
+    },
+    {
+      "date": "2026-10-20",
       "subject": "test: validate the markup the server sends, not the browser's repaired copy",
       "url": "https://github.com/WordPress/presence-api/pull/858",
-      "what": "Opened a pull request in WordPress/presence-api"
+      "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-19",
@@ -29,12 +95,6 @@
       "subject": "chore(main): release 0.18.2",
       "url": "https://github.com/WordPress/presence-api/pull/831",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-16",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/855",
-      "what": "Created issue #855 in the WordPress/presence-api repository: The markup check validates the browser's repaired markup, not the HTML the…"
     },
     {
       "date": "2026-10-16",
@@ -179,12 +239,6 @@
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/834",
       "what": "Created issue #834 in the WordPress/presence-api repository: The plugin hasn't had a security audit"
-    },
-    {
-      "date": "2026-10-14",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/833",
-      "what": "Created issue #833 in the WordPress/presence-api repository: Screens haven't been checked on touch devices and small screens"
     },
     {
       "date": "2026-10-14",
@@ -613,5 +667,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-19"
+  "fetched": "2026-10-20"
 }
