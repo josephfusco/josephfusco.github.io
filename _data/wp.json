@@ -1,16 +1,52 @@
 {
   "activity": [
     {
+      "date": "2026-10-21",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/871",
+      "what": "Closed issue #871 on the WordPress/presence-api repository: The cleanup cron hook is not cleared when the plugin is uninstalled"
+    },
+    {
+      "date": "2026-10-21",
+      "subject": "fix: clear the cleanup cron event on plugin uninstall",
+      "url": "https://github.com/WordPress/presence-api/pull/872",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-10-20",
-      "subject": "fix: leave a presence table from an older schema alone until it…",
-      "url": "https://github.com/WordPress/presence-api/pull/866",
+      "subject": "Update to version 0.18.3 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3757235/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "chore(main): release 0.18.3",
+      "url": "https://github.com/WordPress/presence-api/pull/862",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/856",
+      "what": "Closed issue #856 on the WordPress/presence-api repository: A setting saved through the REST API never warns someone with its…"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "fix: warn an open screen when a REST request saves what it…",
+      "url": "https://github.com/WordPress/presence-api/pull/868",
       "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-20",
       "subject": "fix: store no session hash on the admin room's one row per…",
       "url": "https://github.com/WordPress/presence-api/pull/867",
-      "what": "Opened a pull request in WordPress/presence-api"
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-20",
+      "subject": "fix: leave a presence table from an older schema alone until it…",
+      "url": "https://github.com/WordPress/presence-api/pull/866",
+      "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-20",
@@ -667,5 +703,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-20"
+  "fetched": "2026-10-21"
 }
