@@ -1,6 +1,72 @@
 {
   "activity": [
     {
+      "date": "2026-10-22",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/882",
+      "what": "Closed issue #882 on the WordPress/presence-api repository: A post room's editor row still flips its session hash between two…"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "fix: store no session hash on a post room's one editor row…",
+      "url": "https://github.com/WordPress/presence-api/pull/884",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "build(deps-dev): bump vitest from 5.0.3 to 5.0.4",
+      "url": "https://github.com/WordPress/presence-api/pull/878",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "build(deps-dev): bump @wordpress/scripts from 36.0.0 to 36.1.0",
+      "url": "https://github.com/WordPress/presence-api/pull/875",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "build(deps-dev): bump @playwright/test from 1.63.0 to 1.64.1",
+      "url": "https://github.com/WordPress/presence-api/pull/877",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "build(deps-dev): bump html-validate from 11.16.1 to 11.16.2",
+      "url": "https://github.com/WordPress/presence-api/pull/876",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "build(deps-dev): bump vite from 8.3.1 to 8.3.4",
+      "url": "https://github.com/WordPress/presence-api/pull/879",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "build(deps): bump shivammathur/setup-php from 2.37.2 to 2.40.0",
+      "url": "https://github.com/WordPress/presence-api/pull/883",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-22",
+      "subject": "build(deps-dev): update phpstan/phpstan requirement from 2.3.0 to 2.3.1",
+      "url": "https://github.com/WordPress/presence-api/pull/874",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-21",
+      "subject": "build(deps): bump astral-sh/setup-uv from 10.2.0 to 10.3.0",
+      "url": "https://github.com/WordPress/presence-api/pull/881",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-21",
+      "subject": "build(deps): bump the codeql-action group with 3 updates",
+      "url": "https://github.com/WordPress/presence-api/pull/880",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-10-21",
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/871",
@@ -703,5 +769,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-21"
+  "fetched": "2026-10-22"
 }
