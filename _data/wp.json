@@ -1,6 +1,24 @@
 {
   "activity": [
     {
+      "date": "2026-10-23",
+      "subject": "test: assert a REST settings save with no group bumps no screen…",
+      "url": "https://github.com/WordPress/presence-api/pull/870",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-23",
+      "subject": "ci: restore the Playwright package cache from any image or version",
+      "url": "https://github.com/WordPress/presence-api/pull/885",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-23",
+      "subject": "test: keep the admin bar's first-post-room test from depending on the clock",
+      "url": "https://github.com/WordPress/presence-api/pull/886",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-10-22",
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/882",
@@ -769,5 +787,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-22"
+  "fetched": "2026-10-23"
 }
