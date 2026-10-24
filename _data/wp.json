@@ -2,6 +2,24 @@
   "activity": [
     {
       "date": "2026-10-23",
+      "subject": "fix: write wp presence set as WP-CLI's --user, and three smaller corrections",
+      "url": "https://github.com/WordPress/presence-api/pull/887",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-23",
+      "subject": "chore: remove dead code found in a pre-release sweep",
+      "url": "https://github.com/WordPress/presence-api/pull/889",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-23",
+      "subject": "docs: correct comments that drifted from the code",
+      "url": "https://github.com/WordPress/presence-api/pull/888",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-23",
       "subject": "test: assert a REST settings save with no group bumps no screen…",
       "url": "https://github.com/WordPress/presence-api/pull/870",
       "what": "Merged a pull request in WordPress/presence-api"
@@ -787,5 +805,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-23"
+  "fetched": "2026-10-24"
 }
