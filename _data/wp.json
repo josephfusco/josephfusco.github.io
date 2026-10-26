@@ -1,6 +1,54 @@
 {
   "activity": [
     {
+      "date": "2026-10-26",
+      "subject": "test: assert the network box stores the string 1 when checked",
+      "url": "https://github.com/WordPress/presence-api/pull/900",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-26",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/895",
+      "what": "Closed issue #895 on the WordPress/presence-api repository: wp_presence_sanitize_checkbox() and cleanup guard have no tests"
+    },
+    {
+      "date": "2026-10-26",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/pull/897",
+      "what": "Closed pull request #897 on WordPress/presence-api: test: add coverage for sanitize_checkbox and cleanup guard"
+    },
+    {
+      "date": "2026-10-26",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/898",
+      "what": "Closed issue #898 on the WordPress/presence-api repository: test: wp_presence_on_logout( 0 ) guard has no coverage"
+    },
+    {
+      "date": "2026-10-26",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/pull/899",
+      "what": "Closed pull request #899 on WordPress/presence-api: test(lifecycle): add coverage for logout with user_id zero"
+    },
+    {
+      "date": "2026-10-26",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/pull/892",
+      "what": "Closed pull request #892 on WordPress/presence-api: fix: leave post locks intact when a user logs out"
+    },
+    {
+      "date": "2026-10-26",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/890",
+      "what": "Closed issue #890 on the WordPress/presence-api repository: Logging out in one browser releases post locks held in another"
+    },
+    {
+      "date": "2026-10-26",
+      "subject": "fix: preserve post locks on logout from another session",
+      "url": "https://github.com/WordPress/presence-api/pull/893",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-10-23",
       "subject": "fix: write wp presence set as WP-CLI's --user, and three smaller corrections",
       "url": "https://github.com/WordPress/presence-api/pull/887",
@@ -805,5 +853,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-25"
+  "fetched": "2026-10-26"
 }
