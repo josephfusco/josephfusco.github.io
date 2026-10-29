@@ -1,22 +1,70 @@
 {
   "activity": [
     {
+      "date": "2026-10-29",
+      "subject": "docs: polish the showcase page",
+      "url": "https://github.com/WordPress/presence-api/pull/913",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "feat: add a presence-api.keepalive filter so a push transport can hold a…",
+      "url": "https://github.com/WordPress/presence-api/pull/904",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "build(deps-dev): bump @wordpress/eslint-plugin from 27.1.0 to 28.0.0",
+      "url": "https://github.com/WordPress/presence-api/pull/906",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "build(deps-dev): bump vite from 8.3.4 to 8.3.5",
+      "url": "https://github.com/WordPress/presence-api/pull/908",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "build(deps-dev): bump html-validate from 11.16.2 to 11.17.0",
+      "url": "https://github.com/WordPress/presence-api/pull/909",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "build(deps): bump the codeql-action group with 3 updates",
+      "url": "https://github.com/WordPress/presence-api/pull/910",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "build(deps-dev): bump @wordpress/scripts from 36.1.0 to 37.0.0",
+      "url": "https://github.com/WordPress/presence-api/pull/907",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "feat: add a presence-api.roomChanged action that refreshes presence now",
+      "url": "https://github.com/WordPress/presence-api/pull/903",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "build(deps): bump astral-sh/setup-uv from 10.3.0 to 10.3.1",
+      "url": "https://github.com/WordPress/presence-api/pull/911",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "",
+      "url": "https://wordpress.slack.com/archives/C0FRG66LR/p1793278104.193089",
+      "what": "Gave props in Slack: Props to @intenzi, @ashu4035, @iamchitti, @iqbal1hossain, @wp24horas, https://profiles.wordpress.org/aldorza/, @bejignesh, https://profiles.wordpress.org/moriikuri/, @obenland, https://profiles.wordpress.org/ishitaj34/, https://profiles.wordpress.org/zahidui/, @theaminuldev, @muneebashraf,…"
+    },
+    {
       "date": "2026-10-27",
       "subject": "ci: get pull requests their CI results sooner",
       "url": "https://github.com/WordPress/presence-api/pull/902",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-27",
-      "subject": "feat: add a presence-api.keepalive filter so a push transport can hold a…",
-      "url": "https://github.com/WordPress/presence-api/pull/904",
-      "what": "Opened a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-10-27",
-      "subject": "feat: add a presence-api.roomChanged action that refreshes presence now",
-      "url": "https://github.com/WordPress/presence-api/pull/903",
-      "what": "Opened a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-26",
@@ -895,5 +943,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-28"
+  "fetched": "2026-10-29"
 }
