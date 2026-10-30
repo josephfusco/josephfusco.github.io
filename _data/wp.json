@@ -2,6 +2,30 @@
   "activity": [
     {
       "date": "2026-10-29",
+      "subject": "Update to version 0.19.0 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3773757/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "chore(main): release 0.19.0",
+      "url": "https://github.com/WordPress/presence-api/pull/912",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "Media: Keep the tags of audio files without ID3, such as FLAC,…",
+      "url": "https://github.com/WordPress/wordpress-develop/pull/15185",
+      "what": "Opened a pull request in WordPress/wordpress-develop"
+    },
+    {
+      "date": "2026-10-29",
+      "subject": "",
+      "url": "https://core.trac.wordpress.org/ticket/66417",
+      "what": "Created ticket #66417 on Core Trac: wp_read_audio_metadata() keeps no tags from FLAC, Ogg or M4A files"
+    },
+    {
+      "date": "2026-10-29",
       "subject": "docs: polish the showcase page",
       "url": "https://github.com/WordPress/presence-api/pull/913",
       "what": "Merged a pull request in WordPress/presence-api"
@@ -943,5 +967,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-29"
+  "fetched": "2026-10-30"
 }
