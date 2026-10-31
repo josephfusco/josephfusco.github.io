@@ -1,6 +1,24 @@
 {
   "activity": [
     {
+      "date": "2026-10-30",
+      "subject": "ci: file Presence Scenes pull requests under the Presence API release milestone",
+      "url": "https://github.com/WordPress/presence-api/pull/920",
+      "what": "Opened a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-30",
+      "subject": "ci: attach a presence-scenes.zip to each Presence API release",
+      "url": "https://github.com/WordPress/presence-api/pull/919",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-30",
+      "subject": "feat: let a plugin add its own scene steps and scenes, and…",
+      "url": "https://github.com/WordPress/presence-api/pull/918",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-10-29",
       "subject": "Update to version 0.19.0 from GitHub",
       "url": "https://plugins.trac.wordpress.org/changeset/3773757/",
@@ -967,5 +985,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-30"
+  "fetched": "2026-10-31"
 }
