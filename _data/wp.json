@@ -1,10 +1,94 @@
 {
   "activity": [
     {
-      "date": "2026-10-30",
+      "date": "2026-11-01",
+      "subject": "ci: give each docs page its own link preview",
+      "url": "https://github.com/WordPress/presence-api/pull/929",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-01",
+      "subject": "test: check what each docs film shows, and re-shoot the films in…",
+      "url": "https://github.com/WordPress/presence-api/pull/928",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-01",
+      "subject": "",
+      "url": "https://make.wordpress.org/core/2026/11/01/presence-api-meeting-summary-october-26-2026/",
+      "what": "Wrote a new post, Presence API meeting summary: October 26, 2026, on the site Make WordPress Core: The Presence API meeting took place on Monday, October 26, 2026 at 15:00 UTC in…"
+    },
+    {
+      "date": "2026-11-01",
+      "subject": "Update to version 0.20.0 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3777498/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-11-01",
+      "subject": "chore(main): release 0.20.0",
+      "url": "https://github.com/WordPress/presence-api/pull/923",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-01",
+      "subject": "docs: publish the docs under /docs on GitHub Pages",
+      "url": "https://github.com/WordPress/presence-api/pull/925",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-01",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/927",
+      "what": "Created issue #927 in the WordPress/presence-api repository: Saving a form can remove the person's fresh presence row"
+    },
+    {
+      "date": "2026-11-01",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/926",
+      "what": "Created issue #926 in the WordPress/presence-api repository: The stale-screen notice keeps its first \"time ago\""
+    },
+    {
+      "date": "2026-10-31",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/901",
+      "what": "Closed issue #901 on the WordPress/presence-api repository: Let a push transport update presence without Heartbeat"
+    },
+    {
+      "date": "2026-10-31",
+      "subject": "feat: add wp_presence_admin_state() so a relay can write the rows Heartbeat writes",
+      "url": "https://github.com/WordPress/presence-api/pull/924",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-31",
       "subject": "ci: file Presence Scenes pull requests under the Presence API release milestone",
       "url": "https://github.com/WordPress/presence-api/pull/920",
-      "what": "Opened a pull request in WordPress/presence-api"
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-31",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/916",
+      "what": "Closed issue #916 on the WordPress/presence-api repository: Document a pattern for custom rooms on non-post screens"
+    },
+    {
+      "date": "2026-10-31",
+      "subject": "docs: add a custom rooms pattern for screens that aren't posts",
+      "url": "https://github.com/WordPress/presence-api/pull/922",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-31",
+      "subject": "fix: keep the admin bar's presence menu current while it is open",
+      "url": "https://github.com/WordPress/presence-api/pull/914",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-10-31",
+      "subject": "feat: fire `wp_presence_room_changed` when an edited post's title or status changes",
+      "url": "https://github.com/WordPress/presence-api/pull/915",
+      "what": "Merged a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-10-30",
@@ -985,5 +1069,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-10-31"
+  "fetched": "2026-11-01"
 }
