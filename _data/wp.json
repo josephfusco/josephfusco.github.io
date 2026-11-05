@@ -1,6 +1,36 @@
 {
   "activity": [
     {
+      "date": "2026-11-05",
+      "subject": "build(deps-dev): bump mermaid from 11.17.2 to 12.2.0",
+      "url": "https://github.com/WordPress/presence-api/pull/937",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-05",
+      "subject": "build(deps-dev): bump markdown-it from 14.3.3 to 15.0.3",
+      "url": "https://github.com/WordPress/presence-api/pull/934",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-05",
+      "subject": "build(deps-dev): update phpstan/phpstan requirement from 2.3.1 to 2.3.3",
+      "url": "https://github.com/WordPress/presence-api/pull/933",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-05",
+      "subject": "build(deps-dev): bump @wordpress/env from 11.17.0 to 12.0.0",
+      "url": "https://github.com/WordPress/presence-api/pull/935",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-05",
+      "subject": "build(deps): bump astral-sh/setup-uv from 10.3.1 to 10.3.3",
+      "url": "https://github.com/WordPress/presence-api/pull/938",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-11-01",
       "subject": "ci: give each docs page its own link preview",
       "url": "https://github.com/WordPress/presence-api/pull/929",
@@ -1069,5 +1099,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-11-04"
+  "fetched": "2026-11-05"
 }
