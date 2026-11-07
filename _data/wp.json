@@ -1,6 +1,30 @@
 {
   "activity": [
     {
+      "date": "2026-11-06",
+      "subject": "Update to version 0.20.1 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3788762/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-11-06",
+      "subject": "chore(main): release 0.20.1",
+      "url": "https://github.com/WordPress/presence-api/pull/939",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-06",
+      "subject": "",
+      "url": "https://github.com/WordPress/presence-api/issues/927",
+      "what": "Closed issue #927 on the WordPress/presence-api repository: Saving a form can remove the person's fresh presence row"
+    },
+    {
+      "date": "2026-11-06",
+      "subject": "fix: keep presence during in-site navigation",
+      "url": "https://github.com/WordPress/presence-api/pull/931",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-11-05",
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/921",
@@ -101,12 +125,6 @@
       "subject": "docs: publish the docs under /docs on GitHub Pages",
       "url": "https://github.com/WordPress/presence-api/pull/925",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-11-01",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/927",
-      "what": "Created issue #927 in the WordPress/presence-api repository: Saving a form can remove the person's fresh presence row"
     },
     {
       "date": "2026-10-31",
@@ -1129,5 +1147,5 @@
       "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-11-06"
+  "fetched": "2026-11-07"
 }
