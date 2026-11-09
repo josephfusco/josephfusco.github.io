@@ -1103,49 +1103,7 @@
       "subject": "ci: report required checks under their composite name even when skipped",
       "url": "https://github.com/WordPress/presence-api/pull/494",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-09-09",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/480",
-      "what": "Closed issue #480 on the WordPress/presence-api repository: Who's Online row avatar doesn't bookend its two-line text block"
-    },
-    {
-      "date": "2026-09-09",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/479",
-      "what": "Closed issue #479 on the WordPress/presence-api repository: Avatar images are undersized for retina displays across the presence surfaces"
-    },
-    {
-      "date": "2026-09-09",
-      "subject": "fix: request a retina-sharp avatar resolution and bookend the Who's Online row",
-      "url": "https://github.com/WordPress/presence-api/pull/481",
-      "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-09-09",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/311",
-      "what": "Closed issue #311 on the WordPress/presence-api repository: Consider a neutral/inactive avatar state instead of dropping stale presence entries"
-    },
-    {
-      "date": "2026-09-09",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/484",
-      "what": "Closed issue #484 on the WordPress/presence-api repository: Add a Settings link to the plugin row actions"
-    },
-    {
-      "date": "2026-09-09",
-      "subject": "feat: add a Settings link to the plugin row actions",
-      "url": "https://github.com/WordPress/presence-api/pull/492",
-      "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-09-09",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/486",
-      "what": "Closed issue #486 on the WordPress/presence-api repository: Playground previews show identical default avatars for every demo user"
     }
   ],
-  "fetched": "2026-11-08"
+  "fetched": "2026-11-09"
 }
