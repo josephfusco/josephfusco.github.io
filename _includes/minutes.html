@@ -1,0 +1,14 @@
+{%- comment -%}
+Minutes to read a post, as a bare number.
+  html: the post's rendered content
+Code blocks are looked up, not read: count the prose only.
+{%- endcomment -%}
+{%- assign prose = "" -%}
+{%- assign parts = include.html | split: "<pre" -%}
+{%- for part in parts -%}
+{%- if forloop.first -%}{%- assign prose = prose | append: part -%}
+{%- else -%}{%- assign tail = part | split: "</pre>" -%}{%- if tail.size > 1 -%}{%- assign prose = prose | append: tail.last -%}{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+{%- assign words = prose | number_of_words -%}
+{%- if words < 360 -%}1{%- else -%}{{ words | divided_by: 180 }}{%- endif -%}

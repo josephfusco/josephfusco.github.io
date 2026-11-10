@@ -2,6 +2,7 @@
 layout: post
 title: Fix Laravel Valet Nginx error 413
 permalink: fix-laravel-valet-nginx-error-413
+tags: [Nginx]
 ---
 ## Nginx error 413: Request entity too large
 

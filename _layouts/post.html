@@ -7,18 +7,18 @@
 	{% include header.html %}
 	<main id="main" aria-label="Content">
 		<div class="wrap">
-			<article class="prose" data-spec="article · measure 36rem · hyphenated · on the 1.75rem grid">
+			<article class="prose">
 				{% include crumbs.html %}
-				<h1 style="view-transition-name: vt-{{ page.url | slugify }}; view-transition-class: post">{{ page.title }}</h1>
+				<h1 style="view-transition-name: vt-{{ page.url | slugify }}; view-transition-class: post">{{ page.title | smartify }}</h1>
 				<p class="meta">
-					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>{% comment %}code blocks are looked up, not read: count the prose only{% endcomment %}{% assign prose = "" %}{% assign parts = content | split: "<pre" %}{% for part in parts %}{% if forloop.first %}{% assign prose = prose | append: part %}{% else %}{% assign tail = part | split: "</pre>" %}{% if tail.size > 1 %}{% assign prose = prose | append: tail.last %}{% endif %}{% endif %}{% endfor %}{% assign words = prose | number_of_words %}, {% if words < 360 %}1{% else %}{{ words | divided_by:180 }}{% endif %} min read
+					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>, {% include minutes.html html=content %} min read
 				</p>
 				{{ content }}
 			</article>
 
 			<nav class="post-nav" aria-label="Post navigation">
-				<span class="post-nav-prev">{% if page.previous %}<a rel="prev" href="{{ page.previous.url | relative_url }}"><span class="post-nav-arrow">&larr;</span><span class="post-nav-title">{{ page.previous.title }}</span></a>{% endif %}</span>
-				<span class="post-nav-next">{% if page.next %}<a rel="next" href="{{ page.next.url | relative_url }}"><span class="post-nav-title">{{ page.next.title }}</span><span class="post-nav-arrow">&rarr;</span></a>{% endif %}</span>
+				<span class="post-nav-prev">{% if page.previous %}<a rel="prev" href="{{ page.previous.url | relative_url }}"><span class="post-nav-arrow">&larr;</span><span class="post-nav-title">{{ page.previous.title | smartify }}</span></a>{% endif %}</span>
+				<span class="post-nav-next">{% if page.next %}<a rel="next" href="{{ page.next.url | relative_url }}"><span class="post-nav-title">{{ page.next.title | smartify }}</span><span class="post-nav-arrow">&rarr;</span></a>{% endif %}</span>
 			</nav>
 
 		</div>

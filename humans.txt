@@ -11,7 +11,8 @@
 /* SITE */
 	Standards: HTML, CSS, a little JS. One 28px baseline under everything.
 	Components: Jekyll, GitHub Pages, a Cloudflare Worker for the birds
-	Typefaces: Georgia for the words, Atkinson Hyperlegible for the structure
+	Typefaces: Caslon for the words (Libre Caslon, by Pablo Impallari),
+	           Atkinson Hyperlegible for the structure
 	Doctype: HTML5
 
 	The birds on the wire are real readers, one each, and nothing about

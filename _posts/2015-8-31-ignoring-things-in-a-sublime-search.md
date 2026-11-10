@@ -2,6 +2,7 @@
 layout: post
 title: Ignoring Folders In A Sublime Search
 permalink: ignoring-folders-in-a-sublime-search
+tags: [Sublime Text]
 ---
 
 I've been utilizing Sublime's *Find in Folder* feature lately, and can't believe I didn't know about this earlier. You can get to it by either right clicking a folder in the file tree, or with the shortcut `cmd` + `shift` + `f`.

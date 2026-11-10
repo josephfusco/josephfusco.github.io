@@ -7,7 +7,7 @@ permalink: /design/
 	<div class="prose">
 		<h1>Design</h1>
 		<p class="meta">Colors, type, parts.</p>
-		<p>The site is set like a letter on cotton paper. Georgia for the words, Atkinson Hyperlegible for the structure, and a 1.75rem line that everything sits on. The birds on the wire are the people reading, you included.</p>
+		<p>The site is set like a letter on cotton paper. Caslon for the words, Atkinson Hyperlegible for the structure, and a 1.75rem line that everything sits on. The birds on the wire are the people reading, you included.</p>
 		<p>This page is what every page is set from. When something changes, it changes here too.</p>
 	</div>
 
@@ -26,13 +26,13 @@ permalink: /design/
 
 	<section class="block" aria-label="Type">
 		<h2>Type</h2>
-		<div class="prose"><p>Georgia for words. Atkinson Hyperlegible for headings, the nameplate, the nav, and controls. Georgia italic for anything written beside the text, like a date or a category. Monospace for code and the blueprint's labels.</p></div>
+		<div class="prose"><p>Caslon for words, the common type of the American colonies. Its italic is for emphasis and for anything written beside the text, like a date or a category. Atkinson Hyperlegible for headings, the nav, and controls. There are no small capitals, because this cut of Caslon has none to give. Figures are old-style in text. Monospace is for code and for the figures in the writing index.</p></div>
 		<div class="specimen">
 			<p class="spec-note">Atkinson Hyperlegible</p>
 			<p class="spec-sans">Hamburgevons 0O 1lI 5S 8B</p>
-			<p class="spec-note">Georgia</p>
+			<p class="spec-note">Libre Caslon Text</p>
 			<p class="spec-serif">The five boxing wizards jump quickly, 1234567890.</p>
-			<p class="spec-note">Georgia italic</p>
+			<p class="spec-note">Libre Caslon Text italic</p>
 			<p class="spec-italic">Rochester NY, March 2017, a note in the margin.</p>
 			<p class="spec-note">Monospace</p>
 			<p class="spec-mono">--lh: 1.75rem; skewY(-1.1deg); presence.js</p>
@@ -45,17 +45,33 @@ permalink: /design/
 		<div class="prose">
 			<p>Every line is 1.75rem tall. The space between things is that line scaled by the golden ratio, so a page is rows of one unit from the masthead to the signature.</p>
 			<ul>
-				<li>A post's title, the trail and the occupancy note share one baseline.</li>
-				<li>Nothing inline changes a line's height. A code word is set at <code>line-height: 1</code>.</li>
+				<li>A post’s title, the trail and the occupancy note share one baseline.</li>
+				<li>Nothing inline changes a line’s height. A code word is set at <code>line-height: 1</code>.</li>
 				<li>Categories are written beside a name, in italic, never boxed.</li>
-				<li>An article's text takes a column of 36rem, about seventy characters, and is hyphenated. Pictures and code keep the width of the page.</li>
+				<li>An article’s text takes a column of 36rem, about seventy characters, and is hyphenated. Pictures and code keep the width of the page.</li>
+				<li>A quotation overhangs that column by one unit on each side.</li>
+				<li>In a feed, the lines of one entry sit closer than two entries do, and each day starts half a unit down.</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="block" aria-label="Motion">
+		<h2>Motion</h2>
+		<p class="spec-mono">180ms hover &middot; 220ms slip &middot; 300ms title</p>
+		<div class="prose">
+			<ul>
+				<li>A hovered link or mark takes 180ms to reach the accent.</li>
+				<li>The colophon, the field guide and the region list are slips of paper. Each arrives in 220ms.</li>
+				<li>A post’s title travels between the front page and its post in 300ms.</li>
+				<li>A project’s mark moves only while its row is hovered or focused.</li>
+				<li>With reduced motion set, the marks, the slips and the titles hold still.</li>
 			</ul>
 		</div>
 	</section>
 
 	<section class="block" aria-label="Components">
 		<h2>Components</h2>
-		<div class="prose"><p>The parts the site draws itself. Most are presence: another reader's cursor, the wire the birds sit on, the chip that says who is in the room. The rest is the trail back, the wordmark, a favicon that greys when you look away, a camera for Rochester, and the small type: a category, a code word, a GitHub label.</p></div>
+		<div class="prose"><p>The parts the site draws itself. Most are presence: another reader’s cursor, the wire the birds sit on, the chip that says who is in the room. The rest is the trail back, the wordmark, a project’s mark, a favicon that greys when you look away, a camera for Rochester, and the small type: a category, a code word, a GitHub label.</p></div>
 		<ul class="components">
 			<li>
 				<div class="stage" aria-hidden="true">
@@ -99,6 +115,14 @@ permalink: /design/
 				</div>
 				<div>
 					<h3>Wordmark <span class="tag">identity</span></h3>
+				</div>
+			</li>
+			<li>
+				<div class="stage" aria-hidden="true">
+					<svg viewBox="1 1 38 38" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" class="work-mark-svg mark-maze"><path d="M8,2 H38 V38"/><path d="M32,38 H2 V2"/><path d="M14,2 V14 H26"/><path d="M26,8 H32 V26 H20 V20"/><path d="M2,20 H14 V32"/><path d="M8,26 V32"/><path d="M20,32 H26 V38"/><path d="M8,8 V14"/><path class="mark-trace" d="M5,2 V17 H17 V29 H35 V38" pathLength="1" stroke-linecap="butt"/></svg>
+				</div>
+				<div>
+					<h3>Project mark <span class="tag">now</span></h3>
 				</div>
 			</li>
 			<li>

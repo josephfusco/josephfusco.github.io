@@ -19,7 +19,7 @@ npm ci && npx playwright install chromium
 npm test
 ```
 
-Playwright builds the site and checks what has broken before: the nav marking the wrong page, the margins leaving the title's baseline, paragraphs leaving the grid, Lately repeating itself, and old addresses that no longer answer. CI runs them on every pull request.
+Playwright builds the site and checks what has broken before: the nav marking the wrong page, the margins leaving the title's baseline, paragraphs leaving the grid, Lately repeating itself, a clamped line showing through, the masthead stacking on a phone, a quotation leaning left, birds hanging under the far wire, and old addresses that no longer answer. CI runs them on every pull request.
 
 # License
 

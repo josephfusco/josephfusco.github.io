@@ -6,7 +6,7 @@ test('every address still answers', async ({ request }) => {
   const xml = await (await request.get('/sitemap.xml')).text();
   const paths = [...xml.matchAll(/<loc>https?:\/\/[^/]+([^<]*)<\/loc>/g)].map((m) => m[1]);
   expect(paths.length).toBeGreaterThan(10);
-  paths.push('/feed.xml', '/atom.xml', '/archive/');
+  paths.push('/feed.xml', '/atom.xml', '/archive/', '/blog/');
 
   const broken = [];
   for (const path of paths) {

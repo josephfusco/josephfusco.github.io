@@ -1,6 +1,5 @@
 /* Presence: other readers of this page appear as unnamed crosshairs.
-   Progressive enhancement — fails silently without the relay.
-   Blueprint mode: the footer toggle x-rays the page. */
+   Progressive enhancement — fails silently without the relay. */
 (function () {
   'use strict';
 
@@ -37,75 +36,6 @@
   }
 
   document.addEventListener('visibilitychange', function () { refreshIcon(false); });
-
-  /* Registry: every enhancement this site layers on, probed at runtime.
-     Blueprint mode renders this registry as a live systems panel. */
-  var FEATURES = [
-    { label: 'view transitions', on: function () { return 'startViewTransition' in document; } },
-    { label: 'speculation rules', on: function () { return !!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')); } },
-    { label: 'scroll timelines', on: function () { return CSS.supports('animation-timeline: scroll()'); } },
-    { label: 'view-transition classes', on: function () { return CSS.supports('view-transition-class', 'none'); } },
-    { label: 'anchor positioning', on: function () { return CSS.supports('anchor-name: --a'); } },
-    { label: 'sibling-index()', on: function () { return CSS.supports('animation-delay', 'calc(sibling-index() * 1ms)'); } },
-    { label: '@starting-style', on: function () { return CSS.supports('transition-behavior', 'allow-discrete'); } },
-    { label: 'styleable select', on: function () { return CSS.supports('appearance', 'base-select'); } },
-    { label: 'popover', on: function () { return HTMLElement.prototype.hasOwnProperty('popover'); } },
-    { label: 'backdrop-filter', on: function () { return CSS.supports('backdrop-filter', 'blur(1px)') || CSS.supports('-webkit-backdrop-filter', 'blur(1px)'); } },
-    { label: 'invoker commands', on: function () { return typeof CommandEvent !== 'undefined'; } },
-    { label: 'scheduler API', on: function () { return !!(window.scheduler && scheduler.postTask); } },
-    { label: 'broadcast channel', on: function () { return 'BroadcastChannel' in window; } },
-    { label: 'presence relay', on: function () { return !!(window.__presenceLive); } },
-  ];
-
-  function renderSystems() {
-    var panel = document.querySelector('.blueprint-systems');
-    if (!panel) {
-      panel = document.createElement('div');
-      panel.className = 'blueprint-systems';
-      panel.setAttribute('aria-hidden', 'true');
-      document.body.appendChild(panel);
-    }
-    panel.innerHTML = '<b>systems</b>' + FEATURES.map(function (f) {
-      var ok = false;
-      try { ok = f.on(); } catch (e) { /* unsupported probe */ }
-      return '<i>' + (ok ? '\u2713' : '\u00b7') + ' ' + f.label + '</i>';
-    }).join('');
-  }
-
-  /* Invoker Commands where supported; plain clicks elsewhere */
-  var COMMANDS_OK = typeof CommandEvent !== 'undefined';
-  var commandBus = document.getElementById('main');
-
-  function onActivate(btn, name, fn) {
-    if (!btn) return;
-    btn.hidden = false;
-    if (COMMANDS_OK && commandBus && btn.hasAttribute('commandfor')) {
-      commandBus.addEventListener('command', function (e) {
-        if (e.command === name && e.source === btn) fn();
-      });
-    } else {
-      btn.addEventListener('click', fn);
-    }
-  }
-
-  /* ---- Blueprint mode (x-rays in via a same-document view transition) ---- */
-  var toggle = document.querySelector('.blueprint-toggle');
-  if (toggle) {
-    onActivate(toggle, '--blueprint', function () {
-      var flip = function () {
-        var on = document.documentElement.toggleAttribute('data-blueprint');
-        toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
-        if (on) renderSystems();
-      };
-      var noMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (document.startViewTransition && !noMotion) {
-        /* a skipped transition rejects .ready even if nobody asked;
-           acknowledge it so the console stays quiet */
-        var vt = document.startViewTransition(flip);
-        if (vt && vt.ready && vt.ready.catch) vt.ready.catch(function () {});
-      } else flip();
-    });
-  }
 
   /* ---- Presence layer ---- */
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
