@@ -33,6 +33,8 @@
   function clean(s) {
     s = s.replace(/^[\u2600-\u27BF\uD83C-\uDBFF\uDC00-\uDFFF\uFE0F\s]+/, '');
     s = s.replace(/^[a-z][\w-]*(?:\([^)]*\))?!?:\s+/, '');
+    /* an apostrophe is an apostrophe, not a foot mark */
+    s = s.replace(/(\w)'(\w)/g, '$1\u2019$2');
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
 

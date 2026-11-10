@@ -19,7 +19,7 @@
 		<nav class="site-nav" aria-label="Main">
 			<a href="{{ '/about' | relative_url }}"{% if page.url contains '/about' %} aria-current="page"{% endif %}>About</a>
 			<a href="{{ '/design' | relative_url }}"{% if page.url contains '/design' %} aria-current="page"{% endif %}>Design</a>
-			<a href="{{ '/#writing' | relative_url }}"{% if page.layout == 'post' %} aria-current="page"{% endif %}>Writing</a>
+			<a href="{{ '/writing' | relative_url }}"{% if page.layout == 'post' or page.url contains '/writing' %} aria-current="page"{% endif %}>Writing</a>
 		</nav>
 	</div>
 	<div class="powerline" aria-hidden="true">
@@ -27,7 +27,7 @@
 	</div>
 	<div class="field-note{% unless page.url == '/' %} field-note--after-trail{% endunless %}">
 		<span class="status"><span class="presence-dot" aria-hidden="true"></span> <span data-presence-count>just you here</span></span>
-		<label class="region-line"><span class="tool-glyph">⊕</span> <select class="region-select" aria-label="Flock region">
+		<label class="region-line"><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.9"/><path d="M6 1.1V10.9M1.1 6H10.9"/></svg> <select class="region-select" aria-label="Flock region">
 			<option value="nae">North America, East</option>
 			<option value="nac">North America, Central</option>
 			<option value="naw">North America, West</option>

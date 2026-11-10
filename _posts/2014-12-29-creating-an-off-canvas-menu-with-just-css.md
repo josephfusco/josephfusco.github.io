@@ -2,6 +2,7 @@
 layout: post
 title: Creating An Off Canvas Menu With Just CSS
 permalink: creating-an-off-canvas-menu-with-just-css
+tags: [CSS]
 ---
 
 Off canvas menus have been popping up everywhere, and there’s a reason for it. They allow for more focus on content, are great for touch enabled devices, and work well responsively.

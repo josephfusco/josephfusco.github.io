@@ -2,6 +2,7 @@
 layout: post
 title: LexBunker, a contested matter as a WordPress site
 permalink: lexbunker
+tags: [Law, WordPress]
 ---
 
 I built LexBunker for my own contested matter. It is a WordPress plugin. Each case is a site in a multisite network, and every paper in the case is a post.

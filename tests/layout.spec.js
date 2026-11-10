@@ -1,6 +1,6 @@
 const { test, expect } = require('./fixtures');
 
-const PAGES = ['/', '/about/', '/design/', '/labels', '/lexbunker', '/lexgrade', '/blog/'];
+const PAGES = ['/', '/about/', '/design/', '/labels', '/lexbunker', '/lexgrade', '/writing/', '/blog/'];
 
 // the y of an element's first baseline, measured, not assumed
 const baseline = (el) => {
@@ -60,8 +60,47 @@ test('categories are written, not boxed', async ({ page }) => {
     expect(await tags.count()).toBeGreaterThan(0);
     const boxed = await tags.evaluateAll((els) => els.filter((el) => {
       const cs = getComputedStyle(el);
-      return cs.borderStyle !== 'none' || cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || cs.fontStyle !== 'italic';
+      return cs.borderStyle !== 'none' || cs.backgroundColor !== 'rgba(0, 0, 0, 0)';
     }).map((el) => el.textContent));
     expect(boxed, path).toEqual([]);
   }
+});
+
+test('the masthead is one row at every width', async ({ page }) => {
+  await page.goto('/');
+  const y = await page.evaluate(() => {
+    const mid = (el) => { const r = el.getBoundingClientRect(); return (r.top + r.bottom) / 2; };
+    return { mark: mid(document.querySelector('.site-mark')), nav: mid(document.querySelector('.site-nav')) };
+  });
+  expect(Math.abs(y.mark - y.nav)).toBeLessThanOrEqual(1);
+});
+
+test('a quotation overhangs the column evenly', async ({ page, viewport }) => {
+  test.skip(viewport.width <= 720, 'no margin to overhang into');
+  await page.goto('/labels');
+  const over = await page.evaluate(() => {
+    const q = document.querySelector('.prose > blockquote').getBoundingClientRect();
+    const p = document.querySelector('.prose > p:not(.meta, .crumb-line)').getBoundingClientRect();
+    return { left: p.left - q.left, right: q.right - p.right };
+  });
+  expect(over.left).toBeGreaterThan(0);
+  expect(Math.abs(over.left - over.right)).toBeLessThanOrEqual(1);
+});
+
+test('the far birds stand on the far wire', async ({ page }) => {
+  await page.goto('/wire/');
+  const gaps = await page.evaluate(() => {
+    const far = document.querySelector('.watch-far');
+    const path = far.querySelector('.wire-svg path');
+    const box = far.querySelector('.wire-svg').getBoundingClientRect();
+    const len = path.getTotalLength();
+    return [...far.querySelectorAll('.wire-bird')].map((bird) => {
+      const b = bird.getBoundingClientRect();
+      // the wire's height under the bird, read off the path itself
+      const at = ((b.left + b.right) / 2 - box.left) / box.width;
+      const wire = box.top + (path.getPointAtLength(len * at).y / 20) * box.height;
+      return Math.round(b.bottom - wire);
+    });
+  });
+  for (const gap of gaps) expect(Math.abs(gap)).toBeLessThanOrEqual(2);
 });

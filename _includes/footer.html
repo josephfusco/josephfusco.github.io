@@ -10,9 +10,17 @@
 			</p>
 		</address>
 		<p class="footer-tools">
-			<button class="blueprint-toggle" aria-pressed="false" title="See the schematics" commandfor="main" command="--blueprint" hidden><span class="tool-glyph">⌗</span> blueprint</button>
-			<button class="colophon-toggle" popovertarget="colophon"><span class="tool-glyph">✳</span> colophon</button>
+			<button class="colophon-toggle specimen-toggle" popovertarget="specimen"><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 10.5L6 1.5L10 10.5M3.6 7H8.4"/></svg> specimen</button>
+			<button class="colophon-toggle" popovertarget="colophon"><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.2V10.8M1.2 6H10.8M2.6 2.6L9.4 9.4M9.4 2.6L2.6 9.4"/></svg> colophon</button>
 		</p>
+		<div id="specimen" popover>
+			<h2>Caslon</h2>
+			<p class="showing">Quousque tandem abutere, Catilina, patientia nostra? <i>Quousque tandem abutere, Catilina, patientia nostra?</i></p>
+			<p>William Caslon cut this face in London, beginning in the 1720s. It became the common type of the American colonies. John Dunlap set the first printing of the Declaration of Independence in it on the night of July 4, 1776.</p>
+			<p>The line above is the one Caslon set on his own specimen sheet.</p>
+			<p>This cut is <a href="https://github.com/impallari/Libre-Caslon">Libre Caslon</a>, by Pablo Impallari, free under the Open Font License. It follows hand-lettered Caslons of the 1950s, not the original punches. It has no small capitals, so none are imitated.</p>
+			<p>Headings and menus are set in Atkinson Hyperlegible.</p>
+		</div>
 		<div id="colophon" popover>
 			<h2>Colophon</h2>
 			<p>Static site, built with Jekyll.</p>

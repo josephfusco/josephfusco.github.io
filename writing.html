@@ -1,0 +1,53 @@
+---
+layout: default
+title: Writing
+permalink: /writing/
+description: Every post, by year and by subject.
+---
+{% capture joined %}{% for tag in site.tags %}{{ tag[0] }}|{% endfor %}{% endcapture %}
+{% assign subjects = joined | split: '|' | sort_natural %}
+<div class="wrap">
+	<div class="prose">
+		<h1>Writing</h1>
+		<p class="meta">{{ site.posts.size }} posts, {{ site.posts.last.date | date: '%Y' }} to {{ site.posts.first.date | date: '%Y' }}.</p>
+	</div>
+
+	<div class="writing-cols">
+		<section class="block by-year" aria-label="By year">
+			<h2>By year</h2>
+			{% assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+			{% for year in by_year %}
+			<ul class="posts posts-year">
+				<li class="posts-year-label"><time datetime="{{ year.name }}">{{ year.name }}</time></li>
+				{% for post in year.items %}
+				<li>
+					<span class="row-main">
+						<a href="{{ post.url | relative_url }}" style="view-transition-name: vt-{{ post.url | slugify }}; view-transition-class: post">{{ post.title | smartify }}</a>
+						<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %-d' }}</time>
+					</span>
+					<span class="figure">{% include minutes.html html=post.content %} min</span>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endfor %}
+			<p class="lately-note">Also as a <a href="{{ '/feed.xml' | relative_url }}">feed</a>.</p>
+		</section>
+
+		<section class="block by-subject" aria-label="By subject">
+			<h2>By subject</h2>
+			<ul class="posts lately">
+				{% for subject in subjects %}
+				<li class="lately-day"><span class="term">{{ subject }}</span></li>
+				{% for post in site.tags[subject] %}
+				<li><span class="lately-line"><a href="{{ post.url | relative_url }}">{{ post.title | smartify }}</a></span></li>
+				{% endfor %}
+				{% endfor %}
+			</ul>
+		</section>
+	</div>
+</div>
+{% comment %}A post is one thing listed twice: point at it in either list and it answers in both.{% endcomment %}
+<style>
+{% for post in site.posts %}body:has(.writing-cols a[href="{{ post.url | relative_url }}"]:is(:hover, :focus-visible)) .writing-cols a[href="{{ post.url | relative_url }}"]{% unless forloop.last %},
+{% endunless %}{% endfor %} { color: var(--accent); }
+</style>

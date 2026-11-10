@@ -2,6 +2,11 @@
 
 :root {
   color-scheme: light;
+  --serif: "Libre Caslon Text", "Caslon Text Fallback", Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
+  /* the parts the browser draws are set from the palette too */
+  accent-color: var(--accent);
+  scrollbar-color: var(--border) transparent;
   --bg: #f6f1e5;
   --fg: #23201a;
   --muted: #6f6758;
@@ -10,6 +15,23 @@
   --card: #efe8d6;
 }
 
+/* Two families. Caslon, roman and italic, for words; the files carry
+   a weight axis, so a strong word is a true heavier cut. Atkinson
+   Hyperlegible for structure: headings, the nav, controls. Latin only. */
+@font-face {
+  font-family: "Libre Caslon Text";
+  src: url("/assets/fonts/LibreCaslonText.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Libre Caslon Text";
+  src: url("/assets/fonts/LibreCaslonText-Italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("/assets/fonts/AtkinsonHyperlegible-Regular.woff2") format("woff2");
@@ -39,6 +61,27 @@
   font-display: swap;
 }
 
+/* Until Caslon arrives the page is set in Georgia, scaled to Caslon's
+   widths (measured against the real text) and given its ascent and
+   descent, so the lines break where they will break and nothing moves
+   when the face swaps in. */
+@font-face {
+  font-family: "Caslon Text Fallback";
+  src: local("Georgia");
+  size-adjust: 107.2%;
+  ascent-override: 97%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Caslon Text Fallback";
+  src: local("Georgia Italic"), local("Georgia-Italic");
+  font-style: italic;
+  size-adjust: 101.4%;
+  ascent-override: 97%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
 * { box-sizing: border-box; }
 
 /* Birds leave the page on both sides; a bird flying right must not
@@ -53,7 +96,7 @@ body {
   margin: 0;
   background-color: var(--bg);
   color: var(--fg);
-  font-family: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
+  font-family: var(--serif);
   font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -67,7 +110,8 @@ body {
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
-a:focus-visible, button:focus-visible, input:focus-visible {
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, summary:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -105,42 +149,6 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .hero p.lede strong { color: var(--fg); font-weight: 600; }
 
-/* Email capture */
-.signup {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.5rem 1.75rem;
-  margin: 1.75rem 0;
-}
-.signup h2 { margin: 0 0 0.375rem; font-size: 1.1875rem; letter-spacing: 0; }
-.signup p { margin: 0 0 1.125rem; color: var(--muted); font-size: 0.9688rem; }
-.signup form {
-  display: flex;
-  gap: 0.625rem;
-  flex-wrap: wrap;
-}
-.signup input[type="email"] {
-  flex: 1 1 14rem;
-  padding: 0.7rem 0.9rem;
-  font-size: 1rem;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  background: var(--bg);
-  color: var(--fg);
-}
-.signup button {
-  padding: 0.7rem 1.3rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border: 0;
-  border-radius: 7px;
-  background: var(--accent);
-  color: #fff;
-  cursor: pointer;
-}
-.signup button:hover { filter: brightness(1.08); }
-.signup .fine { font-size: 0.8125rem; margin: 0.75rem 0 0; }
 
 /* Sections */
 section.block { padding: var(--lh) 0 0; }
@@ -166,10 +174,10 @@ section.block > h2 {
 .work p { margin: 0; color: var(--muted); font-size: 0.9688rem; line-height: var(--lh); }
 /* The WordPress record, read from the .org activity feed at build
    time and set in the archive's own voice */
-.lately-what { font-family: Georgia, serif; font-style: italic; color: var(--muted); }
+.lately-what { font-family: var(--serif); font-style: italic; color: var(--muted); }
 .lately li { align-items: baseline; }
 .lately-note {
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.8125rem;
   color: var(--muted);
@@ -239,20 +247,6 @@ section.block > h2 {
 .prose pre code { background: none; border: 0; padding: 0; }
 .prose ul { padding-left: 1.25rem; }
 
-/* Product card */
-.product {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.75rem;
-  margin: 1.5rem 0;
-}
-.product h2 { margin: 0 0 0.25rem; font-size: 1.25rem; letter-spacing: 0; }
-.product .price {
-  font-family: "SF Mono", Menlo, Consolas, monospace;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-.product ul { color: var(--muted); font-size: 0.9688rem; padding-left: 1.25rem; }
 
 /* Footer */
 .site-footer {
@@ -269,11 +263,6 @@ section.block > h2 {
 .site-footer .wrap { max-width: 54rem; }
 .site-footer a { color: var(--muted); }
 .site-footer a:hover { color: var(--accent); }
-
-@media (max-width: 480px) {
-  .site-header .wrap { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
-  .site-nav a { margin-left: 0; margin-right: 1.25rem; }
-}
 
 /* On a phone there is no margin to write in, so the note joins the
    flow under the wire instead of floating over the greeting */
@@ -316,7 +305,7 @@ section.block > h2 {
   max-width: 42rem;
   margin: 0.875rem auto 0;
   padding-inline: 1.25rem;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.8125rem;
   line-height: var(--lh);
@@ -341,7 +330,7 @@ section.block > h2 {
   border-bottom: 1px dashed var(--border);
 }
 .prose .label-set dt {
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.9375rem;
   line-height: 1.375rem;
@@ -397,7 +386,7 @@ section.block > h2 {
   border-bottom: 1px dashed var(--border);
 }
 .prose .chroma-tiers li:first-child { border-top: 1px dashed var(--border); }
-.prose .chroma-tiers .tier { font-family: Georgia, serif; font-style: italic; font-size: 0.9375rem; color: var(--muted); }
+.prose .chroma-tiers .tier { font-family: var(--serif); font-style: italic; font-size: 0.9375rem; color: var(--muted); }
 .prose .chroma-tiers .swatches { display: flex; flex-wrap: wrap; gap: 0.375rem; }
 .prose .chroma-tiers .swatch {
   width: 1.375rem;
@@ -412,7 +401,7 @@ section.block > h2 {
 .prose details.commands { margin: 0 0 var(--lh); }
 .prose details.commands summary {
   cursor: pointer;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   color: var(--muted);
 }
@@ -423,7 +412,7 @@ section.block > h2 {
   max-width: 42rem;
   margin-inline: auto;
   padding-inline: 1.25rem;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.8125rem;
   line-height: var(--lh);
@@ -439,11 +428,13 @@ section.block > h2 {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 3px;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 1.0625rem;
   color: var(--fg);
 }
+/* the slip overhangs the measure by a unit on each side, not one */
+.prose > blockquote { max-width: calc(36rem + var(--lh) * 2); }
 .prose blockquote p { margin: 0; }
 .prose blockquote p + p { margin-top: var(--lh); }
 @media (max-width: 720px) {
@@ -451,10 +442,9 @@ section.block > h2 {
 }
 /* The section break is set as the old printers set it: a leaf */
 .prose hr { border: 0; margin: var(--lh) 0; text-align: center; line-height: var(--lh); color: var(--muted); }
-.prose hr::before { content: "❦"; font-family: Georgia, serif; }
+.prose hr::before { content: "❦"; font-family: var(--serif); }
 .prose table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
 .prose th, .prose td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; }
-.prose .highlight pre { margin: 1rem 0; }
 
 /* Post prev/next */
 .post-nav {
@@ -475,7 +465,7 @@ section.block > h2 {
   text-wrap: pretty;
   color: var(--muted);
   font-size: 0.75rem;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
 }
 .presence-dot {
@@ -485,8 +475,18 @@ section.block > h2 {
   background: #6f8f52;
 }
 .presence-dot.tick { animation: presence-pulse 2.6s ease-in-out 1; }
-/* Icons are icons; the dotted underline belongs to the words alone */
-.tool-glyph { display: inline-block; }
+/* Icons are drawn, in one stroke, like the marks; the dotted underline
+   belongs to the words alone */
+.tool-glyph {
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  vertical-align: -0.04em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
 @keyframes presence-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(47,191,113,0.45); }
   55% { box-shadow: 0 0 0 7px rgba(47,191,113,0); }
@@ -510,40 +510,9 @@ section.block > h2 {
   30% { opacity: 1; transform: translateY(-3px); }
 }
 
-/* Angled edges (the angled-edges Sass library, as a signature) */
-.angled {
-  position: relative;
-  background: transparent;
-  border: 0;
-}
-.angled::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  transform: skewY(-1.1deg);
-  z-index: -1;
-}
-
-
 
 /* The full stop takes the accent — quiet signature, no theatrics */
 .flame { color: var(--accent); }
-
-
-
-/* ---- HACF pen: glowing streaks and the comet ---- */
-
-/* Streaks and comet retired — HACF survives only in the button glow below */
-
-/* Button hover: the HACF glow */
-.signup button:hover {
-  filter: brightness(1.08);
-  box-shadow: 0 0 12px rgba(184, 66, 15, 0.3);
-}
-
 
 
 /* ---- Kodak moment: a miniature of the SLR from the old camera-flash pen ---- */
@@ -625,7 +594,6 @@ section.block > h2 {
 }
 
 
-
 /* ---- The personal loader, promoted to wordmark ---- */
 .site-name {
   display: inline-flex;
@@ -664,27 +632,6 @@ section.block > h2 {
   12% { fill: var(--accent); }
 }
 
-/* The name stays still; the shimmer from the pen appears only on hover */
-.site-name-text {
-  font-weight: 700;
-  letter-spacing: 0;
-  color: var(--fg);
-}
-.site-name:hover .site-name-text,
-.site-name:focus-visible .site-name-text {
-  background-image: linear-gradient(to right, var(--fg), var(--fg) 40%, var(--accent) 50%, var(--fg) 60%, var(--fg));
-  background-size: 250% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: name-shimmer 2.5s linear infinite;
-}
-@keyframes name-shimmer {
-  to { background-position: -250% center; }
-}
-
-  .site-name:hover .site-name-text { background-image: none; -webkit-text-fill-color: var(--fg); }
-
 
 /* ---- Presence: other readers as crosshairs ---- */
 .presence-layer {
@@ -719,9 +666,8 @@ section.block > h2 {
   font-size: 0.75rem;
 }
 
-/* ---- Blueprint mode: the site as its own schematic ---- */
 /* Footer tools read as links, not chips */
-.presence-toggle, .blueprint-toggle, .colophon-toggle {
+.colophon-toggle {
   font-family: inherit;
   font-size: 0.875rem;
   color: var(--muted);
@@ -733,65 +679,20 @@ section.block > h2 {
   text-decoration: underline dotted;
   text-underline-offset: 3px;
 }
-.presence-toggle:hover, .colophon-toggle:hover { color: var(--fg); border-color: var(--muted); }
-.blueprint-toggle:hover, .blueprint-toggle[aria-pressed="true"] { color: #4d94ff; border-color: #4d94ff; }
-.presence-toggle[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+.colophon-toggle:hover { color: var(--fg); border-color: var(--muted); }
+
+
 .colophon-toggle { anchor-name: --colophon-btn; }
 
-html[data-blueprint] body {
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent calc(var(--lh) - 1px),
-      rgba(77, 148, 255, 0.20) calc(var(--lh) - 1px),
-      rgba(77, 148, 255, 0.20) var(--lh)
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent calc(var(--lh) / 4 - 0.5px),
-      rgba(77, 148, 255, 0.05) calc(var(--lh) / 4 - 0.5px),
-      rgba(77, 148, 255, 0.05) calc(var(--lh) / 4)
-    );
-}
-html[data-blueprint] [data-spec] {
-  outline: 1px dashed rgba(77, 148, 255, 0.5);
-  outline-offset: 5px;
-  position: relative;
-}
-html[data-blueprint] [data-spec]::after {
-  content: attr(data-spec);
-  position: absolute;
-  top: -1.5rem;
-  right: 0;
-  z-index: 10;
-  font-family: "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-  color: #4d94ff;
-  background: var(--bg);
-  padding: 0.05rem 0.35rem;
-}
 
-/* ---- Cutting edge, quietly: cross-page morphs + scroll-driven reveals ---- */
-@view-transition { navigation: auto; }
+/* ---- Cutting edge, quietly: cross-page morphs ---- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
 .site-mark { view-transition-name: site-mark; }
 
-@supports (animation-timeline: view()) {
-  .posts li {
-    animation: rise both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 55%;
-  }
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(12px); }
-  }
-}
 
   .peer-cursor { transition: none; }
-
 
 
 /* ---- Presence states: what the other side is doing ---- */
@@ -809,14 +710,14 @@ html[data-blueprint] [data-spec]::after {
    avoids widows and orphans, and captions never strand a word. */
 h1, h2, h3, .signature, .watch-note { text-wrap: balance; }
 p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
-.signup input[type="email"] { field-sizing: content; }
+
 
 /* Masthead is static — pages begin at the beginning */
 .site-header-bg { display: none; }
 
 /* Colophon: native popover, anchored to its button, @starting-style entry */
 
-#colophon {
+:is(#colophon, #specimen) {
   max-width: 21rem;
   rotate: -1.1deg;
   background: var(--card);
@@ -828,12 +729,12 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
   font-size: 0.8125rem;
   line-height: 1.55;
 }
-#colophon h2 { margin: 0 0 0.5rem; font-size: 1rem; letter-spacing: 0; }
-#colophon p { margin: 0 0 0.75rem; color: var(--muted); }
-#colophon p:last-child { margin-bottom: 0; }
+:is(#colophon, #specimen) h2 { margin: 0 0 0.5rem; font-size: 1rem; letter-spacing: 0; }
+:is(#colophon, #specimen) p { margin: 0 0 0.75rem; color: var(--muted); }
+:is(#colophon, #specimen) p:last-child { margin-bottom: 0; }
 
 @supports (anchor-name: --a) {
-  #colophon {
+  :is(#colophon, #specimen) {
     position: fixed;
     position-anchor: --colophon-btn;
     position-area: top span-left;
@@ -843,7 +744,7 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
 }
 
 /* Popover entry/exit with @starting-style — no keyframes, no JS */
-#colophon {
+:is(#colophon, #specimen) {
   opacity: 0;
   transform: translateY(6px);
   transition:
@@ -852,17 +753,16 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
     overlay 0.22s ease allow-discrete,
     display 0.22s ease allow-discrete;
 }
-#colophon:popover-open {
+:is(#colophon, #specimen):popover-open {
   opacity: 1;
   transform: none;
 }
 @starting-style {
-  #colophon:popover-open {
+  :is(#colophon, #specimen):popover-open {
     opacity: 0;
     transform: translateY(6px);
   }
 }
-
 
 
 /* ---- Round two ---- */
@@ -910,36 +810,16 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
   .peer-cursor { transition: none; }
 
 
-/* Blueprint systems panel: the feature registry, rendered */
-.blueprint-systems { display: none; }
-html[data-blueprint] .blueprint-systems {
-  display: block;
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  z-index: 300;
-  font-family: "SF Mono", Menlo, Consolas, monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.06em;
-  color: #4d94ff;
-  background: var(--bg);
-  border: 1px dashed rgba(77, 148, 255, 0.5);
-  padding: 0.5rem 0.7rem;
-  line-height: 1.7;
-}
-.blueprint-systems b { display: block; font-weight: 600; text-transform: uppercase; margin-bottom: 0.2rem; }
-.blueprint-systems i { display: block; font-style: normal; }
-
 /* ---- Reduced motion: one master switch ---- */
 @media (prefers-reduced-motion: reduce) {
   .presence-dot, .typing span, .flame,
-  .site-mark rect, .site-name-text,
-  .posts li, .read-progress { animation: none !important; }
+  .site-mark rect,
+  .read-progress { animation: none !important; }
   .read-progress { display: none; }
   .cheese { display: none; }
   .peer-cursor { transition: none; }
-  .site-name:hover .site-name-text { background-image: none; -webkit-text-fill-color: var(--fg); }
-  #colophon { transition: none; transform: none; opacity: 1; }
+
+  :is(#colophon, #specimen) { transition: none; transform: none; opacity: 1; }
 }
 
 /* Skip link: first tab stop, visible only when focused */
@@ -961,7 +841,7 @@ html[data-blueprint] .blueprint-systems {
 
 /* Print: the words, not the machinery */
 @media print {
-  .site-header, .site-footer, .signup, .presence-layer,
+  .site-header, .site-footer, .presence-layer,
   .read-progress, .cheese, .skip-link, .post-nav { display: none !important; }
   body { font-size: 11pt; }
   .prose a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
@@ -970,7 +850,7 @@ html[data-blueprint] .blueprint-systems {
 /* ---- Pre-AI layer: the 2011 personal site, kept ---- */
 
 /* Nameplate */
-.site-name-text { font-size: 1.5rem; letter-spacing: 0; }
+
 .site-mark { width: 28px; height: 28px; } /* one baseline unit, so the masthead row is too */
 .site-header .wrap { align-items: center; }
 .site-nav a { font-size: 1rem; }
@@ -980,7 +860,7 @@ html[data-blueprint] .blueprint-systems {
 
 
 /* Links underline; visited links remember (the old web kept score) */
-.prose a, .lede a, .work p a, #colophon p a {
+.prose a, .lede a, .work p a, :is(#colophon, #specimen) p a {
   text-decoration: underline;
   text-underline-offset: 2px;
   text-decoration-thickness: 1px;
@@ -1017,7 +897,7 @@ html[data-blueprint] .blueprint-systems {
    space is a multiple of it (halves allowed: 0.875rem).
    Dividers subtract their own border from adjacent padding so
    the grid never drifts. Mono is demoted: at rest the page is
-   serif + form controls; mono exists only in code, the x-ray,
+   serif + form controls; mono exists only in code, in figures,
    and live cursor labels.
    ============================================================ */
 
@@ -1038,7 +918,7 @@ body { line-height: var(--lh); overflow-x: clip; }
   padding: var(--lh) 0 0;
   margin-bottom: 0.875rem;
 }
-.site-name-text { font-size: 1.375rem; line-height: var(--lh); }
+
 .site-nav a { font-size: 1rem; line-height: var(--lh); }
 
 /* The nav names where you are, and only that: every link is muted
@@ -1070,7 +950,7 @@ body { line-height: var(--lh); overflow-x: clip; }
   body.index section.block[aria-label*="Lately"] {
     position: absolute;
     /* the hero's height, so Lately starts on Now's line */
-    top: calc(var(--space-l) + var(--lh) * 4 + var(--space-m) + var(--space-m) + 2.625rem);
+    top: calc(var(--space-l) + var(--lh) * 5 + var(--space-m) + var(--space-m) + 2.625rem);
     left: 100%;
     margin-left: 1.75rem;
     width: 17rem;
@@ -1078,23 +958,24 @@ body { line-height: var(--lh); overflow-x: clip; }
   }
   /* a feed reads small and quiet: the date runs with the line, not
      above it, and nothing here competes with the work beside it */
-  body.index section.block[aria-label*="Lately"] .lately-line,
-  body.index section.block[aria-label*="Lately"] .posts time { font-size: 0.75rem; }
-  body.index section.block[aria-label*="Lately"] .lately li { padding: 0; }
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately-line,
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .posts :is(time, .term) { font-size: 0.75rem; }
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately li { padding: 0; margin: 0; }
   /* the day stands over its entries; the entries step in under it */
-  body.index section.block[aria-label*="Lately"] .posts time {
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .posts :is(time, .term) {
     position: static;
     float: none;
     margin: 0;
   }
-  body.index section.block[aria-label*="Lately"] .lately-day { padding-top: 0.4375rem; }
-  body.index section.block[aria-label*="Lately"] .lately-day:first-child { padding-top: 0; }
-  /* a wrapped title stays one entry: its lines sit close, entries sit apart */
-  body.index section.block[aria-label*="Lately"] .lately-line {
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately li.lately-day:not(:first-child) { padding-top: 0.4375rem; }
+  /* a wrapped title stays one entry: its lines sit close, entries sit apart.
+     The space is the row's, not the line's: padding on a clamped box
+     lets the top of the hidden third line show through it. */
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately li:not(.lately-day, .lately-skeleton) {
     padding: 0.25rem 0 0.25rem 0.875rem;
-    line-height: 1.45;
   }
-  body.index section.block[aria-label*="Lately"] .lately-note { font-size: 0.6875rem; }
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately-line { line-height: 1.45; }
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately-note { font-size: 0.6875rem; }
 }
 
 /* Lately is a log, not writing: one line an entry, a size down, and the
@@ -1110,6 +991,12 @@ body { line-height: var(--lh); overflow-x: clip; }
   line-clamp: 2;
   overflow: hidden;
 }
+/* in the column too, a wrapped title is one entry: its two lines sit
+   closer than two entries do, and a one-line entry is still one unit */
+.lately .lately-line { line-height: 1.5; }
+.lately li:not(.lately-day, .lately-skeleton) { padding: 0.21875rem 0; }
+/* half a unit of air before each new day */
+.lately li.lately-day:not(:first-child) { margin-top: 0.875rem; }
 .lately a { color: var(--muted); }
 .lately a:hover { color: var(--accent); }
 /* how much else happened there that day */
@@ -1117,6 +1004,8 @@ body { line-height: var(--lh); overflow-x: clip; }
   font-family: "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.6875rem;
   white-space: nowrap;
+  /* the count must not push its line taller than its neighbours */
+  line-height: 1;
 }
 
 /* Hero */
@@ -1159,30 +1048,6 @@ section.block > h2 {
   line-height: var(--lh);
 }
 
-/* Signup card: bordered box, grid inside and out */
-.signup {
-  margin: var(--lh) 0;
-  padding: calc(var(--lh) - 1px) 1.75rem;
-}
-.signup h2 { font-size: 1.125rem; line-height: var(--lh); margin: 0; }
-.signup p { font-size: 1rem; line-height: var(--lh); margin: 0 0 0.875rem; }
-.signup form { gap: 0.875rem; }
-.signup input[type="email"] {
-  font-size: 1rem;
-  line-height: var(--lh);
-  padding: calc(0.4375rem - 1px) 0.875rem;
-}
-.signup button {
-  font-size: 1rem;
-  line-height: var(--lh);
-  padding: 0.4375rem 1.3125rem;
-}
-.signup .fine {
-  font-family: inherit;
-  font-size: 0.9375rem;
-  line-height: var(--lh);
-  margin: 0.875rem 0 0;
-}
 
 /* Work list */
 /* rows step on phi, like the space between every other block */
@@ -1191,11 +1056,12 @@ section.block > h2 {
   font-size: 1rem;
   line-height: var(--lh);
   margin: 0;
-  display: grid;
-  grid-template-columns: auto auto;
+  /* the name keeps its line; a category that will not fit beside a
+     long name takes the next line, at the same left edge */
+  display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   column-gap: 0.875rem;
-  justify-content: start;
 }
 .work p { font-size: 1rem; line-height: var(--lh); }
 /* Categories are a note beside the name, in the hand the page uses
@@ -1204,7 +1070,7 @@ section.block > h2 {
 .work .tag,
 .components .tag {
   justify-self: start;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.9375rem;
   font-weight: 400;
@@ -1270,33 +1136,22 @@ section.block > h2 {
   font-size: 0.9375rem;
   line-height: var(--lh);
 }
-.presence-toggle, .blueprint-toggle, .colophon-toggle { font-size: 0.8125rem; line-height: var(--lh); }
+.colophon-toggle { font-size: 0.8125rem; line-height: var(--lh); }
 .colophon-toggle { margin-right: 0; }
 .signature-contacts a:last-child { margin-right: 0; }
 
-/* The x-ray now shows the true baseline: rows are exactly one unit */
-html[data-blueprint] body {
-  background-image:
-    repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), rgba(77, 148, 255, 0.09) calc(var(--lh) - 1px) var(--lh)),
-    repeating-linear-gradient(to right, transparent 0 99px, rgba(77, 148, 255, 0.05) 99px 100px);
-}
 
-/* ---- The pairing: Georgia for words, Atkinson for structure ----
-   Body, prose, asides: Georgia. Headings, nameplate, nav, controls:
-   Atkinson Hyperlegible. Mono stays confined to code and the x-ray. */
-:root {
-  --sans: "Atkinson Hyperlegible", Verdana, system-ui, sans-serif;
-}
+/* ---- The pairing: Caslon for words, Atkinson for structure ----
+   Body, prose, asides: Caslon. Headings, nav, controls: Atkinson
+   Hyperlegible. Mono stays confined to code and to figures. */
 
 body {
-  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font-family: var(--serif);
   font-size: 1.0625rem;
 }
 
 h1, h2, h3, h4,
-.site-name-text,
-.site-nav,
-.presence-toggle, .blueprint-toggle, .colophon-toggle {
+.site-nav, .colophon-toggle {
   font-family: var(--sans);
 }
 :where(button, input) { font-family: var(--sans); }
@@ -1319,10 +1174,10 @@ h1, h2, h3, h4,
 .swatch { width: 1.75rem; height: 1.75rem; border-radius: 4px; border: 1px solid var(--border); flex: none; }
 /* every line on the sheet is one unit tall, whatever size it is set at */
 .specimen p { margin: 0 0 0.875rem; line-height: var(--lh); }
-.spec-note { font-family: Georgia, serif; font-style: italic; font-size: 0.9375rem; color: var(--muted); margin-top: 0.875rem; }
+.spec-note { font-family: var(--serif); font-style: italic; font-size: 0.9375rem; color: var(--muted); margin-top: 0.875rem; }
 .spec-sans { font-family: var(--sans); font-size: 1.5rem; font-weight: 700; line-height: var(--lh); }
-.spec-serif { font-family: Georgia, serif; font-size: 1.125rem; }
-.spec-italic { font-family: Georgia, serif; font-style: italic; }
+.spec-serif { font-family: var(--serif); font-size: 1.125rem; }
+.spec-italic { font-family: var(--serif); font-style: italic; }
 .spec-mono { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 0.875rem; }
 .components { list-style: none; margin: 0; padding: 0; }
 .components li {
@@ -1359,7 +1214,7 @@ h1, h2, h3, h4,
   .components li { grid-template-columns: 1fr; row-gap: 0.875rem; }
 }
 .demo-cursor { display: inline-flex; align-items: center; gap: 6px; color: #4dabf7; margin-right: 0.5rem; vertical-align: middle; }
-.demo-chip { display: inline-flex; align-items: center; gap: 0.5rem; font-family: Georgia, serif; font-style: italic; font-size: 0.9375rem; color: var(--muted); margin-right: 0.5rem; }
+.demo-chip { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--serif); font-style: italic; font-size: 0.9375rem; color: var(--muted); margin-right: 0.5rem; }
 
 /* Cursor labels: crosshair at rest, name only when it has something to say */
 .peer-cursor .peer-label {
@@ -1375,19 +1230,22 @@ h1, h2, h3, h4,
   float: right;
   width: 8.75rem;
   height: auto;
-  margin: 0 0 0.875rem 1.75rem;
+  /* its top edge meets the cap height of the first line beside it */
+  margin: 0.5rem 0 0.875rem 1.75rem;
   border: 1px solid var(--border);
   border-radius: 3px;
   /* a photograph printed on the stationery, not a sticker on it */
   filter: saturate(0.82) sepia(0.06);
 }
+/* the paragraph that only carries the portrait takes no line of its own */
+.prose p:has(> .about-portrait:only-child) { margin: 0; }
 @media (max-width: 540px) {
   .about-portrait { float: none; display: block; margin: 0 0 var(--lh); }
 }
 
 /* The field guide: every species perched on one continuous wire,
    feet on the line, true relative sizes, named beneath */
-.bird-legend-block { grid-column: 1 / -1; }
+
 .bird-legend { margin: 0.875rem 0 0; }
 /* A plate, not nine little wires: every bird stands on one shared
    groundline with its name beside it, ordered largest to smallest */
@@ -1409,7 +1267,7 @@ h1, h2, h3, h4,
 }
 .legend-perch .wire-bird { position: absolute; bottom: 0; left: 0; top: auto; }
 .bird-legend figcaption {
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.75rem;
   color: var(--muted);
@@ -1454,7 +1312,8 @@ body.wire .powerline { display: none; }
 .watch-far .wire-svg { position: absolute; inset: auto 0 0; height: 30px; width: 100%; color: var(--fg); }
 .watch-far .wire-bird {
   position: absolute;
-  bottom: -1px;
+  /* the far wire runs 11px above the box's floor; the birds stand on it */
+  bottom: 10px;
   top: auto;
   width: 15px;
   height: 13px;
@@ -1477,7 +1336,7 @@ body.wire .powerline { display: none; }
 .watch-wire .wire-svg { position: absolute; inset: auto 0 0; height: 44px; width: 100%; color: var(--fg); }
 .watch-note {
   text-align: center;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.9375rem;
   color: var(--muted);
@@ -1507,7 +1366,7 @@ body.wire .powerline { display: none; }
   position: absolute;
   top: 40px;
   transform: translateX(-50%);
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.75rem;
   color: var(--muted);
@@ -1567,6 +1426,23 @@ body.wire .powerline { display: none; }
   max-height: calc(100dvh - var(--space-l));
   margin: 0;
 }
+/* It arrives the way the colophon does, from the margin it lives in */
+#field-guide {
+  opacity: 0;
+  translate: -6px -50%;
+  transition:
+    opacity 0.22s ease,
+    translate 0.22s ease,
+    overlay 0.22s ease allow-discrete,
+    display 0.22s ease allow-discrete;
+}
+#field-guide:popover-open { opacity: 1; translate: 0 -50%; }
+@starting-style {
+  #field-guide:popover-open { opacity: 0; translate: -6px -50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #field-guide { transition: none; }
+}
 /* the guide reads left to right even in a right-aligned margin */
 #field-guide, #field-guide .bird-legend { text-align: left; }
 
@@ -1575,7 +1451,8 @@ body.wire .powerline { display: none; }
   display: block;
   font-size: 0.75rem;
   line-height: var(--lh);
-  opacity: 0.75;
+  /* quiet by colour, not by opacity, so it keeps its contrast */
+  color: var(--muted);
 }
 .field-note .presence-dot { flex: none; position: relative; top: -1px; }
 
@@ -1621,6 +1498,21 @@ body.wire .powerline { display: none; }
     font-size: 0.8125rem;
     color: var(--fg);
   }
+  /* it arrives the way the colophon and the guide do */
+  .region-select::picker(select) {
+    opacity: 0;
+    transition:
+      opacity 0.22s ease,
+      overlay 0.22s ease allow-discrete,
+      display 0.22s ease allow-discrete;
+  }
+  .region-select::picker(select):popover-open { opacity: 1; }
+  @starting-style {
+    .region-select::picker(select):popover-open { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .region-select::picker(select) { transition: none; }
+  }
   .region-select option {
     padding: 0.25rem 0.875rem;
     cursor: pointer;
@@ -1655,7 +1547,7 @@ body.wire .powerline { display: none; }
 .posts-year + .posts-year { margin-top: var(--lh); }
 /* the heading keeps the same blank line before the first year, so
    every landmark in the list is one unit from what came before it */
-#writing > h2 { margin-bottom: var(--lh); }
+#writing > h2, section.block.by-year > h2 { margin-bottom: var(--lh); }
 /* in the line on a phone, the date's own box stays shorter than the
    row's strut, so two sizes on one baseline can't stretch the unit */
 @media (max-width: 50rem) {
@@ -1666,23 +1558,13 @@ body.wire .powerline { display: none; }
      a size larger, which used to make it 29px, not 28 */
   display: block;
   position: static;
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 1rem;
   color: var(--muted);
   line-height: var(--lh);
 }
 
-/* Writing archive: years as landmarks, dates snug against titles */
-.year-label {
-  font-family: Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1rem;
-  color: var(--muted);
-  line-height: var(--lh);
-  margin: var(--lh) 0 0;
-}
 
 /* Now list: the marks step out into the margin like a printer's
    fist, and the words keep the letter's one left edge. The stage
@@ -1703,26 +1585,28 @@ body.wire .powerline { display: none; }
   justify-content: flex-end;
   color: var(--muted);
 }
-.work li:hover .stage { color: var(--accent); }
+.work li:hover .stage,
+.work li:focus-within .stage { color: var(--accent); }
+/* on the spec sheet the mark keeps the colours it wears on the front page */
+.components .work-mark-svg { color: var(--muted); }
+.components li:hover .work-mark-svg { color: var(--accent); }
 .work-mark-mono {
   font-family: "SF Mono", Menlo, Consolas, monospace;
   font-size: 1.125rem;
 }
-.work-mark-serif {
-  font-family: Georgia, serif;
-  font-size: 1.5rem;
-}
+
 /* No margin to stand in: the marginalia bows out, decoration only */
 @media (max-width: 50rem) {
   .work .stage { display: none; }
 }
 
-/* Section labels speak in the letter's own hand, not a dashboard's */
+/* Section labels are headings, so they are set in the sans like the
+   rest of the structure: plain, lower case, quiet. */
 section.block > h2 {
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--sans);
+  font-style: normal;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -1739,7 +1623,7 @@ section.block > h2 {
 }
 
 /* Popover links are prose; the footer's toolbar margins stop at its edge */
-#colophon a { margin-right: 0; }
+:is(#colophon, #specimen) a { margin-right: 0; }
 
 /* The letter signs at the bottom right of the footer */
 .letter-close address { font-style: normal; }
@@ -1751,12 +1635,9 @@ section.block > h2 {
   color: #26418f;
 }
 .signature-ink svg { display: block; width: 100%; height: auto; }
-/* The signature is written, not shown: strokes appear in drawing
-   order when the footer first enters view, once. JS adds will-sign
-   before paint and signing on arrival; without JS it is simply there. */
-.signature-ink.will-sign path { opacity: 0; }
+
 .signature {
-  font-family: Georgia, "Iowan Old Style", serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 1rem;
   line-height: var(--lh);
@@ -1951,7 +1832,7 @@ body {
   .field-note .region-line,
   .field-note .guide-toggle { opacity: 1; }
 }
-.field-note .presence-toggle { margin-right: 0; }
+
 
 /* The note scans as lines: every row is one 1.75rem unit tall, so the
    eye runs down a rhythm instead of hunting for the next thing. */
@@ -1972,9 +1853,10 @@ body {
     text-align: left;
   }
   /* measured: the note's first baseline meets the title's */
-  .field-note--after-trail { top: calc(100% + 3.5rem - 3px); }
-  /* the front page opens on phi squared, so the note drops with it */
-  body.index .field-note { top: calc(100% + 3.5rem + var(--space-m)); }
+  .field-note--after-trail { top: calc(100% + 3.5rem - 2px); }
+  /* the front page opens on phi squared, so the note drops with it,
+     and a little further, measured, to sit on the greeting's baseline */
+  body.index .field-note { top: calc(100% + 3.5rem + var(--space-m) + 0.625rem); }
   /* the guide opens into its own margin, not across the page */
   /* the left margin is the empty one on the front page */
   #field-guide { left: 1.25rem; right: auto; }
@@ -1991,7 +1873,7 @@ body {
 .crumb-line {
   position: absolute;
   /* measured: this puts the italic's baseline on the title's */
-  top: calc(2.625rem - 3px);
+  top: calc(2.625rem - 2px);
   right: 100%;
   display: flex;
   align-items: center;
@@ -2020,7 +1902,7 @@ body {
   }
 }
 .crumb-back {
-  font-family: Georgia, serif;
+  font-family: var(--serif);
   font-style: italic;
   font-size: 0.9375rem;
   color: var(--muted);
@@ -2081,13 +1963,323 @@ body {
    An essay reads best nearer seventy, so the text of an article
    takes a narrower column than the page. Pictures and code keep the
    width they had. The rag is hyphenated so the narrower column does
-   not go toothy, and a word has to be long enough to earn the break. */
-.prose > :not(figure, pre, .label-set) { max-width: 36rem; }
+   not go toothy, and a word has to be long enough to earn the break:
+   ten letters, with four left on each side of it. */
+.prose > :not(figure, pre, .label-set, blockquote) { max-width: 36rem; }
 .prose p, .prose li, .prose blockquote {
   -webkit-hyphens: auto;
   hyphens: auto;
-  hyphenate-limit-chars: 8 4 3;
+  hyphenate-limit-chars: 10 4 4;
 }
 /* A paragraph under a section label on the design page starts on the
    next line, like any other; the article's top padding is for articles. */
 section.block > .prose { padding-top: 0; }
+
+/* One clock for every hover: ink warms to the accent at the nav's pace,
+   wherever the link is, and the mark beside a project warms with it. */
+a, summary, .work .stage, .work-mark-svg, .colophon-toggle { transition: color 180ms ease; }
+
+/* ---- The marks do their one thing ----
+   Each mark beside a project moves the way the project does, and only
+   while its row is hovered or focused, like the wordmark. At rest they
+   are still; with reduced motion they stay that way. The spec sheet
+   shows one, and it moves there the same way. */
+.work-mark-svg { overflow: visible; }
+.mark-glint, .mark-trace, .mark-shot, .mark-hit { opacity: 0; }
+/* the way out is pencilled in ink, so it reads as a line through the
+   walls and not as one more of them */
+.mark-trace { stroke: var(--fg); stroke-dasharray: 1; stroke-dashoffset: 1; }
+.work-mark-mono { transition: word-spacing 240ms cubic-bezier(0.22, 1, 0.36, 1); }
+@media (prefers-reduced-motion: no-preference) {
+  /* Presence: three in the room, taking turns, the typing dots grown up */
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-presence > * { animation: mark-turn 1.3s ease-in-out infinite; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-presence > :nth-child(2) { animation-delay: 0.16s; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-presence > :nth-child(3) { animation-delay: 0.32s; }
+  @keyframes mark-turn {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+  }
+
+  /* Riff: a record, at 33 and a third. The glint is what shows it turning. */
+  .mark-glint { transition: opacity 180ms ease; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-glint { opacity: 1; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-riff { animation: mark-spin 1.8s linear infinite; }
+  @keyframes mark-spin { to { rotate: 1turn; } }
+
+  /* LexGrade: the grades come in, lowest first */
+  .mark-grade > :nth-child(n+2) { transform-box: fill-box; transform-origin: 50% 100%; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-grade > :nth-child(n+2) {
+    animation: mark-rise 480ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-grade > :nth-child(3) { animation-delay: 80ms; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-grade > :nth-child(4) { animation-delay: 160ms; }
+  @keyframes mark-rise { from { transform: scaleY(0.35); } }
+
+  /* LexBunker: it is under fire, and it holds. Two shots come in over
+     the roof, one after the other; each lands, sparks, and the bunker
+     takes the knock and settles. */
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-shot { animation: mark-incoming 1.6s linear infinite; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-hit { animation: mark-spark 1.6s ease-out infinite; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-strike + .mark-strike > * { animation-delay: 0.8s; }
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-body { animation: mark-knock 1.6s ease-out infinite; }
+  @keyframes mark-incoming {
+    0% { opacity: 0; translate: var(--dx) var(--dy); }
+    6% { opacity: 1; }
+    28% { opacity: 1; translate: 0 0; }
+    30%, 100% { opacity: 0; translate: 0 0; }
+  }
+  @keyframes mark-spark {
+    0%, 27% { opacity: 0; scale: 0.3; }
+    30% { opacity: 1; scale: 1; }
+    48%, 100% { opacity: 0; scale: 1.25; }
+  }
+  @keyframes mark-knock {
+    0%, 28%, 44%, 78%, 94%, 100% { translate: 0 0; }
+    31% { translate: 5px 7px; }
+    81% { translate: -5px 7px; }
+  }
+
+  /* WPGraphQL IDE: the braces open for a query */
+  :is(.work, .components) li:is(:hover, :focus-within) .work-mark-mono { word-spacing: 0.3em; }
+
+  /* VennyD: the sets part and come back to what they share */
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-venn > * { animation: mark-part 900ms ease-in-out; }
+  .mark-venn > :nth-child(1) { --part: -2.5px -2px; }
+  .mark-venn > :nth-child(2) { --part: 2.5px -2px; }
+  .mark-venn > :nth-child(3) { --part: 0 3px; }
+  @keyframes mark-part { 45% { translate: var(--part); } }
+
+  /* Brackish: the dot-matrix water moves; a swell runs along it over
+     a bed that stays put */
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-brackish > g { animation: mark-swell 1.4s ease-in-out infinite; }
+  .mark-brackish > g:nth-child(2) { animation-delay: -1.2s; }
+  .mark-brackish > g:nth-child(3) { animation-delay: -1s; }
+  .mark-brackish > g:nth-child(4) { animation-delay: -0.8s; }
+  .mark-brackish > g:nth-child(5) { animation-delay: -0.6s; }
+  .mark-brackish > g:nth-child(6) { animation-delay: -0.4s; }
+  .mark-brackish > g:nth-child(7) { animation-delay: -0.2s; }
+  @keyframes mark-swell {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 2.5px; }
+  }
+
+  /* MaizeKit: the way out, from the gap at the top to the gap at the bottom */
+  :is(.work, .components) li:is(:hover, :focus-within) .mark-trace {
+    opacity: 1;
+    animation: mark-trace 900ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  @keyframes mark-trace { to { stroke-dashoffset: 0; } }
+}
+
+/* A finger needs more than a line of type: the nav's links reach 44px
+   tall without moving anything around them. */
+.site-nav a { display: inline-block; padding-block: 0.5rem; margin-block: -0.5rem; }
+
+/* The greeting's sentences each take a line where a line will hold one.
+   On a phone they run together as a paragraph, so no break lands
+   mid-thought. */
+@media (max-width: 34rem) {
+  .hero .lede br { display: none; }
+}
+
+
+/* ---- The writing index: the list twice, as a book has it ----
+   By year in the column, with its dates in the left margin, as on the
+   front page. By subject in the right margin where there is one, set
+   as the feed is set: the term stands over its entries. */
+.posts .term {
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--muted);
+}
+.by-subject .lately li:not(.lately-day) { padding-left: 0.875rem; }
+@media (min-width: 78rem) {
+  .writing-cols { position: relative; }
+  /* the same edge the field note hangs from, and the same top padding
+     as the list beside it, so the two headings share a line */
+  .by-subject {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: 3rem;
+    width: 17rem;
+  }
+}
+
+/* The index is a ledger. Each row is ruled off with the hairline the
+   labels post rules its table with, a unit and a half tall with the
+   rule taken out of its own padding, and it carries its figure at the
+   right edge: minutes for a post, a count for a year or a subject.
+   Figures are measurements, so they are set in mono and line up. */
+.figure {
+  flex: none;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  white-space: nowrap;
+  /* a figure must not push its line taller than its neighbours */
+  line-height: 1;
+}
+.by-year .posts-year li,
+.by-subject .lately-day {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: 1.75rem;
+}
+.by-year .posts-year li {
+  padding: 0.4375rem 0 calc(0.4375rem - 1px);
+  border-bottom: 1px dashed var(--border);
+}
+.by-year .posts time { top: 0.4375rem; }
+.by-year .posts-year-label time { flex: 1; }
+/* the whole row is the link, and it says so with an arrow */
+.by-year .posts-year a::before { content: ""; position: absolute; inset: 0; }
+.by-year .posts-year a::after {
+  content: "\2192";
+  display: inline-block;
+  margin-left: 0.4375rem;
+  opacity: 0;
+  translate: -4px 0;
+  transition: opacity 180ms ease, translate 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.by-year .posts-year li:hover a,
+body .by-year .posts-year a:focus-visible { color: var(--accent); }
+.by-year .posts-year li:hover a::after,
+.by-year .posts-year a:focus-visible::after { opacity: 1; translate: 0 0; }
+@media (prefers-reduced-motion: reduce) {
+  .by-year .posts-year a::after { translate: 0 0; transition: opacity 180ms ease; }
+}
+/* no margin and no pointer: the arrow stands down, and the date runs
+   in the line after the title as it does on the front page */
+@media (max-width: 50rem) {
+  .by-year .posts-year a::after { display: none; }
+  .by-year .posts li:not(.posts-year-label) time { margin: 0 0 0 0.4375rem; }
+}
+
+/* ---- The article, set with care ----
+   What a compositor would see to before the forme was locked up. */
+
+/* Code is copied, not read aloud: it never breaks at a hyphen it does
+   not contain. */
+.prose code, .prose pre { -webkit-hyphens: none; hyphens: none; }
+/* A tab is two spaces wide, so nested markup stays on the page. A block
+   of code is whole lines of the grid, its rule taken out of its own
+   padding, with one unit under it like any paragraph. */
+.prose pre {
+  tab-size: 2;
+  padding: calc(0.875rem - 1px) 1.25rem;
+}
+/* Three voices in a block of code and no more: what was written to be
+   read is muted and italic, what is quoted takes the visited link's
+   brown, and the names that carry the structure are set a weight up. */
+.prose .highlight :is(.c, .c1, .cm, .cp, .cs) { color: var(--muted); font-style: italic; }
+.prose .highlight :is(.s, .s1, .s2, .si, .m, .mh) { color: #7c5a52; }
+.prose .highlight :is(.nt, .k, .kd, .nc, .nf, .nd) { font-weight: 600; }
+
+/* List markers hang in the margin, where the dates and the marks hang,
+   so the words of a list keep the paragraph's left edge. */
+.prose li::marker { color: var(--muted); }
+@media (min-width: 50rem) {
+  .prose ul, .prose ol { padding-left: 0; }
+}
+/* An opening quotation mark hangs too, where the browser can do it. */
+.prose p, .prose blockquote { hanging-punctuation: first; }
+/* A raised or lowered figure does not push its line off the grid, and
+   figures in a table line up. */
+.prose sup, .prose sub { line-height: 0; }
+.prose table { font-variant-numeric: tabular-nums lining-nums; }
+/* Display sizes are set a hair tighter than text. */
+.prose h1 { letter-spacing: -0.01em; }
+.hero h1 { letter-spacing: -0.015em; }
+
+/* ============================================================
+   The words: Caslon, roman and italic. This cut has no small
+   capitals, so none are faked. Old-style figures in text.
+   Headings, the nav and controls stay in the sans; mono is for
+   code and for figures that must line up.
+   ============================================================ */
+body {
+  font-variant-numeric: oldstyle-nums;
+  font-kerning: normal;
+  /* never a slanted roman or a smeared bold standing in for a cut
+     a family does not have */
+  font-synthesis: none;
+}
+/* figures that stand in a column are lining and of one width */
+.figure, .spec-mono, .prose pre, .prose code { font-variant-numeric: lining-nums tabular-nums; }
+
+/* The specimen slip: the showing, then where the face comes from */
+.specimen-toggle { anchor-name: --specimen-btn; margin-right: 1.25rem; }
+@supports (anchor-name: --a) {
+  #specimen { position-anchor: --specimen-btn; }
+}
+#specimen { max-width: 24rem; rotate: 0.8deg; }
+#specimen .showing {
+  font-size: 1.0625rem;
+  line-height: var(--lh);
+  color: var(--fg);
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+}
+
+/* A title with no line of its own beneath it keeps a whole unit before
+   the text begins. */
+article.prose > h1:not(:has(+ .meta)) { margin-bottom: var(--lh); }
+
+/* On the spec sheet a figure is a measurement, so it is set lining
+   wherever it falls, and a hex value is a small quiet figure beside
+   its colour, not a second voice as loud as the name. */
+body.design { font-variant-numeric: lining-nums; }
+.swatches code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+/* ============================================================
+   Two voices, and only two.
+   Caslon is for sentences: the body of a post, the greeting's
+   lede, a project's description, a line in the feed. Its italic
+   appears only inside that text, for emphasis, a quotation, a
+   caption.
+   The sans is for everything that is not a sentence: titles,
+   labels, menus, and every note beside them, whether a date, a
+   category, a count, the way back or who is in the room. Notes
+   are told from titles by size and colour, not by a third face.
+   ============================================================ */
+.posts-year li:not(.posts-year-label),
+.by-subject .lately-line,
+.post-nav-title,
+.posts time, .posts-year-label time, .posts .term,
+.prose .meta, .crumb-back, .prose .crumb-back,
+.field-note, .field-note .status, .note-hint, .demo-chip,
+.work .tag, .components .tag,
+.figure, .lately .lately-more,
+.signature-email, .signature-contacts,
+.lately-note, .spec-note,
+.prose .label-set dt, .prose .chroma-tiers .tier {
+  font-family: var(--sans);
+  font-style: normal;
+}
+/* the face is set on the row, not the link, so the row's own strut is
+   the sans and two faces on one line cannot stretch it off the grid */
+.posts-year li:not(.posts-year-label), .post-nav-title { font-size: 1rem; }
+.by-subject .lately-line { font-size: 0.8125rem; }
+/* notes: one size down, muted, figures of one width */
+.posts time, .posts-year-label time, .posts .term,
+.prose .meta, .crumb-back,
+.field-note .status,
+.work .tag, .components .tag,
+.prose .label-set dt, .prose .chroma-tiers .tier {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.figure, .lately .lately-more, .note-hint, .lately-note, .spec-note {
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  font-variant-numeric: lining-nums tabular-nums;
+}

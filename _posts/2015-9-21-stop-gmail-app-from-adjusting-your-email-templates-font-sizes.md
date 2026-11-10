@@ -2,6 +2,7 @@
 layout: post
 title: Stop Gmail App From Adjusting Your Email Template's Font Sizes
 permalink: stop-gmail-app-from-adjusting-your-email-templates-font-sizes
+tags: [Email]
 ---
 
 Working heavily with email templates lately within MailChimp, I came across some weird behavior. The iOS Gmail app was just making things look completely different than every other email client. At this point I knew that a lot of stuff didn't work with Gmail but this had me scratching me head. After some research I discovered that this was due to Gmail adjusting the email font size for a *better experience* by increasing readability. In the case of my template design, this was not desired.

@@ -6,6 +6,7 @@ const PAGES = [
   { path: '/', current: null },
   { path: '/about/', current: 'About' },
   { path: '/design/', current: 'Design' },
+  { path: '/writing/', current: 'Writing' },
   { path: '/labels', current: 'Writing' },
 ];
 

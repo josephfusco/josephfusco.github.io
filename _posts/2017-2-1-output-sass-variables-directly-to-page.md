@@ -2,6 +2,7 @@
 layout: post
 title: Output Sass Variables Directly To Page
 permalink: output-sass-variables-directly-to-page
+tags: [Sass]
 ---
 
 By interpolating the Sass variable into the `content` property on `html:before`, we are able to see the variable on the page, without the need for additional markup.

@@ -3,7 +3,7 @@ const { test, expect } = require('./fixtures');
 test('Now lists the current projects', async ({ page }) => {
   await page.goto('/');
   const names = await page.locator('.work h3 a').allTextContents();
-  expect(names).toEqual(['Presence API', 'RiffPress', 'LexGrade', 'LexBunker', 'WPGraphQL IDE', 'VennyD', 'MaizeKit']);
+  expect(names).toEqual(['Presence API', 'RiffPress', 'LexGrade', 'LexBunker', 'WPGraphQL IDE', 'VennyD', 'MaizeKit', 'Brackish']);
   await expect(page.locator('.work a[href*="sync-storage"]')).toHaveCount(0);
 });
 
@@ -51,4 +51,16 @@ test('Writing keeps the 1.75rem grid, years included', async ({ page }) => {
       .filter((r) => r.top !== 0 || r.height !== 0);
   });
   expect(off).toEqual([]);
+});
+
+test('a clamped Lately line hides its third line whole', async ({ page }) => {
+  await page.goto('/');
+  const list = page.locator('[data-lately]');
+  await expect(list).not.toHaveAttribute('aria-busy', /.*/);
+  // padding on the clamped box is where the hidden line used to show through
+  const padded = await list.locator('.lately-line').evaluateAll((els) => els.filter((el) => {
+    const cs = getComputedStyle(el);
+    return parseFloat(cs.paddingTop) || parseFloat(cs.paddingBottom);
+  }).map((el) => el.textContent.slice(0, 30)));
+  expect(padded).toEqual([]);
 });

@@ -3,6 +3,7 @@ layout: post
 title: We keep it running
 permalink: we-keep-it-running
 description: WordPress is not going anywhere. You are allowed to. It will be there when you come back.
+tags: [WordPress]
 ---
 
 There is a lot of noise around WordPress right now, and AI can write a site from a sentence. I am still more hopeful about the project than I have been in years, and this is why.
