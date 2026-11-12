@@ -2,6 +2,24 @@
   "activity": [
     {
       "date": "2026-11-11",
+      "subject": "Update to version 0.20.2 from GitHub",
+      "url": "https://plugins.trac.wordpress.org/changeset/3796925/",
+      "what": "Committed to Plugins SVN"
+    },
+    {
+      "date": "2026-11-11",
+      "subject": "chore(main): release 0.20.2",
+      "url": "https://github.com/WordPress/presence-api/pull/949",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-11",
+      "subject": "fix: draw the admin bar icons as WordPress 7.2 SVG icons",
+      "url": "https://github.com/WordPress/presence-api/pull/940",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-11",
       "subject": "build(deps-dev): bump globals from 17.13.0 to 17.14.0",
       "url": "https://github.com/WordPress/presence-api/pull/946",
       "what": "Merged a pull request in WordPress/presence-api"
@@ -47,12 +65,6 @@
       "subject": "build(deps-dev): update phpstan/phpstan requirement from 2.3.3 to 2.3.5",
       "url": "https://github.com/WordPress/presence-api/pull/941",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-11-11",
-      "subject": "fix: draw the admin bar icons as WordPress 7.2 SVG icons",
-      "url": "https://github.com/WordPress/presence-api/pull/940",
-      "what": "Opened a pull request in WordPress/presence-api"
     },
     {
       "date": "2026-11-10",
@@ -1085,19 +1097,7 @@
       "subject": "",
       "url": "https://github.com/WordPress/presence-api/issues/749",
       "what": "Closed issue #749 on the WordPress/presence-api repository: Nothing in the plugin uses its own React hook"
-    },
-    {
-      "date": "2026-09-12",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/issues/498",
-      "what": "Closed issue #498 on the WordPress/presence-api repository: e2e's ~8 minute wall-clock is bounded by wp-env boot cost, not test…"
-    },
-    {
-      "date": "2026-09-12",
-      "subject": "",
-      "url": "https://github.com/WordPress/presence-api/pull/500",
-      "what": "Closed pull request #500 on WordPress/presence-api: ci: cache wp-env's WordPress core checkout in the e2e job"
     }
   ],
-  "fetched": "2026-11-11"
+  "fetched": "2026-11-12"
 }
