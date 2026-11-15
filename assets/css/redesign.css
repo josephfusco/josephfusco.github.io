@@ -993,7 +993,7 @@ body { line-height: var(--lh); overflow-x: clip; }
   /* a wrapped title stays one entry: its lines sit close, entries sit apart.
      The space is the row's, not the line's: padding on a clamped box
      lets the top of the hidden third line show through it. */
-  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately li:not(.lately-day, .lately-skeleton) {
+  :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately li:not(.lately-day) {
     padding: 0.25rem 0 0.25rem 0.875rem;
   }
   :is(body.index section.block[aria-label*="Lately"], .by-subject) .lately-line { line-height: 1.45; }
@@ -1016,7 +1016,7 @@ body { line-height: var(--lh); overflow-x: clip; }
 /* in the column too, a wrapped title is one entry: its two lines sit
    closer than two entries do, and a one-line entry is still one unit */
 .lately .lately-line { line-height: 1.5; }
-.lately li:not(.lately-day, .lately-skeleton) { padding: 0.21875rem 0; }
+.lately li:not(.lately-day) { padding: 0.21875rem 0; }
 /* half a unit of air before each new day */
 .lately li.lately-day:not(:first-child) { margin-top: 0.875rem; }
 .lately a { color: var(--muted); }
@@ -1981,34 +1981,27 @@ body {
 .dead-wire .wire-svg { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--muted); opacity: 0.65; }
 .dead-wire .wire-bird { position: absolute; top: calc(50% - 13px); width: 15px; height: 13px; margin-left: -7px; color: var(--fg); }
 
-/* Skeleton for Lately: bone bars hold the grid until the feed answers */
-.lately-skeleton { line-height: var(--lh); }
+/* Skeleton for Lately: bone bars hold the feed's place until it
+   answers. They sit inside the feed's own elements, a day and then an
+   entry of one line or two, so they take the same rows, the same
+   indent and the same line height as what replaces them. */
 .lately-skeleton .bone {
   display: inline-block;
-  height: 0.75rem;
+  height: 0.625em;
   border-radius: 2px;
   background: var(--card);
   border: 1px solid var(--border);
+  vertical-align: 0.02em;
 }
-.lately-skeleton .bone-date {
-  position: absolute;
-  top: 0.5rem;
-  right: 100%;
-  margin-right: 1.75rem;
-  width: 2.25rem;
-}
-.lately-skeleton .bone-line { width: 66%; vertical-align: -0.05rem; }
-.lately-skeleton:nth-child(2) .bone-line { width: 78%; }
-.lately-skeleton:nth-child(3) .bone-line { width: 54%; }
-.lately-skeleton:nth-child(4) .bone-line { width: 71%; }
-.lately-skeleton:nth-child(5) .bone-line { width: 61%; }
+.lately-skeleton .bone-date { width: 2.75em; }
+.lately-skeleton .bone-line { width: 94%; }
+.lately-skeleton .bone-short { width: 46%; }
+.lately-skeleton:nth-child(4n) .bone-line { width: 72%; }
+.lately-skeleton:nth-child(6n) .bone-short { width: 61%; }
 @media (prefers-reduced-motion: no-preference) {
   .lately-skeleton .bone { animation: bone-breathe 1.6s ease-in-out infinite; }
 }
 @keyframes bone-breathe { 50% { opacity: 0.45; } }
-@media (max-width: 50rem) {
-  .lately-skeleton .bone-date { position: static; margin-right: 0.75rem; vertical-align: -0.05rem; }
-}
 
 /* ---- Reading measure ----
    Georgia at 17px runs near eighty characters across the full wrap.
