@@ -80,85 +80,89 @@
        wire is a scale and its cumulative load should be honest. A
        sparrow barely moves what a wood pigeon bends; the landing
        recoil still announces everyone. forked marks a forked tail,
-       crest a crest. fly is how the family crosses open air (see
+       crest a crest (true is swept back, 'spike' stands up). stance
+       is the angle the body is held at, head scales the head, bill is
+       the bill's depth, arch the curve of its top edge, slope how far
+       the forehead runs into it, tip the shape of the tail's end. fly
+       is how the family crosses open air (see
        FLIGHT_STYLES); wary scales how close a cursor gets before the
        bird bolts, under 1 for the ones that live on our crumbs. */
     nae: [
-      { name: 'Rock Pigeon',       share: 0.24, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.03], weight: 1.0,  stance: 48, head: 0.9, bill: 0.3, fly: 'direct', wary: 0.7, moves: ['resettle', 'headBob', 'bob'] },
-      { name: 'House Sparrow',     share: 0.16, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.67, 0.74], weight: 0.08, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', wary: 0.85, moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'American Robin',    share: 0.12, puff: [0.5, 0.62],  neck: [0.15, 0.25], tail: [0.85, 0.95], beak: [0.85, 0.95], size: [0.85, 0.92], weight: 0.23, stance: 56, bill: 0.36, fly: 'direct', moves: ['turn', 'bob', 'resettle'] },
-      { name: 'Mourning Dove',     share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  stance: 50, head: 0.88, bill: 0.28, tip: 'point', fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'European Starling', share: 0.12, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.78, 0.85], weight: 0.23, stance: 50, bill: 0.3, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
-      { name: 'American Crow',     share: 0.09, puff: [0.4, 0.52],  neck: [0.2, 0.3],   tail: [0.9, 1.0],   beak: [1.15, 1.25], size: [1.15, 1.22], weight: 1.34,  stance: 38, head: 1.05, bill: 0.62, fly: 'row', moves: ['turn', 'bob', 'resettle'] },
-      { name: 'House Finch',       share: 0.08, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.63, 0.7], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'Blue Jay',          share: 0.04, puff: [0.38, 0.5],  neck: [0.2, 0.3],   tail: [1.15, 1.25], beak: [1.0, 1.1],   size: [0.9, 0.97], weight: 0.24, stance: 50, bill: 0.48, crest: true, fly: 'row', moves: ['turn', 'hop', 'bob'] },
-      { name: 'Eastern Kingbird',  share: 0.03, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.78, 0.85], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Rock Pigeon',       share: 0.24, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.03], weight: 1.0,  stance: 48, head: 0.84, bill: 0.3, slope: 0, arch: 0.1, fly: 'direct', wary: 0.7, moves: ['resettle', 'headBob', 'bob'] },
+      { name: 'House Sparrow',     share: 0.16, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.67, 0.74], weight: 0.08, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', wary: 0.85, moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'American Robin',    share: 0.12, puff: [0.5, 0.62],  neck: [0.15, 0.25], tail: [0.85, 0.95], beak: [0.85, 0.95], size: [0.85, 0.92], weight: 0.23, stance: 56, bill: 0.36, slope: 0.45, arch: 0.14, fly: 'direct', moves: ['turn', 'bob', 'resettle'] },
+      { name: 'Mourning Dove',     share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  stance: 50, head: 0.82, bill: 0.28, tip: 'point', slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'European Starling', share: 0.12, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.78, 0.85], weight: 0.23, stance: 50, bill: 0.3, slope: 0.75, arch: 0.08, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
+      { name: 'American Crow',     share: 0.09, puff: [0.4, 0.52],  neck: [0.2, 0.3],   tail: [0.9, 1.0],   beak: [1.15, 1.25], size: [1.15, 1.22], weight: 1.34,  stance: 38, head: 1.05, bill: 0.62, slope: 0.8, arch: 0.3, fly: 'row', moves: ['turn', 'bob', 'resettle'] },
+      { name: 'House Finch',       share: 0.08, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.63, 0.7], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'Blue Jay',          share: 0.04, puff: [0.38, 0.5],  neck: [0.2, 0.3],   tail: [1.15, 1.25], beak: [1.0, 1.1],   size: [0.9, 0.97], weight: 0.24, stance: 50, bill: 0.48, crest: true, slope: 0.5, arch: 0.22, fly: 'row', moves: ['turn', 'hop', 'bob'] },
+      { name: 'Eastern Kingbird',  share: 0.03, puff: [0.3, 0.42],  neck: [0.35, 0.45], tail: [0.9, 1.0],   beak: [0.95, 1.05], size: [0.78, 0.85], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
     ],
     nac: [
-      { name: 'Mourning Dove',             share: 0.2,  puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  stance: 50, head: 0.88, bill: 0.28, tip: 'point', fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Red-winged Blackbird',      share: 0.18, puff: [0.4, 0.52],  neck: [0.18, 0.28], tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.18,  stance: 50, bill: 0.4, fly: 'direct', moves: ['turn', 'bob', 'resettle'] },
-      { name: 'House Sparrow',             share: 0.16, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.67, 0.74], weight: 0.08, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', wary: 0.85, moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'Common Grackle',            share: 0.14, puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [1.15, 1.25], beak: [1.05, 1.15], size: [0.93, 1.0], weight: 0.33, stance: 50, bill: 0.4, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
-      { name: 'Western Kingbird',          share: 0.12, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
-      { name: 'Eurasian Collared-Dove',    share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67, stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Scissor-tailed Flycatcher', share: 0.08, puff: [0.3, 0.42],  neck: [0.28, 0.38], tail: [1.3, 1.3],   beak: [0.9, 1.0],   size: [0.98, 1.05], weight: 0.12, stance: 63, head: 1.12, bill: 0.4, forked: true, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Mourning Dove',             share: 0.2,  puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  stance: 50, head: 0.82, bill: 0.28, tip: 'point', slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Red-winged Blackbird',      share: 0.18, puff: [0.4, 0.52],  neck: [0.18, 0.28], tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.18,  stance: 50, bill: 0.4, slope: 0.7, arch: 0.12, fly: 'direct', moves: ['turn', 'bob', 'resettle'] },
+      { name: 'House Sparrow',             share: 0.16, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.67, 0.74], weight: 0.08, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', wary: 0.85, moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'Common Grackle',            share: 0.14, puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [1.15, 1.25], beak: [1.05, 1.15], size: [0.93, 1.0], weight: 0.33, stance: 50, bill: 0.4, slope: 0.7, arch: 0.12, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Western Kingbird',          share: 0.12, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Eurasian Collared-Dove',    share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67, stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Scissor-tailed Flycatcher', share: 0.08, puff: [0.3, 0.42],  neck: [0.28, 0.38], tail: [2.2, 2.3],   beak: [0.9, 1.0],   size: [0.98, 1.05], weight: 0.12, stance: 63, head: 1.12, bill: 0.4, forked: true, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
     ],
     naw: [
-      { name: 'House Finch',            share: 0.18, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.63, 0.7], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'Mourning Dove',          share: 0.18, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  stance: 50, head: 0.88, bill: 0.28, tip: 'point', fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: "Brewer's Blackbird",     share: 0.16, puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [0.95, 1.05], beak: [0.9, 1.0],   size: [0.81, 0.88], weight: 0.18, stance: 50, bill: 0.4, fly: 'direct', moves: ['turn', 'headBob', 'bob'] },
-      { name: 'Black Phoebe',           share: 0.14, puff: [0.35, 0.45], neck: [0.25, 0.35], tail: [1.0, 1.1],   beak: [0.85, 0.95], size: [0.69, 0.76], weight: 0.05, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'tailPump'] },
-      { name: 'Western Kingbird',       share: 0.12, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
-      { name: 'Eurasian Collared-Dove', share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67, stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'California Scrub-Jay',   share: 0.1,  puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [1.2, 1.3],   beak: [1.0, 1.1],   size: [0.92, 0.99], weight: 0.23, stance: 50, bill: 0.48, fly: 'row', moves: ['turn', 'hop', 'bob'] },
+      { name: 'House Finch',            share: 0.18, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.85, 0.95], beak: [0.75, 0.85], size: [0.63, 0.7], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'Mourning Dove',          share: 0.18, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.15, 1.3],  beak: [0.75, 0.85], size: [0.9, 0.97],  weight: 0.4,  stance: 50, head: 0.82, bill: 0.28, tip: 'point', slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: "Brewer's Blackbird",     share: 0.16, puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [0.95, 1.05], beak: [0.9, 1.0],   size: [0.81, 0.88], weight: 0.18, stance: 50, bill: 0.4, slope: 0.7, arch: 0.12, fly: 'direct', moves: ['turn', 'headBob', 'bob'] },
+      { name: 'Black Phoebe',           share: 0.14, puff: [0.35, 0.45], neck: [0.25, 0.35], tail: [1.0, 1.1],   beak: [0.85, 0.95], size: [0.69, 0.76], weight: 0.05, stance: 63, head: 1.12, bill: 0.4, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'tailPump'] },
+      { name: 'Western Kingbird',       share: 0.12, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Eurasian Collared-Dove', share: 0.12, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67, stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'California Scrub-Jay',   share: 0.1,  puff: [0.35, 0.47], neck: [0.2, 0.3],   tail: [1.2, 1.3],   beak: [1.0, 1.1],   size: [0.92, 0.99], weight: 0.23, stance: 50, bill: 0.48, slope: 0.5, arch: 0.22, fly: 'row', moves: ['turn', 'hop', 'bob'] },
     ],
     mx: [
-      { name: 'Great-tailed Grackle', share: 0.22, puff: [0.35, 0.47], neck: [0.22, 0.32], tail: [1.25, 1.3],  beak: [1.1, 1.2],   size: [1.1, 1.18],  weight: 0.67, stance: 50, bill: 0.4, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
-      { name: 'White-winged Dove',    share: 0.18, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.0, 1.1],   beak: [0.75, 0.85], size: [0.92, 0.99], weight: 0.44,  stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Inca Dove',            share: 0.16, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.2],   beak: [0.72, 0.82], size: [0.76, 0.83], weight: 0.13, stance: 50, head: 0.88, bill: 0.28, tip: 'point', fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Great Kiskadee',       share: 0.16, puff: [0.45, 0.55], neck: [0.28, 0.38], tail: [0.9, 1.0],   beak: [1.05, 1.15], size: [0.81, 0.88], weight: 0.18,  stance: 60, head: 1.15, bill: 0.5, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
-      { name: 'Tropical Kingbird',    share: 0.14, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
-      { name: 'Social Flycatcher',    share: 0.14, puff: [0.4, 0.5],   neck: [0.25, 0.35], tail: [0.95, 1.05], beak: [0.9, 1.0],   size: [0.69, 0.76], weight: 0.07, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Great-tailed Grackle', share: 0.22, puff: [0.35, 0.47], neck: [0.22, 0.32], tail: [1.25, 1.3],  beak: [1.1, 1.2],   size: [1.1, 1.18],  weight: 0.67, stance: 50, bill: 0.4, slope: 0.7, arch: 0.12, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
+      { name: 'White-winged Dove',    share: 0.18, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.0, 1.1],   beak: [0.75, 0.85], size: [0.92, 0.99], weight: 0.44,  stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Inca Dove',            share: 0.16, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.2],   beak: [0.72, 0.82], size: [0.76, 0.83], weight: 0.13, stance: 50, head: 0.82, bill: 0.28, tip: 'point', slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Great Kiskadee',       share: 0.16, puff: [0.45, 0.55], neck: [0.28, 0.38], tail: [0.9, 1.0],   beak: [1.05, 1.15], size: [0.81, 0.88], weight: 0.18,  stance: 60, head: 1.15, bill: 0.5, slope: 0.5, arch: 0.26, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Tropical Kingbird',    share: 0.14, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Social Flycatcher',    share: 0.14, puff: [0.4, 0.5],   neck: [0.25, 0.35], tail: [0.95, 1.05], beak: [0.9, 1.0],   size: [0.69, 0.76], weight: 0.07, stance: 63, head: 1.12, bill: 0.4, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
     ],
     eu: [
-      { name: 'Common Wood Pigeon', share: 0.26, puff: [0.75, 0.95], neck: [0.0, 0.06],  tail: [0.8, 0.95],  beak: [0.85, 0.95], size: [1.11, 1.18], weight: 1.4, stance: 48, head: 0.9, bill: 0.3, fly: 'direct', moves: ['resettle', 'headBob', 'bob'] },
-      { name: 'House Sparrow',      share: 0.2,  puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.67, 0.74], weight: 0.08, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', wary: 0.85, moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'Collared Dove',      share: 0.18, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67,  stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Common Starling',    share: 0.16, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.78, 0.85], weight: 0.23,  stance: 50, bill: 0.3, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
-      { name: 'Barn Swallow',       share: 0.12, puff: [0.3, 0.4],   neck: [0.0, 0.06],  tail: [1.25, 1.3],  beak: [0.6, 0.7],   size: [0.71, 0.79], weight: 0.05, stance: 52, head: 0.95, bill: 0.25, forked: true, fly: 'swoop', moves: ['resettle', 'turn'] },
-      { name: 'White Wagtail',      share: 0.08, puff: [0.28, 0.38], neck: [0.15, 0.25], tail: [1.2, 1.3],   beak: [0.7, 0.8],   size: [0.71, 0.79], weight: 0.06, stance: 40, bill: 0.28, fly: 'bound', moves: ['tailPump', 'turn', 'tailPump'] },
+      { name: 'Common Wood Pigeon', share: 0.26, puff: [0.75, 0.95], neck: [0.0, 0.06],  tail: [0.8, 0.95],  beak: [0.85, 0.95], size: [1.11, 1.18], weight: 1.4, stance: 48, head: 0.84, bill: 0.3, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'bob'] },
+      { name: 'House Sparrow',      share: 0.2,  puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.88], size: [0.67, 0.74], weight: 0.08, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', wary: 0.85, moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'Collared Dove',      share: 0.18, puff: [0.42, 0.55], neck: [0.1, 0.18],  tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.94, 1.0],  weight: 0.67,  stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Common Starling',    share: 0.16, puff: [0.28, 0.4],  neck: [0.22, 0.32], tail: [0.6, 0.68],  beak: [1.1, 1.2],   size: [0.78, 0.85], weight: 0.23,  stance: 50, bill: 0.3, slope: 0.75, arch: 0.08, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Barn Swallow',       share: 0.12, puff: [0.3, 0.4],   neck: [0.0, 0.06],  tail: [1.25, 1.3],  beak: [0.6, 0.7],   size: [0.71, 0.79], weight: 0.05, stance: 52, head: 0.95, bill: 0.25, forked: true, slope: 0.3, arch: 0.1, fly: 'swoop', moves: ['resettle', 'turn'] },
+      { name: 'White Wagtail',      share: 0.08, puff: [0.28, 0.38], neck: [0.15, 0.25], tail: [1.2, 1.3],   beak: [0.7, 0.8],   size: [0.71, 0.79], weight: 0.06, stance: 40, bill: 0.28, slope: 0.5, arch: 0.08, fly: 'bound', moves: ['tailPump', 'turn', 'tailPump'] },
     ],
     as: [
-      { name: 'Eurasian Tree Sparrow', share: 0.24, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.86], size: [0.63, 0.7], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'Rock Pigeon',           share: 0.2,  puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.03], weight: 1.0,  stance: 48, head: 0.9, bill: 0.3, fly: 'direct', wary: 0.7, moves: ['resettle', 'headBob', 'bob'] },
-      { name: 'Spotted Dove',          share: 0.18, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.93, 1.0], weight: 0.46, stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Common Myna',           share: 0.16, puff: [0.4, 0.52],  neck: [0.25, 0.35], tail: [0.75, 0.85], beak: [1.0, 1.1],   size: [0.83, 0.9], weight: 0.34,  stance: 50, bill: 0.3, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
-      { name: 'Black Drongo',          share: 0.14, puff: [0.28, 0.38], neck: [0.2, 0.3],   tail: [1.25, 1.3],  beak: [0.85, 0.95], size: [0.92, 0.99], weight: 0.14, stance: 60, bill: 0.42, forked: true, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'resettle'] },
-      { name: 'Barn Swallow',          share: 0.08, puff: [0.3, 0.4],   neck: [0.0, 0.06],  tail: [1.25, 1.3],  beak: [0.6, 0.7],   size: [0.71, 0.79], weight: 0.05, stance: 52, head: 0.95, bill: 0.25, forked: true, fly: 'swoop', moves: ['resettle', 'turn'] },
+      { name: 'Eurasian Tree Sparrow', share: 0.24, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.86], size: [0.63, 0.7], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'Rock Pigeon',           share: 0.2,  puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.03], weight: 1.0,  stance: 48, head: 0.84, bill: 0.3, slope: 0, arch: 0.1, fly: 'direct', wary: 0.7, moves: ['resettle', 'headBob', 'bob'] },
+      { name: 'Spotted Dove',          share: 0.18, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.93, 1.0], weight: 0.46, stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Common Myna',           share: 0.16, puff: [0.4, 0.52],  neck: [0.25, 0.35], tail: [0.75, 0.85], beak: [1.0, 1.1],   size: [0.83, 0.9], weight: 0.34,  stance: 50, bill: 0.3, slope: 0.75, arch: 0.08, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Black Drongo',          share: 0.14, puff: [0.28, 0.38], neck: [0.2, 0.3],   tail: [1.25, 1.3],  beak: [0.85, 0.95], size: [0.92, 0.99], weight: 0.14, stance: 60, bill: 0.42, forked: true, slope: 0.5, arch: 0.2, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'resettle'] },
+      { name: 'Barn Swallow',          share: 0.08, puff: [0.3, 0.4],   neck: [0.0, 0.06],  tail: [1.25, 1.3],  beak: [0.6, 0.7],   size: [0.71, 0.79], weight: 0.05, stance: 52, head: 0.95, bill: 0.25, forked: true, slope: 0.3, arch: 0.1, fly: 'swoop', moves: ['resettle', 'turn'] },
     ],
     af: [
-      { name: 'Laughing Dove',       share: 0.22, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.05, 1.2],  beak: [0.72, 0.82], size: [0.83, 0.9],  weight: 0.33, stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Speckled Pigeon',     share: 0.18, puff: [0.68, 0.88], neck: [0.02, 0.08], tail: [0.78, 0.9],  beak: [0.85, 0.95], size: [0.98, 1.05], weight: 1.0, stance: 48, head: 0.9, bill: 0.3, fly: 'direct', moves: ['resettle', 'headBob', 'bob'] },
-      { name: 'Cape Sparrow',        share: 0.18, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.86], size: [0.63, 0.7],  weight: 0.09, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'Red-winged Starling', share: 0.14, puff: [0.32, 0.44], neck: [0.2, 0.3],   tail: [0.95, 1.1],  beak: [1.0, 1.1],   size: [0.92, 0.99], weight: 0.37, stance: 50, bill: 0.3, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
-      { name: 'Fork-tailed Drongo',  share: 0.14, puff: [0.28, 0.38], neck: [0.2, 0.3],   tail: [1.25, 1.3],  beak: [0.85, 0.95], size: [0.83, 0.9],  weight: 0.15, stance: 60, bill: 0.42, forked: true, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'resettle'] },
-      { name: 'Southern Fiscal',       share: 0.14, puff: [0.35, 0.45], neck: [0.3, 0.4],   tail: [1.0, 1.15],  beak: [1.0, 1.1],   size: [0.81, 0.88], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Laughing Dove',       share: 0.22, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.05, 1.2],  beak: [0.72, 0.82], size: [0.83, 0.9],  weight: 0.33, stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Speckled Pigeon',     share: 0.18, puff: [0.68, 0.88], neck: [0.02, 0.08], tail: [0.78, 0.9],  beak: [0.85, 0.95], size: [0.98, 1.05], weight: 1.0, stance: 48, head: 0.84, bill: 0.3, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'bob'] },
+      { name: 'Cape Sparrow',        share: 0.18, puff: [0.62, 0.8],  neck: [0.0, 0.06],  tail: [0.8, 0.92],  beak: [0.78, 0.86], size: [0.63, 0.7],  weight: 0.09, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'Red-winged Starling', share: 0.14, puff: [0.32, 0.44], neck: [0.2, 0.3],   tail: [0.95, 1.1],  beak: [1.0, 1.1],   size: [0.92, 0.99], weight: 0.37, stance: 50, bill: 0.3, slope: 0.75, arch: 0.08, fly: 'direct', moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Fork-tailed Drongo',  share: 0.14, puff: [0.28, 0.38], neck: [0.2, 0.3],   tail: [1.25, 1.3],  beak: [0.85, 0.95], size: [0.83, 0.9],  weight: 0.15, stance: 60, bill: 0.42, forked: true, slope: 0.5, arch: 0.2, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'resettle'] },
+      { name: 'Southern Fiscal',       share: 0.14, puff: [0.35, 0.45], neck: [0.3, 0.4],   tail: [1.0, 1.15],  beak: [1.0, 1.1],   size: [0.81, 0.88], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, slope: 0.5, arch: 0.26, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
     ],
     oc: [
-      { name: 'Crested Pigeon', share: 0.22, puff: [0.6, 0.8],   neck: [0.05, 0.12], tail: [0.95, 1.1],  beak: [0.75, 0.85], size: [0.98, 1.05], weight: 0.57,  stance: 48, head: 0.9, bill: 0.3, crest: 'spike', fly: 'direct', moves: ['resettle', 'headBob', 'bob'] },
-      { name: 'Willie Wagtail', share: 0.2,  puff: [0.3, 0.4],   neck: [0.15, 0.25], tail: [1.25, 1.3],  beak: [0.8, 0.9],   size: [0.76, 0.83], weight: 0.06, stance: 40, bill: 0.28, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'tailPump'] },
-      { name: 'Magpie-lark',    share: 0.16, puff: [0.35, 0.45], neck: [0.25, 0.35], tail: [1.0, 1.15],  beak: [0.95, 1.05], size: [0.9, 0.97], weight: 0.26, bill: 0.35, fly: 'row', moves: ['turn', 'bob', 'headBob'] },
-      { name: 'Spotted Dove',   share: 0.16, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.93, 1.0], weight: 0.46, stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Noisy Miner',    share: 0.14, puff: [0.4, 0.5],   neck: [0.2, 0.3],   tail: [1.0, 1.1],   beak: [0.95, 1.05], size: [0.87, 0.94], weight: 0.19, bill: 0.35, fly: 'direct', moves: ['turn', 'hop', 'bob'] },
-      { name: 'Welcome Swallow', share: 0.12, puff: [0.3, 0.4],  neck: [0.0, 0.06],  tail: [1.2, 1.3],   beak: [0.6, 0.7],   size: [0.63, 0.7],  weight: 0.05, stance: 52, head: 0.95, bill: 0.25, forked: true, fly: 'swoop', moves: ['resettle', 'turn'] },
+      { name: 'Crested Pigeon', share: 0.22, puff: [0.6, 0.8],   neck: [0.05, 0.12], tail: [0.95, 1.1],  beak: [0.75, 0.85], size: [0.98, 1.05], weight: 0.57,  stance: 48, head: 0.84, bill: 0.3, crest: 'spike', slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'bob'] },
+      { name: 'Willie Wagtail', share: 0.2,  puff: [0.3, 0.4],   neck: [0.15, 0.25], tail: [1.25, 1.3],  beak: [0.8, 0.9],   size: [0.76, 0.83], weight: 0.06, stance: 40, bill: 0.28, slope: 0.5, arch: 0.08, fly: 'flutter', moves: ['tailPump', 'sally', 'turn', 'tailPump'] },
+      { name: 'Magpie-lark',    share: 0.16, puff: [0.35, 0.45], neck: [0.25, 0.35], tail: [1.0, 1.15],  beak: [0.95, 1.05], size: [0.9, 0.97], weight: 0.26, bill: 0.35, slope: 0.45, arch: 0.14, fly: 'row', moves: ['turn', 'bob', 'headBob'] },
+      { name: 'Spotted Dove',   share: 0.16, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.1, 1.25],  beak: [0.75, 0.85], size: [0.93, 1.0], weight: 0.46, stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Noisy Miner',    share: 0.14, puff: [0.4, 0.5],   neck: [0.2, 0.3],   tail: [1.0, 1.1],   beak: [0.95, 1.05], size: [0.87, 0.94], weight: 0.19, bill: 0.35, slope: 0.45, arch: 0.14, fly: 'direct', moves: ['turn', 'hop', 'bob'] },
+      { name: 'Welcome Swallow', share: 0.12, puff: [0.3, 0.4],  neck: [0.0, 0.06],  tail: [1.2, 1.3],   beak: [0.6, 0.7],   size: [0.63, 0.7],  weight: 0.05, stance: 52, head: 0.95, bill: 0.25, forked: true, slope: 0.3, arch: 0.1, fly: 'swoop', moves: ['resettle', 'turn'] },
     ],
     sa: [
-      { name: 'Eared Dove',                share: 0.22, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.0, 1.15],  beak: [0.72, 0.82], size: [0.83, 0.9], weight: 0.32,  stance: 50, head: 0.88, bill: 0.28, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
-      { name: 'Rock Pigeon',               share: 0.18, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.03], weight: 1.0,  stance: 48, head: 0.9, bill: 0.3, fly: 'direct', wary: 0.7, moves: ['resettle', 'headBob', 'bob'] },
-      { name: 'Rufous-collared Sparrow',   share: 0.18, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.9, 1.0],   beak: [0.75, 0.85], size: [0.65, 0.72], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
-      { name: 'Great Kiskadee',            share: 0.16, puff: [0.45, 0.55], neck: [0.28, 0.38], tail: [0.9, 1.0],   beak: [1.05, 1.15], size: [0.81, 0.88], weight: 0.18, stance: 60, head: 1.15, bill: 0.5, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
-      { name: 'Tropical Kingbird',         share: 0.14, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
-      { name: 'Chalk-browed Mockingbird',  share: 0.12, puff: [0.35, 0.47], neck: [0.15, 0.25], tail: [1.2, 1.3],   beak: [0.9, 1.0],   size: [0.83, 0.9],  weight: 0.18, stance: 52, bill: 0.32, fly: 'flutter', moves: ['tailPump', 'turn', 'resettle'] },
+      { name: 'Eared Dove',                share: 0.22, puff: [0.45, 0.58], neck: [0.08, 0.16], tail: [1.0, 1.15],  beak: [0.72, 0.82], size: [0.83, 0.9], weight: 0.32,  stance: 50, head: 0.82, bill: 0.28, slope: 0, arch: 0.1, fly: 'direct', moves: ['resettle', 'headBob', 'resettle'] },
+      { name: 'Rock Pigeon',               share: 0.18, puff: [0.68, 0.9],  neck: [0.02, 0.08], tail: [0.75, 0.9],  beak: [0.85, 1.0],  size: [0.96, 1.03], weight: 1.0,  stance: 48, head: 0.84, bill: 0.3, slope: 0, arch: 0.1, fly: 'direct', wary: 0.7, moves: ['resettle', 'headBob', 'bob'] },
+      { name: 'Rufous-collared Sparrow',   share: 0.18, puff: [0.55, 0.72], neck: [0.05, 0.12], tail: [0.9, 1.0],   beak: [0.75, 0.85], size: [0.65, 0.72], weight: 0.06, stance: 48, bill: 0.6, tip: 'notch', slope: 0.35, arch: 0.3, fly: 'bound', moves: ['turn', 'hop', 'bob', 'resettle'] },
+      { name: 'Great Kiskadee',            share: 0.16, puff: [0.45, 0.55], neck: [0.28, 0.38], tail: [0.9, 1.0],   beak: [1.05, 1.15], size: [0.81, 0.88], weight: 0.18, stance: 60, head: 1.15, bill: 0.5, slope: 0.5, arch: 0.26, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Tropical Kingbird',         share: 0.14, puff: [0.32, 0.44], neck: [0.3, 0.4],   tail: [0.95, 1.05], beak: [0.95, 1.05], size: [0.79, 0.86], weight: 0.11, stance: 63, head: 1.12, bill: 0.4, slope: 0.4, arch: 0.12, fly: 'flutter', moves: ['turn', 'sally', 'resettle', 'turn'] },
+      { name: 'Chalk-browed Mockingbird',  share: 0.12, puff: [0.35, 0.47], neck: [0.15, 0.25], tail: [1.2, 1.3],   beak: [0.9, 1.0],   size: [0.83, 0.9],  weight: 0.18, stance: 52, bill: 0.32, slope: 0.45, arch: 0.14, fly: 'flutter', moves: ['tailPump', 'turn', 'resettle'] },
     ],
   };
 
@@ -231,7 +235,15 @@
     var cx = 7.2, cy = 9.05;
     var len = 3.3;                                 /* half the body's length */
     var girth = 1.7 + p * 0.9;                     /* half its depth */
-    var bellyY = cy + Math.sqrt(len * len * uy * uy + girth * girth * ux * ux);
+    /* the body is an egg, not an oval: deep through the chest, drawn in
+       toward the rump, and fuller below than along the back */
+    var bodyPts = [];
+    for (var bi = 0; bi < 40; bi++) {
+      var th = bi / 40 * Math.PI * 2;
+      var along = len * Math.cos(th);
+      var across = girth * Math.sin(th) * (1 + 0.24 * Math.cos(th)) * (Math.sin(th) < 0 ? 1.1 : 0.92);
+      bodyPts.push([cx + ux * along + dx * across, cy + uy * along + dy * across]);
+    }
 
     var headR = (1.6 - p * 0.22) * (sp.head || 1);
     var reach = len * 0.82 + n * 1.2;
@@ -240,7 +252,23 @@
     /* bill: beak is its length, bill its depth at the base. A seed
        cracker's is short and deep, a starling's long and fine. */
     var billL = 1.25 * b, billD = sp.bill || 0.42;
-    var bill = poly([[hx + headR * 0.5, hy - billD - 0.1], [hx + headR + billL, hy + 0.15], [hx + headR * 0.5, hy + billD + 0.2]]);
+    var bx = hx + headR * 0.5, topY = hy - billD - 0.1, tipX = hx + headR + billL, tipY = hy + 0.15;
+    /* the top of a bill is an arc, not a ruled line: arch is how much.
+       A crow's or a finch's is strongly curved, a starling's nearly straight. */
+    var arch = sp.arch != null ? sp.arch : 0.18;
+    var bill = '<path d="M' + f(bx) + ' ' + f(topY)
+      + ' Q' + f((bx + tipX) / 2 + billL * 0.12) + ' ' + f((topY + tipY) / 2 - billL * arch) + ' ' + f(tipX) + ' ' + f(tipY)
+      + ' L' + f(bx) + ' ' + f(hy + billD + 0.2) + ' Z"/>';
+    /* slope is how far the forehead runs down into the bill: a crow or
+       a starling has one long line from crown to tip, a dove's round
+       head stops short and the bill starts under it. */
+    var slope = sp.slope != null ? sp.slope : 0.3;
+    var reachK = 0.2 + 0.5 * slope;
+    var brow = slope ? poly([
+      [hx + headR * 0.35, hy - headR * 0.94],
+      [bx + (tipX - bx) * reachK, topY + (tipY - topY) * reachK - billL * arch * 0.5],
+      [bx, topY + 0.2],
+    ]) : '';
 
     /* tail: drawn from the rump along the body's line, drooping a
        little. tip is its end: square, point (doves), notch (finches),
@@ -249,9 +277,9 @@
     var vx = -Math.cos(st), vy = Math.sin(st);
     var qx = Math.sin(st), qy = Math.cos(st);
     var rx = cx - ux * len * 0.7, ry = cy - uy * len * 0.7;
-    var tailL = 1.6 + t * 2.5;
+    var tailL = 2 + t * 2.7;
     var tip = sp.forked ? 'fork' : (sp.tip || 'square');
-    var baseW = 0.62, tipW = tip === 'point' ? 0.12 : tip === 'fork' ? 0.95 : 0.72;
+    var baseW = 0.56, tipW = tip === 'point' ? 0.12 : tip === 'fork' ? 0.95 : 0.64;
     var ex = rx + vx * tailL, ey = ry + vy * tailL;
     var tailPts = [[rx + qx * baseW, ry + qy * baseW], [rx - qx * baseW, ry - qy * baseW], [ex - qx * tipW, ey - qy * tipW]];
     if (tip === 'notch' || tip === 'fork') {
@@ -279,16 +307,17 @@
     var neck = '<path d="M' + f(cx + ux * len * 0.35) + ' ' + f(cy + uy * len * 0.35) + ' L' + f(hx) + ' ' + f(hy)
       + '" fill="none" stroke="currentColor" stroke-width="' + f(headR * 1.9) + '"/>';
     /* two legs to the wire, and the toes that hold it */
-    var legs = '<path d="M' + f(cx + 0.45) + ' ' + f(bellyY - 0.7) + ' L' + f(cx + 0.3) + ' 12.55 M' + f(cx + 0.95) + ' ' + f(bellyY - 0.8)
-      + ' L' + f(cx + 1.05) + ' 12.55 M' + f(cx - 0.2) + ' 12.55 L' + f(cx + 1.55) + ' 12.55" fill="none" stroke="currentColor" stroke-width="0.42" stroke-linecap="round"/>';
+    /* they start inside the body, so however it is held they are attached */
+    var legs = '<path d="M' + f(cx + 0.5) + ' ' + f(cy + 0.6) + ' L' + f(cx + 0.35) + ' 12.55 M' + f(cx + 1) + ' ' + f(cy + 0.6)
+      + ' L' + f(cx + 1.05) + ' 12.55 M' + f(cx - 0.05) + ' 12.55 L' + f(cx + 1.4) + ' 12.55" fill="none" stroke="currentColor" stroke-width="0.36" stroke-linecap="round"/>';
 
     return {
       /* drawn at a working size, then grown from the feet to fill the frame */
       svg: '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true" style="overflow:visible">'
         + '<g transform="translate(' + f(cx + 0.65) + ' 12.55) scale(1.22) translate(' + f(-cx - 0.65) + ' -12.55)">'
         + poly(tailPts) + wing
-        + '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + len + '" ry="' + f(girth) + '" transform="rotate(' + f(-s * 180 / Math.PI) + ' ' + cx + ' ' + cy + ')"/>'
-        + neck + '<circle cx="' + f(hx) + '" cy="' + f(hy) + '" r="' + f(headR) + '"/>' + bill + crest + legs + '</g></svg>',
+        + poly(bodyPts)
+        + neck + '<circle cx="' + f(hx) + '" cy="' + f(hy) + '" r="' + f(headR) + '"/>' + bill + brow + crest + legs + '</g></svg>',
       species: sp,
       size: dial(sp.size),
     };
@@ -296,14 +325,67 @@
 
   var BIRD_BASE = 1.6; /* display scale: 15x13 viewBox to ~24x21px */
 
-  /* In the air every bird is wings: two frames, alternated like a sprite */
-  var WING_UP = 'M0.8 4.9 C2.6 2.7 5 1.6 6.9 1.9 C7.3 1.2 8.2 1 8.9 1.4 L10.9 0.7 L9.9 2.2 C11.7 2.2 13.6 3 14.6 4.6 C12.8 4.4 11.2 4.5 10 5.1 C9.6 7.3 8.3 8.6 6.9 8.8 L7.3 10.6 L6.4 10.2 L5.8 10.7 L5.4 8.7 C4.2 8.3 3.3 7.2 3.1 5.8 C2.3 5.5 1.5 5.2 0.8 4.9 Z';
-  var WING_DOWN = 'M2.6 9.9 C3.4 8 4.6 6.9 6 6.5 C5.8 5 6.3 3.6 7.4 2.9 C7.9 2.2 8.8 2 9.5 2.4 L11.5 1.7 L10.4 3.2 C10.9 4.1 11 5.2 10.6 6.3 C11.9 6.9 12.9 8.2 13.4 10 C11.9 9.1 10.6 8.7 9.5 8.8 L9.8 10.9 L8.9 10.5 L8.3 11 L7.9 8.9 C6.9 8.9 5.9 9.2 2.6 9.9 Z';
+  /* In the air a bird is still itself: the same body, bill, tail and
+     crest, seen from the side, with the near wing drawn three ways.
+     Up and down alternate like a sprite; out is the wing held for a
+     glide. The wing is the family's: long and swept for a swallow,
+     broad and blunt for a crow, short and round for a sparrow. */
+  var WINGS = {
+    direct:  { span: 6,   chord: 2.9, sweep: 1.2, blunt: 0 },
+    bound:   { span: 4.6, chord: 2.7, sweep: 0.7, blunt: 0.7 },
+    swoop:   { span: 7.2, chord: 1.9, sweep: 2.6, blunt: 0 },
+    row:     { span: 6.4, chord: 3.6, sweep: 0.7, blunt: 1.4 },
+    flutter: { span: 5.2, chord: 2.8, sweep: 1,   blunt: 0.4 },
+  };
 
-  function flightSVG() {
-    return '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true">'
-      + '<path class="w-up" d="' + WING_UP + '"/>'
-      + '<path class="w-down" d="' + WING_DOWN + '"/></svg>';
+  function flightSVG(sp) {
+    sp = sp || SPECIES[0];
+    function mid(range) { return (range[0] + range[1]) / 2; }
+    function f(v) { return Math.round(v * 100) / 100; }
+    function poly(pts) {
+      return '<path d="M' + pts.map(function (q) { return f(q[0]) + ' ' + f(q[1]); }).join(' L') + ' Z"/>';
+    }
+    var p = mid(sp.puff), t = mid(sp.tail), b = mid(sp.beak);
+    var w = WINGS[sp.fly] || WINGS.flutter;
+    var cx = 7.4, cy = 6.6, len = 2.4, girth = 0.85 + p * 0.45;
+    var headR = (1.2 - p * 0.15) * (sp.head || 1);
+    var hx = cx + len + headR * 0.3, hy = cy - 0.3;
+    var billD = (sp.bill || 0.42) * 0.8, billL = 1.1 * b;
+    var bill = poly([[hx + headR * 0.5, hy - billD], [hx + headR + billL, hy + 0.1], [hx + headR * 0.5, hy + billD + 0.1]]);
+
+    /* the tail trails level behind, spread a little wider than at rest */
+    var tx = cx - len * 0.8, ty = cy + 0.05, tailL = 1.4 + t * 1.9;
+    var tip = sp.forked ? 'fork' : (sp.tip || 'square');
+    var tipW = tip === 'point' ? 0.12 : tip === 'fork' ? 1.05 : 0.8;
+    var tailPts = [[tx, ty - 0.5], [tx - tailL, ty - tipW + 0.1]];
+    if (tip === 'notch' || tip === 'fork') tailPts.push([tx - tailL + (tip === 'fork' ? tailL * 0.55 : 0.5), ty + 0.1]);
+    tailPts.push([tx - tailL, ty + tipW + 0.1], [tx, ty + 0.5]);
+
+    var crest = '';
+    if (sp.crest === 'spike') {
+      crest = poly([[hx - 0.3, hy - headR * 0.8], [hx - 0.9, hy - headR - 1.5], [hx + 0.2, hy - headR * 0.9]]);
+    } else if (sp.crest) {
+      crest = poly([[hx + headR * 0.2, hy - headR * 0.95], [hx - headR - 1.1, hy - headR * 0.9], [hx - headR * 0.8, hy + headR * 0.2]]);
+    }
+
+    /* one wing, from its two roots on the back to a tip */
+    var fx = cx + 1.1, fy = cy - 0.3, rx = fx - Math.min(w.chord, 2.8), ry = cy - 0.1;
+    function wing(cls, tx2, ty2) {
+      var d = 'M' + f(fx) + ' ' + f(fy)
+        + ' Q' + f((fx + tx2) / 2 + 0.7) + ' ' + f((fy + ty2) / 2) + ' ' + f(tx2) + ' ' + f(ty2)
+        + (w.blunt ? ' L' + f(tx2 - w.blunt) + ' ' + f(ty2 + (ty2 < cy ? 0.25 : -0.25)) : '')
+        + ' Q' + f((rx + tx2) / 2 - w.chord * 0.3) + ' ' + f((ry + ty2) / 2) + ' ' + f(rx) + ' ' + f(ry) + ' Z';
+      return '<path class="' + cls + '" d="' + d + '"/>';
+    }
+
+    return '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true" style="overflow:visible">'
+      + poly(tailPts)
+      + '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + len + '" ry="' + f(girth) + '"/>'
+      + '<circle cx="' + f(hx) + '" cy="' + f(hy) + '" r="' + f(headR) + '"/>' + bill + crest
+      + wing('w-up', cx + 0.3 - w.sweep, cy - 0.3 - w.span)
+      + wing('w-down', cx + 0.5 - w.sweep * 0.6, cy + w.span * 0.8)
+      + wing('w-out', cx - 1.2 - w.sweep * 1.3, cy - 1 - w.span * 0.2)
+      + '</svg>';
   }
 
   /* The wire: flat at rest, flexed by the weight of whoever perches */
@@ -557,7 +639,7 @@
     /* temperament comes with the species: doves sit, phoebes pump, sparrows hop */
     var moves = born.species.moves.map(function (k) { return MICRO[k]; });
     el.style.transformOrigin = '50% 100%';
-    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, slot: slot, topAdj: (21 - Math.round(13 * scale)), moves: moves, weight: born.species.weight, fly: born.species.fly, wary: born.species.wary || 1, flown: false, returnTimer: null };
+    var bird = { el: el, svgEl: svgEl, scale: scale, markup: markup, flip: flip, slot: slot, topAdj: (21 - Math.round(13 * scale)), moves: moves, weight: born.species.weight, species: born.species, fly: born.species.fly, wary: born.species.wary || 1, flown: false, returnTimer: null };
     flock.set(key, bird);
     bird.name = born.species.name;
     /* the regulars fly home when you arrive */
@@ -634,7 +716,7 @@
     setTimeout(setSag, 120);
     bounceWire(bird.weight);
     var flip = dir < 0 ? 'scaleX(-1)' : '';
-    el.innerHTML = flightSVG();
+    el.innerHTML = flightSVG(bird.species);
     bird.svgEl = el.querySelector('svg');
     bird.svgEl.style.transform = flip;
     el.classList.add('airborne');
@@ -684,7 +766,7 @@
     var fy = -(90 + Math.random() * 120) * style.lift;
     var fr = -side * (6 + Math.random() * 10);
     var dur = (700 + Math.random() * 260) * (0.8 + heft * 0.28) * style.pace;
-    el.innerHTML = flightSVG();
+    el.innerHTML = flightSVG(bird.species);
     bird.svgEl = el.querySelector('svg');
     var flip = side > 0 ? 'scaleX(-1)' : '';
     bird.svgEl.style.transform = flip;
@@ -893,7 +975,7 @@
     var ox = dir * (46 + Math.random() * 44);
     var oy = -(26 + Math.random() * 30);
     var dur = 900 + Math.random() * 300;
-    el.innerHTML = flightSVG();
+    el.innerHTML = flightSVG(bird.species);
     bird.svgEl = el.querySelector('svg');
     bird.svgEl.style.transform = dir < 0 ? 'scaleX(-1)' : '';
     el.classList.add('airborne');

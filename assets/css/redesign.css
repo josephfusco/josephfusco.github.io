@@ -1803,12 +1803,12 @@ body {
 @keyframes wing-b { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 
 /* Glide: wings held out, no beat */
-.wire-bird.glide .w-up { opacity: 1; animation: none; }
-.wire-bird.glide .w-down { opacity: 0; animation: none; }
+.wire-bird .w-out { opacity: 0; }
+.wire-bird.glide .w-up, .wire-bird.glide .w-down { opacity: 0; animation: none; }
+.wire-bird.glide .w-out { opacity: 1; }
 
-/* Tuck: wings closed for the dip of a bounding flight */
-.wire-bird.tuck .w-up { opacity: 0; animation: none; }
-.wire-bird.tuck .w-down { opacity: 1; animation: none; }
+/* Tuck: wings closed against the body for the dip of a bounding flight */
+.wire-bird.tuck .w-up, .wire-bird.tuck .w-down { opacity: 0; animation: none; }
 
 /* Under the signature, how to reach the signer */
 .signature-contacts {
