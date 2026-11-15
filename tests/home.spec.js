@@ -1,9 +1,15 @@
 const { test, expect } = require('./fixtures');
 
-test('Now lists the current projects', async ({ page }) => {
+const PROJECTS = ['Presence API', 'RiffPress', 'LexGrade', 'LexBunker', 'Ithaca Share', 'WPGraphQL IDE', 'VennyD', 'MaizeKit', 'Brackish'];
+
+test('Now shows the first three projects and the projects page lists them all', async ({ page }) => {
+  await page.goto('/projects/');
+  expect(await page.locator('.work h3 a').allTextContents()).toEqual(PROJECTS);
+
   await page.goto('/');
   const names = await page.locator('.work h3 a').allTextContents();
-  expect(names).toEqual(['Presence API', 'RiffPress', 'LexGrade', 'LexBunker', 'Ithaca Share', 'WPGraphQL IDE', 'VennyD', 'MaizeKit', 'Brackish']);
+  expect(names).toEqual(PROJECTS.slice(0, 3));
+  await expect(page.locator('.more-note a[href="/projects/"]')).toHaveCount(1);
   await expect(page.locator('.work a[href*="sync-storage"]')).toHaveCount(0);
 });
 

@@ -1,6 +1,6 @@
 const { test, expect } = require('./fixtures');
 
-const PAGES = ['/', '/about/', '/design/', '/labels', '/lexbunker', '/lexgrade', '/writing/', '/blog/'];
+const PAGES = ['/', '/about/', '/design/', '/projects/', '/labels', '/lexbunker', '/lexgrade', '/writing/', '/blog/'];
 
 // the y of an element's first baseline, measured, not assumed
 const baseline = (el) => {
@@ -54,7 +54,7 @@ for (const path of ['/labels', '/lexbunker']) {
 }
 
 test('categories are written, not boxed', async ({ page }) => {
-  for (const path of ['/', '/design/']) {
+  for (const path of ['/', '/design/', '/projects/']) {
     await page.goto(path);
     const tags = page.locator('.work .tag, .components .tag');
     expect(await tags.count()).toBeGreaterThan(0);
