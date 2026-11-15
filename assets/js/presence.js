@@ -1,5 +1,6 @@
-/* Presence: other readers of this page appear as unnamed crosshairs.
-   Progressive enhancement — fails silently without the relay. */
+/* Presence: other readers of this page appear as birds on the wire,
+   one each. Nobody's cursor is sent or drawn. Progressive enhancement:
+   it fails silently without the relay. */
 (function () {
   'use strict';
 
@@ -58,13 +59,8 @@
 
   var peers = new Map();
   var lastCountLabel = null;
-  var layer = null;
   var ws = null;
   var retry = 0;
-
-  function docHeight() {
-    return Math.max(document.documentElement.scrollHeight, innerHeight);
-  }
 
   var wire = document.querySelector('[data-flock-stage]') || document.querySelector('.powerline');
     /* ---- The bird factory, regional edition ----
@@ -1121,145 +1117,6 @@
     setTimeout(function () { location.href = a.href; }, 420);
   });
 
-  var minimap = document.querySelector('.stage-live');
-  var selfDot = null;
-  var selfPos = null;
-
-  function ensureLayer() {
-    if (layer) return;
-    layer = document.createElement('div');
-    layer.className = 'presence-layer';
-    layer.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(layer);
-  }
-
-  function miniDot(cls, color) {
-    if (!minimap) return null;
-    var d = document.createElement('span');
-    d.className = 'mini-dot' + (cls ? ' ' + cls : '');
-    if (color) d.style.color = color;
-    /* nothing sits at the origin: a dot appears once it has a place */
-    d.style.visibility = 'hidden';
-    minimap.appendChild(d);
-    return d;
-  }
-
-  function cursorEl(peer) {
-    var d = document.createElement('div');
-    d.className = 'peer-cursor';
-    d.style.setProperty('--peer-color', peer.color);
-    d.innerHTML =
-      '<svg viewBox="0 0 24 24" width="18" height="18" fill="none">' +
-      '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>' +
-      '<path d="M12 0v5M12 19v5M0 12h5M19 12h5" stroke="currentColor" stroke-width="1.5"/>' +
-      '</svg><span class="peer-label"></span>' +
-      '<span class="typing" aria-hidden="true"><span></span><span></span><span></span></span>';
-    d.style.visibility = 'hidden';
-    layer.appendChild(d);
-    return d;
-  }
-
-  /* Registry: every state a peer can be in, and how it renders */
-  var STATE_META = {
-    active: { suffix: '' },
-    idle:   { suffix: ', idle' },
-    away:   { suffix: ', away' },
-    typing: { suffix: '' },
-  };
-
-  function applyState(p) {
-    if (!p.el) return;
-    var base = 'peer-cursor';
-    var s = STATE_META[p.state] ? p.state : 'active';
-    p.el.className = base
-      + (s !== 'active' ? ' state-' + s : '')
-      + (p.labelShown ? ' show-label' : '');
-    var label = p.el.querySelector('.peer-label');
-    if (label) {
-      label.textContent = (p.own ? 'you' : '') + STATE_META[s].suffix;
-    }
-  }
-
-  /* Labels appear on arrival, on state changes, and when movement resumes
-     after a pause. Then they get out of the way of the words. */
-  function reveal(p, ms) {
-    if (!p.el) return;
-    p.labelShown = true;
-    p.el.classList.add('show-label');
-    clearTimeout(p.revealTimer);
-    p.revealTimer = setTimeout(function () {
-      p.labelShown = false;
-      if (p.el) p.el.classList.remove('show-label');
-    }, ms || 2500);
-  }
-
-  var JUMP_PX = 260; // beyond this, teleport — no swoosh across other people's screens
-
-  function spawnTrail(x, y, color) {
-    if (!layer) return;
-    var t = document.createElement('span');
-    t.className = 'trail';
-    if (color) t.style.color = color;
-    t.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-    layer.appendChild(t);
-    t.addEventListener('animationend', function () { t.remove(); });
-  }
-
-  function render() {
-    var dh = docHeight();
-    var instant = layer && layer.classList.contains('no-anim');
-    var now = Date.now();
-    peers.forEach(function (p) {
-      if (!p.pos || !p.el) return;
-      var x = p.pos.x * innerWidth;
-      var y = p.pos.y * dh - scrollY;
-      var moved = false;
-      if (!instant && p.lastX != null) {
-        var dx = x - p.lastX;
-        var dy = y - p.lastY;
-        moved = dx !== 0 || dy !== 0;
-        var jumped = dx * dx + dy * dy > JUMP_PX * JUMP_PX;
-        p.el.classList.toggle('jump', jumped);
-        if (moved && !jumped) {
-          /* banking: the bird tilts into its turn, settles when it rests */
-          if (p.svg) {
-            var bank = Math.max(-8, Math.min(8, dx * 0.12));
-            p.svg.style.rotate = bank + 'deg';
-            clearTimeout(p.bankTimer);
-            p.bankTimer = setTimeout(function () {
-              if (p.svg) p.svg.style.rotate = '0deg';
-            }, 260);
-          }
-          /* ink trail: a wake that evaporates */
-          if (!p.lastTrailAt || now - p.lastTrailAt > 50) {
-            p.lastTrailAt = now;
-            spawnTrail(p.lastX, p.lastY, p.color);
-          }
-        }
-      }
-      p.lastX = x;
-      p.lastY = y;
-      p.el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-      var off = y < -40 || y > innerHeight + 40;
-      p.el.style.visibility = off ? 'hidden' : 'visible';
-      if (p.el.style.opacity === '0' && !off) p.el.style.opacity = '';
-      /* the minimap: the Presence API card demos the live room */
-      if (p.dot) {
-        p.dot.style.left = (p.pos.x * 100) + '%';
-        p.dot.style.top = (p.pos.y * 100) + '%';
-        p.dot.style.visibility = 'visible';
-      }
-    });
-    if (minimap && selfPos) {
-      if (!selfDot) selfDot = miniDot('mini-self', '');
-      if (selfDot) {
-        selfDot.style.left = (selfPos.x * 100) + '%';
-        selfDot.style.top = (selfPos.y * 100) + '%';
-        selfDot.style.visibility = 'visible';
-      }
-    }
-  }
-
   function updateCount() {
     if (invisible) {
       document.querySelectorAll('[data-presence-count]').forEach(function (el) {
@@ -1312,35 +1169,16 @@
     }
   }
 
+  /* A peer is a bird and nothing else: no cursor, no trail, no state */
   function addPeer(p) {
-    ensureLayer();
-    var entry = { name: p.name, color: p.color, pos: p.pos || null, state: p.state || 'active', el: cursorEl(p) };
-    entry.svg = entry.el.querySelector('svg');
-    entry.el.style.opacity = '0';
     addPigeon(p.id);
-    entry.dot = miniDot('', p.color);
-    peers.set(p.id, entry);
-    applyState(entry);
-    reveal(entry, 3000);
+    peers.set(p.id, { name: p.name, color: p.color });
   }
 
-  /* Departures dissolve upward; everything a peer owns goes with them */
-  function removePeer(id, gently) {
-    var p = peers.get(id);
-    if (!p) return;
+  function removePeer(id) {
+    if (!peers.has(id)) return;
     peers.delete(id);
     removePigeon(id);
-    if (p.dot) p.dot.remove();
-    clearTimeout(p.revealTimer);
-    clearTimeout(p.bankTimer);
-    if (!p.el) return;
-    if (gently) {
-      var el = p.el;
-      el.classList.add('depart');
-      setTimeout(function () { el.remove(); }, 520);
-    } else {
-      p.el.remove();
-    }
   }
 
   var censusTotal = 0;
@@ -1355,7 +1193,7 @@
       if (d.id == null || d.id === selfId) return;
       ownTabs[d.id] = Date.now();
       var p = peers.get(d.id);
-      if (p && !p.own) { p.own = true; applyState(p); }
+      if (p && !p.own) p.own = true;
       updateCount();
     };
   }
@@ -1402,7 +1240,7 @@
       var here = {};
       m.peers.forEach(function (p) { if (p && p.id) here[p.id] = 1; });
       Array.prototype.slice.call(peers.keys()).forEach(function (id) {
-        if (!here[id]) removePeer(id, false);
+        if (!here[id]) removePeer(id);
       });
       m.peers.forEach(addPeer);
     },
@@ -1411,24 +1249,12 @@
       var id = m.peer.id;
       setTimeout(function () {
         var p = peers.get(id);
-        if (ownTabs[id]) { if (p && !p.own) { p.own = true; applyState(p); updateCount(); } }
+        if (ownTabs[id]) { if (p && !p.own) { p.own = true; updateCount(); } }
         else if (p) { waveGlyph(); flashIcon(); }
       }, 350);
     },
     census: function (m) { censusTotal = m.total || 0; },
-    move: function (m) {
-      var p = peers.get(m.id);
-      if (!p) return;
-      var now = Date.now();
-      if (!p.lastMoveAt || now - p.lastMoveAt > 4000) reveal(p);
-      p.lastMoveAt = now;
-      p.pos = m.pos;
-    },
-    state: function (m) {
-      var p = peers.get(m.id);
-      if (p) { p.state = m.s; applyState(p); reveal(p); }
-    },
-    leave: function (m) { removePeer(m.id, true); },
+    leave: function (m) { removePeer(m.id); },
   };
 
   function connect() {
@@ -1447,86 +1273,30 @@
       if (!handle) return;
       handle(m);
       updateCount();
-      render();
     };
 
     ws.onclose = function () {
-      peers.forEach(function (p, k) { removePeer(k, false); });
+      peers.forEach(function (p, k) { removePeer(k); });
       censusTotal = 0;
       updateCount();
       if (!invisible && retry < 5) setTimeout(connect, 1000 * Math.pow(2, retry++));
     };
   }
 
-  /* ---- My state: active / idle / away / typing ---- */
-  var myState = 'active';
-  var lastInput = Date.now();
-
-  function sendState(s) {
-    if (s === myState) return;
-    myState = s;
-    if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'state', s: s }));
-  }
-
-  ['mousemove', 'keydown', 'scroll', 'touchstart', 'pointerdown'].forEach(function (ev) {
-    addEventListener(ev, function () {
-      lastInput = Date.now();
-      if (!document.hidden && myState !== 'typing') sendState('active');
-    }, { passive: true });
-  });
-
-  setInterval(function () {
-    if (document.hidden || myState === 'typing') return;
-    if (Date.now() - lastInput > 45000) sendState('idle');
-  }, 5000);
-
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) { sendState('away'); }
-    else { lastInput = Date.now(); sendState('active'); }
-  });
-
-  /* Typing: the fact of typing only — never what is typed */
-  document.querySelectorAll('input[type="email"]').forEach(function (inp) {
-    var tTimer;
-    inp.addEventListener('input', function () {
-      sendState('typing');
-      clearTimeout(tTimer);
-      tTimer = setTimeout(function () { sendState('active'); }, 3000);
-    });
-    inp.addEventListener('blur', function () {
-      if (myState === 'typing') sendState('active');
-    });
-  });
-
   /* A heartbeat, so the room can tell a reader from a dead socket */
   setInterval(function () {
     if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'ping' }));
   }, 45000);
 
-  var lastSent = 0;
+  /* The reader's own cursor startles the birds on their own screen.
+     It goes no further: where you point is never sent. */
+  var lastLook = 0;
   addEventListener('mousemove', function (e) {
     var now = Date.now();
-    if (now - lastSent < 50) return;
-    lastSent = now;
-    /* The birds are the reader's own business; only the broadcast
-       needs the socket */
+    if (now - lastLook < 50) return;
+    lastLook = now;
     checkStartle(e.clientX, e.clientY);
-    selfPos = { x: e.clientX / innerWidth, y: (e.clientY + scrollY) / docHeight() };
-    if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'move', pos: selfPos }));
-    render();
   }, { passive: true });
-
-  var scrollCalm;
-  function instantRender() {
-    if (layer) layer.classList.add('no-anim');
-    render();
-    clearTimeout(scrollCalm);
-    scrollCalm = setTimeout(function () {
-      if (layer) layer.classList.remove('no-anim');
-    }, 120);
-  }
-  addEventListener('scroll', instantRender, { passive: true });
-  addEventListener('resize', instantRender, { passive: true });
 
   /* The watching page: birds come and go on their own, forever */
   function beginAmbient() {
