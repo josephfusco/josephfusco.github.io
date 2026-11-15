@@ -8,12 +8,12 @@ title: About
 
 I'm Joe Fusco. I contribute to WordPress Core, sponsored by [WP Engine](https://wpengine.com).
 
-Core work centers on the [Presence API](https://github.com/WordPress/presence-api), WordPress's system-wide presence and awareness layer. On the headless side, that work continues in the [WPGraphQL IDE](https://wordpress.org/plugins/wpgraphql-ide/). Most of my open-source time goes into release automation and testing.
+Core work centers on the [Presence API](https://github.com/WordPress/presence-api) and, on the headless side, the [WPGraphQL IDE](https://wordpress.org/plugins/wpgraphql-ide/). Most of my open-source time goes into release automation and testing.
 
-Access to justice is the other thing I care about. [LexGrade](https://lexgrade.org) is an open standard for grading legal motions — eight principles and forty-five graded criteria, with a companion register of named advocacy techniques. Both are published under CC-BY-SA and owned by no one; the source lives on [GitHub](https://github.com/LexGrade/standard). [LexBunker](https://lexbunker.com) is the other piece: case software for family-law litigators that keeps a contested matter on one timeline, offline on the firm's own hardware.
-
-[VennyD](https://vennyd.com) is a free Venn diagram maker: two or three circles, no sign-up, nothing uploaded. [Riff](https://riffpress.com) is a music player for WordPress: the audio and video in your posts, in a player that keeps going while you read.
+Access to justice is the other thing I care about. [LexGrade](https://lexgrade.org) is an open standard for grading legal motions. [LexBunker](https://lexbunker.com) is case software for family-law litigators.
 
 [Mashable](https://mashable.com/archive/teach-yourself-programming) and [Treehouse](https://teamtreehouse.com/stories/joe-fusco) covered the career change in 2015.
 
-The rest is amateur arboriculture, and being a dad. I'm an Eagle Scout. The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015.
+Away from work, I'm a dad and an Eagle Scout, and I'm usually out hiking or with the people I love.
+
+The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015.
