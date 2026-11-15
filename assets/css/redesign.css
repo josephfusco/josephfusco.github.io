@@ -1784,6 +1784,10 @@ body {
 .wire-bird.glide .w-up { opacity: 1; animation: none; }
 .wire-bird.glide .w-down { opacity: 0; animation: none; }
 
+/* Tuck: wings closed for the dip of a bounding flight */
+.wire-bird.tuck .w-up { opacity: 0; animation: none; }
+.wire-bird.tuck .w-down { opacity: 1; animation: none; }
+
 /* Under the signature, how to reach the signer */
 .signature-contacts {
   margin: 0;
@@ -1860,6 +1864,32 @@ body {
   /* the guide opens into its own margin, not across the page */
   /* the left margin is the empty one on the front page */
   #field-guide { left: 1.25rem; right: auto; }
+}
+/* Where the browser can tie a popover to its button, the guide opens
+   from the words that asked for it: under them, in the note's own
+   column, or beside them when the window is too short to hold the
+   plate below. The far margin stays the fallback. */
+@supports (position-area: bottom) {
+  @media (min-width: 70rem) {
+    .field-note .guide-toggle { anchor-name: --guide-toggle; }
+    #field-guide {
+      position-anchor: --guide-toggle;
+      position-area: bottom span-right;
+      position-try-fallbacks: --guide-beside;
+      inset: auto;
+      margin: 0.375rem 0 0;
+      translate: 0 -6px;
+    }
+    #field-guide:popover-open { translate: 0 0; }
+    @starting-style {
+      #field-guide:popover-open { translate: 0 -6px; }
+    }
+  }
+}
+@position-try --guide-beside {
+  position-area: left span-all;
+  align-self: anchor-center;
+  margin: 0 0.75rem 0 0;
 }
 .field-note > * { line-height: var(--lh); min-height: var(--lh); }
 
