@@ -1,14 +1,16 @@
 const { test, expect } = require('./fixtures');
 
 test('the writing index lists every post once by year and at least once by subject', async ({ page }) => {
-  // the front page's list is the record of what has been published
+  // the index is the record of what has been published; the front page
+  // carries only its newest few, in the same order
   await page.goto('/');
-  const published = await page.locator('#writing .posts-year li:not(.posts-year-label) a').evaluateAll((as) => as.map((a) => a.pathname));
-  expect(published.length).toBeGreaterThan(10);
+  const recent = await page.locator('#writing .posts-year li:not(.posts-year-label) a').evaluateAll((as) => as.map((a) => a.pathname));
+  expect(recent.length).toBe(4);
 
   await page.goto('/writing/');
   const byYear = await page.locator('.by-year .posts-year li:not(.posts-year-label) a').evaluateAll((as) => as.map((a) => a.pathname));
-  expect(byYear).toEqual(published);
+  expect(byYear.length).toBeGreaterThan(10);
+  expect(byYear.slice(0, recent.length)).toEqual(recent);
 
   const bySubject = await page.locator('.by-subject .lately-line a').evaluateAll((as) => as.map((a) => a.pathname));
   expect(new Set(bySubject)).toEqual(new Set(byYear));

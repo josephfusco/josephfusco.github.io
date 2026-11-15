@@ -10,6 +10,8 @@
 			</p>
 		</address>
 		<p class="footer-tools">
+			{% comment %}how the site is made sits with the other notes on its making; it comes first so the popovers still anchor to their own buttons{% endcomment %}
+			<a class="colophon-toggle" href="{{ '/design' | relative_url }}"{% if page.url contains '/design' %} aria-current="page"{% endif %}><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5H10.5V10.5H1.5ZM1.5 6H10.5M6 1.5V10.5"/></svg> design</a>
 			<button class="colophon-toggle specimen-toggle" popovertarget="specimen"><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 10.5L6 1.5L10 10.5M3.6 7H8.4"/></svg> specimen</button>
 			<button class="colophon-toggle" popovertarget="colophon"><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.2V10.8M1.2 6H10.8M2.6 2.6L9.4 9.4M9.4 2.6L2.6 9.4"/></svg> colophon</button>
 		</p>

@@ -99,7 +99,21 @@
     });
     list.innerHTML = html;
     list.removeAttribute('aria-busy');
+    fit();
   }
+
+  /* In the margin the feed stands outside the page's flow, so the page
+     cannot see how long it is. Tell it, or a long week runs past a
+     short front page and into the signature. */
+  function fit() {
+    var section = list.closest('section');
+    var wrap = section && section.parentNode;
+    if (!wrap) return;
+    wrap.style.minHeight = '';
+    if (getComputedStyle(section).position !== 'absolute') return;
+    wrap.style.minHeight = (section.offsetTop + section.offsetHeight) + 'px';
+  }
+  addEventListener('resize', fit, { passive: true });
 
   function fallback() {
     var el = document.getElementById('lately-fallback');

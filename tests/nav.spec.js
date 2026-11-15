@@ -5,7 +5,9 @@ const { test, expect } = require('./fixtures');
 const PAGES = [
   { path: '/', current: null },
   { path: '/about/', current: 'About' },
-  { path: '/design/', current: 'Design' },
+  { path: '/projects/', current: 'Projects' },
+  // the design page is reached from the footer now, so the nav marks nothing
+  { path: '/design/', current: null },
   { path: '/writing/', current: 'Writing' },
   { path: '/labels', current: 'Writing' },
 ];

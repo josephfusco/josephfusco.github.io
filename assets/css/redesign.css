@@ -972,7 +972,7 @@ body { line-height: var(--lh); overflow-x: clip; }
   body.index section.block[aria-label*="Lately"] {
     position: absolute;
     /* the hero's height, so Lately starts on Now's line */
-    top: calc(var(--space-l) + var(--lh) * 5 + var(--space-m) + var(--space-m) + 2.625rem);
+    top: calc(var(--space-l) + var(--lh) * 4 + var(--space-m) + var(--space-m) + 2.625rem);
     left: 100%;
     margin-left: 1.75rem;
     width: 17rem;
@@ -2265,6 +2265,8 @@ body {
 
 /* The specimen slip: the showing, then where the face comes from */
 .specimen-toggle { anchor-name: --specimen-btn; margin-right: 1.25rem; }
+/* the way to the design page keeps the same air as the buttons beside it */
+.footer-tools a.colophon-toggle { margin-right: 1.25rem; }
 @supports (anchor-name: --a) {
   #specimen { position-anchor: --specimen-btn; }
 }
