@@ -38,8 +38,10 @@ layout: default
 	<section class="block" aria-label="Lately in WordPress">
 		<h2>Lately in WordPress</h2>
 		<ul class="posts lately" data-lately aria-busy="true">
-			{% for i in (1..12) %}
-			<li class="lately-skeleton" aria-hidden="true"><span class="bone bone-date"></span><span class="bone bone-line"></span></li>
+			{% comment %}the skeleton is the feed's own shape, in the feed's own elements: a day, then what happened that day{% endcomment %}
+			{% for i in (1..6) %}
+			<li class="lately-day lately-skeleton" aria-hidden="true"><time><span class="bone bone-date"></span></time></li>
+			<li class="lately-skeleton" aria-hidden="true"><span class="lately-line"><span class="bone bone-line"></span>{% assign odd = i | modulo: 2 %}{% if odd == 1 %}<br><span class="bone bone-line bone-short"></span>{% endif %}</span></li>
 			{% endfor %}
 		</ul>
 		<noscript>
