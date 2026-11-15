@@ -618,8 +618,11 @@
     flock.forEach(function (b) {
       if (!b.flown && b.el) b.el.animate(frames, { duration: dur, easing: 'ease-out' });
     });
+    /* a label is centred on its bird by a transform of its own, so
+       its bounce has to carry that centring or it jumps sideways */
+    var tagFrames = frames.map(function (f) { return { transform: 'translateX(-50%) ' + f.transform }; });
     idTags.forEach(function (t) {
-      if (t.el) t.el.animate(frames, { duration: dur, easing: 'ease-out' });
+      if (t.el) t.el.animate(tagFrames, { duration: dur, easing: 'ease-out' });
     });
   }
 
@@ -740,6 +743,39 @@
     idTags.slice().forEach(function (t) { clearTimeout(t.timer); dropTag(t); });
   }
 
+  /* A label keeps inside the wire's own width, so a name at either
+     end is never cut by the edge of a narrow screen, and steps down
+     until it clears the ones already up. Run again whenever a label
+     grows, since a count can widen it into its neighbour. */
+  function settleTag(tag) {
+    var el = tag.el;
+    el.style.marginLeft = '0';
+    var box = wire.getBoundingClientRect();
+    var rect = el.getBoundingClientRect();
+    var nudge = 0;
+    if (rect.left < box.left + 6) nudge = box.left + 6 - rect.left;
+    else if (rect.right > box.right - 6) nudge = box.right - 6 - rect.right;
+    if (nudge) {
+      el.style.marginLeft = nudge + 'px';
+      rect = el.getBoundingClientRect();
+    }
+    var moved = true;
+    while (moved && tag.row < 4) {
+      moved = false;
+      for (var j = 0; j < idTags.length; j++) {
+        var o = idTags[j];
+        if (o === tag || o.row !== tag.row) continue;
+        var or = o.el.getBoundingClientRect();
+        if (rect.left < or.right + 8 && or.left < rect.right + 8) {
+          tag.row++;
+          el.style.top = (40 + tag.row * 15) + 'px';
+          moved = true;
+          break;
+        }
+      }
+    }
+  }
+
   function announceBird(bird) {
     if (!wire || !bird.name || !bird.el) return;
     for (var i = 0; i < idTags.length; i++) {
@@ -750,6 +786,7 @@
         t.el.style.animation = 'none';
         void t.el.offsetWidth;
         t.el.style.animation = '';
+        settleTag(t);
         clearTimeout(t.timer);
         t.timer = setTimeout(function () { dropTag(t); }, ID_LIFE);
         return;
@@ -761,24 +798,8 @@
     el.style.left = (bird.slot * 100) + '%';
     wire.appendChild(el);
     var tag = { el: el, name: bird.name, count: 1, row: 0 };
-    /* step down until this label clears the ones already up */
-    var rect = el.getBoundingClientRect();
-    var moved = true;
-    while (moved && tag.row < 4) {
-      moved = false;
-      for (var j = 0; j < idTags.length; j++) {
-        var o = idTags[j];
-        if (o.row !== tag.row) continue;
-        var or = o.el.getBoundingClientRect();
-        if (rect.left < or.right + 8 && or.left < rect.right + 8) {
-          tag.row++;
-          el.style.top = (40 + tag.row * 15) + 'px';
-          moved = true;
-          break;
-        }
-      }
-    }
     idTags.push(tag);
+    settleTag(tag);
     tag.timer = setTimeout(function () { dropTag(tag); }, ID_LIFE);
   }
 
