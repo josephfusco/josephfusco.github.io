@@ -39,8 +39,11 @@
 
   /* ---- Presence layer ---- */
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (reduced || !('WebSocket' in window)) return;
+  /* Nothing here moves for a reader who has asked for stillness, or
+     whose browser cannot hold the line open. The drawn specimens are
+     not motion, though: the field guide, the far wire and the region
+     picker still work, and everything after them is skipped. */
+  var still = reduced || !('WebSocket' in window);
 
   /* Invisibility: a human off-switch. Respects Global Privacy Control. */
   /* Invisibility is automatic only: Global Privacy Control opts a
@@ -378,14 +381,16 @@
       return '<path class="' + cls + '" d="' + d + '"/>';
     }
 
+    /* grown about its middle to the size it has on the wire */
     return '<svg viewBox="0 0 15 13" fill="currentColor" aria-hidden="true" style="overflow:visible">'
+      + '<g transform="translate(' + cx + ' ' + cy + ') scale(1.22) translate(' + (-cx) + ' ' + (-cy) + ')">'
       + poly(tailPts)
       + '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + len + '" ry="' + f(girth) + '"/>'
       + '<circle cx="' + f(hx) + '" cy="' + f(hy) + '" r="' + f(headR) + '"/>' + bill + crest
       + wing('w-up', cx + 0.3 - w.sweep, cy - 0.3 - w.span)
       + wing('w-down', cx + 0.5 - w.sweep * 0.6, cy + w.span * 0.8)
       + wing('w-out', cx - 1.2 - w.sweep * 1.3, cy - 1 - w.span * 0.2)
-      + '</svg>';
+      + '</g></svg>';
   }
 
   /* The wire: flat at rest, flexed by the weight of whoever perches */
@@ -539,6 +544,12 @@
       else localStorage.removeItem(REGION_KEY);
     } catch (e) { /* fine */ }
     SPECIES = REGIONS[key] || REGIONS[regionForTZ(TZ)];
+    if (still) {
+      /* no flock to send off: only the drawn specimens change */
+      hydrateSpecimens();
+      reflectRegionSelect(key);
+      return;
+    }
     clearBirdIds();
     /* the old flock leaves the way birds leave, and the new one
        flies in behind it */
@@ -564,6 +575,8 @@
     /* nothing to relabel: every option is a real region now */
   });
   reflectRegionSelect(regionOverride);
+
+  if (still) return;
 
   /* Seeded randomness: each page keeps its own regulars */
   function seedFrom(str) {
@@ -611,16 +624,33 @@
     /* wire birds keep individual distance; take the next free perch */
     var taken = [];
     flock.forEach(function (b) { if (b.slot != null) taken.push(b.slot); });
-    var slot = SLOTS[idx % SLOTS.length];
+    /* the distance is a bird's width, so it is wider on a narrow wire */
+    var need = Math.max(0.075, 34 / (wire.getBoundingClientRect().width || 1200));
+    var slot = null;
     for (var si = 0; si < SLOTS.length; si++) {
       var cand = SLOTS[(idx + si) % SLOTS.length];
       var clear = true;
       for (var ti = 0; ti < taken.length; ti++) {
-        if (Math.abs(taken[ti] - cand) < 0.075) { clear = false; break; }
+        if (Math.abs(taken[ti] - cand) < need) { clear = false; break; }
       }
       if (clear) { slot = cand; break; }
     }
-    var rng = seedFrom(location.pathname + ':' + (idx % SLOTS.length));
+    if (slot == null) {
+      /* every regular perch is crowded: land in the middle of the
+         widest stretch of wire still open, never on another bird */
+      var edges = [0.06].concat(taken.slice().sort(function (a, b) { return a - b; }), [0.94]);
+      var widest = 0;
+      slot = SLOTS[idx % SLOTS.length];
+      for (var ei = 1; ei < edges.length; ei++) {
+        if (edges[ei] - edges[ei - 1] > widest) {
+          widest = edges[ei] - edges[ei - 1];
+          slot = (edges[ei] + edges[ei - 1]) / 2;
+        }
+      }
+    }
+    /* the perch number leads the seed: with the path first, neighbouring
+       perches drew the same few species in the same order */
+    var rng = seedFrom((idx % SLOTS.length) + ':' + location.pathname);
     var el = document.createElement('span');
     el.className = 'wire-bird';
     var born = makeBorb(rng);
