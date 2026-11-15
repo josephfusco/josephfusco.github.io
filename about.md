@@ -16,4 +16,4 @@ Access to justice is the other thing I care about. [LexGrade](https://lexgrade.o
 
 [Mashable](https://mashable.com/archive/teach-yourself-programming) and [Treehouse](https://teamtreehouse.com/stories/joe-fusco) covered the career change in 2015.
 
-The rest is amateur arboriculture, and being a dad. The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015.
+The rest is amateur arboriculture, and being a dad. I'm an Eagle Scout. The desk itself is cataloged on the [uses page](/uses), last inventoried in 2015.
