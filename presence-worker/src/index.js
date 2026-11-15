@@ -1,7 +1,8 @@
 /* Presence relay on Cloudflare Durable Objects.
    One PresenceRoom per page path. Live cursors relay over hibernating
-   WebSockets, in the moment. Nothing is stored: no paths, no IPs,
-   no user agents, no identifiers. */
+   WebSockets, in the moment and never stored. The lobby keeps one
+   thing: a head count per page path, dropped minutes after the page
+   empties. No IPs, no user agents, nothing about a reader. */
 import { DurableObject } from "cloudflare:workers";
 import REGISTRY from "../../presence-server/registry.json";
 
