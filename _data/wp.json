@@ -1,6 +1,18 @@
 {
   "activity": [
     {
+      "date": "2026-11-16",
+      "subject": "",
+      "url": "https://github.com/WordPress/wordpress-playground/pull/4574",
+      "what": "Closed pull request #4574 on WordPress/wordpress-playground: Publish versioned php-wasm runtimes on playground.wordpress.net"
+    },
+    {
+      "date": "2026-11-16",
+      "subject": "",
+      "url": "https://make.wordpress.org/core/2026/11/16/wordpress-notifications-and-declared-intent-proposal-for-the-path-forward/#comment-49738",
+      "what": "Wrote a comment on the post WordPress notifications and declared intent: proposal for the path forward, on the site Make WordPress Core: Thanks for writing this up, Jonathan. I maintain the Presence API feature plugin, and one…"
+    },
+    {
       "date": "2026-11-11",
       "subject": "Update to version 0.20.2 from GitHub",
       "url": "https://plugins.trac.wordpress.org/changeset/3796925/",
@@ -125,12 +137,6 @@
       "subject": "fix: keep the stale-screen notice's time current",
       "url": "https://github.com/WordPress/presence-api/pull/930",
       "what": "Merged a pull request in WordPress/presence-api"
-    },
-    {
-      "date": "2026-11-05",
-      "subject": "Publish versioned php-wasm runtimes on playground.wordpress.net",
-      "url": "https://github.com/WordPress/wordpress-playground/pull/4574",
-      "what": "Opened a pull request in WordPress/wordpress-playground"
     },
     {
       "date": "2026-11-05",
@@ -1099,5 +1105,5 @@
       "what": "Closed issue #749 on the WordPress/presence-api repository: Nothing in the plugin uses its own React hook"
     }
   ],
-  "fetched": "2026-11-15"
+  "fetched": "2026-11-16"
 }
