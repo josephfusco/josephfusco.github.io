@@ -12,6 +12,8 @@ A post starts in `_drafts/` with no date in its filename. It shows locally with 
 
 GitHub labels in a post are an include: `{% include label.html name="[Area] CLI" color="FEF298" %}`, with `dark=true` for a dark color.
 
+A source cited in a post is linked where it is mentioned, followed by its Wayback Machine snapshot: `[title](url) ([archived](https://web.archive.org/web/…))`.
+
 # Tests
 
 ```sh
