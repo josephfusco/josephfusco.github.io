@@ -8,7 +8,7 @@ title: About
 
 I'm Joe Fusco, a software engineer. I build things with what I know.
 
-I love being a dad. My daughter and I are having fun developing a game together.
+I love being a dad. My daughter and I are having fun developing a game together, [Catwalk Clash](https://catwalkclash.com).
 
 <div>
 <figure class="about-snapshot">
