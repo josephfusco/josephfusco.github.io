@@ -2380,28 +2380,58 @@ body.design { font-variant-numeric: lining-nums; }
   font-variant-numeric: lining-nums tabular-nums;
 }
 
-/* ---- The tree at the foot of the page ----
-   A silhouette, made once by script/build-tree.py: a maple above the
-   ground, grown by one rule, standing on its root flare. The bottom of
-   the page is its ground. It is ink, as the birds are, in the left
-   margin, and only where the margin can hold it without touching the
-   text. */
-.margin-tree { display: none; }
+/* ---- The grove at the foot of the page ----
+   Silhouettes, made once by script/build-tree.py: maples above the
+   ground, each grown by one rule, standing on their root flares. The
+   bottom of the page is their ground. They are ink, as the birds are,
+   and they stand in the two margins, staggered, only where a margin can
+   hold them without touching the text. The smaller ones are further
+   off, so their ink is thinner.
+
+   Each takes colour when a hand comes near it. The wash is a second
+   picture under the ink: a maple in autumn, in watercolour. --near runs
+   from 0 to 1 as the pointer approaches a tree, and the colour spreads
+   out from its trunk as it rises. Once painted, it stays painted. */
+@property --near {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+.grove { display: none; }
 @media (min-width: 80rem) {
   .site-footer { position: relative; }
-  .margin-tree {
-    /* the margin, less the room the footer's own column takes */
+  .grove {
+    /* a margin, less the room the footer's own column takes */
     --free: calc((100vw - 54rem) / 2 - 1.75rem);
     display: block;
     position: absolute;
-    left: 1.25rem;
-    bottom: 0;
-    width: min(var(--free), 20rem);
-    height: auto;
+    inset: auto 0 0 0;
+    height: 0;
     pointer-events: none;
     user-select: none;
   }
+  .margin-tree {
+    position: absolute;
+    bottom: 0;
+    width: calc(min(var(--free), 26rem) * var(--wide));
+    transition: --near 1400ms ease-out;
+  }
+  .margin-tree.turned { scale: -1 1; }
+  .margin-tree img { display: block; width: 100%; height: auto; }
+  .margin-tree .tree-ink { opacity: var(--ink); }
+  .margin-tree .tree-wash {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: multiply;
+    opacity: calc(0.25 + var(--near) * 0.75);
+    --edge: calc(var(--near) * 135%);
+    mask-image: radial-gradient(circle at 50% 72%, #000 calc(var(--edge) - 26%), transparent var(--edge));
+    -webkit-mask-image: radial-gradient(circle at 50% 72%, #000 calc(var(--edge) - 26%), transparent var(--edge));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .margin-tree { transition: none; }
+  }
 }
 @media print {
-  .margin-tree { display: none; }
+  .grove { display: none; }
 }
