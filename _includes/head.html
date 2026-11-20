@@ -68,8 +68,8 @@
 		"citation": [{% for work in page.citations %}
 			{
 				"@type": {{ work.type | default: 'CreativeWork' | jsonify }},
-				"name": {{ work.name | jsonify }},
-				"author": [{% for name in work.authors %}{ "@type": "Person", "name": {{ name | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endfor %}],{% if work.publisher %}
+				"name": {{ work.name | jsonify }},{% if work.authors %}
+				"author": [{% for name in work.authors %}{ "@type": "Person", "name": {{ name | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endfor %}],{% endif %}{% if work.publisher %}
 				"publisher": { "@type": "Organization", "name": {{ work.publisher | jsonify }} },{% endif %}{% if work.date %}
 				"datePublished": {{ work.date | jsonify }},{% endif %}{% if work.archive %}
 				"archivedAt": {{ work.archive | jsonify }},{% endif %}

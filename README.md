@@ -1,6 +1,6 @@
 # [https://josephfus.co](https://josephfus.co)
 
-A simple portfolio theme powered by [jekyll](https://jekyllrb.com/).
+The source for josephfus.co, built with [Jekyll](https://jekyllrb.com/).
 
 # Development
 

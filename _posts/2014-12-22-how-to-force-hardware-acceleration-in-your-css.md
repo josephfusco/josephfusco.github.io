@@ -38,7 +38,7 @@ JavaScript should be used when you need control over your animations, such as pa
 
 ## Comparison
 
-Below you can see both hardware accelerated CSS, non-hardware accelerated CSS, and jQuery animations side by side. We can see that simply using a translate instead of left does the exact same thing, but offers a mode stable and fluid slide, although very subtle on this level.
+Below you can see both hardware accelerated CSS, non-hardware accelerated CSS, and jQuery animations side by side. We can see that simply using a translate instead of left does the exact same thing, but offers a more stable and fluid slide, although very subtle on this level.
 
 <p data-height="268" data-theme-id="7049" data-slug-hash="OPRpPM" data-default-tab="result" data-user="fusco" class='codepen'>See the Pen <a href='http://codepen.io/fusco/pen/OPRpPM/'>Animation Experiment with Hardware Acceleration</a> by Joseph Fusco (<a href='http://codepen.io/fusco'>@fusco</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
