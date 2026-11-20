@@ -1,18 +1,26 @@
 #!/usr/bin/env python3
-"""Draw the tree at the foot of the page: a maple above the ground, grown
-by one rule, as a silhouette in ink, like the birds on the wire.
+"""Draw the grove at the foot of the page: maples above the ground, each
+grown by one rule, as silhouettes in ink, like the birds on the wire,
+with a watercolour wash of autumn that the page lays over each one.
 
     python3 script/build-tree.py
 
-Writes assets/images/tree.svg (the drawing) and _includes/tree.html (the
-tag that places it). The same rule is applied at every fork, so the tree
-is a fractal. Each fork then strays a little from the rule, by a fixed
-seed, the way a living limb strays from its plan; without that, limbs
-run parallel and cross, and the tree reads as a diagram of pipes.
+Writes, for each tree, assets/images/tree-<name>.svg (the ink) and
+assets/images/tree-<name>-wash.svg (the colour), and _includes/tree.html
+(the tags that stand them along the bottom of the page).
+
+The same rule is applied at every fork, so each tree is a fractal. Each
+fork then strays a little from the rule, by a fixed seed, the way a
+living limb strays from its plan; without that, limbs run parallel and
+cross, and the tree reads as a diagram of pipes. A different seed is a
+different tree with the same habits.
 
 The rule, and where it comes from:
-  - A limb runs, then carries on as a leader and leaves one pair of side
-    limbs, opposite each other, the way a maple branches.
+  - A maple grown in the open has no single leader low down. Its first
+    forks are between equals: three stems of the same wood, spread wide,
+    which is what makes the crown broad and round.
+  - Above those, a limb runs, then carries on as a leader and leaves one
+    pair of side limbs, opposite each other, the way a maple branches.
   - The pair leaves at 36 degrees, the angle of the golden triangle.
   - The leader is 1/sqrt(phi) the length of the limb it continues, and
     each side limb is 1/phi, where phi is the golden ratio.
@@ -37,106 +45,205 @@ SIDE_WIDTH = math.sqrt(1 / PHI ** 2 / 2)        # each takes half of 1/phi^2
 INK = "#23201a"
 SCAFFOLD = 2         # the first forks are between equals, as in a maple
 SCAFFOLD_ANGLE = math.radians(33)
-SHORTEST = 17        # a twig shorter than this is not drawn
-SEED = 630
 TRUNK = 112          # the length of the first limb above the trunk
 GIRTH = 46           # the width of the trunk where the crown begins
 RISE = 150           # the height of the trunk, from the ground to the crown
+PAD = 64             # room for the colour, which goes past the twigs
+# A maple in autumn: the oranges the site already uses, and the golds and
+# reds beside them. No two trees turn alike, so each has its own mix.
+ORANGE = ["#b8420f", "#d2691e", "#e09f3e", "#c8553d", "#e9b44c", "#9c2f1a"]
+RED = ["#9c2f1a", "#b8420f", "#c8553d", "#a83a2a", "#d2691e"]
+GOLD = ["#e9b44c", "#e09f3e", "#d9a441", "#d2691e", "#c98a2b"]
+TURNING = ["#a8a04a", "#c9b458", "#e09f3e", "#8f9a4c", "#d2691e"]
 
-limbs = defaultdict(list)
-box = [0.0, 0.0, 0.0, 0.0]
+# The trees. A tree that will stand small is drawn with fewer twigs, since
+# the finest of them would not show; shortest is the twig length below
+# which nothing is drawn.
+TREES = [
+    {"name": "a", "seed": 630, "shortest": 17, "washes": ORANGE},
+    {"name": "b", "seed": 2004, "shortest": 24, "washes": RED},
+    {"name": "c", "seed": 36, "shortest": 31, "washes": GOLD},
+    {"name": "d", "seed": 1618, "shortest": 21, "washes": TURNING},
+    {"name": "e", "seed": 144, "shortest": 29, "washes": ORANGE},
+]
 
-
-def limb(x, y, angle, length, width, fork=0, path="0"):
-    if length < SHORTEST:
-        return
-    # each limb strays by its own place in the tree, not by the order it
-    # was drawn in, so leaving the finest twigs out changes nothing else
-    rng = random.Random(f"{SEED}/{path}")
-
-    def stray(amount):
-        return 1 + rng.uniform(-amount, amount)
-
-    x2 = x + math.sin(angle) * length
-    y2 = y - math.cos(angle) * length
-    box[0], box[1] = min(box[0], x2), min(box[1], y2)
-    box[2], box[3] = max(box[2], x2), max(box[3], y2)
-    # a limb is not ruled: it bows, and a leaning one bows upward
-    bow = (rng.uniform(-0.05, 0.05) - math.sin(angle) * 0.1) * length
-    cx = (x + x2) / 2 + math.cos(angle) * bow
-    cy = (y + y2) / 2 + math.sin(angle) * bow
-    limbs[round(max(width, 1.0), 1)].append(f"M{x:.0f},{y:.0f}Q{cx:.0f},{cy:.0f} {x2:.0f},{y2:.0f}")
-    turn = rng.uniform(-0.12, 0.12)
-    if fork < SCAFFOLD:
-        # A maple grown in the open has no single leader low down. Its
-        # first forks are between equals: three stems of the same wood,
-        # spread wide, which is what makes the crown broad and round.
-        # Leonardo's rule still holds: three thirds of the cross-section.
-        for lean in (-1, 0, 1):
-            limb(
-                x2, y2, angle + turn + lean * SCAFFOLD_ANGLE * stray(0.15),
-                length * (1.08 if lean == 0 else 0.98) * stray(0.08), width * math.sqrt(1 / 3), fork + 1,
-                f"{path}{lean + 1}",
-            )
-        return
-    limb(x2, y2, angle + turn, length * LEADER_LENGTH * stray(0.06), width * LEADER_WIDTH, fork + 1, path + "1")
-    limb(x2, y2, angle + turn - ANGLE * stray(0.22), length * SIDE_LENGTH * stray(0.1), width * SIDE_WIDTH, fork + 1, path + "0")
-    limb(x2, y2, angle + turn + ANGLE * stray(0.22), length * SIDE_LENGTH * stray(0.1), width * SIDE_WIDTH, fork + 1, path + "2")
+# Where they stand: a forest along the bottom of the page. Each side of
+# the page has a margin, and a tree's width and its distance in from the
+# edge are fractions of that margin. Each margin is planted three rows
+# deep. The far row is many small trees in thin ink, the middle row fewer
+# and larger, and the near row two or three at full size and full ink.
+# The rows are set down far to near, so the nearer trees stand in front.
+# Between the margins the far row carries on across the page as a tree
+# line, kept low where the footer's own words are. Some trees are turned
+# to face the other way, so the same tree is not seen twice.
+plant = random.Random("forest/630")
+NAMES = ["a", "b", "c", "d", "e"]
+SMALL = ["b", "c", "e"]              # the ones drawn with few twigs
 
 
-# The crown grows from the top of the trunk, at the origin.
-limb(0, 0, 0, TRUNK, GIRTH)
-
-# The trunk, and the flare where it meets the ground: one shape.
-ground = RISE
-half = GIRTH / 2
-flare = (
-    f"M{-half},-2 "
-    f"C{-half - 2},{RISE - 110} {-half - 12},{RISE - 34} {-half - 70},{ground} "
-    f"H{half + 70} "
-    f"C{half + 12},{RISE - 34} {half + 2},{RISE - 110} {half},-2 Z"
-)
-# The sheet is cut to the drawing, and its bottom edge is the ground.
-reach = max(-box[0], box[2])
-pad = 20
-left, top = math.floor(-reach - pad), math.floor(box[1] - pad)
-wide, tall = math.ceil(2 * reach + 2 * pad), math.ceil(ground - top)
+def row(side, count, widths, inks, names, span=(0.0, 1.0)):
+    out = []
+    for i in range(count):
+        width = plant.uniform(*widths)
+        at = span[0] + (span[1] - span[0] - width * 0.6) * (i + plant.uniform(0.15, 0.85)) / count
+        out.append((plant.choice(names), side, round(at, 3), round(width, 3), round(plant.uniform(*inks), 2), plant.random() < 0.5))
+    plant.shuffle(out)
+    return out
 
 
-def strokes():
-    return "".join(
+GROVE = []
+for side in ("left", "right"):
+    GROVE += row(side, 7, (0.15, 0.24), (0.22, 0.34), SMALL, (0.0, 1.15))
+for i in range(15):
+    # the tree line: from one margin to the other, lower under the footer
+    at = 0.215 + i * 0.039 + plant.uniform(-0.008, 0.008)
+    low = at > 0.56
+    GROVE.append((plant.choice(SMALL), "page", round(at, 4), round(plant.uniform(0.07, 0.1) if low else plant.uniform(0.1, 0.17), 3),
+                  round(plant.uniform(0.18, 0.3), 2), plant.random() < 0.5))
+for side in ("left", "right"):
+    GROVE += row(side, 5, (0.3, 0.46), (0.5, 0.7), ["b", "d", "e", "c"], (0.0, 1.05))
+GROVE += [
+    ("d", "left", 0.50, 0.56, 0.86, True),
+    ("a", "left", 0.06, 0.88, 1.00, False),
+    ("b", "right", 0.58, 0.50, 0.84, True),
+    ("d", "right", 0.10, 0.78, 0.97, False),
+]
+
+ROOT = Path(__file__).resolve().parent.parent
+IMAGES = ROOT / "assets" / "images"
+
+
+def grow(seed, shortest):
+    limbs = defaultdict(list)
+    tips = []            # where the twigs end, which is where the leaves are
+    box = [0.0, 0.0, 0.0, 0.0]
+
+    def limb(x, y, angle, length, width, fork=0, path="0"):
+        if length < shortest:
+            return
+        # each limb strays by its own place in the tree, not by the order
+        # it was drawn in, so leaving the finest twigs out changes nothing
+        rng = random.Random(f"{seed}/{path}")
+
+        def stray(amount):
+            return 1 + rng.uniform(-amount, amount)
+
+        x2 = x + math.sin(angle) * length
+        y2 = y - math.cos(angle) * length
+        box[0], box[1] = min(box[0], x2), min(box[1], y2)
+        box[2], box[3] = max(box[2], x2), max(box[3], y2)
+        # a limb is not ruled: it bows, and a leaning one bows upward
+        bow = (rng.uniform(-0.05, 0.05) - math.sin(angle) * 0.1) * length
+        cx = (x + x2) / 2 + math.cos(angle) * bow
+        cy = (y + y2) / 2 + math.sin(angle) * bow
+        limbs[round(max(width, 1.0), 1)].append(f"M{x:.0f},{y:.0f}Q{cx:.0f},{cy:.0f} {x2:.0f},{y2:.0f}")
+        if width < 2.6:
+            tips.append((x2, y2))
+        turn = rng.uniform(-0.12, 0.12)
+        if fork < SCAFFOLD:
+            for lean in (-1, 0, 1):
+                limb(
+                    x2, y2, angle + turn + lean * SCAFFOLD_ANGLE * stray(0.15),
+                    length * (1.08 if lean == 0 else 0.98) * stray(0.08), width * math.sqrt(1 / 3),
+                    fork + 1, f"{path}{lean + 1}",
+                )
+            return
+        limb(x2, y2, angle + turn, length * LEADER_LENGTH * stray(0.06), width * LEADER_WIDTH, fork + 1, path + "1")
+        limb(x2, y2, angle + turn - ANGLE * stray(0.22), length * SIDE_LENGTH * stray(0.1), width * SIDE_WIDTH, fork + 1, path + "0")
+        limb(x2, y2, angle + turn + ANGLE * stray(0.22), length * SIDE_LENGTH * stray(0.1), width * SIDE_WIDTH, fork + 1, path + "2")
+
+    # The crown grows from the top of the trunk, at the origin.
+    limb(0, 0, 0, TRUNK, GIRTH)
+    return limbs, tips, box
+
+
+def draw(tree):
+    limbs, tips, box = grow(tree["seed"], tree["shortest"])
+
+    # The trunk, and the flare where it meets the ground: one shape.
+    ground = RISE
+    half = GIRTH / 2
+    flare = (
+        f"M{-half},-2 "
+        f"C{-half - 2},{RISE - 110} {-half - 12},{RISE - 34} {-half - 70},{ground} "
+        f"H{half + 70} "
+        f"C{half + 12},{RISE - 34} {half + 2},{RISE - 110} {half},-2 Z"
+    )
+    # The sheet is cut to the drawing, and its bottom edge is the ground.
+    reach = max(-box[0], box[2])
+    left, top = math.floor(-reach - PAD), math.floor(box[1] - PAD)
+    wide, tall = math.ceil(2 * reach + 2 * PAD), math.ceil(ground - top)
+    sheet = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{left} {top} {wide} {tall}" width="{wide}" height="{tall}">'
+
+    strokes = "".join(
         f'<path stroke-width="{width}" d="{"".join(limbs[width])}"/>'
         for width in sorted(limbs, reverse=True)
     )
+    ink = IMAGES / f"tree-{tree['name']}.svg"
+    ink.write_text("\n".join([
+        sheet,
+        "<defs>",
+        # an edge cut in ink on a toothed sheet is never quite straight
+        '<filter id="pen" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">',
+        '<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="tooth"/>',
+        '<feDisplacementMap in="SourceGraphic" in2="tooth" scale="3" xChannelSelector="R" yChannelSelector="G" result="line"/>',
+        '<feGaussianBlur in="line" stdDeviation="0.3" result="wet"/>',
+        '<feComponentTransfer in="wet"><feFuncA type="linear" slope="1.8" intercept="-0.1"/></feComponentTransfer>',
+        "</filter>",
+        "</defs>",
+        f'<g filter="url(#pen)" fill="none" stroke="{INK}" stroke-linecap="round" stroke-linejoin="round">',
+        f'<path d="{flare}" fill="{INK}" stroke="none"/>',
+        strokes,
+        "</g>",
+        "</svg>",
+    ]) + "\n")
+
+    # The colour: one dab of wash for every few twig ends, each thin enough
+    # to show the ones under it. The filter gives a wash its uneven edge.
+    paint = random.Random(f"{tree['seed']}/wash")
+    every = max(1, len(tips) // 200)
+    dabs = [
+        f'<circle cx="{x + paint.uniform(-14, 14):.0f}" cy="{y + paint.uniform(-14, 14):.0f}" '
+        f'r="{paint.uniform(30, 66):.0f}" fill="{paint.choice(tree['washes'])}" opacity="{paint.uniform(0.16, 0.34):.2f}"/>'
+        for i, (x, y) in enumerate(tips) if i % every == 0
+    ]
+    wash = IMAGES / f"tree-{tree['name']}-wash.svg"
+    wash.write_text("\n".join([
+        sheet,
+        '<filter id="wash" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">',
+        '<feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="12" result="water"/>',
+        '<feDisplacementMap in="SourceGraphic" in2="water" scale="70" xChannelSelector="R" yChannelSelector="G" result="bloom"/>',
+        '<feGaussianBlur in="bloom" stdDeviation="3.4"/>',
+        "</filter>",
+        '<g filter="url(#wash)" style="mix-blend-mode:multiply">',
+        *dabs,
+        "</g>",
+        "</svg>",
+    ]) + "\n")
+
+    count = sum(len(v) for v in limbs.values())
+    print(f"tree-{tree['name']}: {count} limbs, {len(dabs)} dabs, {wide} by {tall}, "
+          f"{ink.stat().st_size // 1024} + {wash.stat().st_size // 1024} KB")
+    return wide, tall
 
 
-parts = [
-    f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{left} {top} {wide} {tall}" width="{wide}" height="{tall}">',
-    "<defs>",
-    # an edge cut in ink on a toothed sheet is never quite straight
-    '<filter id="pen" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">',
-    '<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="tooth"/>',
-    '<feDisplacementMap in="SourceGraphic" in2="tooth" scale="3" xChannelSelector="R" yChannelSelector="G" result="line"/>',
-    '<feGaussianBlur in="line" stdDeviation="0.3" result="wet"/>',
-    '<feComponentTransfer in="wet"><feFuncA type="linear" slope="1.8" intercept="-0.1"/></feComponentTransfer>',
-    "</filter>",
-    "</defs>",
-    f'<g filter="url(#pen)" fill="none" stroke="{INK}" stroke-linecap="round" stroke-linejoin="round">',
-    f'<path d="{flare}" fill="{INK}" stroke="none"/>',
-    strokes(),
-    "</g>",
-    "</svg>",
-]
+sizes = {tree["name"]: draw(tree) for tree in TREES}
 
-root_dir = Path(__file__).resolve().parent.parent
-svg = root_dir / "assets" / "images" / "tree.svg"
-svg.write_text("\n".join(parts) + "\n")
-
-include = root_dir / "_includes" / "tree.html"
-include.write_text(
-    "{% comment %}Written by script/build-tree.py. The drawing is decoration and says nothing to a screen reader.{% endcomment %}\n"
-    f"<img class=\"margin-tree\" src=\"{{{{ '/assets/images/tree.svg' | relative_url }}}}\" alt=\"\" aria-hidden=\"true\" "
-    f"width=\"{wide}\" height=\"{tall}\" loading=\"lazy\" decoding=\"async\">\n"
+stands = []
+for name, side, edge, width, ink, turned in GROVE:
+    wide, tall = sizes[name]
+    classes = "margin-tree" + (" turned" if turned else "")
+    place = f"left:{edge * 100:g}vw" if side == "page" else f"{side}:calc(var(--free) * {edge})"
+    stands.append(
+        f'\t<div class="{classes}" data-tree style="--wide:{width};--ink:{ink};{place}">\n'
+        f"\t\t<img class=\"tree-wash\" src=\"{{{{ '/assets/images/tree-{name}-wash.svg' | relative_url }}}}\" alt=\"\" "
+        f"width=\"{wide}\" height=\"{tall}\" loading=\"lazy\" decoding=\"async\">\n"
+        f"\t\t<img class=\"tree-ink\" src=\"{{{{ '/assets/images/tree-{name}.svg' | relative_url }}}}\" alt=\"\" "
+        f"width=\"{wide}\" height=\"{tall}\" loading=\"lazy\" decoding=\"async\">\n"
+        "\t</div>"
+    )
+(ROOT / "_includes" / "tree.html").write_text(
+    "{% comment %}Written by script/build-tree.py. The grove is decoration and says nothing to a screen reader.{% endcomment %}\n"
+    '<div class="grove" aria-hidden="true">\n' + "\n".join(stands) + "\n</div>\n"
 )
-count = sum(len(v) for v in limbs.values())
-print(f"{svg.name}: {count} limbs, {wide} by {tall}, {svg.stat().st_size // 1024} KB")
+print(f"tree.html: {len(stands)} trees")

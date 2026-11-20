@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-499 -780 998 930" width="998" height="930">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-543 -824 1086 974" width="1086" height="974">
 <defs>
 <filter id="pen" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
 <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="tooth"/>

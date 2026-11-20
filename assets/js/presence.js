@@ -538,6 +538,42 @@
   }
   offerWire();
 
+  /* The trees at the foot of the page take colour as a hand comes near.
+     How near is handed to the stylesheet as --near, from 0 to 1, tree
+     by tree, and the stylesheet does the painting. Once a tree is fully
+     painted it is left that way. */
+  (function () {
+    var trees = [].slice.call(document.querySelectorAll('[data-tree]'));
+    if (!trees.length || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var queued = false;
+    var at = null;
+    var forest = document.querySelector('.grove');
+    function measure() {
+      queued = false;
+      /* the forest is at the foot of the page; until it is on screen
+         there is nothing to measure */
+      if (forest && forest.getBoundingClientRect().top > window.innerHeight + 600) return;
+      trees = trees.filter(function (tree) {
+        var r = tree.getBoundingClientRect();
+        if (!r.width || r.top > window.innerHeight || r.bottom < 0) return true;
+        var dx = at.x - (r.left + r.width / 2);
+        var dy = at.y - (r.top + r.height * 0.55);
+        var reach = Math.max(r.width, r.height, 150);
+        var near = Math.max(0, Math.min(1, 1.35 - Math.sqrt(dx * dx + dy * dy) / (reach * 1.6)));
+        tree.style.setProperty('--near', near.toFixed(3));
+        return near < 1;
+      });
+    }
+    document.addEventListener('pointermove', function (e) {
+      if (!trees.length || e.pointerType === 'touch') return;
+      at = { x: e.clientX, y: e.clientY };
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(measure);
+      }
+    }, { passive: true });
+  })();
+
   /* Flight styles as data: [progress, fx, fy, rotate, opacity, scale].
      Every flight opens with the crouch: birds push off before they rise. */
   var FLIGHTS = [
