@@ -405,9 +405,52 @@
     flock.forEach(function (b) { if (!b.flown) load += (b.weight || 1); });
     var span = WIRE_GEOM.maxSag - WIRE_GEOM.minSag;
     currentSag = WIRE_GEOM.minSag + span * (1 - Math.exp(-load / WIRE_GEOM.halfLoad));
-    if (wirePathEl) {
-      wirePathEl.style.d = 'path("M0 ' + WIRE_GEOM.y + ' Q 50 ' + (WIRE_GEOM.y + currentSag) + ' 100 ' + WIRE_GEOM.y + '")';
+    drawWire();
+    placeBirds();
+  }
+
+  /* A hand on the wire. Whoever takes hold of it pulls it out of its
+     sag at the point they took, up or down, and no further than a wire
+     gives. t is where along the span; pull is how far, in wire units. */
+  var WIRE_PULL = { range: 4.2, limit: 2.4 };
+  var held = null;
+  var wireGrip = null;
+
+  /* The wire is one curve with one control point. At rest it hangs
+     under the middle of the span; held, it leans toward the hand. */
+  function wireControl(grip) {
+    var g = grip || held;
+    var c = { x: 50, y: WIRE_GEOM.y + currentSag };
+    if (g) {
+      c.x = 50 + (g.t * 100 - 50) * 0.8;
+      /* a curve passes half as far as its control point is moved */
+      c.y += g.pull * 2;
     }
+    return c;
+  }
+
+  function wirePath(grip) {
+    var c = wireControl(grip);
+    return 'path("M0 ' + WIRE_GEOM.y + ' Q ' + c.x.toFixed(2) + ' ' + c.y.toFixed(2) + ' 100 ' + WIRE_GEOM.y + '")';
+  }
+
+  /* how high the wire stands at a point along the span, in wire units */
+  function wireHeight(t, grip) {
+    var c = wireControl(grip);
+    var x = t * 100;
+    var a = 100 - 2 * c.x;
+    var u = Math.abs(a) < 0.001 ? x / 100 : (-2 * c.x + Math.sqrt(4 * c.x * c.x + 4 * a * x)) / (2 * a);
+    return WIRE_GEOM.y + 2 * u * (1 - u) * (c.y - WIRE_GEOM.y);
+  }
+
+  function drawWire() {
+    if (!wirePathEl) return;
+    var d = wirePath();
+    wirePathEl.style.d = d;
+    if (wireGrip) wireGrip.style.d = d;
+  }
+
+  function placeBirds() {
     flock.forEach(function (b) {
       if (b.flown || !b.el || b.slot == null) return;
       var pt = curvePoint(b.slot);
@@ -415,6 +458,85 @@
       b.el.style.top = (pt.top + b.topAdj) + 'px';
     });
   }
+
+  function wireUnit() {
+    var box = wirePathEl ? wirePathEl.ownerSVGElement.getBoundingClientRect().height : 0;
+    return box ? box / 20 : WIRE_GEOM.scale;
+  }
+
+  /* Let go, and the wire swings back through its rest and settles,
+     each swing smaller than the last. The birds ride it. */
+  var WIRE_SWING = [1, -0.56, 0.31, -0.17, 0.08, 0];
+  function releaseWire() {
+    if (!held) return;
+    var was = { t: held.t, pull: held.pull };
+    held = null;
+    wire.classList.remove('held', 'at-limit');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (still || Math.abs(was.pull) < 0.15) {
+      drawWire();
+      placeBirds();
+      return;
+    }
+    var swings = WIRE_SWING.map(function (k, i) {
+      /* as it settles, the bend drifts back under the middle of the span */
+      var back = i / (WIRE_SWING.length - 1);
+      return { t: was.t + (0.5 - was.t) * back, pull: was.pull * k };
+    });
+    var timing = { duration: 620 + Math.abs(was.pull) * 110, easing: 'ease-out' };
+    var paths = swings.map(function (s) { return { d: wirePath(s) }; });
+    drawWire();
+    wirePathEl.animate(paths, timing);
+    if (wireGrip) wireGrip.animate(paths, timing);
+    var unit = wireUnit();
+    wire.classList.add('swinging');
+    flock.forEach(function (b) {
+      if (b.flown || !b.el || b.slot == null) return;
+      var rest = wireHeight(b.slot, null);
+      b.el.animate(swings.map(function (s) {
+        return { transform: 'translateY(' + ((wireHeight(b.slot, s) - rest) * unit).toFixed(2) + 'px)' };
+      }), timing);
+    });
+    placeBirds();
+    setTimeout(function () { wire.classList.remove('swinging'); }, timing.duration);
+  }
+
+  /* The wire can be taken hold of with a mouse or a pen. A finger on a
+     phone is scrolling the page, and is left to. */
+  function offerWire() {
+    if (!wirePathEl || wireGrip) return;
+    wireGrip = wirePathEl.cloneNode(false);
+    wireGrip.setAttribute('class', 'wire-grip');
+    wireGrip.setAttribute('stroke', 'transparent');
+    wireGrip.setAttribute('stroke-width', '18');
+    wirePathEl.parentNode.appendChild(wireGrip);
+    wireGrip.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0 || e.pointerType === 'touch') return;
+      var box = wirePathEl.ownerSVGElement.getBoundingClientRect();
+      held = {
+        t: Math.max(0.08, Math.min(0.92, (e.clientX - box.left) / box.width)),
+        from: e.clientY,
+        unit: box.height / 20,
+        pull: 0
+      };
+      wireGrip.setPointerCapture(e.pointerId);
+      wire.classList.add('held');
+      e.preventDefault();
+    });
+    wireGrip.addEventListener('pointermove', function (e) {
+      if (!held) return;
+      var want = (e.clientY - held.from) / held.unit;
+      /* it gives easily at first and then hardly at all */
+      held.pull = WIRE_PULL.range * Math.tanh(want / WIRE_PULL.range);
+      wire.classList.toggle('at-limit', Math.abs(want) > WIRE_PULL.range * WIRE_PULL.limit);
+      drawWire();
+      placeBirds();
+    });
+    wireGrip.addEventListener('pointerup', releaseWire);
+    wireGrip.addEventListener('pointercancel', releaseWire);
+    wireGrip.addEventListener('lostpointercapture', releaseWire);
+  }
+  offerWire();
 
   /* Flight styles as data: [progress, fx, fy, rotate, opacity, scale].
      Every flight opens with the crouch: birds push off before they rise. */
@@ -605,7 +727,7 @@
   var navigatingAway = false;
 
   function curvePoint(t) {
-    var y = WIRE_GEOM.y + 2 * t * (1 - t) * currentSag;
+    var y = wireHeight(t);
     /* the wire is drawn in a 20-unit box stretched to whatever height
        its stage has (56px in the masthead, 44px on the watching page),
        so the perch is measured, not assumed */

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Draw the tree at the foot of the page: a maple above the ground, grown
-by one rule, as a pen drawing.
+by one rule, as a silhouette in ink, like the birds on the wire.
 
     python3 script/build-tree.py
 
@@ -42,8 +42,6 @@ SEED = 630
 TRUNK = 112          # the length of the first limb above the trunk
 GIRTH = 46           # the width of the trunk where the crown begins
 RISE = 150           # the height of the trunk, from the ground to the crown
-HOLLOW = 9.0         # wood at least this wide is drawn as its two edges
-EDGE = 1.6           # the weight of a pen line
 
 limbs = defaultdict(list)
 box = [0.0, 0.0, 0.0, 0.0]
@@ -98,11 +96,6 @@ flare = (
     f"H{half + 70} "
     f"C{half + 12},{RISE - 34} {half + 2},{RISE - 110} {half},-2 Z"
 )
-bark = "".join(
-    f"M{k},{26 + j}C{k},{RISE - 120} {k * 1.3},{RISE - 50} {k * e},{ground - 6}"
-    for k, e, j in [(-10, 3.4, 0), (-2, 2.0, 30), (7, 3.6, 12), (14, 3.4, 60)]
-)
-
 # The sheet is cut to the drawing, and its bottom edge is the ground.
 reach = max(-box[0], box[2])
 pad = 20
@@ -110,40 +103,27 @@ left, top = math.floor(-reach - pad), math.floor(box[1] - pad)
 wide, tall = math.ceil(2 * reach + 2 * pad), math.ceil(ground - top)
 
 
-def strokes(inset=0.0, least=0.0):
-    out = []
-    for width in sorted(limbs, reverse=True):
-        if width >= least:
-            out.append(f'<path stroke-width="{round(width - inset, 1)}" d="{"".join(limbs[width])}"/>')
-    return "".join(out)
+def strokes():
+    return "".join(
+        f'<path stroke-width="{width}" d="{"".join(limbs[width])}"/>'
+        for width in sorted(limbs, reverse=True)
+    )
 
 
 parts = [
     f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{left} {top} {wide} {tall}" width="{wide}" height="{tall}">',
     "<defs>",
-    # a pen line on a toothed sheet: never quite straight, a hair wet
+    # an edge cut in ink on a toothed sheet is never quite straight
     '<filter id="pen" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">',
     '<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="tooth"/>',
     '<feDisplacementMap in="SourceGraphic" in2="tooth" scale="3" xChannelSelector="R" yChannelSelector="G" result="line"/>',
     '<feGaussianBlur in="line" stdDeviation="0.3" result="wet"/>',
     '<feComponentTransfer in="wet"><feFuncA type="linear" slope="1.8" intercept="-0.1"/></feComponentTransfer>',
     "</filter>",
-    # the heavy limbs are drawn as their two edges: the middle is lifted out
-    f'<mask id="hollow" maskUnits="userSpaceOnUse" x="{left}" y="{top}" width="{wide}" height="{tall}">',
-    f'<rect x="{left}" y="{top}" width="{wide}" height="{tall}" fill="#fff"/>',
-    '<g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round">',
-    f'<path d="{flare}" fill="#000" stroke="#fff" stroke-width="{EDGE * 2}"/>',
-    # the trunk opens into the first limb; no line is ruled across the join
-    f'<path stroke-width="{GIRTH - EDGE * 2}" stroke-linecap="butt" d="M0,-16V16"/>',
-    strokes(inset=EDGE * 2, least=HOLLOW),
-    "</g></mask>",
     "</defs>",
     f'<g filter="url(#pen)" fill="none" stroke="{INK}" stroke-linecap="round" stroke-linejoin="round">',
-    '<g mask="url(#hollow)">',
     f'<path d="{flare}" fill="{INK}" stroke="none"/>',
     strokes(),
-    "</g>",
-    f'<path stroke-width="1.1" d="{bark}"/>',
     "</g>",
     "</svg>",
 ]

@@ -1810,6 +1810,19 @@ body {
   opacity: 0.65;
 }
 .wire-svg path { transition: d 650ms cubic-bezier(0.3, 0.9, 0.35, 1.12); }
+/* The wire can be taken hold of. The cursor says what the hand is
+   doing: open over the wire, closed on it, and refused when the wire
+   will give no more. Only a mouse or a pen may; a finger is scrolling. */
+.wire-grip { pointer-events: none; }
+@media (hover: hover) and (pointer: fine) {
+  .wire-grip { pointer-events: stroke; cursor: grab; }
+}
+.held .wire-grip { cursor: grabbing; }
+.held.at-limit .wire-grip { cursor: not-allowed; }
+/* held, the wire and its birds go where the hand goes, at once */
+.held .wire-svg path,
+.held .wire-bird,
+.swinging .wire-bird { transition: none; }
 .wire-bird {
   position: absolute;
   width: 24px;
@@ -2368,10 +2381,11 @@ body.design { font-variant-numeric: lining-nums; }
 }
 
 /* ---- The tree at the foot of the page ----
-   A pen drawing, made once by script/build-tree.py: a maple above the
+   A silhouette, made once by script/build-tree.py: a maple above the
    ground, grown by one rule, standing on its root flare. The bottom of
-   the page is its ground. It is background: thin ink in the left margin,
-   and only where the margin can hold it without touching the text. */
+   the page is its ground. It is ink, as the birds are, in the left
+   margin, and only where the margin can hold it without touching the
+   text. */
 .margin-tree { display: none; }
 @media (min-width: 80rem) {
   .site-footer { position: relative; }
@@ -2384,8 +2398,6 @@ body.design { font-variant-numeric: lining-nums; }
     bottom: 0;
     width: min(var(--free), 20rem);
     height: auto;
-    opacity: 0.22;
-    mix-blend-mode: multiply;
     pointer-events: none;
     user-select: none;
   }
