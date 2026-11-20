@@ -85,6 +85,49 @@ test('the player follows its queue to the next page', async ({ page }) => {
   await expect(page.locator('#riff .riff-bar')).toBeVisible();
 });
 
+test('while the player holds a queue a link changes the page without loading one', async ({ page }) => {
+  await riff(page);
+  await page.goto('/projects/');
+  const nav = page.locator('.site-nav');
+
+  // with no player a link loads its page
+  await page.evaluate(() => { window.same = true; });
+  await nav.getByRole('link', { name: 'About' }).click();
+  await expect(page).toHaveURL(/\/about\/?$/);
+  expect(await page.evaluate(() => window.same)).toBeUndefined();
+
+  await page.goto('/projects/');
+  await page.locator('[data-riff-tracks]').getByRole('button', { name: 'Play Joy to the World' }).click();
+  await expect(page.locator('#riff .riff-bar')).toBeVisible();
+  await page.evaluate(() => { window.same = true; });
+
+  await nav.getByRole('link', { name: 'About' }).click();
+  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(page).toHaveTitle(/About/);
+  await expect(page.locator('main h1')).toContainText('About');
+  await expect(nav.getByRole('link', { name: 'About' })).toHaveAttribute('aria-current', 'page');
+  await expect(nav.getByRole('link', { name: 'Projects' })).not.toHaveAttribute('aria-current', /.*/);
+  await expect(page.locator('[data-riff-tracks]')).toHaveCount(0);
+  // the same document, and the player still holding its track
+  expect(await page.evaluate(() => window.same)).toBe(true);
+  expect(await page.evaluate(() => window.riff.current().title)).toBe('Joy to the World');
+  // the reader's own bird is back on the wire
+  await expect(page.locator('.powerline .wire-bird')).toHaveCount(1);
+
+  // the front page's own script runs on the page brought in
+  await page.locator('.site-name').click();
+  await expect(page).toHaveURL(/127\.0\.0\.1:\d+\/$/);
+  await expect(page.locator('[data-lately] li').first()).not.toHaveClass(/skeleton/);
+  expect(await page.evaluate(() => window.same)).toBe(true);
+
+  // back, to the album and the row that plays
+  await page.goBack();
+  await page.goBack();
+  await expect(page).toHaveURL(/\/projects\/$/);
+  await expect(page.locator('[data-riff-tracks] li').nth(1)).toHaveAttribute('aria-current', 'true');
+  expect(await page.evaluate(() => window.same)).toBe(true);
+});
+
 test('with the Riff out of reach the list goes and the album link stays', async ({ page }) => {
   await page.goto('/projects/');
   await expect(page.locator('[data-riff-tracks]')).toHaveCount(0);

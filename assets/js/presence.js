@@ -54,13 +54,17 @@
   try { localStorage.removeItem('presence:off'); } catch (e) { /* fine */ }
 
   var DEV = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-  var WS_URL = (DEV ? 'ws://' + location.hostname + ':4001' : 'wss://' + location.host + '/ws')
-    + '?path=' + encodeURIComponent(location.pathname);
+  /* asked each time: the page can change without a load (riff.js) */
+  function wsURL() {
+    return (DEV ? 'ws://' + location.hostname + ':4001' : 'wss://' + location.host + '/ws')
+      + '?path=' + encodeURIComponent(location.pathname);
+  }
 
   var peers = new Map();
   var lastCountLabel = null;
   var ws = null;
   var retry = 0;
+  var retryTimer = null;
 
   var wire = document.querySelector('[data-flock-stage]') || document.querySelector('.powerline');
     /* ---- The bird factory, regional edition ----
@@ -741,6 +745,9 @@
   });
   reflectRegionSelect(regionOverride);
 
+  /* a page brought in without a load (riff.js) has specimens of its own */
+  document.addEventListener('site:page', hydrateSpecimens);
+
   if (still) return;
 
   /* Seeded randomness: each page keeps its own regulars */
@@ -1283,7 +1290,10 @@
       var dir = r && r.left + r.width / 2 > clickX ? 1 : -1;
       setTimeout(function () { flyAway(b, dir); }, Math.random() * 130);
     });
-    setTimeout(function () { location.href = a.href; }, 420);
+    /* while music plays the page changes without a load, if riff.js takes it */
+    setTimeout(function () {
+      if (!(window.siteGo && window.siteGo(a.href))) location.href = a.href;
+    }, 420);
   });
 
   function updateCount() {
@@ -1427,7 +1437,7 @@
   };
 
   function connect() {
-    try { ws = new WebSocket(WS_URL); } catch (e) { return; }
+    try { ws = new WebSocket(wsURL()); } catch (e) { return; }
 
     ws.onopen = function () {
       retry = 0;
@@ -1448,7 +1458,7 @@
       peers.forEach(function (p, k) { removePeer(k); });
       censusTotal = 0;
       updateCount();
-      if (!invisible && retry < 5) setTimeout(connect, 1000 * Math.pow(2, retry++));
+      if (!invisible && retry < 5) retryTimer = setTimeout(connect, 1000 * Math.pow(2, retry++));
     };
   }
 
@@ -1531,6 +1541,29 @@
   } else {
     beginPresence();
   }
+
+  /* A page brought in without a load: the birds that left come back,
+     and the reader moves to the new page's room */
+  document.addEventListener('site:page', function () {
+    navigatingAway = false;
+    /* the names called out on the last page stay there */
+    clearBirdIds();
+    peers.forEach(function (p, k) { removePeer(k); });
+    var mine = flock.get('self');
+    if (!mine || mine.flown) {
+      removePigeon('self');
+      addPigeon('self');
+    }
+    censusTotal = 0;
+    updateCount();
+    if (ws) {
+      ws.onclose = null;
+      ws.close();
+    }
+    clearTimeout(retryTimer);
+    retry = 0;
+    if (!invisible) connect();
+  });
 
   /* bfcache restore: the old socket is dead and retries are spent — start over */
   addEventListener('pageshow', function (e) {
