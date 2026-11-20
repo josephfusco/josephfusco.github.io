@@ -94,20 +94,10 @@ def row(side, count, widths, inks, names, span=(0.0, 1.0)):
 
 GROVE = []
 for side in ("left", "right"):
-    GROVE += row(side, 7, (0.15, 0.24), (0.22, 0.34), SMALL, (0.0, 1.15))
-# The forest thins out toward the middle of the page: no row of trees set
-# at even steps, which reads as planted, but a few loose clumps, each
-# smaller and fainter than the one before it, and then open ground.
-for start, step, clumps in ((0.215, 1, 4), (0.785, -1, 2)):
-    at = start
-    for n in range(clumps):
-        far = n / 4
-        for _ in range(plant.choice((2, 3)) if n < 3 else 1):
-            width = plant.uniform(0.15, 0.22) * (1 - far * 0.55)
-            x = at + step * plant.uniform(0, 0.022) - (0.02 if step < 0 else 0)
-            GROVE.append((plant.choice(SMALL), "page", round(x, 4), round(width, 3),
-                          round(plant.uniform(0.26, 0.34) * (1 - far * 0.4), 2), plant.random() < 0.5))
-        at += step * plant.uniform(0.045, 0.075)
+    GROVE += row(side, 9, (0.16, 0.26), (0.22, 0.36), SMALL, (0.0, 1.4))
+# The middle of the page is open ground. A full-grown tree drawn very
+# small and standing alone reads as a toy, so nothing stands there; each
+# stand's far row runs a little way in past its margin and stops.
 for side in ("left", "right"):
     GROVE += row(side, 5, (0.3, 0.46), (0.5, 0.7), ["b", "d", "e", "c"], (0.0, 1.05))
 GROVE += [
