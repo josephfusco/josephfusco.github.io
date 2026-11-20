@@ -538,16 +538,17 @@
   }
   offerWire();
 
-  /* The trees at the foot of the page take colour as a hand comes near.
-     How near is handed to the stylesheet as --near, from 0 to 1, tree
-     by tree, and the stylesheet does the painting. Once a tree is fully
-     painted it is left that way. */
+  /* The trees at the foot of the page go through their year under a
+     hand. Coming near a tree leafs it out; how near is handed to the
+     stylesheet as --near, from 0 to 1, tree by tree, and only ever
+     rises. Dragging across a tree with the button held turns it to
+     autumn. The stylesheet does the painting. */
   (function () {
     var trees = [].slice.call(document.querySelectorAll('[data-tree]'));
     if (!trees.length || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var forest = document.querySelector('.grove');
     var queued = false;
     var at = null;
-    var forest = document.querySelector('.grove');
     function measure() {
       queued = false;
       /* the forest is at the foot of the page; until it is on screen
@@ -560,13 +561,23 @@
         var dy = at.y - (r.top + r.height * 0.55);
         var reach = Math.max(r.width, r.height, 150);
         var near = Math.max(0, Math.min(1, 1.35 - Math.sqrt(dx * dx + dy * dy) / (reach * 1.6)));
-        tree.style.setProperty('--near', near.toFixed(3));
-        return near < 1;
+        if (near > (tree.nearest || 0)) {
+          tree.nearest = near;
+          tree.style.setProperty('--near', near.toFixed(3));
+        }
+        if (near >= 0.5) tree.classList.add('leafed');
+        if (at.held && near >= 0.8) {
+          tree.nearest = 1;
+          tree.style.setProperty('--near', '1');
+          tree.classList.add('leafed', 'fallen');
+          return false;
+        }
+        return true;
       });
     }
     document.addEventListener('pointermove', function (e) {
       if (!trees.length || e.pointerType === 'touch') return;
-      at = { x: e.clientX, y: e.clientY };
+      at = { x: e.clientX, y: e.clientY, held: (e.buttons & 1) === 1 };
       if (!queued) {
         queued = true;
         requestAnimationFrame(measure);
