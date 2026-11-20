@@ -2457,10 +2457,9 @@ body.design { font-variant-numeric: lining-nums; }
   }
 }
 /* Dragging across the trees would otherwise select the footer's words
-   on the way. The address can still be selected and copied. */
+   on the way. The address is a link, and still opens a letter. */
 @media (min-width: 80rem) {
   .site-footer { user-select: none; -webkit-user-select: none; }
-  .site-footer .signature-email { user-select: text; -webkit-user-select: text; }
 }
 @media print {
   .grove { display: none; }
