@@ -19,8 +19,10 @@ The rule, and where it comes from:
   - Leonardo's rule holds at every fork: the wood above a fork adds up to
     the wood below it. The leader keeps 1/phi of the cross-section and
     the pair shares the other 1/phi^2, and 1/phi + 1/phi^2 = 1.
-  - The trunk widens into a root flare, and the drawing ends at the
-    ground: the foot of the flare is the bottom edge of the sheet.
+  - The trunk widens into a root flare that stands clear of the ground.
+  - Under the ground line the roots fork by the same rule and run out
+    more than down. They take the bottom third of the sheet and run off
+    its edge.
 """
 import math
 import random
@@ -87,26 +89,75 @@ def limb(x, y, angle, length, width, fork=0, path="0"):
 # The crown grows from the top of the trunk, at the origin.
 limb(0, 0, 0, TRUNK, GIRTH)
 
-# The trunk, and the flare where it meets the ground: one shape.
+# The trunk, and the flare where it meets the ground: one shape. The
+# flare is wide and stands clear, and its foot runs on into the roots.
 ground = RISE
 half = GIRTH / 2
+FOOT = 78            # how far the flare spreads to each side at the ground
 flare = (
     f"M{-half},-2 "
-    f"C{-half - 2},{RISE - 110} {-half - 12},{RISE - 34} {-half - 70},{ground} "
-    f"H{half + 70} "
-    f"C{half + 12},{RISE - 34} {half + 2},{RISE - 110} {half},-2 Z"
+    f"C{-half - 2},{RISE - 110} {-half - 14},{RISE - 30} {-half - FOOT},{ground} "
+    f"Q0,{ground + 26} {half + FOOT},{ground} "
+    f"C{half + 14},{RISE - 30} {half + 2},{RISE - 110} {half},-2 Z"
 )
-# The sheet is cut to the drawing, and its bottom edge is the ground.
+
+# The sheet is cut to the crown. Two thirds of it is above the ground and
+# one third below: the roots run off its bottom edge, which is the bottom
+# of the page.
 reach = max(-box[0], box[2])
 pad = 20
 left, top = math.floor(-reach - pad), math.floor(box[1] - pad)
-wide, tall = math.ceil(2 * reach + 2 * pad), math.ceil(ground - top)
+wide = math.ceil(2 * reach + 2 * pad)
+below = (ground - top) / 2
+bottom = ground + below
+tall = math.ceil(bottom - top)
+
+roots = defaultdict(list)
 
 
-def strokes():
+def root(x, y, angle, length, width, path):
+    """A root. The angle is measured from straight down, to the right."""
+    if length < 24 or len(path) > 7 or y > bottom + 10 or abs(x) > reach * 0.86:
+        return
+    rng = random.Random(f"{SEED}/root/{path}")
+    x2 = x + math.sin(angle) * length
+    y2 = y + math.cos(angle) * length
+    bow = rng.uniform(-0.09, 0.09) * length
+    cx = (x + x2) / 2 + math.cos(angle) * bow
+    cy = (y + y2) / 2 - math.sin(angle) * bow
+    roots[round(max(width, 1.0), 1)].append(f"M{x:.0f},{y:.0f}Q{cx:.0f},{cy:.0f} {x2:.0f},{y2:.0f}")
+    # roots run out more than they run down: each fork leans back toward
+    # a line a little under level, on its own side of the trunk
+    out = math.copysign(math.radians(54), angle if abs(angle) > 0.05 else rng.uniform(-1, 1))
+    for i, spread in enumerate((-rng.uniform(0.24, 0.52), rng.uniform(0.24, 0.52))):
+        k = angle + spread
+        k += (out - k) * 0.18
+        # two roots of equal wood, by the same rule as the limbs
+        root(x2, y2, k, length * rng.uniform(0.68, 0.82), width * math.sqrt(1 / 2), f"{path}{i}")
+
+
+for n, (dx, angle, length, width) in enumerate([
+    (-(half + FOOT) * 0.8, -1.12, 140, 17),
+    (-(half + FOOT) * 0.42, -0.58, 150, 16),
+    (0, 0.04, 110, 13),
+    ((half + FOOT) * 0.42, 0.58, 150, 16),
+    ((half + FOOT) * 0.8, 1.12, 140, 17),
+]):
+    root(dx, ground + 6, angle, length, width, str(n))
+
+# The ground: a line the flare stands on, broken where the trunk is, and
+# a few shorter lines under it that thin out, the way ground is drawn.
+edge = half + FOOT + 12
+ground_lines = "".join(
+    f"M{-reach * b:.0f},{ground + dy}H{-max(edge, reach * a):.0f}M{max(edge, reach * a):.0f},{ground + dy}H{reach * b:.0f}"
+    for dy, a, b in [(0, 0.0, 0.97), (11, 0.34, 0.8), (22, 0.5, 0.66)]
+)
+
+
+def strokes(table):
     return "".join(
-        f'<path stroke-width="{width}" d="{"".join(limbs[width])}"/>'
-        for width in sorted(limbs, reverse=True)
+        f'<path stroke-width="{width}" d="{"".join(table[width])}"/>'
+        for width in sorted(table, reverse=True)
     )
 
 
@@ -122,8 +173,10 @@ parts = [
     "</filter>",
     "</defs>",
     f'<g filter="url(#pen)" fill="none" stroke="{INK}" stroke-linecap="round" stroke-linejoin="round">',
+    strokes(roots),
+    f'<path stroke-width="2.4" d="{ground_lines}"/>',
     f'<path d="{flare}" fill="{INK}" stroke="none"/>',
-    strokes(),
+    strokes(limbs),
     "</g>",
     "</svg>",
 ]
@@ -139,4 +192,5 @@ include.write_text(
     f"width=\"{wide}\" height=\"{tall}\" loading=\"lazy\" decoding=\"async\">\n"
 )
 count = sum(len(v) for v in limbs.values())
-print(f"{svg.name}: {count} limbs, {wide} by {tall}, {svg.stat().st_size // 1024} KB")
+under = sum(len(v) for v in roots.values())
+print(f"{svg.name}: {count} limbs, {under} roots, {wide} by {tall}, {svg.stat().st_size // 1024} KB")
