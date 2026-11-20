@@ -198,7 +198,18 @@
   function bring(url, done, fail) {
     var mine = ++turn;
     var landed = url.href;
+    /* A folder asked for without its slash is sent on to the address
+       with one, and the host sends it there over http, which a page on
+       https may not fetch. So a bare path that fails is asked for
+       again as the folder it may be. */
+    var bare = !/\/$|\.[a-z0-9]+$/i.test(url.pathname);
+    var folder = url.origin + url.pathname + '/' + url.search;
     fetch(url.href, { headers: { Accept: 'text/html' } })
+      .catch(function (e) {
+        if (!bare) throw e;
+        landed = folder + url.hash;
+        return fetch(folder, { headers: { Accept: 'text/html' } });
+      })
       .then(function (r) {
         if (!r.ok || !/^text\/html/.test(r.headers.get('content-type') || '')) return Promise.reject();
         if (r.redirected && r.url.indexOf(location.origin + '/') === 0) landed = r.url.split('#')[0] + url.hash;
