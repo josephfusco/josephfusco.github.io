@@ -41,6 +41,10 @@ jobs:
           git commit -m "The WordPress record, kept" -- _data/wp.json
           git push
         continue-on-error: true
+      # the player's markup and its scripts are one version; taken afresh each build
+      - name: Take Riff's player as the Riff prints it
+        run: python3 script/build-riff.py
+        continue-on-error: true
       - run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production

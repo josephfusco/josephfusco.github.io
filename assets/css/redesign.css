@@ -2464,3 +2464,102 @@ body.design { font-variant-numeric: lining-nums; }
 @media print {
   .grove { display: none; }
 }
+
+/* ---- An album under RiffPress ----
+   The project shows itself: one album from the demo Riff, a row a
+   track, each row a line of the grid, in this page's own hand.
+   Pressing one brings Riff's player to the foot of the page
+   (riff.js), which is Riff's to style. */
+.work-riff {
+  margin-top: 0.875rem;
+  max-width: 36rem;
+  color: var(--fg);
+}
+.work-riff h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: var(--lh);
+}
+.work-riff h4 a { color: inherit; }
+.work-riff h4 a:hover { color: var(--accent); text-decoration: none; }
+.work .work-riff p { color: var(--muted); font-style: italic; font-size: 0.9375rem; }
+.work-riff-tracks {
+  list-style: none;
+  margin: 0.875rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
+}
+.work .work-riff-tracks li {
+  display: flex;
+  /* centred, not on the baseline: the smaller time must not stretch the row off the grid */
+  align-items: center;
+  height: var(--lh);
+  gap: 0.875rem;
+  padding: 0;
+  line-height: var(--lh);
+}
+.work-riff-tracks button {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.work-riff-tracks button:hover,
+.work-riff-tracks [aria-current] button { color: var(--accent); }
+.work-riff-tracks button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+/* the track's number, until the track is the one playing: then the
+   mark is what pressing the row will do */
+.work-riff-tracks .riff-mark {
+  display: inline-block;
+  position: relative;
+  width: 1.75rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.work-riff-tracks [aria-current] .riff-mark { color: transparent; }
+.work-riff-tracks [aria-current] .riff-mark::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  translate: 0 -50%;
+  width: 0.5rem;
+  height: 0.625rem;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.work-riff-tracks [aria-current] [aria-pressed="true"] .riff-mark::before {
+  clip-path: polygon(0 0, 35% 0, 35% 100%, 0 100%, 0 0, 65% 0, 100% 0, 100% 100%, 65% 100%, 65% 0);
+}
+.work-riff-tracks time {
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+/* bones hold the nine rows until the list answers */
+.riff-skeleton .bone {
+  display: inline-block;
+  width: 62%;
+  height: 0.625em;
+  border-radius: 2px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.riff-skeleton:nth-child(3n) .bone { width: 44%; }
+.riff-skeleton:nth-child(4n) .bone { width: 78%; }
+@media (prefers-reduced-motion: no-preference) {
+  .riff-skeleton .bone { animation: bone-breathe 1.6s ease-in-out infinite; }
+}

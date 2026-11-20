@@ -14,6 +14,8 @@ GitHub labels in a post are an include: `{% include label.html name="[Area] CLI"
 
 The forest at the foot of the page is drawn by `python3 script/build-tree.py`, which writes the `assets/images/tree-*.svg` drawings and `_includes/tree.html`.
 
+The album under RiffPress plays in Riff's own player, at the foot of the page. `python3 script/build-riff.py` reads the player's markup, settings and module names off the demo Riff into `assets/riff/kit.json`; the styles and scripts load from the Riff itself. Each deploy runs it again, so the copy follows a Riff release.
+
 A source cited in a post is linked where it is mentioned, followed by its Wayback Machine snapshot: `[title](url) ([archived](https://web.archive.org/web/…))`.
 
 # Tests
