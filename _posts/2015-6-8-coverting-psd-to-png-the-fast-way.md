@@ -21,9 +21,9 @@ Once imagemagick is installed, just `cd` into the directory containing all the .
 ```sh
 mkdir -p _png; for f in *.psd; do convert ${f}[0] _png/${f}.png; done
 ```
-Depending on how big the each .psd is, this might take a while. Just let your mac do its thing.
+Depending on how big each .psd is, this might take a while. Just let your mac do its thing.
 
-Congratulations! you can now find your new .png files inside `currentdirectory/_png/`.
+Congratulations! You can now find your new .png files inside `currentdirectory/_png/`.
 
 To speed up the process later, you can even throw this in an alias!
 

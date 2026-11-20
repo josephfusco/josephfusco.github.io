@@ -739,7 +739,7 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
 
 /* Colophon: native popover, anchored to its button, @starting-style entry */
 
-:is(#colophon, #specimen) {
+#colophon {
   max-width: 21rem;
   rotate: -1.1deg;
   background: var(--card);
@@ -751,12 +751,12 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
   font-size: 0.8125rem;
   line-height: 1.55;
 }
-:is(#colophon, #specimen) h2 { margin: 0 0 0.5rem; font-size: 1rem; letter-spacing: 0; }
-:is(#colophon, #specimen) p { margin: 0 0 0.75rem; color: var(--muted); }
-:is(#colophon, #specimen) p:last-child { margin-bottom: 0; }
+#colophon h2 { margin: 0 0 0.5rem; font-size: 1rem; letter-spacing: 0; }
+#colophon p { margin: 0 0 0.75rem; color: var(--muted); }
+#colophon p:last-child { margin-bottom: 0; }
 
 @supports (anchor-name: --a) {
-  :is(#colophon, #specimen) {
+  #colophon {
     position: fixed;
     position-anchor: --colophon-btn;
     position-area: top span-left;
@@ -766,7 +766,7 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
 }
 
 /* Popover entry/exit with @starting-style — no keyframes, no JS */
-:is(#colophon, #specimen) {
+#colophon {
   opacity: 0;
   transform: translateY(6px);
   transition:
@@ -775,12 +775,12 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
     overlay 0.22s ease allow-discrete,
     display 0.22s ease allow-discrete;
 }
-:is(#colophon, #specimen):popover-open {
+#colophon:popover-open {
   opacity: 1;
   transform: none;
 }
 @starting-style {
-  :is(#colophon, #specimen):popover-open {
+  #colophon:popover-open {
     opacity: 0;
     transform: translateY(6px);
   }
@@ -841,7 +841,7 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
   .cheese { display: none; }
   .peer-cursor { transition: none; }
 
-  :is(#colophon, #specimen) { transition: none; transform: none; opacity: 1; }
+  #colophon { transition: none; transform: none; opacity: 1; }
 }
 
 /* Skip link: first tab stop, visible only when focused */
@@ -882,7 +882,7 @@ p, li, figcaption, dd, blockquote, .meta, .spec-note { text-wrap: pretty; }
 
 
 /* Links underline; visited links remember (the old web kept score) */
-.prose a, .lede a, .work p a, :is(#colophon, #specimen) p a {
+.prose a, .lede a, .work p a, #colophon p a {
   text-decoration: underline;
   text-underline-offset: 2px;
   text-decoration-thickness: 1px;
@@ -1295,6 +1295,18 @@ h1, h2, h3, h4,
   text-wrap: balance;
 }
 
+/* The desks on Uses: one photograph to a row, kept inside the measure
+   because the pictures are no wider than that */
+.prose .desks figure { margin: 0 0 var(--lh); }
+.prose .desks img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.prose .desks figcaption { margin-top: 0.5rem; padding-inline: 0; line-height: 1.125rem; }
+
 /* The field guide: every species perched on one continuous wire,
    feet on the line, true relative sizes, named beneath */
 
@@ -1675,7 +1687,7 @@ section.block > h2 {
 }
 
 /* Popover links are prose; the footer's toolbar margins stop at its edge */
-:is(#colophon, #specimen) a { margin-right: 0; }
+#colophon a { margin-right: 0; }
 
 /* The letter signs at the bottom right of the footer */
 .letter-close address { font-style: normal; }
@@ -2286,20 +2298,8 @@ body {
 /* figures that stand in a column are lining and of one width */
 .figure, .spec-mono, .prose pre, .prose code { font-variant-numeric: lining-nums tabular-nums; }
 
-/* The specimen slip: the showing, then where the face comes from */
-.specimen-toggle { anchor-name: --specimen-btn; margin-right: 1.25rem; }
-/* the way to the design page keeps the same air as the buttons beside it */
+/* the way to the design page keeps the same air as the button beside it */
 .footer-tools a.colophon-toggle { margin-right: 1.25rem; }
-@supports (anchor-name: --a) {
-  #specimen { position-anchor: --specimen-btn; }
-}
-#specimen { max-width: 24rem; rotate: 0.8deg; }
-#specimen .showing {
-  font-size: 1.0625rem;
-  line-height: var(--lh);
-  color: var(--fg);
-  font-variant-ligatures: common-ligatures discretionary-ligatures;
-}
 
 /* A title with no line of its own beneath it keeps a whole unit before
    the text begins. */

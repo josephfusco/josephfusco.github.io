@@ -77,7 +77,7 @@ Occasionally the MENU text will become selected from a double click. We can prev
 
 ## The Menu
 
-Our menu will be wrapped in a header which will be fixed, and moved off canvas to the left, negating the width. You’re going to want overflow on auto to prevent smaller screens from being handicapped with navigating your website.
+Our menu will be wrapped in a header which will be fixed, and moved off canvas to the left, negating the width. You’re going to want overflow on auto to prevent smaller screens from struggling to navigate your website.
 
 ```css
 header {

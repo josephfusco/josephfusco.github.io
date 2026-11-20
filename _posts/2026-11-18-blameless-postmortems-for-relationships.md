@@ -18,6 +18,11 @@ citations:
     authors: [John Gottman, Nan Silver]
     url: https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/
     archive: https://web.archive.org/web/20261022064518/https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/
+  - type: Article
+    name: "The Four Horsemen: Criticism, Contempt, Defensiveness, and Stonewalling"
+    publisher: The Gottman Institute
+    url: https://www.gottman.com/blog/the-four-horsemen-recognizing-criticism-contempt-defensiveness-and-stonewalling/
+    archive: https://web.archive.org/web/20261108164637/https://www.gottman.com/blog/the-four-horsemen-recognizing-criticism-contempt-defensiveness-and-stonewalling/
 ---
 
 When software breaks, good teams run a blameless postmortem to understand what happened so it does not happen again. In ["Blameless PostMortems and a Just Culture"](https://www.etsy.com/codeascraft/blameless-postmortems) ([archived](https://web.archive.org/web/20261025192059/https://www.etsy.com/codeascraft/blameless-postmortems)), written at Etsy in 2012, John Allspaw explains why: when people fear blame, they hide details, and everyone learns less.
@@ -26,9 +31,9 @@ The part I borrow is the time to reflect. What follows is what I have learned fr
 
 It starts with waiting. Teams do not run a postmortem during an outage. In [<cite>The Seven Principles for Making Marriage Work</cite>](https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/) ([archived](https://web.archive.org/web/20261022064518/https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/)), John Gottman and Nan Silver write that when we are flooded, heart racing, we cannot take in what the other person is saying. They suggest a break of at least 20 minutes. This part is hard, and it takes a commitment from both people.
 
-## The questions I ask
+## Five questions
 
-There is nothing strict about this. These are mine, and you can do it your own way.
+There is nothing strict about this. Do it your own way.
 
 1. What happened?
 2. What was each person seeing?
@@ -36,7 +41,7 @@ There is nothing strict about this. These are mine, and you can do it your own w
 4. What made it worse?
 5. What will I do differently?
 
-## An example
+## Example
 
 Every scenario in this post is made up, and none describes a real person or event. Here are the five answers for one evening.
 
@@ -48,12 +53,12 @@ Every scenario in this post is made up, and none describes a real person or even
 
 ## Criticism and complaint
 
-Gottman calls criticism one of the Four Horsemen, the patterns that predict breakups. Criticism attacks the person: "You never listen." A complaint names a behavior: "I felt unheard when you checked your phone while I was talking."
+Gottman calls criticism one of the [Four Horsemen](https://www.gottman.com/blog/the-four-horsemen-recognizing-criticism-contempt-defensiveness-and-stonewalling/) ([archived](https://web.archive.org/web/20261108164637/https://www.gottman.com/blog/the-four-horsemen-recognizing-criticism-contempt-defensiveness-and-stonewalling/)), the patterns that predict breakups. Criticism attacks the person: "You never listen." A complaint names a behavior: "I felt unheard when you checked your phone while I was talking."
 
 A postmortem stays on behavior and the conditions around it. I still own my part, without shame, so I can change.
 
 ## What I have learned so far
 
-I do not see subtext when I am stressed. It impacts my life, and I am learning to accept it and work with it.
+Seeing subtext is more challenging for me when I am stressed. It impacts my life, and I am learning to accept it and work with it.
 
 🌱

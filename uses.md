@@ -2,35 +2,31 @@
 layout: page
 permalink: /uses/
 title: Uses
-meta: The desk, as of 2015. A fresh inventory is owed.
 ---
 
-Once in a while someone will ask about the specifics of software/hardware/services I use to develop with. What follows is the desk as it stood in 2015, kept as a record.
-
-## Editor + Terminal
-
-+ [Visual Studio Code](https://code.visualstudio.com/) is my main editor right now. I am also a fan of Atom & Sublime Text 3.
-+ My current theme for VSCode is [Cobalt2](https://github.com/wesbos/cobalt2-vscode) with [Operator Mono](https://www.typography.com/fonts/operator/overview/).
-+ [iTerm2](https://www.iterm2.com/) V3 is my terminal, however anything project specific I find myself using the built in terminal in VSCode.
-
-## Education Resources
-
-+ I utilize [Treehouse](http://referrals.trhou.se/josephfusco) a lot for continuing education.
-
-## Desktop Apps
-
-+ For web design I use [Sketch](https://www.sketchapp.com/).
-+ Password Manager is [1Password](https://1password.com/) and highly recommend it to anyone. LastPass is also a great alternative.
-+ Git client is [Tower](https://www.git-tower.com/).
-+ [Unclutter](https://unclutterapp.com/) is a really neat one I get a lot of use out of. Any quick notes I have I put there and sync with Dropbox.
-+ I maintain backups utilizing time machine with a local HDD, along with [Backblaze](https://secure.backblaze.com/r/017m1y) for my entire hard drive.
-
-## Desk Setup
-
-+ Right now I run dual 24" monitors from Acer.
-+ My development computer is a 2.9 GHz Intel Core i5 - 13" MacBook Pro (Early 2015) with 16GB Memory. This sits clamshelled on the side of my desk in a vertical [HengeDock](https://hengedocks.com/).
-
-## Hosting / Domains
-
-+ Hosting is primarily done with [DigitalOcean](https://m.do.co/c/c6fc6c159b4a). I use [ServerPilot](https://serverpilot.io/a/719ef210192e) to manage them.
-+ I really enjoy using [Namecheap](https://affiliate.namecheap.com/?affId=120269) and can't recommend them enough, however, I still have a handful over at GoDaddy.
+<div class="desks">
+<figure>
+<img src="/assets/images/desks/highrise-sunset.jpg" alt="A standing desk with three screens in the corner of a high room, lit red, with a sunset over a city through two tall windows" width="1024" height="768">
+</figure>
+<figure>
+<img src="/assets/images/desks/cat-hammock.jpg" alt="A black cat curled in a blue hammock slung under a standing desk, below a white keyboard and a microphone" width="1024" height="769" loading="lazy">
+</figure>
+<figure>
+<img src="/assets/images/desks/fish-wall.jpg" alt="A walnut standing desk seen from above, with a laptop, one monitor and a wooden lamp, two mounted fish on the wall behind it" width="1024" height="769" loading="lazy">
+</figure>
+<figure>
+<img src="/assets/images/desks/flag.jpg" alt="A long white desk with a monitor, a laptop and a white computer tower, under a thirteen-star flag" width="1024" height="768" loading="lazy">
+</figure>
+<figure>
+<img src="/assets/images/desks/lake.jpg" alt="A laptop and a tablet on a small wooden table at a window, looking over a deck to a lake and a wooded hill" width="1024" height="768" loading="lazy">
+</figure>
+<figure>
+<img src="/assets/images/desks/pergola.jpg" alt="A laptop and a wide monitor on a white desk in front of a window, with palms and a pergola outside" width="1400" height="1155" loading="lazy">
+</figure>
+<figure>
+<img src="/assets/images/desks/closet-nook.jpg" alt="Two monitors on a wooden desk built into a closet nook between two doors, a Helvetica poster on the wall beside it" width="1024" height="768" loading="lazy">
+</figure>
+<figure>
+<img src="/assets/images/desks/acer-pair.jpg" alt="Two Acer monitors on one arm over a butcher-block desk, with a white keyboard, a mug and a laptop docked upright" width="1024" height="768" loading="lazy">
+</figure>
+</div>

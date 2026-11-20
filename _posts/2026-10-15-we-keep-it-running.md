@@ -4,11 +4,17 @@ title: We keep it running
 permalink: we-keep-it-running
 description: WordPress is not going anywhere. You are allowed to. It will be there when you come back.
 tags: [WordPress]
+citations:
+  - type: WebPage
+    name: About
+    publisher: WordPress.org
+    url: https://wordpress.org/about/
+    archive: https://web.archive.org/web/20261119095001/https://wordpress.org/about/
 ---
 
 There is a lot of noise around WordPress right now, and AI can write a site from a sentence. I am still more hopeful about the project than I have been in years, and this is why.
 
-I am a steward of the open web. The web is for everyone, and access to it is a human right. WordPress exists to democratize publishing.
+I am a steward of the open web. The web is for everyone, and access to it is a human right. WordPress exists to [democratize publishing](https://wordpress.org/about/) ([archived](https://web.archive.org/web/20261119095001/https://wordpress.org/about/)).
 
 I think of the project like the space station. The countries that built it agree on little, and it stays in orbit because the crew keeps it running. The people who share the mission of WordPress have their differences, and the mission is still there.
 
