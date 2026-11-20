@@ -1250,7 +1250,7 @@ h1, h2, h3, h4,
 /* The portrait on About: a photograph laid on the letter */
 .about-portrait {
   float: right;
-  width: 8.75rem;
+  width: 10.5rem;
   height: auto;
   /* its top edge meets the cap height of the first line beside it */
   margin: 0.5rem 0 0.875rem 1.75rem;
@@ -1264,19 +1264,15 @@ h1, h2, h3, h4,
 @media (max-width: 540px) {
   .about-portrait { float: none; display: block; margin: 0 0 var(--lh); }
 }
-/* Two snapshots side by side: the columns follow each picture's own
-   proportions, so both come out the same height. The row is as wide as
-   makes them six lines tall, which is also no larger than the scans are. */
-.prose > div.about-snapshots {
-  display: grid;
-  grid-template-columns: 0.888fr 1.333fr;
-  gap: 0.875rem;
-  max-width: 24.1875rem;
-  margin: 0 0 var(--lh);
+/* A snapshot beside the text: under the portrait, on the same side. It
+   sits in a plain div so it floats to the edge of the measure. */
+.prose figure.about-snapshot {
+  float: right;
+  clear: right;
+  width: 10.5rem;
+  margin: 0.5rem 0 0.875rem 1.75rem;
 }
-/* each stays in its column; these do not leave the measure */
-.prose .about-snapshots figure { margin: 0; }
-.prose .about-snapshots img {
+.prose .about-snapshot img {
   display: block;
   width: 100%;
   height: auto;
@@ -1284,15 +1280,15 @@ h1, h2, h3, h4,
   border-radius: 3px;
   filter: saturate(0.82) sepia(0.06);
 }
-/* the caption is centred under its own picture */
-.prose .about-snapshots figcaption {
-  /* a caption that takes two lines under a narrow picture is set tight,
-     so it stays one caption */
+/* the caption is centred under its picture */
+.prose .about-snapshot figcaption {
   margin-top: 0.5rem;
   padding-inline: 0;
   line-height: 1.125rem;
   text-align: center;
-  text-wrap: balance;
+}
+@media (max-width: 540px) {
+  .prose figure.about-snapshot { float: none; width: auto; margin: 0 0 var(--lh); }
 }
 
 /* The desks on Uses: one photograph to a row, kept inside the measure
