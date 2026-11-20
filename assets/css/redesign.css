@@ -2388,11 +2388,27 @@ body.design { font-variant-numeric: lining-nums; }
    hold them without touching the text. The smaller ones are further
    off, so their ink is thinner.
 
-   Each takes colour when a hand comes near it. The wash is a second
-   picture under the ink: a maple in autumn, in watercolour. --near runs
-   from 0 to 1 as the pointer approaches a tree, and the colour spreads
-   out from its trunk as it rises. Once painted, it stays painted. */
+   A tree goes through its year under a hand. Bare at first. As the
+   pointer comes near it leafs out, the colour spreading from its trunk:
+   the lime of new leaves, deepening over a few seconds into full summer
+   green. Drag across it with the button held and it turns, through
+   yellow, to its autumn colours, and stays there.
+
+   The wash is one picture under the ink, painted in autumn colours. The
+   greens are the same picture with its hue turned. --near is how far
+   the colour has spread, --leaf how far spring has gone toward summer,
+   and --fall how far the tree has turned. */
 @property --near {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --leaf {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --fall {
   syntax: "<number>";
   inherits: true;
   initial-value: 0;
@@ -2414,8 +2430,10 @@ body.design { font-variant-numeric: lining-nums; }
     position: absolute;
     bottom: 0;
     width: calc(min(var(--free), 26rem) * var(--wide));
-    transition: --near 1400ms ease-out;
+    transition: --near 1400ms ease-out, --leaf 4200ms ease-in-out, --fall 2600ms ease-in-out;
   }
+  .margin-tree.leafed { --leaf: 1; }
+  .margin-tree.fallen { --fall: 1; }
   .margin-tree.turned { scale: -1 1; }
   .margin-tree img { display: block; width: 100%; height: auto; }
   .margin-tree .tree-ink { opacity: var(--ink); }
@@ -2423,7 +2441,13 @@ body.design { font-variant-numeric: lining-nums; }
     position: absolute;
     inset: 0;
     mix-blend-mode: multiply;
-    opacity: calc(0.25 + var(--near) * 0.75);
+    /* a far tree is faint, and so is its colour */
+    opacity: calc((0.25 + var(--near) * 0.75) * (0.3 + var(--ink) * 0.7));
+    --green: calc(1 - var(--fall));
+    filter:
+      hue-rotate(calc((46deg + 30deg * var(--leaf)) * var(--green)))
+      saturate(calc(1 + 0.5 * (1 - var(--leaf)) * var(--green)))
+      brightness(calc(1 + (0.2 - 0.3 * var(--leaf)) * var(--green)));
     --edge: calc(var(--near) * 135%);
     mask-image: radial-gradient(circle at 50% 72%, #000 calc(var(--edge) - 26%), transparent var(--edge));
     -webkit-mask-image: radial-gradient(circle at 50% 72%, #000 calc(var(--edge) - 26%), transparent var(--edge));
@@ -2431,6 +2455,12 @@ body.design { font-variant-numeric: lining-nums; }
   @media (prefers-reduced-motion: reduce) {
     .margin-tree { transition: none; }
   }
+}
+/* Dragging across the trees would otherwise select the footer's words
+   on the way. The address can still be selected and copied. */
+@media (min-width: 80rem) {
+  .site-footer { user-select: none; -webkit-user-select: none; }
+  .site-footer .signature-email { user-select: text; -webkit-user-select: text; }
 }
 @media print {
   .grove { display: none; }

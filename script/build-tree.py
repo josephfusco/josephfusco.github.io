@@ -51,10 +51,12 @@ RISE = 150           # the height of the trunk, from the ground to the crown
 PAD = 64             # room for the colour, which goes past the twigs
 # A maple in autumn: the oranges the site already uses, and the golds and
 # reds beside them. No two trees turn alike, so each has its own mix.
+# The page turns these same washes green for spring and summer by turning
+# their hue, so every colour here has to sit between red and yellow.
 ORANGE = ["#b8420f", "#d2691e", "#e09f3e", "#c8553d", "#e9b44c", "#9c2f1a"]
 RED = ["#9c2f1a", "#b8420f", "#c8553d", "#a83a2a", "#d2691e"]
 GOLD = ["#e9b44c", "#e09f3e", "#d9a441", "#d2691e", "#c98a2b"]
-TURNING = ["#a8a04a", "#c9b458", "#e09f3e", "#8f9a4c", "#d2691e"]
+YELLOW = ["#e3b23c", "#edc05a", "#e09f3e", "#d9a441", "#c98a2b"]
 
 # The trees. A tree that will stand small is drawn with fewer twigs, since
 # the finest of them would not show; shortest is the twig length below
@@ -63,7 +65,7 @@ TREES = [
     {"name": "a", "seed": 630, "shortest": 17, "washes": ORANGE},
     {"name": "b", "seed": 2004, "shortest": 24, "washes": RED},
     {"name": "c", "seed": 36, "shortest": 31, "washes": GOLD},
-    {"name": "d", "seed": 1618, "shortest": 21, "washes": TURNING},
+    {"name": "d", "seed": 1618, "shortest": 21, "washes": YELLOW},
     {"name": "e", "seed": 144, "shortest": 29, "washes": ORANGE},
 ]
 
@@ -73,9 +75,8 @@ TREES = [
 # deep. The far row is many small trees in thin ink, the middle row fewer
 # and larger, and the near row two or three at full size and full ink.
 # The rows are set down far to near, so the nearer trees stand in front.
-# Between the margins the far row carries on across the page as a tree
-# line, kept low where the footer's own words are. Some trees are turned
-# to face the other way, so the same tree is not seen twice.
+# Some trees are turned to face the other way, so the same tree is not
+# seen twice.
 plant = random.Random("forest/630")
 NAMES = ["a", "b", "c", "d", "e"]
 SMALL = ["b", "c", "e"]              # the ones drawn with few twigs
@@ -94,12 +95,19 @@ def row(side, count, widths, inks, names, span=(0.0, 1.0)):
 GROVE = []
 for side in ("left", "right"):
     GROVE += row(side, 7, (0.15, 0.24), (0.22, 0.34), SMALL, (0.0, 1.15))
-for i in range(15):
-    # the tree line: from one margin to the other, lower under the footer
-    at = 0.215 + i * 0.039 + plant.uniform(-0.008, 0.008)
-    low = at > 0.56
-    GROVE.append((plant.choice(SMALL), "page", round(at, 4), round(plant.uniform(0.07, 0.1) if low else plant.uniform(0.1, 0.17), 3),
-                  round(plant.uniform(0.18, 0.3), 2), plant.random() < 0.5))
+# The forest thins out toward the middle of the page: no row of trees set
+# at even steps, which reads as planted, but a few loose clumps, each
+# smaller and fainter than the one before it, and then open ground.
+for start, step, clumps in ((0.215, 1, 4), (0.785, -1, 2)):
+    at = start
+    for n in range(clumps):
+        far = n / 4
+        for _ in range(plant.choice((2, 3)) if n < 3 else 1):
+            width = plant.uniform(0.15, 0.22) * (1 - far * 0.55)
+            x = at + step * plant.uniform(0, 0.022) - (0.02 if step < 0 else 0)
+            GROVE.append((plant.choice(SMALL), "page", round(x, 4), round(width, 3),
+                          round(plant.uniform(0.26, 0.34) * (1 - far * 0.4), 2), plant.random() < 0.5))
+        at += step * plant.uniform(0.045, 0.075)
 for side in ("left", "right"):
     GROVE += row(side, 5, (0.3, 0.46), (0.5, 0.7), ["b", "d", "e", "c"], (0.0, 1.05))
 GROVE += [
