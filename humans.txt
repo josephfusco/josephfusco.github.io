@@ -3,7 +3,6 @@
 	Contact: hello [at] josephfus.co
 	From: Rochester, New York, USA
 	Work: WordPress Core, sponsored by WP Engine
-	Cares about: access to justice (lexgrade.org)
 
 /* THANKS */
 	Everyone who ever published their source.
