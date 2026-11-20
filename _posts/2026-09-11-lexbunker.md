@@ -1,11 +1,11 @@
 ---
 layout: post
-title: LexBunker, a contested matter as a WordPress site
+title: LexBunker, a court case as a WordPress site
 permalink: lexbunker
 tags: [Law, WordPress]
 ---
 
-I built LexBunker for my own contested matter. It is a WordPress plugin. Each case is a site in a multisite network, and every paper in the case is a post.
+I built LexBunker for my own court case. It is a WordPress plugin. Each case is a site in a multisite network, and every paper in the case is a post.
 
 Documents, email, transcripts and receipts are four post types — `lexbunker_document`, `lexbunker_email`, `lexbunker_transcript`, `lexbunker_receipt` — carrying the case id, the document number, the filed date and the side that filed it in post meta. The canvas is a query across all four.
 
