@@ -2366,3 +2366,30 @@ body.design { font-variant-numeric: lining-nums; }
   letter-spacing: 0;
   font-variant-numeric: lining-nums tabular-nums;
 }
+
+/* ---- The tree at the foot of the page ----
+   A pen drawing, made once by script/build-tree.py: a maple above the
+   ground, grown by one rule, standing on its root flare. The bottom of
+   the page is its ground. It is background: thin ink in the left margin,
+   and only where the margin can hold it without touching the text. */
+.margin-tree { display: none; }
+@media (min-width: 80rem) {
+  .site-footer { position: relative; }
+  .margin-tree {
+    /* the margin, less the room the footer's own column takes */
+    --free: calc((100vw - 54rem) / 2 - 1.75rem);
+    display: block;
+    position: absolute;
+    left: 1.25rem;
+    bottom: 0;
+    width: min(var(--free), 20rem);
+    height: auto;
+    opacity: 0.22;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+@media print {
+  .margin-tree { display: none; }
+}
