@@ -42,12 +42,12 @@
 		<div>
 			<h3><a href="https://riffpress.com">RiffPress</a> <span class="tag">WordPress plugin</span></h3>
 			<p>Riff, a free, open-source music player for the albums you own or make. It runs on your WordPress site or on its own.</p>
-			{% comment %}an album on the demo Riff; riff.js fills the list and plays a row in Riff's own player, and without it the link still goes there{% endcomment %}
-			<div class="work-riff" data-riff="https://open.riffpress.com/demo/" data-riff-album="3">
+			{% comment %}an album on the demo Riff; riff.js fills the list and plays a row in Riff's own player, and without it the link still goes there. data-riff-without names tracks left out, by id: 20 is Coventry Carol{% endcomment %}
+			<div class="work-riff" data-riff="https://open.riffpress.com/demo/" data-riff-album="3" data-riff-without="20">
 				<h4><a href="https://open.riffpress.com/demo/?riff_album=3">Christmas With The Chorus</a></h4>
 				<p>Chorus of the U.S. Army Band &ldquo;Pershing&rsquo;s Own&rdquo;</p>
 				<ol class="work-riff-tracks" data-riff-tracks aria-busy="true">
-					{% for i in (1..9) %}
+					{% for i in (1..8) %}
 					<li class="riff-skeleton" aria-hidden="true"><span class="bone bone-line"></span></li>
 					{% endfor %}
 				</ol>

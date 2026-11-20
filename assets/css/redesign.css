@@ -2549,7 +2549,7 @@ body.design { font-variant-numeric: lining-nums; }
   font-size: 0.9375rem;
   font-variant-numeric: tabular-nums;
 }
-/* bones hold the nine rows until the list answers */
+/* bones hold the rows until the list answers */
 .riff-skeleton .bone {
   display: inline-block;
   width: 62%;

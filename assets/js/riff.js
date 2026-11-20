@@ -73,6 +73,8 @@
 
   var API = box.getAttribute('data-riff') + 'wp-json/riff/v1/tracks?per_page=100&album=' + encodeURIComponent(box.getAttribute('data-riff-album'));
   var tracks = [];
+  /* tracks the page leaves out of the album, by id */
+  var without = (box.getAttribute('data-riff-without') || '').split(/[\s,]+/).filter(Boolean);
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -140,7 +142,7 @@
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
     .then(function (data) {
       tracks = (data.items || []).filter(function (t) {
-        return t && t.src && t.type === 'audio' && !t.locked;
+        return t && t.src && t.type === 'audio' && !t.locked && without.indexOf(String(t.id)) < 0;
       });
       if (!tracks.length) return Promise.reject();
       render();

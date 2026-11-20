@@ -30,7 +30,7 @@ async function riff(page) {
   await page.route('https://open.riffpress.com/**', (route) => {
     const url = route.request().url();
     asked.push(url);
-    if (url.includes('/riff/v1/tracks')) return route.fulfill({ json: { items: [track(17, "Lo, How a Rose E'er Blooming"), track(18, 'Joy to the World')] } });
+    if (url.includes('/riff/v1/tracks')) return route.fulfill({ json: { items: [track(17, "Lo, How a Rose E'er Blooming"), track(20, 'Coventry Carol'), track(18, 'Joy to the World')] } });
     if (url.includes('/assets/riff.js')) return route.fulfill({ contentType: 'application/javascript', body: PLAYER });
     if (/\.css(\?|$)/.test(url)) return route.fulfill({ contentType: 'text/css', body: '' });
     return route.fulfill({ contentType: 'application/javascript', body: '' });
@@ -45,6 +45,9 @@ test('a pressed row brings Riff’s player to the foot of the page and plays in 
   await expect(list).not.toHaveAttribute('aria-busy', /.*/);
   await expect(list.locator('button').first()).toHaveText('1Lo, How a Rose E’er Blooming');
   await expect(list.locator('time').first()).toHaveText('1:15');
+  // the page leaves one track of the album out
+  await expect(list.locator('li')).toHaveCount(2);
+  await expect(list).not.toContainText('Coventry Carol');
 
   // a row is one line of the 1.75rem grid
   const heights = await list.locator('li').evaluateAll((lis) => lis.map((li) => li.offsetHeight));
