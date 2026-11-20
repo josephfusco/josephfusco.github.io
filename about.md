@@ -24,4 +24,4 @@ I grew up in Western New York, which made me a Buffalo Bills fan. I moved to Flo
 
 I play alto and tenor saxophone and the piano, and I'm trying to learn the bass. I've been learning about Internal Family Systems and dialectical behavior therapy.
 
-I watch birds. When I pass a mulch volcano, I kick it down until the root flare shows.
+I watch birds. I'm a strong advocate for removing mulch volcanoes, so a tree's root flare can breathe.
