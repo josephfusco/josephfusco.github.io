@@ -1,6 +1,6 @@
 const { test, expect } = require('./fixtures');
 
-const PROJECTS = ['Presence API', 'RiffPress', 'LexGrade', 'LexBunker', 'Ithaca Share', 'WPGraphQL IDE', 'VennyD', 'MaizeKit', 'Brackish'];
+const PROJECTS = ['Catwalk Clash', 'Brackish', 'Presence API', 'RiffPress', 'LexGrade', 'LexBunker', 'WPGraphQL IDE', 'VennyD', 'MaizeKit', 'Ithaca Share'];
 
 test('Now shows the first three projects and the projects page lists them all', async ({ page }) => {
   await page.goto('/projects/');
