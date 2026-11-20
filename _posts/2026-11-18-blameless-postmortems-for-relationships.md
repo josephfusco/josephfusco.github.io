@@ -5,13 +5,26 @@ permalink: blameless-postmortems-for-relationships
 description: Good software teams run a blameless postmortem when something breaks. This is what I have learned from my own relationships.
 tags: [Relationships]
 last_modified_at: 2026-11-19
+citations:
+  - type: Article
+    name: Blameless PostMortems and a Just Culture
+    authors: [John Allspaw]
+    publisher: Etsy
+    date: "2012"
+    url: https://www.etsy.com/codeascraft/blameless-postmortems
+    archive: https://web.archive.org/web/20261025192059/https://www.etsy.com/codeascraft/blameless-postmortems
+  - type: Book
+    name: The Seven Principles for Making Marriage Work
+    authors: [John Gottman, Nan Silver]
+    url: https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/
+    archive: https://web.archive.org/web/20261022064518/https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/
 ---
 
-When software breaks, good teams run a blameless postmortem to understand what happened so it does not happen again. John Allspaw [wrote about this at Etsy in 2012](https://www.etsy.com/codeascraft/blameless-postmortems) ([archived](https://web.archive.org/web/20261025192059/https://www.etsy.com/codeascraft/blameless-postmortems)): when people fear blame, they hide details, and everyone learns less.
+When software breaks, good teams run a blameless postmortem to understand what happened so it does not happen again. In ["Blameless PostMortems and a Just Culture"](https://www.etsy.com/codeascraft/blameless-postmortems) ([archived](https://web.archive.org/web/20261025192059/https://www.etsy.com/codeascraft/blameless-postmortems)), written at Etsy in 2012, John Allspaw explains why: when people fear blame, they hide details, and everyone learns less.
 
 The part I borrow is the time to reflect. What follows is what I have learned from my own experience, in my relationship and in past ones.
 
-It starts with waiting. Teams do not run a postmortem during an outage. In [*The Seven Principles for Making Marriage Work*](https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/) ([archived](https://web.archive.org/web/20261022064518/https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/)), John Gottman and Nan Silver write that when we are flooded, heart racing, we cannot take in what the other person is saying. They suggest a break of at least 20 minutes. This part is hard, and it takes a commitment from both people.
+It starts with waiting. Teams do not run a postmortem during an outage. In [<cite>The Seven Principles for Making Marriage Work</cite>](https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/) ([archived](https://web.archive.org/web/20261022064518/https://www.gottman.com/product/the-seven-principles-for-making-marriage-work/)), John Gottman and Nan Silver write that when we are flooded, heart racing, we cannot take in what the other person is saying. They suggest a break of at least 20 minutes. This part is hard, and it takes a commitment from both people.
 
 ## The questions I ask
 
