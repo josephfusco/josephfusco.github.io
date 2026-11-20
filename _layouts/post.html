@@ -11,7 +11,8 @@
 				{% include crumbs.html %}
 				<h1 style="view-transition-name: vt-{{ page.url | slugify }}; view-transition-class: post">{{ page.title | smartify }}</h1>
 				<p class="meta">
-					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>, {% include minutes.html html=content %} min read
+					{% comment %}last_modified_at is the key the feed and the sitemap already read{% endcomment %}
+					<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>, {% if page.last_modified_at %}updated <time datetime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: "%-d %B %Y" }}</time>, {% endif %}{% include minutes.html html=content %} min read
 				</p>
 				{{ content }}
 			</article>

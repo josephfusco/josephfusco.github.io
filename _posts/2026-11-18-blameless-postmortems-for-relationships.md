@@ -4,6 +4,7 @@ title: Blameless postmortems for relationships
 permalink: blameless-postmortems-for-relationships
 description: Good software teams run a blameless postmortem when something breaks. This is what I have learned from my own relationships.
 tags: [Relationships]
+last_modified_at: 2026-11-19
 ---
 
 When software breaks, good teams run a blameless postmortem to understand what happened so it does not happen again. John Allspaw [wrote about this at Etsy in 2012](https://www.etsy.com/codeascraft/blameless-postmortems) ([archived](https://web.archive.org/web/20261025192059/https://www.etsy.com/codeascraft/blameless-postmortems)): when people fear blame, they hide details, and everyone learns less.
