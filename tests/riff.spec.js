@@ -101,8 +101,10 @@ test('while the player holds a queue a link changes the page without loading one
   await expect(page.locator('#riff .riff-bar')).toBeVisible();
   await page.evaluate(() => { window.same = true; });
 
+  // the host sends /about on to /about/ over http, which a fetch may not follow
+  await page.route('**/about', (route) => (route.request().resourceType() === 'fetch' ? route.abort() : route.fallback()));
   await nav.getByRole('link', { name: 'About' }).click();
-  await expect(page).toHaveURL(/\/about\/?$/);
+  await expect(page).toHaveURL(/\/about\/$/);
   await expect(page).toHaveTitle(/About/);
   await expect(page.locator('main h1')).toContainText('About');
   await expect(nav.getByRole('link', { name: 'About' })).toHaveAttribute('aria-current', 'page');
