@@ -1284,14 +1284,14 @@ h1, h2, h3, h4,
   border-radius: 3px;
   filter: saturate(0.82) sepia(0.06);
 }
-/* the caption starts at its picture's left edge */
+/* the caption is centred under its own picture */
 .prose .about-snapshots figcaption {
   /* a caption that takes two lines under a narrow picture is set tight,
      so it stays one caption */
   margin-top: 0.5rem;
   padding-inline: 0;
   line-height: 1.125rem;
-  text-align: left;
+  text-align: center;
   text-wrap: balance;
 }
 
