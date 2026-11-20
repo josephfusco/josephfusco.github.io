@@ -60,6 +60,9 @@ test('a pressed row brings Riff’s player to the foot of the page and plays in 
 
   await list.getByRole('button', { name: 'Play Joy to the World' }).click();
   await expect(page.locator('#riff .riff-bar')).toBeVisible();
+  // the bar ends with a way to close the player, which is Riff's own dismiss
+  await expect(page.locator('#riff .riff-bar-end > button').last()).toHaveAttribute('data-riff-action', 'dismiss');
+  await expect(page.locator('#riff .riff-bar').getByRole('button', { name: 'Close player' })).toBeVisible();
   await expect(list.locator('li').nth(1)).toHaveAttribute('aria-current', 'true');
   const row = list.getByRole('button', { name: 'Pause Joy to the World' });
   await expect(row).toHaveAttribute('aria-pressed', 'true');

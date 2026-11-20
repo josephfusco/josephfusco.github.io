@@ -42,6 +42,15 @@
 
           var holder = document.createElement('template');
           holder.innerHTML = kit.root;
+          /* Riff closes its player from Up next, on a phone. Here the bar
+             gets a button of its own for it, which asks Riff to do the
+             same: stop, empty the queue and forget it, so the next page
+             opens without a player. */
+          var end = holder.content.querySelector('.riff-bar-end');
+          if (end) {
+            end.insertAdjacentHTML('beforeend', '<button type="button" class="riff-btn riff-close-player" data-riff-action="dismiss" aria-label="Close player">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.75 6.75L17.25 17.25M17.25 6.75L6.75 17.25"/></svg></button>');
+          }
           document.body.appendChild(holder.content);
 
           return kit.scripts.reduce(function (before, src) {
@@ -120,6 +129,11 @@
   }
   ['ready', 'track', 'play', 'pause', 'ended', 'queue'].forEach(function (name) {
     document.addEventListener('riff:' + name, mark);
+  });
+
+  /* closing the player says nothing; the rows look once Riff has let go */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-riff-action="dismiss"]')) setTimeout(mark, 0);
   });
 
   list.addEventListener('click', function (e) {
