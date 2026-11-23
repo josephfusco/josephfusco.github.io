@@ -12,14 +12,14 @@
 		</address>
 		<p class="footer-tools">
 			{% comment %}how the site is made sits with the other notes on its making; it comes first so the popovers still anchor to their own buttons{% endcomment %}
-			<a class="colophon-toggle" href="{{ '/design' | relative_url }}"{% if page.url contains '/design' %} aria-current="page"{% endif %}><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5H10.5V10.5H1.5ZM1.5 6H10.5M6 1.5V10.5"/></svg> design</a>
+			<a class="colophon-toggle" href="{{ '/design/' | relative_url }}"{% if page.url contains '/design' %} aria-current="page"{% endif %}><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M1.5 1.5H10.5V10.5H1.5ZM1.5 6H10.5M6 1.5V10.5"/></svg> design</a>
 			<button class="colophon-toggle" popovertarget="colophon"><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.2V10.8M1.2 6H10.8M2.6 2.6L9.4 9.4M9.4 2.6L2.6 9.4"/></svg> colophon</button>
 		</p>
 		<div id="colophon" popover>
 			<h2>Colophon</h2>
 			<p>Static site, built with Jekyll. Set in <a href="https://github.com/impallari/Libre-Caslon-Text">Libre Caslon</a>, by Pablo Impallari and Rodrigo Fuenzalida, and Atkinson Hyperlegible.</p>
 			<p>Other readers appear as anonymous birds, live. Your cursor is not sent or shown. The one thing kept is a count of readers on each page, dropped minutes after they leave. No IPs, nothing about you. Global Privacy Control is honored automatically.</p>
-			<p>Source on <a href="https://github.com/josephfusco/josephfusco.github.io">GitHub</a>. There is a page that is <a href="/wire">only the wire</a>, and a <a href="/humans.txt">humans.txt</a>.</p>
+			<p>Source on <a href="https://github.com/josephfusco/josephfusco.github.io">GitHub</a>. There is a page that is <a href="/wire/">only the wire</a>, and a <a href="/humans.txt">humans.txt</a>.</p>
 		</div>
 		<div class="fineprint">
 			<span>&copy; {{ site.time | date: '%Y' }} {{ site.name }}.</span>
