@@ -1,6 +1,78 @@
 {
   "activity": [
     {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): bump markdown-it-anchor from 10.0.0 to 10.1.0",
+      "url": "https://github.com/WordPress/presence-api/pull/974",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): bump vite from 8.3.5 to 8.3.8",
+      "url": "https://github.com/WordPress/presence-api/pull/973",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): roll @playwright/test back to 1.65.0",
+      "url": "https://github.com/WordPress/presence-api/pull/972",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): add @wordpress/theme 4 so Stylelint finds its design tokens",
+      "url": "https://github.com/WordPress/presence-api/pull/971",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): bump @playwright/test from 1.65.0 to 1.65.1",
+      "url": "https://github.com/WordPress/presence-api/pull/965",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): bump vitest from 5.1.0 to 5.1.1",
+      "url": "https://github.com/WordPress/presence-api/pull/967",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): bump jquery from 4.0.0 to 4.1.0",
+      "url": "https://github.com/WordPress/presence-api/pull/968",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): bump jsdom from 31.0.0 to 31.0.1",
+      "url": "https://github.com/WordPress/presence-api/pull/966",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): bump html-validate from 11.18.0 to 11.21.1",
+      "url": "https://github.com/WordPress/presence-api/pull/969",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps-dev): update phpstan/phpstan requirement from 2.3.5 to 2.3.6",
+      "url": "https://github.com/WordPress/presence-api/pull/964",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "ci: run Node 24 so npm ci matches Dependabot's npm 11 lockfiles",
+      "url": "https://github.com/WordPress/presence-api/pull/970",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
+      "date": "2026-11-25",
+      "subject": "build(deps): bump astral-sh/setup-uv from 10.3.3 to 10.4.0",
+      "url": "https://github.com/WordPress/presence-api/pull/963",
+      "what": "Merged a pull request in WordPress/presence-api"
+    },
+    {
       "date": "2026-11-24",
       "subject": "ci: give each Playground demo one preview button",
       "url": "https://github.com/WordPress/presence-api/pull/962",
@@ -1183,5 +1255,5 @@
       "what": "Closed issue #749 on the WordPress/presence-api repository: Nothing in the plugin uses its own React hook"
     }
   ],
-  "fetched": "2026-11-24"
+  "fetched": "2026-11-25"
 }
