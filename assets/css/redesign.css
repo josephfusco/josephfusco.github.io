@@ -2563,3 +2563,43 @@ body.design { font-variant-numeric: lining-nums; }
 @media (prefers-reduced-motion: no-preference) {
   .riff-skeleton .bone { animation: bone-breathe 1.6s ease-in-out infinite; }
 }
+
+/* The Moon as it is now, hung in the sky over the wire, between the
+   mark and the nav. The lit part is paper and the dark part ink. Its
+   name is pencilled beside it, as a bird's is, when you come near.
+   It is the way into /moon/. */
+.site-header .wrap { position: relative; }
+.sky-moon {
+  position: absolute;
+  left: 28%;
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* room for a thumb, without moving the drawing */
+  padding: 0.75rem;
+  margin: 0 0 0 -0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+.site-header .sky-moon:hover, .site-header .sky-moon:focus { text-decoration: none; }
+.sky-moon svg { display: block; width: 1.5rem; height: 1.5rem; overflow: visible; }
+/* paper for the lit face, the real near side printed on it in ink,
+   and solid ink for the part in shadow */
+.moon-disc { fill: #fffdf6; }
+.moon-shade { fill: var(--fg); opacity: 0.86; }
+.moon-rim { fill: none; stroke: var(--muted); stroke-width: 0.45; }
+.sky-moon-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+.sky-moon:hover { color: var(--accent); }
+/* where the name would run into the nav it stays unwritten */
+@media (max-width: 560px) { .sky-moon-name { display: none; } }
+/* on the narrowest phones the only sky is the gap beside the mark */
+@media (max-width: 360px) { .sky-moon { left: 3.5rem; padding: 0.4rem; margin-left: -0.4rem; } }
+@media print { .sky-moon { display: none; } }
