@@ -82,7 +82,7 @@
 
 	<script type="speculationrules">
 	{
-		"prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+		"prerender": [{ "where": { "and": [{ "href_matches": "/*" }, { "not": { "href_matches": "/moon/*" } }] }, "eagerness": "moderate" }]
 	}
 	</script>
 </head>

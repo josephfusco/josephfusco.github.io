@@ -20,6 +20,8 @@
 			<a href="{{ '/about/' | relative_url }}"{% if page.url contains '/about' %} aria-current="page"{% endif %}>About</a>
 			<a href="{{ '/projects/' | relative_url }}"{% if page.url contains '/projects' %} aria-current="page"{% endif %}>Projects</a>
 			<a href="{{ '/writing/' | relative_url }}"{% if page.layout == 'post' or page.url contains '/writing' %} aria-current="page"{% endif %}>Writing</a>
+			{% comment %}its own site, published from the moon repository into /moon/{% endcomment %}
+			<a href="{{ '/moon/' | relative_url }}">Moon</a>
 		</nav>
 	</div>
 	<div class="powerline" aria-hidden="true">
