@@ -2585,10 +2585,9 @@ body.design { font-variant-numeric: lining-nums; }
 }
 .site-header .sky-moon:hover, .site-header .sky-moon:focus { text-decoration: none; }
 .sky-moon svg { display: block; width: 1.5rem; height: 1.5rem; overflow: visible; }
-/* paper for the lit face, the seas in soft pencil so it reads as the
-   Moon and not as a ring, ink for the part in shadow */
+/* paper for the lit face, the real near side printed on it in ink,
+   and solid ink for the part in shadow */
 .moon-disc { fill: #fffdf6; }
-.moon-seas { fill: var(--muted); opacity: 0.42; }
 .moon-shade { fill: var(--fg); opacity: 0.86; }
 .moon-rim { fill: none; stroke: var(--muted); stroke-width: 0.45; }
 .sky-moon-name {

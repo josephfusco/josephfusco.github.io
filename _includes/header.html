@@ -16,8 +16,8 @@
 				<rect x="450" y="50" />
 			</svg>
 		</a>
-		{% comment %}the Moon as it is now, in the sky over the wire: the seas are drawn here, and moon.js inks the dark part and names the phase. It leads to the explorer, its own site published into /moon/{% endcomment %}
-		<a class="sky-moon" data-moon href="{{ '/moon/' | relative_url }}"><svg viewBox="0 0 12 12" aria-hidden="true"><circle class="moon-disc" cx="6" cy="6" r="4.9"/><g class="moon-seas"><ellipse cx="3.1" cy="5.9" rx="1.25" ry="2"/><circle cx="4.6" cy="3.8" r="1.5"/><circle cx="6.9" cy="3.9" r="1.05"/><circle cx="7.8" cy="5.4" r="1.2"/><circle cx="9.3" cy="4.4" r="0.55"/><circle cx="8.8" cy="6.8" r="0.75"/><circle cx="5.1" cy="7.9" r="1.15"/></g><path class="moon-shade"/><circle class="moon-rim" cx="6" cy="6" r="4.9"/></svg><span class="sky-moon-name" data-moon-phase>the Moon</span></a>
+		{% comment %}the Moon as it is now, in the sky over the wire: its face is the real near side, an orthographic view of NASA's LROC map of the Moon set in ink (darker ground, more ink); moon.js inks the part in shadow and names the phase. It leads to the explorer, its own site published into /moon/{% endcomment %}
+		<a class="sky-moon" data-moon href="{{ '/moon/' | relative_url }}"><svg viewBox="0 0 12 12" aria-hidden="true"><circle class="moon-disc" cx="6" cy="6" r="4.9"/><image class="moon-face" href="{{ '/assets/images/moon-near.png' | relative_url }}" x="1.1" y="1.1" width="9.8" height="9.8"/><path class="moon-shade"/><circle class="moon-rim" cx="6" cy="6" r="4.9"/></svg><span class="sky-moon-name" data-moon-phase>the Moon</span></a>
 		<nav class="site-nav" aria-label="Main">
 			<a href="{{ '/about/' | relative_url }}"{% if page.url contains '/about' %} aria-current="page"{% endif %}>About</a>
 			<a href="{{ '/projects/' | relative_url }}"{% if page.url contains '/projects' %} aria-current="page"{% endif %}>Projects</a>
