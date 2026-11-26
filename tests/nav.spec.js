@@ -1,8 +1,7 @@
 const { test, expect } = require('./fixtures');
 
 // Where each page should leave the nav. Only the page you are on is
-// marked; the rest stay muted, whatever they link to. Moon is its own
-// site under /moon/, so no page here ever marks it.
+// marked; the rest stay muted, whatever they link to.
 const PAGES = [
   { path: '/', current: null },
   { path: '/about/', current: 'About' },
@@ -20,7 +19,7 @@ for (const { path, current } of PAGES) {
   test(`nav on ${path} marks ${current || 'nothing'}`, async ({ page }) => {
     await page.goto(path);
     const links = page.locator('.site-nav a');
-    await expect(links).toHaveCount(4);
+    await expect(links).toHaveCount(3);
 
     for (const link of await links.all()) {
       const name = (await link.textContent()).trim();

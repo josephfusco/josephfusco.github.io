@@ -2563,3 +2563,28 @@ body.design { font-variant-numeric: lining-nums; }
 @media (prefers-reduced-motion: no-preference) {
   .riff-skeleton .bone { animation: bone-breathe 1.6s ease-in-out infinite; }
 }
+
+/* The Moon's phase now, under who is here: the same pencilled note,
+   and the way into /moon/. The dark part is inked, as in an almanac. */
+.field-note .moon-note {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4375rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+.field-note .moon-note:hover { color: var(--accent); }
+.moon-note .tool-glyph { width: 0.9em; height: 0.9em; vertical-align: -0.1em; }
+.moon-shade { fill: currentColor; stroke: none; }
+/* on a phone the note is one line: the Moon sits beside who is here,
+   and the guide keeps the right edge */
+@media (max-width: 900px) {
+  .site-header .field-note > .moon-note { margin-right: auto; }
+}
+/* where the words will not fit the line the drawing stands alone,
+   with room around it for a thumb */
+@media (max-width: 480px) {
+  .site-header .field-note > .moon-note [data-moon-phase] { display: none; }
+  .site-header .field-note > .moon-note { padding: 0 0.75rem; margin-left: -0.75rem; }
+}
