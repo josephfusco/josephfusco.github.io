@@ -2584,22 +2584,23 @@ body.design { font-variant-numeric: lining-nums; }
   text-decoration: none;
 }
 .site-header .sky-moon:hover, .site-header .sky-moon:focus { text-decoration: none; }
-.sky-moon svg { display: block; width: 1.125rem; height: 1.125rem; overflow: visible; }
-.moon-disc { fill: #fffdf6; stroke: var(--muted); stroke-width: 0.6; }
-.moon-shade { fill: var(--fg); opacity: 0.82; }
+.sky-moon svg { display: block; width: 1.5rem; height: 1.5rem; overflow: visible; }
+/* paper for the lit face, the seas in soft pencil so it reads as the
+   Moon and not as a ring, ink for the part in shadow */
+.moon-disc { fill: #fffdf6; }
+.moon-seas { fill: var(--muted); opacity: 0.42; }
+.moon-shade { fill: var(--fg); opacity: 0.86; }
+.moon-rim { fill: none; stroke: var(--muted); stroke-width: 0.45; }
 .sky-moon-name {
   font-family: var(--serif);
   font-style: italic;
   font-size: 0.75rem;
   line-height: 1;
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 200ms ease;
 }
-.sky-moon:hover .sky-moon-name,
-.sky-moon:focus-visible .sky-moon-name { opacity: 1; }
-/* on a phone the nav is a thumb away, so the name stays unwritten */
-@media (max-width: 480px) { .sky-moon-name { display: none; } }
+.sky-moon:hover { color: var(--accent); }
+/* where the name would run into the nav it stays unwritten */
+@media (max-width: 560px) { .sky-moon-name { display: none; } }
 /* on the narrowest phones the only sky is the gap beside the mark */
 @media (max-width: 360px) { .sky-moon { left: 3.5rem; padding: 0.4rem; margin-left: -0.4rem; } }
 @media print { .sky-moon { display: none; } }
