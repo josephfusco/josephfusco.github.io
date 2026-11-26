@@ -1,5 +1,5 @@
-/* The Moon's phase now, for the note under the wire. It is worked out
-   here from the main terms of the Moon's and the Sun's motion (Meeus,
+/* The Moon's phase now, for the Moon in the sky over the wire. It is
+   worked out here from the main terms of the Moon's and the Sun's motion (Meeus,
    Astronomical Algorithms, chapters 25 and 47), which lands within a
    fraction of a degree. The explorer at /moon/ does it properly. */
 (function () {
@@ -24,8 +24,8 @@
     for (var k = 0; k < 4; k++) if (Math.abs(((e - k * 90 + 540) % 360) - 180) <= 6) return marks[k];
     return between[Math.floor(e / 90)];
   }
-  /* The almanac's convention, as on paper: the dark part is inked and
-     the lit part left open. Drawn as seen from the northern hemisphere. */
+  /* The dark part of the disc, to be inked over the lit paper. Drawn
+     as seen from the northern hemisphere. */
   function shade(e) {
     var r = 4.9, waning = e > 180, a = (waning ? 360 - e : e) * R;
     var rx = Math.abs(Math.cos(a)) * r;

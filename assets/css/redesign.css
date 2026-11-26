@@ -2564,27 +2564,42 @@ body.design { font-variant-numeric: lining-nums; }
   .riff-skeleton .bone { animation: bone-breathe 1.6s ease-in-out infinite; }
 }
 
-/* The Moon's phase now, under who is here: the same pencilled note,
-   and the way into /moon/. The dark part is inked, as in an almanac. */
-.field-note .moon-note {
+/* The Moon as it is now, hung in the sky over the wire, between the
+   mark and the nav. The lit part is paper and the dark part ink. Its
+   name is pencilled beside it, as a bird's is, when you come near.
+   It is the way into /moon/. */
+.site-header .wrap { position: relative; }
+.sky-moon {
+  position: absolute;
+  left: 28%;
+  top: 50%;
+  translate: 0 -50%;
   display: flex;
-  align-items: baseline;
-  gap: 0.4375rem;
-  font-size: 0.875rem;
+  align-items: center;
+  gap: 0.5rem;
+  /* room for a thumb, without moving the drawing */
+  padding: 0.75rem;
+  margin: 0 0 0 -0.75rem;
   color: var(--muted);
   text-decoration: none;
 }
-.field-note .moon-note:hover { color: var(--accent); }
-.moon-note .tool-glyph { width: 0.9em; height: 0.9em; vertical-align: -0.1em; }
-.moon-shade { fill: currentColor; stroke: none; }
-/* on a phone the note is one line: the Moon sits beside who is here,
-   and the guide keeps the right edge */
-@media (max-width: 900px) {
-  .site-header .field-note > .moon-note { margin-right: auto; }
+.site-header .sky-moon:hover, .site-header .sky-moon:focus { text-decoration: none; }
+.sky-moon svg { display: block; width: 1.125rem; height: 1.125rem; overflow: visible; }
+.moon-disc { fill: #fffdf6; stroke: var(--muted); stroke-width: 0.6; }
+.moon-shade { fill: var(--fg); opacity: 0.82; }
+.sky-moon-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.75rem;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 200ms ease;
 }
-/* where the words will not fit the line the drawing stands alone,
-   with room around it for a thumb */
-@media (max-width: 480px) {
-  .site-header .field-note > .moon-note [data-moon-phase] { display: none; }
-  .site-header .field-note > .moon-note { padding: 0 0.75rem; margin-left: -0.75rem; }
-}
+.sky-moon:hover .sky-moon-name,
+.sky-moon:focus-visible .sky-moon-name { opacity: 1; }
+/* on a phone the nav is a thumb away, so the name stays unwritten */
+@media (max-width: 480px) { .sky-moon-name { display: none; } }
+/* on the narrowest phones the only sky is the gap beside the mark */
+@media (max-width: 360px) { .sky-moon { left: 3.5rem; padding: 0.4rem; margin-left: -0.4rem; } }
+@media print { .sky-moon { display: none; } }

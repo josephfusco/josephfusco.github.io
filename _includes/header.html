@@ -16,6 +16,8 @@
 				<rect x="450" y="50" />
 			</svg>
 		</a>
+		{% comment %}the Moon as it is now, in the sky over the wire: moon.js draws the phase and names it. It leads to the explorer, its own site published into /moon/{% endcomment %}
+		<a class="sky-moon" data-moon href="{{ '/moon/' | relative_url }}"><svg viewBox="0 0 12 12" aria-hidden="true"><circle class="moon-disc" cx="6" cy="6" r="4.9"/><path class="moon-shade"/></svg><span class="sky-moon-name" data-moon-phase>the Moon</span></a>
 		<nav class="site-nav" aria-label="Main">
 			<a href="{{ '/about/' | relative_url }}"{% if page.url contains '/about' %} aria-current="page"{% endif %}>About</a>
 			<a href="{{ '/projects/' | relative_url }}"{% if page.url contains '/projects' %} aria-current="page"{% endif %}>Projects</a>
@@ -27,8 +29,6 @@
 	</div>
 	<div class="field-note{% unless page.url == '/' %} field-note--after-trail{% endunless %}">
 		<span class="status"><span class="presence-dot" aria-hidden="true"></span> <span data-presence-count>just you here</span></span>
-		{% comment %}the Moon's phase now, filled in by moon.js; the way into the explorer, which is its own site published into /moon/{% endcomment %}
-		<a class="moon-note" data-moon href="{{ '/moon/' | relative_url }}"><svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.9"/><path class="moon-shade"/></svg> <span data-moon-phase>the Moon</span></a>
 		{% capture region_picker %}<svg class="tool-glyph" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="4.9"/><path d="M6 1.1V10.9M1.1 6H10.9"/></svg> <select class="region-select" aria-label="Flock region">
 			<option value="nae">North America, East</option>
 			<option value="nac">North America, Central</option>
